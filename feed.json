@@ -1,6 +1,6 @@
 {
-  "built": "2026-07-15T07:54:57.456Z",
-  "count": 1,
+  "built": "2026-07-15T07:57:48.536Z",
+  "count": 9,
   "items": [
     {
       "path": "reports/2026-07-14-medicine-crispr-leaves-the-lab.html",
@@ -10,6 +10,86 @@
       "standfirst": "Nine in ten treated patients are free of the crises that defined their disease, and the effect has now lasted more than five years. Yet in the ten countries where the therapy is licensed, over 60,000 people are eligible — and 64 were inf…",
       "date": "2026-07-14",
       "read": "~9 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-30-ubi-evidence-and-cost.html",
+      "kind": "report",
+      "topic": "Economics",
+      "headline": "Basic income barely moved how much people work. The cost is the sticking point.",
+      "standfirst": "A decade of experiments — Helsinki, Texas, Stockton, rural Kenya — finds that unconditional cash reliably improves financial security and wellbeing, with small and mixed effects on employment. What none of them can settle is whether a co…",
+      "date": "2026-06-30",
+      "read": "~6 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-27-money-and-happiness.html",
+      "kind": "report",
+      "topic": "Money & well-being",
+      "headline": "Money keeps buying happiness — just less of it with every step",
+      "standfirst": "For most people, both day-to-day mood and overall life satisfaction keep climbing with income, and no study has yet found a ceiling. But the gains run through the logarithm of income, so each extra pound counts for less than the last. An…",
+      "date": "2026-06-27",
+      "read": "~11 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-27-uk-wages-vs-g7.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "UK wages, the long view: stalled at home, lapped by the US",
+      "standfirst": "Since the 2008 financial crisis, the average British wage has barely moved in real terms — up about 4% over fourteen years, while America’s rose four times as fast. The result is a typical pay packet still hovering around its 2008 level,…",
+      "date": "2026-06-27",
+      "read": "~6 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-23-uk-migration-falls.html",
+      "kind": "report",
+      "topic": "Immigration",
+      "headline": "Net migration has nearly halved. But fewer people are choosing to come — not fewer arriving by boat.",
+      "standfirst": "UK net migration fell to 171,000 in the year to December 2025 — its lowest in four years and 82% below the 2023 peak. The fall is driven almost entirely by fewer legal arrivals on work and study visas. Small boat crossings rose again in…",
+      "date": "2026-06-23",
+      "read": "~10 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-22-starmer-why-unpopular.html",
+      "kind": "report",
+      "topic": "UK politics",
+      "headline": "Squeezed from both sides: why Keir Starmer became so unpopular",
+      "standfirst": "A landslide built on a thin vote, a coalition pulling in opposite directions, and a run of named, datable decisions that tracked his ratings down. As reports swirl that the prime minister may set out his departure — unconfirmed by Downin…",
+      "date": "2026-06-22",
+      "read": "~8 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-22-uk-political-spectrum.html",
+      "kind": "report",
+      "topic": "UK politics",
+      "headline": "Britain leaned left and liberal. Its politics turned right anyway.",
+      "standfirst": "The left–right spectrum can be measured — Britain has done it the same way since 1986. On those yardsticks the public",
+      "date": "2026-06-22",
+      "read": "~12 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-22-where-do-you-sit.html",
+      "kind": "puzzle",
+      "topic": "UK politics",
+      "headline": "Where do you sit on Britain",
+      "standfirst": "The companion to our piece on the British spectrum. Answer the same eleven statements the British Social Attitudes survey has used since 1986 — five for the economic left–right scale, six for the liberal–authoritarian scale — and we",
+      "date": "2026-06-22",
+      "read": "~3 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-21-starmer-leadership-crisis.html",
+      "kind": "report",
+      "topic": "UK politics",
+      "headline": "Two years after a landslide, Keir Starmer’s leadership is in open crisis",
+      "standfirst": "The Observer reports the prime minister is expected to set out a timetable for his departure on Monday; a government source told Reuters he remains focused on the job, and Downing Street has not confirmed anything. Whatever Monday brings…",
+      "date": "2026-06-21",
+      "read": "~6 min",
       "thumb": ""
     }
   ]

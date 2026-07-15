@@ -91,7 +91,7 @@ function mtimeDate(p) {
 // The front-page chips are only useful if one beat has exactly one label.
 // Canonical list; anything not in it is kept verbatim and reported, so a
 // genuinely new beat is never silently mangled into the wrong bucket.
-const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World'];
+const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword'];
 const TOPIC_ALIASES = {
   'politics': 'UK politics', 'westminster': 'UK politics', 'uk politics': 'UK politics',
   'economics': 'Economy', 'economy': 'Economy', 'money': 'Economy', 'business': 'Economy',
@@ -100,7 +100,12 @@ const TOPIC_ALIASES = {
   'artificial intelligence': 'AI', 'technology': 'AI', 'tech': 'AI', 'ai': 'AI',
   'science': 'Science', 'physics': 'Science', 'energy': 'Science',
   'medicine': 'Medicine', 'health': 'Medicine',
-  'society': 'Society', 'world': 'World'
+  'society': 'Society', 'world': 'World',
+  // The two puzzle beats. They're real chips, not strays — without them every
+  // puzzle logs a vocabulary warning on every build, which buries the notes
+  // that actually need reading.
+  'logic': 'Logic', 'lexidoku': 'Logic', 'doku': 'Logic',
+  'crossword': 'Crossword', 'mini': 'Crossword'
 };
 
 function canonTopic(raw, rel, warnings) {

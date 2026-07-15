@@ -27,7 +27,7 @@ jobs:
           node-version: '20'
 
       - name: Build feed.json
-        run: node build-feed.js
+        run: node tools/build-feed.js
 
       - name: Commit if changed
         run: |

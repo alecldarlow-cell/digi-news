@@ -27,6 +27,10 @@
   :root{
     --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
     --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    /* the one borrowed token: Digi Puzzles' marigold active cell. It appears
+       nowhere else on the front page, so a puzzle tile is the only thing that
+       glows — which is exactly what it's for. */
+    --play:#FFD54A;
     --display:'Archivo','Helvetica Neue',Arial,sans-serif;
     --body:'Inter','Helvetica Neue',Arial,sans-serif;
   }
@@ -70,18 +74,63 @@
 
   /* ---------- cards ---------- */
   .feed{list-style:none}
-  .card{display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:start;
+  .card{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start;
     padding:18px 0;border-bottom:1px solid var(--hair)}
   .card.nothumb{grid-template-columns:1fr}
   .card:hover .hl{color:var(--accent)}
-  .thumb{width:112px;aspect-ratio:16/10;background:var(--accent-soft);border:1px solid var(--hair);
-    border-radius:4px;object-fit:cover;display:block}
+  /* Tiles are square and top-aligned: a three-line headline must not stretch
+     the tile next to it, or the column stops reading as a column. */
+  .thumb{width:96px;aspect-ratio:1;align-self:start;background:var(--accent-soft);
+    border:1px solid var(--hair);border-radius:6px;object-fit:cover;display:block}
   .glyph{display:grid;place-content:center;font-family:var(--display);font-weight:800;
     font-size:11px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
-  /* stat tile: the piece's first hero stat — measured figures only, per §3 */
-  .stat{display:grid;place-content:center;text-align:center;padding:4px;
+
+  /* stat tile: the piece's first hero stat — measured figures only, per §3.
+     The figure is fitted to the box by its own length (cqw off the tile's own
+     width, stepped by data-len), the unit is demoted, and the label carries the
+     noun — so the tile states a fact rather than floating a number. */
+  .stat{container-type:inline-size;position:relative;display:grid;place-content:center;
+    text-align:center;padding:4px;background:var(--paper);border-color:var(--ink)}
+  .stat .fig{display:flex;align-items:baseline;justify-content:center;
     font-family:var(--display);font-weight:800;color:var(--accent);
-    letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+    letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+  .stat[data-len="1"] .fig{font-size:50cqw}
+  .stat[data-len="2"] .fig{font-size:42cqw}
+  .stat[data-len="3"] .fig{font-size:32cqw}
+  .stat[data-len="4"] .fig{font-size:26cqw}
+  .stat[data-len="5"] .fig{font-size:21cqw}
+  .stat[data-len="6"] .fig{font-size:17cqw}
+  .stat .unit{font-size:.42em;font-weight:700;color:var(--faint);
+    letter-spacing:0;margin-left:.05em}
+  .stat.haslabel .fig{margin-top:-7cqw}
+  .stat .lab{position:absolute;left:0;right:0;bottom:7cqw;padding:0 5px;
+    font-family:var(--display);font-weight:600;font-size:7.5cqw;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* Container queries are Safari 16+ / Chrome 105+. Older browsers get the
+     same tile at fixed sizes off the 96px box rather than a 1em numeral. */
+  @supports not (container-type:inline-size){
+    .stat[data-len="1"] .fig{font-size:48px}
+    .stat[data-len="2"] .fig{font-size:40px}
+    .stat[data-len="3"] .fig{font-size:31px}
+    .stat[data-len="4"] .fig{font-size:25px}
+    .stat[data-len="5"] .fig{font-size:20px}
+    .stat[data-len="6"] .fig{font-size:16px}
+    .stat.haslabel .fig{margin-top:-7px}
+    .stat .lab{font-size:7.5px;bottom:7px}
+  }
+
+  /* puzzle tile: a preview of the piece's own grid, built from feed.json's
+     mask. Blocks read as a Mini, pre-locked cells as a Doku — so the two types
+     are told apart from the feed without reading a word. */
+  .puzzle{background:var(--ink);border-color:var(--ink);padding:9px}
+  .pgrid{width:100%;height:100%;display:grid;gap:1.5px;background:var(--ink);
+    grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);
+    outline:1.5px solid var(--ink)}
+  .pgrid i{background:var(--paper);display:block}
+  .pgrid i.b{background:var(--ink)}
+  .pgrid i.l{background:var(--accent-soft)}
+  .pgrid i.a{background:var(--play)}
   .hl{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.22;letter-spacing:-.01em}
   .sf{font-size:14px;color:var(--muted);margin-top:7px;line-height:1.45;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -91,7 +140,7 @@
   .meta .dot{color:var(--hair)}
   .kindtag{border:1px solid var(--hair);border-radius:3px;padding:1px 5px;font-size:10.5px;
     letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  @media(min-width:560px){.hl{font-size:21px}.card{grid-template-columns:150px 1fr;gap:18px}.thumb{width:150px}}
+  @media(min-width:560px){.hl{font-size:21px}.card{grid-template-columns:120px 1fr;gap:18px}.thumb{width:120px}}
 
   /* ---------- states ---------- */
   .note{background:var(--paper);border:1px solid var(--hair);border-left:3px solid var(--accent);
@@ -275,16 +324,40 @@
     });
   }
 
+  // The figure sizes the tile by its own length — the unit is set separately and
+  // must not count, or "93%" would shrink to fit a character it doesn't own.
+  function statTile(it){
+    var n = Math.min(String(it.stat).length, 6);
+    var lab = it.statLabel || '';
+    return '<div class="thumb stat'+(lab?' haslabel':'')+'" data-len="'+n+'" aria-hidden="true">'
+         +   '<span class="fig">'+esc(it.stat)
+         +     (it.statUnit ? '<span class="unit">'+esc(it.statUnit)+'</span>' : '')
+         +   '</span>'
+         +   (lab ? '<span class="lab">'+esc(lab)+'</span>' : '')
+         + '</div>';
+  }
+
+  // mask is 25 chars from feed.json: # block, L pre-locked, . to fill. The first
+  // fillable cell takes the marigold — the same "you're here" mark the player
+  // uses, so the tile is a still of the game rather than a picture of one.
+  function puzzleTile(mask){
+    var act = mask.indexOf('.'), cells = '';
+    for(var i=0;i<25;i++){
+      var cls = mask[i]==='#' ? 'b' : mask[i]==='L' ? 'l' : (i===act ? 'a' : '');
+      cells += cls ? '<i class="'+cls+'"></i>' : '<i></i>';
+    }
+    return '<div class="thumb puzzle" aria-hidden="true"><div class="pgrid">'+cells+'</div></div>';
+  }
+
   function card(it){
     var when = relTime(it.date);
     var thumb;
     if(it.thumb){
       thumb = '<img class="thumb" src="'+esc(it.thumb)+'" alt="" loading="lazy">';
+    } else if(it.kind==='puzzle' && typeof it.mask==='string' && it.mask.length===25){
+      thumb = puzzleTile(it.mask);
     } else if(it.stat){
-      var n = it.stat.length;
-      var px = n<=3 ? 30 : n<=4 ? 25 : n<=5 ? 21 : n<=6 ? 18 : 15;
-      thumb = '<div class="thumb stat" style="font-size:'+px+'px" aria-hidden="true">'
-            + esc(it.stat)+'</div>';
+      thumb = statTile(it);
     } else {
       thumb = '<div class="thumb glyph" aria-hidden="true">'+(it.kind==='puzzle'?'Play':'Chart')+'</div>';
     }

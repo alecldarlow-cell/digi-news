@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FCFCFB">
+<title>Digi News — the data desk</title>
+<meta name="description" content="Digi News: data journalism. Facts first, fully sourced, honest about uncertainty.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  ==========================================================================
+  DIGI NEWS — FRONT PAGE  (index.html)
+  --------------------------------------------------------------------------
+  Reads feed.json (built automatically by .github/workflows/build-feed.yml on
+  every push) and renders a reverse-chronological, topic-filterable card list.
+  If feed.json is missing — e.g. the very first minutes of a new site, or the
+  Action is off — it falls back to reading the /reports and /puzzles folder
+  listings live from the GitHub API and labels the result provisional.
+
+  You should never need to edit this file to publish. Upload a piece to
+  /reports (or /puzzles) and it appears here.
+  ==========================================================================
+-->
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);
+    line-height:1.6;-webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-weight:600;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- controls ---------- */
+  .controls{position:sticky;top:0;z-index:20;background:var(--canvas);
+    border-bottom:1px solid var(--hair);padding:12px 0 10px;margin-bottom:4px}
+  .tabs{display:flex;gap:6px;margin-bottom:10px}
+  .tab{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;padding:7px 13px;border:1px solid var(--hair);background:var(--paper);
+    color:var(--muted);border-radius:999px;cursor:pointer}
+  .tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .searchrow{display:flex;gap:8px;align-items:center}
+  .search{flex:1;font-family:var(--body);font-size:15px;padding:9px 12px;border:1px solid var(--hair);
+    border-radius:6px;background:var(--paper);color:var(--ink)}
+  .search::placeholder{color:var(--faint)}
+  .chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{white-space:nowrap;font-weight:600;font-size:12.5px;padding:6px 12px;border:1px solid var(--hair);
+    background:var(--paper);color:var(--muted);border-radius:999px;cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .count{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);padding:10px 0 0}
+
+  /* ---------- cards ---------- */
+  .feed{list-style:none}
+  .card{display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:start;
+    padding:18px 0;border-bottom:1px solid var(--hair)}
+  .card.nothumb{grid-template-columns:1fr}
+  .card:hover .hl{color:var(--accent)}
+  .thumb{width:112px;aspect-ratio:16/10;background:var(--accent-soft);border:1px solid var(--hair);
+    border-radius:4px;object-fit:cover;display:block}
+  .glyph{display:grid;place-content:center;font-family:var(--display);font-weight:800;
+    font-size:11px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+  .hl{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.22;letter-spacing:-.01em}
+  .sf{font-size:14px;color:var(--muted);margin-top:7px;line-height:1.45;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .meta{margin-top:9px;font-size:12px;font-weight:600;color:var(--faint);
+    display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+  .meta .t{color:var(--accent);text-transform:uppercase;letter-spacing:.06em;font-size:11.5px}
+  .meta .dot{color:var(--hair)}
+  .kindtag{border:1px solid var(--hair);border-radius:3px;padding:1px 5px;font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  @media(min-width:560px){.hl{font-size:21px}.card{grid-template-columns:150px 1fr;gap:18px}.thumb{width:150px}}
+
+  /* ---------- states ---------- */
+  .note{background:var(--paper);border:1px solid var(--hair);border-left:3px solid var(--accent);
+    border-radius:4px;padding:12px 14px;font-size:13px;color:var(--muted);margin:16px 0}
+  .note b{color:var(--ink)}
+  .skel{height:96px;border-bottom:1px solid var(--hair);margin:0;
+    background:linear-gradient(90deg,var(--canvas),#F2F2EF,var(--canvas));
+    background-size:200% 100%;animation:sh 1.2s linear infinite}
+  @keyframes sh{to{background-position:-200% 0}}
+  .empty{padding:40px 0;color:var(--muted);font-size:15px;text-align:center}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--hair);
+    font-size:12px;color:var(--faint);line-height:1.6}
+  .foot b{color:var(--muted)}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono" aria-hidden="true">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">The data desk<br>Facts first · fully sourced</div>
+  </header>
+
+  <nav class="controls" aria-label="Filter the feed">
+    <div class="tabs" role="group" aria-label="Type">
+      <button class="tab" data-kind="all"     aria-pressed="true">All</button>
+      <button class="tab" data-kind="report"  aria-pressed="false">Reports</button>
+      <button class="tab" data-kind="puzzle"  aria-pressed="false">Puzzles</button>
+    </div>
+    <div class="searchrow">
+      <input class="search" id="q" type="search" placeholder="Search headlines…" aria-label="Search headlines">
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Topic"></div>
+  </nav>
+
+  <div id="status"></div>
+  <p class="count" id="count" aria-live="polite"></p>
+  <ul class="feed" id="feed">
+    <li class="skel"></li><li class="skel"></li><li class="skel"></li>
+  </ul>
+
+  <footer class="foot">
+    <p><b>Digi News</b> — data journalism. Every piece is self-contained, sourced to tier, and
+    dated to the day it was produced. Corrections are logged in the footer of the piece concerned.</p>
+    <p style="margin-top:8px" id="built"></p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- config ------------------------------------------------------
+     Only used by the fallback listing (when feed.json isn't there yet).
+     Leave blank to auto-detect from the GitHub Pages URL.                   */
+  var CONFIG = { owner:'', repo:'', branch:'main' };
+
+  var state = { items:[], kind:'all', topic:'all', q:'', provisional:false, built:'' };
+
+  var $feed   = document.getElementById('feed');
+  var $chips  = document.getElementById('chips');
+  var $count  = document.getElementById('count');
+  var $status = document.getElementById('status');
+  var $built  = document.getElementById('built');
+
+  /* ---------- helpers ---------- */
+  function esc(s){
+    return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function relTime(iso){
+    if(!/^\d{4}-\d{2}-\d{2}/.test(iso||'')) return '';
+    var d = new Date(iso.length>10 ? iso : iso+'T09:00:00Z');
+    if(isNaN(d)) return '';
+    var mins = Math.round((Date.now()-d.getTime())/60000);
+    if(mins < 1)    return 'just now';
+    if(mins < 60)   return mins+'m ago';
+    if(mins < 1440) return Math.round(mins/60)+'h ago';
+    if(mins < 10080)return Math.round(mins/1440)+'d ago';
+    return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  }
+
+  function detectRepo(){
+    if(CONFIG.owner && CONFIG.repo) return CONFIG;
+    var host = location.hostname;                     // alec.github.io
+    var seg  = location.pathname.split('/').filter(Boolean);
+    if(!/\.github\.io$/i.test(host)) return null;     // custom domain: fill CONFIG in by hand
+    var owner = host.replace(/\.github\.io$/i,'');
+    var repo  = seg.length ? seg[0] : host;           // project site vs user site
+    return { owner:owner, repo:repo, branch:CONFIG.branch };
+  }
+
+  function titleCase(slug){
+    var small = {a:1,an:1,and:1,the:1,of:1,to:1,in:1,on:1,vs:1,for:1,at:1,by:1};
+    return slug.split('-').filter(Boolean).map(function(w,i){
+      return (i>0 && small[w]) ? w : w.charAt(0).toUpperCase()+w.slice(1);
+    }).join(' ');
+  }
+
+  /* ---------- load ---------- */
+  function loadFeed(){
+    return fetch('feed.json?t='+Date.now(), {cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('no feed'); return r.json(); })
+      .then(function(j){
+        state.items = j.items || [];
+        state.built = j.built || '';
+        return true;
+      });
+  }
+
+  // Fallback: read the folder listings straight from the GitHub API.
+  function loadFallback(){
+    var cfg = detectRepo();
+    if(!cfg) return Promise.reject(new Error('cannot detect repo'));
+    var base = 'https://api.github.com/repos/'+cfg.owner+'/'+cfg.repo+'/contents/';
+    return Promise.all(['reports','puzzles'].map(function(dir){
+      return fetch(base+dir+'?ref='+cfg.branch)
+        .then(function(r){ return r.ok ? r.json() : []; })
+        .then(function(list){
+          return (Array.isArray(list)?list:[])
+            .filter(function(f){ return f.type==='file' && /\.html?$/i.test(f.name); })
+            .map(function(f){
+              var m = f.name.replace(/\.html?$/i,'').match(/^(\d{4}-\d{2}-\d{2})-([a-z0-9]+)-(.+)$/i);
+              return {
+                path: dir+'/'+f.name,
+                kind: dir==='puzzles' ? 'puzzle' : 'report',
+                topic: m ? titleCase(m[2]) : (dir==='puzzles'?'Puzzle':'Data'),
+                headline: m ? titleCase(m[3]) : titleCase(f.name.replace(/\.html?$/i,'')),
+                standfirst: '',
+                date: m ? m[1] : '',
+                read:'', thumb:''
+              };
+            });
+        })
+        .catch(function(){ return []; });
+    })).then(function(groups){
+      state.items = groups[0].concat(groups[1]).sort(function(a,b){
+        return (b.date||'').localeCompare(a.date||'') || a.path.localeCompare(b.path);
+      });
+      state.provisional = true;
+      return true;
+    });
+  }
+
+  /* ---------- render ---------- */
+  function topics(){
+    var seen = {}, out = [];
+    state.items.forEach(function(it){
+      if(state.kind!=='all' && it.kind!==state.kind) return;
+      var t = it.topic||'';
+      if(t && !seen[t]){ seen[t]=1; out.push(t); }
+    });
+    return out.sort();
+  }
+
+  function renderChips(){
+    var list = topics();
+    if(state.topic!=='all' && list.indexOf(state.topic)===-1) state.topic='all';
+    var html = ['<button class="chip" data-topic="all" aria-pressed="'+(state.topic==='all')+'">All topics</button>'];
+    list.forEach(function(t){
+      html.push('<button class="chip" data-topic="'+esc(t)+'" aria-pressed="'+(state.topic===t)+'">'+esc(t)+'</button>');
+    });
+    $chips.innerHTML = html.join('');
+  }
+
+  function visible(){
+    var q = state.q.trim().toLowerCase();
+    return state.items.filter(function(it){
+      if(state.kind!=='all' && it.kind!==state.kind) return false;
+      if(state.topic!=='all' && it.topic!==state.topic) return false;
+      if(q && (it.headline+' '+it.standfirst+' '+it.topic).toLowerCase().indexOf(q)===-1) return false;
+      return true;
+    });
+  }
+
+  function card(it){
+    var when = relTime(it.date);
+    var thumb = it.thumb
+      ? '<img class="thumb" src="'+esc(it.thumb)+'" alt="" loading="lazy">'
+      : '<div class="thumb glyph" aria-hidden="true">'+(it.kind==='puzzle'?'Play':'Chart')+'</div>';
+    return '<li><a class="card" href="'+esc(it.path)+'">'
+      + thumb
+      + '<div>'
+      +   '<h2 class="hl">'+esc(it.headline)+'</h2>'
+      +   (it.standfirst ? '<p class="sf">'+esc(it.standfirst)+'</p>' : '')
+      +   '<p class="meta"><span class="t">'+esc(it.topic)+'</span>'
+      +     (when ? '<span class="dot">·</span><span>'+esc(when)+'</span>' : '')
+      +     (it.read ? '<span class="dot">·</span><span>'+esc(it.read)+'</span>' : '')
+      +     (it.kind==='puzzle' ? '<span class="kindtag">Puzzle</span>' : '')
+      +   '</p>'
+      + '</div></a></li>';
+  }
+
+  function render(){
+    renderChips();
+    var v = visible();
+    $feed.innerHTML = v.length
+      ? v.map(card).join('')
+      : '<li class="empty">Nothing matches that filter yet.</li>';
+    $count.textContent = v.length
+      ? v.length + (v.length===1?' piece':' pieces') + (state.q?' matching':'')
+      : '';
+    $built.textContent = state.built
+      ? 'Index rebuilt ' + new Date(state.built).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'})
+      : '';
+  }
+
+  /* ---------- events ---------- */
+  document.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      state.kind = b.dataset.kind;
+      document.querySelectorAll('.tab').forEach(function(x){
+        x.setAttribute('aria-pressed', String(x===b));
+      });
+      render();
+    });
+  });
+
+  $chips.addEventListener('click', function(e){
+    var b = e.target.closest('.chip'); if(!b) return;
+    state.topic = b.dataset.topic;
+    render();
+  });
+
+  var t;
+  document.getElementById('q').addEventListener('input', function(e){
+    clearTimeout(t); var val = e.target.value;
+    t = setTimeout(function(){ state.q = val; render(); }, 120);
+  });
+
+  /* ---------- boot ---------- */
+  loadFeed()
+    .catch(function(){ return loadFallback(); })
+    .then(function(){
+      if(state.provisional){
+        $status.innerHTML = '<div class="note"><b>Provisional listing.</b> feed.json hasn\'t been '
+          + 'built yet, so headlines here are derived from filenames. They will sharpen as soon as '
+          + 'the Build feed action has run once.</div>';
+      }
+      render();
+    })
+    .catch(function(err){
+      $feed.innerHTML = '';
+      $status.innerHTML = '<div class="note"><b>Couldn\'t load the index.</b> '
+        + 'If this is a custom domain, set <code>CONFIG.owner</code> and <code>CONFIG.repo</code> '
+        + 'at the top of the script in index.html. ('+esc(err.message)+')</div>';
+    });
+
+})();
+</script>
+</body>
+</html>

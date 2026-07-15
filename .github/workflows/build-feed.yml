@@ -5,7 +5,7 @@ on:
     paths:
       - 'reports/**'
       - 'puzzles/**'
-      - 'build-feed.js'
+      - 'tools/**'
       - '.github/workflows/build-feed.yml'
   workflow_dispatch:
 

@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ==== DN FEED META ==== -->
+<meta name="dn:headline"   content="England's measles jab rate is rising on average. In the poorest areas it is falling.">
+<meta name="dn:standfirst" content="The national second-dose figure has gone up for three quarters running. In the latest quarter, coverage in the 30 most deprived councils fell — and the gap to the least deprived reached 10.6 points, the widest of the four childhood vaccine measures UKHSA publishes.">
+<meta name="dn:topic"      content="Medicine">
+<meta name="dn:date"       content="2026-07-15">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~6 min">
+<meta name="dn:statlabel"  content="coverage gap">
+<!-- ====================== -->
+
+<title>Digi News — England's measles jab rate is rising on average. In the poorest areas it is falling.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- headline ---------- */
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  /* ---------- hero stats ---------- */
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  /* ---------- sections ---------- */
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  /* ---------- exhibit ---------- */
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  /* ---------- DN chart library styling (real-px responsive SVG) ---------- */
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* sankey: labels keep a paper halo so they stay legible over flow ribbons */
+  .dn-nodelabel{paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+  .dn-flow{transition:fill-opacity .15s ease}
+  .dn-flow:hover{fill-opacity:.72}
+  @media(prefers-reduced-motion:reduce){.dn-flow{transition:none}}
+
+  /* ---------- callout ---------- */
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  /* ---------- inline citation + source tiers ---------- */
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  /* ---------- "what we don't know" ---------- */
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- positions (contested only) ---------- */
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  /* ---------- stat band ---------- */
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  /* ---------- caveat card ---------- */
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  /* ---------- appendix table ---------- */
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair)}
+  table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  table.tbl tr:last-child td{border-bottom:none}
+
+  /* ---------- go deeper ---------- */
+  .more{margin-top:18px;list-style:none;border-top:1px solid var(--hair)}
+  .more li{padding:13px 0;border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--muted)}
+  .more li::before{content:"\2192";color:var(--accent);font-weight:700}
+  .more li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>15 JUL 2026</div>
+  </header>
+
+  <div class="head">
+    <div class="topic">Medicine &middot; immunisation</div>
+    <h1>England's measles jab rate is rising on average. In the poorest areas it is falling.</h1>
+    <p class="standfirst">The national second-dose figure has gone up for three quarters running. In the latest quarter, coverage in the 30 most deprived councils fell &mdash; and the gap to the least deprived reached 10.6 points, the widest of the four childhood vaccine measures UKHSA publishes.</p>
+    <div class="dateline">Digi News data desk &middot; 15 July 2026 &middot; reading time ~6 min</div>
+  </div>
+
+  <div class="herostats">
+    <div class="hs"><div class="n">10.6<small>pp</small></div><div class="l">Gap in second-dose MMR coverage at age 5 between the 30 least and 30 most deprived councils, Jan&ndash;Mar 2026<sup class="cite"><a href="#s1">1</a></sup></div></div>
+    <div class="hs"><div class="n">77.4<small>%</small></div><div class="l">Second-dose coverage at age 5 in the 30 most deprived councils &mdash; down 0.9 points in the quarter<sup class="cite"><a href="#s1">1</a></sup></div></div>
+    <div class="hs"><div class="n">84.1<small>%</small></div><div class="l">England's overall second-dose coverage at age 5, against a WHO target of 95%<sup class="cite"><a href="#s1">1</a></sup></div></div>
+  </div>
+
+  <!-- ===================== 1. THE DIVERGENCE ===================== -->
+  <section class="section">
+    <div class="eyebrow">What the data shows</div>
+    <h2>One number went up. The number underneath it went down.</h2>
+    <p>England's coverage of the second dose of the MMR vaccine, measured in children turning five, rose 0.3 percentage points to 84.1% in the quarter to March 2026. That is the third consecutive quarterly rise, from a low of 83.2% in the quarter to June 2025.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s2">2</a></sup> On its own, the national average reads as a slow recovery.</p>
+    <p>The same release splits that average by deprivation for the first time, using the 2025 Index of Multiple Deprivation.<sup class="cite"><a href="#s1">1</a></sup> Split in two, the recovery disappears. In the 30 least deprived upper-tier councils, second-dose coverage rose 0.5 points to 88.0%. In the 30 most deprived, it fell 0.9 points to 77.4%. The two groups moved in opposite directions in the same quarter, and the gap between them widened by 1.4 points, to 10.6.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">The same quarter, opposite directions &mdash; second-dose MMR coverage at age 5</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> UKHSA COVER programme, quarterly, England, children reaching their fifth birthday in the quarter. Groups are the 30 least and 30 most deprived upper-tier local authorities by IMD 2025 score. Oct&ndash;Dec 2025 levels are <b>back-computed</b> by subtracting each group's published quarterly change from its published Jan&ndash;Mar 2026 level; the changes and the latest levels are stated by UKHSA, the earlier levels are arithmetic. Percentage of the eligible population.<sup class="cite"><a href="#s1">1</a></sup></figcaption>
+    </figure>
+    <div class="callout"><b>Key finding.</b> A national average can rise while the group that matters most for outbreaks falls. In the quarter to March 2026 the England figure rose 0.3 points; coverage in the 30 most deprived councils fell 0.9 points to 77.4% &mdash; 17.6 points below the WHO's 95% target.<sup class="cite"><a href="#s1">1</a></sup></div>
+  </section>
+
+  <!-- ===================== 2. THE WIDEST OF FOUR ===================== -->
+  <section class="section">
+    <div class="eyebrow">In context</div>
+    <h2>Of the four gaps UKHSA publishes, measles has the widest</h2>
+    <p>The same release reports the most-versus-least-deprived gap for four childhood vaccine measures. They are not equally wide. The 6-in-1 vaccine given at 12 months shows a 6.2-point gap; first-dose MMR at 24 months, 7.9 points; the 6-in-1 measured at five years, 4.9 points. Second-dose MMR at five is the widest at 10.6 &mdash; more than double the narrowest.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>UKHSA states that for both MMR measures the difference between the groups "has been increasing in the last 6 years", with the least deprived group broadly stable and the most deprived declining.<sup class="cite"><a href="#s1">1</a></sup> This desk's reading is that the pattern is not a general vaccine-hesitancy effect: the 6-in-1 gap at five years is the narrowest of the four, and the same children are eligible for both. What separates MMR2 is that it is a later, opt-in-again appointment at three years and four months, after the intensive first-year schedule has ended &mdash; but no study in the release isolates that as the cause, and this remains an inference, not a finding.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">Deprivation gap by vaccine and age at measurement, England, Jan&ndash;Mar 2026</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> UKHSA COVER programme, Jan&ndash;Mar 2026 (quarter 4 of 2025 to 2026). Gap in percentage points between the 30 least and 30 most deprived upper-tier local authorities (IMD 2025). Three of the four gaps are stated in the release; the 6-in-1 at 5 years gap (4.9pp) is computed from the two published coverage levels (95.2% and 90.3%).<sup class="cite"><a href="#s1">1</a></sup></figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== 3. SIGNATURE — THE FLOOR ===================== -->
+  <section class="section">
+    <div class="eyebrow">Why the floor matters more than the average</div>
+    <h2>England has not recorded a measles-free week in more than two years</h2>
+    <p>In January 2026 the World Health Organization confirmed that the UK had lost its measles elimination status, alongside Armenia, Austria, Azerbaijan, Spain and Uzbekistan.<sup class="cite"><a href="#s4">4</a></sup> The decision is easy to misread as a verdict on how many people caught measles. It is not. WHO defines elimination as the absence of endemic transmission for 12 months or more in the presence of good surveillance, and treats it as re-established when the same viral strain circulates continuously for 12 months or more.<sup class="cite"><a href="#s4">4</a></sup><sup class="cite"><a href="#s5">5</a></sup> The criterion is duration, not height.</p>
+    <p>That distinction matters because it inverts the obvious metric. England recorded 2,911 laboratory-confirmed cases in 2024, the highest annual total since 2012, and 959 in 2025.<sup class="cite"><a href="#s3">3</a></sup> Between 1 January and 6 July 2026 it recorded 883.<sup class="cite"><a href="#s6">6</a></sup> By case count, 2026 is running at around 30% of 2024. By the criterion that actually governs elimination, none of that is the point: across the 119 weeks from January 2024 to early April 2026, there is not a single week in which England reported zero confirmed cases. The quietest week on record in that span &mdash; the week beginning 18 August 2025 &mdash; had four.<sup class="cite"><a href="#s6">6</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 03</div><div class="ex-title">The line that never touches zero &mdash; weekly confirmed measles cases, England</div></div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> UKHSA measles dashboard, laboratory-confirmed cases by week of symptom onset, England. Series runs 1 Jan 2024 to week beginning 6 Apr 2026 and is <b>truncated there deliberately</b>: UKHSA flags the most recent four weeks as subject to reporting lag and likely to under-count, and the retrieved series marks 13 Apr 2026 onward as inside that window. Counts are provisional. Zero baseline; the 2024 peak of 106 is the week beginning 8 Apr 2024.<sup class="cite"><a href="#s6">6</a></sup></figcaption>
+    </figure>
+    <p>Elimination is a claim about the floor, not the ceiling. A country can have a bad year and keep its status if transmission is broken; a country with a quiet year loses it if transmission never stops. That is the link back to Exhibit 01. Herd protection against measles is local, not national &mdash; which is why the WHO sets its 95% target as a threshold to be met, not an average to be approached.<sup class="cite"><a href="#s5">5</a></sup> A national figure of 84.1% and a most-deprived figure of 77.4% describe the same country; only one of them describes where the virus keeps finding a way through.</p>
+  </section>
+
+  <!-- ===================== 4. THE MEASURE ITSELF ===================== -->
+  <section class="section">
+    <div class="eyebrow">Reading the measure</div>
+    <h2>Two things the coverage figure does not tell you</h2>
+    <p><b>It is old.</b> Coverage of the second MMR dose measured in five-year-olds this quarter reflects vaccinations that should have been delivered between May and July 2024; the children counted were born in the quarter to March 2021.<sup class="cite"><a href="#s1">1</a></sup> The most recent coverage number available in July 2026 is a reading on appointments due roughly two years ago. It cannot yet show the effect of the catch-up campaign NHS England launched in July 2026, which is contacting around a million families.<sup class="cite"><a href="#s7">7</a></sup></p>
+    <p><b>Its benchmark moves.</b> UKHSA reports current coverage against the peak of "the last 10 years" &mdash; a rolling window. In the releases for the first three quarters of 2025 to 2026, MMR2 was reported against a peak of 88.2%, recorded in the quarter to March 2016. In the latest release the stated peak is 87.8%, from the quarter to December 2016.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s2">2</a></sup> The gap to peak duly narrowed, from 5.0 points to 3.7. But 0.4 points of that 1.3-point improvement is the window rolling forward and dropping the old high, not coverage improving; only 0.9 points is a real gain. It is a small artifact, and a useful reminder that "closest to the peak in years" is a claim about the window as much as the data.</p>
+  </section>
+
+  <!-- ===================== WHAT WE DON'T KNOW ===================== -->
+  <div class="unknowns">
+    <div class="h">What we don't know</div>
+    <p>We cannot say why the most-deprived group is diverging. The COVER release reports the gap; it does not test causes, and nothing published with it separates access, appointment systems, population churn, or hesitancy. We also cannot compare 2026 cases like-for-like with the same period of 2025: the published figures are cumulative year-to-date snapshots, so "883 by 6 July" has no clean 2025 counterpart, and this piece makes no claim that cases are up or down year-on-year. Deprivation is measured at council level, not household level &mdash; a deprived council contains well-covered streets and vice versa, so these figures describe areas, not families. Finally, the deprivation breakdown is new: IMD data was only added to COVER this year, and UKHSA will not publish the methodology note covering it until the next release, on 24 September 2026.<sup class="cite"><a href="#s1">1</a></sup></p>
+  </div>
+
+  <!-- ===================== STAT BAND + CAVEAT ===================== -->
+  <section class="section">
+    <div class="eyebrow">By the numbers</div>
+    <div class="statband">
+      <div class="c"><div class="n">119</div><div class="l">Consecutive weeks to 6 Apr 2026 with at least one confirmed case in England &mdash; and none without<sup class="cite"><a href="#s6">6</a></sup></div></div>
+      <div class="c"><div class="n">2,911</div><div class="l">Confirmed cases in England in 2024, the highest annual total since 2012<sup class="cite"><a href="#s3">3</a></sup></div></div>
+      <div class="c"><div class="n">17.6<small>pp</small></div><div class="l">How far the 30 most deprived councils sit below the WHO's 95% second-dose target<sup class="cite"><a href="#s1">1</a></sup></div></div>
+      <div class="c"><div class="n">2</div><div class="l">Measles-related deaths reported in England in 2026 to 8 June: one acute, one from late effects of earlier infection<sup class="cite"><a href="#s3">3</a></sup></div></div>
+    </div>
+    <div class="caveat"><b>Caveat.</b> The strongest objection to the reading above is that the gap may be overstated. UKHSA warns that system changes in 14 London councils, and a change to how multi-dose courses are counted, mean London coverage "is likely to be underestimated" for some vaccines &mdash; <i>specifically including MMR2</i> &mdash; and that coverage is generally under-recorded where population turnover is high.<sup class="cite"><a href="#s1">1</a></sup> Deprived upper-tier councils skew urban and several of the most affected London boroughs are among them, so part of the 10.6-point gap could be a recording artifact rather than a real shortfall in protection. UKHSA states plainly that reported falls in these vaccines "should not be used in isolation" to direct action. The counter-consideration is that the same warning applies to the case data, which is drawn from laboratory confirmation rather than GP records &mdash; and the outbreak is concentrated in the same places the coverage data flags.</p></div>
+  </section>
+
+  <!-- ===================== GO DEEPER ===================== -->
+  <section class="section">
+    <div class="eyebrow">Go deeper</div>
+    <h2>Read more</h2>
+    <ul class="more">
+      <li><div><b>The unregistered children.</b> UKHSA reports London children not registered with a GP separately, and the numbers are far lower again &mdash; 7.5% second-dose coverage. The release cautions these figures are highly uncertain and likely to understate true coverage, so we have kept them out of the analysis above.</div></li>
+      <li><div><b>The MMRV switch.</b> From January 2026 England replaced MMR with a four-in-one MMRV vaccine adding chickenpox, at 12 and 18 months. Its effect on uptake will not appear in five-year-old coverage for years.</div></li>
+      <li><div><b>The European picture.</b> The UK was one of six countries to lose elimination status in January 2026; WHO's regional commission found the number of countries with endemic transmission rose from 12 to 19. We have held this piece to England.</div></li>
+    </ul>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> Coverage figures are UKHSA COVER quarterly statistics for England, measured in children reaching their fifth birthday in the quarter January to March 2026 (quarter 4 of the 2025 to 2026 financial year), expressed as a percentage of the eligible population. Deprivation groups are the 30 least and 30 most deprived upper-tier local authorities ranked by 2025 Index of Multiple Deprivation score, as defined by UKHSA. The 10.6-point gap, the 88.0% and 77.4% levels, and each quarterly change are stated in the release; we recomputed the gap from the two published levels and it matches. The October to December 2025 levels shown in Exhibit 01 are back-computed by subtracting each group's stated change from its stated level, and are flagged as derived in the caption. The 4.9-point 6-in-1 gap in Exhibit 02 is computed from two published levels; the other three are stated. The window-artifact decomposition compares the stated peak and gap in the quarter 1 to quarter 4 2025 to 2026 releases (88.2% and 5.0pp; 87.8% and 3.7pp) and separates the 0.9-point coverage gain from the 0.4-point movement in the reference peak. The weekly case series is UKHSA's laboratory-confirmed count by symptom-onset week and is truncated at the week beginning 6 April 2026 because UKHSA flags later weeks as under-reported; the "no zero week" claim is therefore a statement about the 119 weeks shown, not about weeks since. Every derived figure was computed in code and checked against the published value before printing. No projection or scenario is used anywhere in this piece, and no hero stat is modelled.</div>
+    <div class="fm"><b>A note on a figure we could not reconcile.</b> NHS England's 7 July press notice states "a gap of 7.5% in vaccine coverage between the least and the most deprived areas of the country".<sup class="cite"><a href="#s7">7</a></sup> None of the four most-versus-least-deprived gaps published in UKHSA's corresponding quarterly release equals 7.5 points: they are 4.9, 6.2, 7.9 and 10.6.<sup class="cite"><a href="#s1">1</a></sup> NHS England does not state which vaccine, age, or grouping its figure refers to, and it may rest on a cut not published in that release. We have therefore used the UKHSA figures throughout and flagged the discrepancy rather than reconciling the two silently.</div>
+    <div class="fm"><b>Sources.</b> Numbered, highest tier first; each inline citation points here.
+      <ol>
+        <li id="s1"><span class="tier t1">T1</span>UK Health Security Agency, <i>Quarterly vaccination coverage statistics for children aged up to 5 years in the UK (COVER programme): January to March 2026</i>, Health Protection Report vol. 20 no. 6, published 25 June 2026, updated 29 June 2026. Official statistics. <a href="https://www.gov.uk/government/statistics/cover-of-vaccination-evaluated-rapidly-cover-programme-2025-to-2026-quarterly-data/quarterly-vaccination-coverage-statistics-for-children-aged-up-to-5-years-in-the-uk-cover-programme-january-to-march-2026">gov.uk</a>. Retrieved 15 Jul 2026.</li>
+        <li id="s2"><span class="tier t1">T1</span>UK Health Security Agency, COVER quarterly reports for April to June 2025, July to September 2025 and October to December 2025 &mdash; used for the England MMR2 quarterly series and the stated peak in each release. <a href="https://www.gov.uk/government/statistics/cover-of-vaccination-evaluated-rapidly-cover-programme-2025-to-2026-quarterly-data">gov.uk</a>. Retrieved 15 Jul 2026.</li>
+        <li id="s3"><span class="tier t1">T1</span>UK Health Security Agency, <i>Confirmed cases of measles in England by month, age, region and upper tier local authority: 2026</i>, updated 11 June 2026 &mdash; annual totals for 2024 and 2025, and deaths reported to date in 2026. <a href="https://www.gov.uk/government/publications/measles-epidemiology-2023-to-2026/confirmed-cases-of-measles-in-england-by-month-age-region-and-upper-tier-local-authority-2026">gov.uk</a>. Retrieved 15 Jul 2026.</li>
+        <li id="s4"><span class="tier t2">T2</span>World Health Organization Regional Office for Europe, European Regional Verification Commission for Measles and Rubella Elimination &mdash; announcement of 26 January 2026 that six countries, including the UK, no longer hold elimination status, based on 2024 country data. Retrieved 15 Jul 2026.</li>
+        <li id="s5"><span class="tier t2">T2</span>Gavi, the Vaccine Alliance, <i>What does it mean to lose 'measles-free' status and can countries get it back?</i>, 29 January 2026 &mdash; used for the WHO definitions of endemic, eliminated and re-established transmission, and the verification timetable. <a href="https://www.gavi.org/vaccineswork/what-does-it-mean-lose-measles-free-status-and-can-countries-get-it-back">gavi.org</a>. Retrieved 15 Jul 2026.</li>
+        <li id="s6"><span class="tier t1">T1</span>UK Health Security Agency data dashboard, measles &mdash; laboratory-confirmed cases by week of symptom onset (England), and cumulative cases to 6 July 2026. Provisional; reporting-delay window flagged by the publisher. <a href="https://ukhsa-dashboard.data.gov.uk/vaccine-preventable-diseases/measles">ukhsa-dashboard.data.gov.uk</a>. Retrieved 15 Jul 2026.</li>
+        <li id="s7"><span class="tier t1">T1</span>NHS England, <i>Around a million parents urged to book new 'four-in-one' NHS jab to protect young children against measles</i>, press notice, 7 July 2026. <a href="https://www.england.nhs.uk/2026/07/million-parents-book-new-four-in-one-nhs-jab-protect-children-against-measles/">england.nhs.uk</a>. Retrieved 15 Jul 2026.</li>
+      </ol>
+    </div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 15 Jul 2026.</b> <span class="ver">Digi News &middot; v1.0 &middot; measles-coverage-gap. Coverage statistics are provisional and subject to revision by UKHSA.</span></div>
+  </div>
+
+</div>
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ----------------------------------------------------------------------------
+   Newsroom-idiom SVG charts: honest scales, real-px responsive rendering,
+   colourblind-safe palette, annotation layer, and an accessible data table
+   emitted alongside every chart. Mobile-first: charts re-render at 1 SVG unit
+   = 1 CSS pixel via ResizeObserver, so label type never shrinks below legible.
+
+   PUBLIC API  (every chart: DN.<type>(targetSelectorOrEl, spec))
+     DN.line(t, spec)        multi-series time line; projection split; bands; refs; notes
+     DN.bars(t, spec)        horizontal ranked bars; highlight; reference line
+     DN.columns(t, spec)     vertical columns; grouped or stacked; legend
+     DN.slope(t, spec)       slope / dumbbell before-after comparison
+     DN.scatter(t, spec)     x/y points; optional groups; quadrant guides
+     DN.rangeStrip(t, spec)  time spans (barcode timeline / Gantt); projection hatch
+     DN.sankey(t, spec)      flows; ribbon width ∝ volume; gradient links; flow table
+
+     DN.fmt(value, opts)     number formatter (decimals, compact, prefix/suffix, plus, pct)
+     DN.colors, DN.palette   semantic tokens + categorical (Okabe-Ito) scale
+
+   COMMON spec fields: title (required, drives a11y), summary, height,
+     x:{min,max,fmt,ticks,title,label}, y:{min,max,zero,fmt,title,label,decimals,suffix,prefix,compact}
+   Projection rule: pass projectFrom on a series/event; the segment beyond it
+     renders dashed/hatched. Projections must never be the headline figure.
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  /* ---- palette: semantic tokens + Okabe-Ito categorical (CVD-safe) ---- */
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  /* ---- tiny DOM/SVG helpers ---- */
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  /* ---- number formatter ---- */
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  /* ---- nice scale (Heckbert) ---- */
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  /* ---- relative luminance → ideal overlaid text colour ---- */
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  /* ---- responsive mount + lifecycle ---- */
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* ====================================================================== */
+  /* LINE                                                                    */
+  /* ====================================================================== */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mL = small ? 34 : 44, mR = spec.endLabels ? (small ? 54 : 104) : 18, mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      xt.forEach(function (xv) { var t = svgEl("text", { x: X(xv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : xv; svg.appendChild(t); });
+
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) { var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col); el.textContent = s.name || fmt(last.y, spec.y || {}); svg.appendChild(el); }
+      });
+
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var t = svgEl("text", { x: mL + 6, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy;
+        var t = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy, "text-anchor": nt.anchor || "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy + 13, "text-anchor": nt.anchor || "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* BARS (horizontal, ranked)                                               */
+  /* ====================================================================== */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = (spec.refValue != null) ? 22 : 8, mB = 8;
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var maxChars = Math.max.apply(null, data.map(function (d) { return String(d.label).length; }));
+      var mL = Math.min(Math.max(maxChars * (small ? 6.0 : 6.8) + 14, 64), W * 0.44);
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (d.highlight) lab.setAttribute("fill", C.subject); lab.textContent = d.label; svg.appendChild(lab);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var v = svgEl("text", { x: mL + w + 8, y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (d.highlight) v.setAttribute("fill", C.subject); v.textContent = fmt(d.value, spec.x || {}); svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* COLUMNS (vertical, grouped or stacked)                                  */
+  /* ====================================================================== */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mL = small ? 34 : 44, mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5), iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var xl = svgEl("text", { x: mL + gi * gw + gw / 2, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = g.label; svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+          });
+        }
+      });
+      drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SLOPE / DUMBBELL                                                        */
+  /* ====================================================================== */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: xL, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = spec.left || ""; svg.appendChild(hl);
+      var hr = svgEl("text", { x: xR, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = spec.right || ""; svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      items.forEach(function (it) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = Y(it.from), y1 = Y(it.to);
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var ll = svgEl("text", { x: xL - 10, y: y0 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = it.label; svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: y1 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = fmt(it.to, spec.y || {}); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SCATTER                                                                 */
+  /* ====================================================================== */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mL = small ? 38 : 48, mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      nx.ticks.forEach(function (tv) { var t = svgEl("text", { x: X(tv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) { var t = svgEl("text", { x: X(p.x) + (p.r || 4.5) + 4, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" }); t.textContent = p.label; svg.appendChild(t); }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* RANGE STRIP (barcode timeline / Gantt rows)                             */
+  /* ====================================================================== */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", (e.projectFrom != null && (e.start + e.end) / 2 >= e.projectFrom) ? C.ink : idealText(col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: (bx0 + bx1) / 2, y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: nx, y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: nx, y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30;
+        var maxChars = Math.max.apply(null, events.map(function (e) { return String(e.label).length; }));
+        var mL = Math.min(Math.max(maxChars * (small ? 5.6 : 6.6) + 12, 70), W * 0.4);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); lab.textContent = e.label; svg.appendChild(lab);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SANKEY (flows — ribbon width proportional to volume)                    */
+  /* ---------------------------------------------------------------------- */
+  /* Honest encoding: a flow's height (at both ends) and a node's height are  */
+  /* proportional to value on one shared px-per-unit scale. Colour only marks */
+  /* provenance (gradient source -> target); every node carries a text label  */
+  /* and value, so colour is never the sole carrier. Layout: longest-path     */
+  /* layering + barycentre relaxation to reduce crossings. Assumes a DAG.     */
+  /* ====================================================================== */
+  function sankey(target, spec) {
+    var m = mount(target);
+    var rawLinks = (spec.links || []).filter(function (l) { return l && l.value > 0; });
+    var nodeMap = {}, nodes = [];
+    function getNode(id) {
+      var key = "$" + id;
+      if (!Object.prototype.hasOwnProperty.call(nodeMap, key)) {
+        nodeMap[key] = { id: id, label: String(id), ins: [], outs: [], idx: nodes.length };
+        nodes.push(nodeMap[key]);
+      }
+      return nodeMap[key];
+    }
+    (spec.nodes || []).forEach(function (nd) {
+      var n = getNode(nd.id);
+      if (nd.label != null) n.label = String(nd.label);
+      if (nd.color) n.color = nd.color;
+    });
+    var links = rawLinks.map(function (l) {
+      var s = getNode(l.source), t = getNode(l.target);
+      var link = { source: s, target: t, value: +l.value, color: l.color };
+      s.outs.push(link); t.ins.push(link);
+      return link;
+    });
+    nodes.forEach(function (n, i) { if (!n.color) n.color = cat(i); });
+
+    /* longest-path layering (assumes a DAG) */
+    nodes.forEach(function (n) { n.depth = 0; });
+    for (var pass = 0; pass < nodes.length + 1; pass++) {
+      var changed = false;
+      links.forEach(function (l) {
+        if (l.target.depth < l.source.depth + 1) { l.target.depth = l.source.depth + 1; changed = true; }
+      });
+      if (!changed) break;
+    }
+    var maxDepth = 0; nodes.forEach(function (n) { if (n.depth > maxDepth) maxDepth = n.depth; });
+    if (spec.align !== "left") nodes.forEach(function (n) { if (n.outs.length === 0 && n.ins.length) n.depth = maxDepth; });
+    var columns = [];
+    nodes.forEach(function (n) { (columns[n.depth] = columns[n.depth] || []).push(n); });
+    for (var qi = 0; qi < columns.length; qi++) if (!columns[qi]) columns[qi] = [];
+
+    function nodeVal(n) {
+      var i = n.ins.reduce(function (s, l) { return s + l.value; }, 0);
+      var o = n.outs.reduce(function (s, l) { return s + l.value; }, 0);
+      return Math.max(i, o);
+    }
+    function center(n) { return n.y + n.h / 2; }
+    function truncate(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "\u2026" : s; }
+
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.62, 250), 460));
+      var nodeW = spec.nodeWidth || (small ? 11 : 15);
+      var pad = spec.nodePad || (small ? 11 : 16);
+      var labCap = small ? 12 : 22;
+      var first = columns[0] || [], lastCol = columns[columns.length - 1] || [];
+      var lc = Math.max.apply(null, [4].concat(first.map(function (n) { return truncate(n.label, labCap).length; })));
+      var rc = Math.max.apply(null, [4].concat(lastCol.map(function (n) { return truncate(n.label, labCap).length; })));
+      var chpx = small ? 5.7 : 6.7;
+      var mL = Math.min(Math.max(lc * chpx + 12, 38), W * 0.34);
+      var mR = Math.min(Math.max(rc * chpx + 12, 38), W * 0.34);
+      var mT = 16, mB = 12;
+      var innerW = Math.max(W - mL - mR, 60), innerH = Math.max(H - mT - mB, 80);
+      var cols = columns.length;
+      var colStep = cols > 1 ? (innerW - nodeW) / (cols - 1) : 0;
+      function nodeX(d) { return mL + d * colStep; }
+
+      /* one shared value->px scale across every column (honest) */
+      var k = Infinity;
+      columns.forEach(function (col) {
+        var sum = col.reduce(function (s, n) { return s + nodeVal(n); }, 0);
+        var avail = innerH - (col.length - 1) * pad;
+        if (sum > 0) k = Math.min(k, avail / sum);
+      });
+      if (!isFinite(k) || k <= 0) k = 1;
+      nodes.forEach(function (n) { n.h = Math.max(nodeVal(n) * k, 1.5); });
+
+      columns.forEach(function (col) {
+        var totalH = col.reduce(function (s, n) { return s + n.h; }, 0) + (col.length - 1) * pad;
+        var y = mT + (innerH - totalH) / 2;
+        col.forEach(function (n) { n.y = y; y += n.h + pad; });
+      });
+      function collide(col) {
+        col.sort(function (a, b) { return a.y - b.y; });
+        var y = mT, i, n;
+        for (i = 0; i < col.length; i++) { n = col[i]; if (n.y < y) n.y = y; y = n.y + n.h + pad; }
+        y = mT + innerH;
+        for (i = col.length - 1; i >= 0; i--) { n = col[i]; if (n.y + n.h > y) n.y = y - n.h; y = n.y - pad; }
+      }
+      var ITER = 7;
+      for (var it = 0; it < ITER; it++) {
+        var alpha = 0.9 * (1 - it / ITER);
+        for (var c = 1; c < columns.length; c++) {
+          columns[c].forEach(function (n) {
+            if (n.ins.length) { var w = 0, sy = 0; n.ins.forEach(function (l) { sy += center(l.source) * l.value; w += l.value; }); if (w) n.y += (sy / w - center(n)) * alpha; }
+          });
+          collide(columns[c]);
+        }
+        for (var c2 = columns.length - 2; c2 >= 0; c2--) {
+          columns[c2].forEach(function (n) {
+            if (n.outs.length) { var w2 = 0, sy2 = 0; n.outs.forEach(function (l) { sy2 += center(l.target) * l.value; w2 += l.value; }); if (w2) n.y += (sy2 / w2 - center(n)) * alpha; }
+          });
+          collide(columns[c2]);
+        }
+      }
+
+      /* order each node's links by partner position, then stack the bands */
+      nodes.forEach(function (n) {
+        n.outs.sort(function (a, b) { return center(a.target) - center(b.target); });
+        n.ins.sort(function (a, b) { return center(a.source) - center(b.source); });
+        var so = 0; n.outs.forEach(function (l) { l.sy0 = n.y + so; so += l.value * k; l.sy1 = n.y + so; });
+        var ti = 0; n.ins.forEach(function (l) { l.ty0 = n.y + ti; ti += l.value * k; l.ty1 = n.y + ti; });
+      });
+
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var defs = svgEl("defs"); svg.appendChild(defs);
+
+      var gFlows = svgEl("g");
+      links.forEach(function (l) {
+        var x0 = nodeX(l.source.depth) + nodeW, x1 = nodeX(l.target.depth), xm = (x0 + x1) / 2;
+        var fill;
+        if (l.color) { fill = l.color; }
+        else {
+          var gid = "dnsk" + (++UID);
+          var lg = svgEl("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: x0, y1: 0, x2: x1, y2: 0 });
+          lg.appendChild(svgEl("stop", { offset: "0%", "stop-color": l.source.color }));
+          lg.appendChild(svgEl("stop", { offset: "100%", "stop-color": l.target.color }));
+          defs.appendChild(lg); fill = "url(#" + gid + ")";
+        }
+        var d = "M" + x0 + "," + l.sy0 +
+          "C" + xm + "," + l.sy0 + " " + xm + "," + l.ty0 + " " + x1 + "," + l.ty0 +
+          "L" + x1 + "," + l.ty1 +
+          "C" + xm + "," + l.ty1 + " " + xm + "," + l.sy1 + " " + x0 + "," + l.sy1 + "Z";
+        var p = svgEl("path", { d: d, fill: fill, "fill-opacity": (spec.linkOpacity != null ? spec.linkOpacity : 0.44), "class": "dn-flow" });
+        var tt = svgEl("title"); tt.textContent = l.source.label + " \u2192 " + l.target.label + ": " + fmt(l.value, spec.value || {}); p.appendChild(tt);
+        gFlows.appendChild(p);
+      });
+      svg.appendChild(gFlows);
+      if (!REDUCE) {
+        gFlows.style.opacity = 0; gFlows.style.transition = "opacity .7s ease-out";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { gFlows.style.opacity = 1; }); });
+      }
+
+      nodes.forEach(function (n) {
+        var x = nodeX(n.depth), tall = n.h > 26;
+        svg.appendChild(svgEl("rect", { x: x, y: n.y, width: nodeW, height: n.h, fill: n.color, rx: 2 }));
+        var isLast = (n.depth === columns.length - 1);
+        var lx = isLast ? x - 8 : x + nodeW + 8, anchor = isLast ? "end" : "start", cy = n.y + n.h / 2;
+        var lab = svgEl("text", { x: lx, y: cy + (tall ? -1 : 3.5), "text-anchor": anchor, "class": "dn-clabel dn-nodelabel" });
+        lab.textContent = truncate(n.label, labCap); svg.appendChild(lab);
+        if (tall) {
+          var val = svgEl("text", { x: lx, y: cy + 13, "text-anchor": anchor, "class": "dn-annosub dn-nodelabel" });
+          val.textContent = fmt(nodeVal(n), spec.value || {}); svg.appendChild(val);
+        }
+      });
+
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Flow data",
+        [spec.fromTitle || "From", spec.toTitle || "To", spec.valueTitle || "Value"],
+        links.map(function (l) { return [l.source.label, l.target.label, fmt(l.value, spec.value || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip, sankey: sankey,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------------------------------------------------------------
+     Exhibit 01 — slope: MMR2 at 5y, 30 most vs 30 least deprived UTLAs.
+     Jan–Mar 2026 levels + changes are stated by UKHSA [1].
+     Oct–Dec 2025 levels are back-computed (level minus stated change)
+     and are flagged as derived in the caption.
+     --------------------------------------------------------------------- */
+  DN.slope("#ex1", {
+    title: "Second-dose MMR coverage at age 5, England: 30 least vs 30 most deprived councils, Oct–Dec 2025 to Jan–Mar 2026",
+    summary: "In the quarter to March 2026 coverage in the 30 least deprived upper-tier councils rose 0.5 points to 88.0%, while coverage in the 30 most deprived fell 0.9 points to 77.4%. The gap widened from 9.2 to 10.6 percentage points.",
+    left: "Oct–Dec 2025", right: "Jan–Mar 2026",
+    y: { decimals: 1, suffix: "%" },
+    items: [
+      { label: "Least deprived", from: 87.5, to: 88.0 },
+      { label: "Most deprived",  from: 78.3, to: 77.4, highlight: true }
+    ]
+  });
+
+  /* ---------------------------------------------------------------------
+     Exhibit 02 — bars: the four deprivation gaps in the same release.
+     Three stated by UKHSA; 6-in-1 at 5y computed from two stated levels.
+     Cobalt reserved for the subject (MMR2 at 5y).
+     --------------------------------------------------------------------- */
+  DN.bars("#ex2", {
+    title: "Most-versus-least-deprived coverage gap by vaccine and age, England, Jan–Mar 2026",
+    summary: "Second-dose MMR measured at age five shows the widest deprivation gap of the four measures published: 10.6 percentage points, against 7.9 for first-dose MMR at 24 months, 6.2 for the 6-in-1 at 12 months and 4.9 for the 6-in-1 at five years.",
+    data: [
+      { label: "MMR2 · age 5",      value: 10.6, highlight: true },
+      { label: "MMR1 · 24 months",  value: 7.9 },
+      { label: "6-in-1 · 12 months", value: 6.2 },
+      { label: "6-in-1 · age 5",    value: 4.9 }
+    ],
+    sort: "desc",
+    x: { suffix: "pp", decimals: 1 },
+    labelTitle: "Vaccine and age at measurement",
+    valueTitle: "Gap (percentage points)"
+  });
+
+  /* ---------------------------------------------------------------------
+     Exhibit 03 — SIGNATURE. Weekly confirmed cases by onset, England.
+     Truncated at w/c 6 Apr 2026: UKHSA flags later weeks as under-reported.
+     The editorial point is the FLOOR — the series never reaches zero.
+     --------------------------------------------------------------------- */
+  var weekly = [
+    ["2024-01-01",74],["2024-01-08",65],["2024-01-15",53],["2024-01-22",65],["2024-01-29",70],
+    ["2024-02-05",70],["2024-02-12",71],["2024-02-19",58],["2024-02-26",78],["2024-03-04",58],
+    ["2024-03-11",88],["2024-03-18",77],["2024-03-25",72],["2024-04-01",90],["2024-04-08",106],
+    ["2024-04-15",84],["2024-04-22",82],["2024-04-29",81],["2024-05-06",87],["2024-05-13",104],
+    ["2024-05-20",97],["2024-05-27",71],["2024-06-03",77],["2024-06-10",58],["2024-06-17",80],
+    ["2024-06-24",73],["2024-07-01",77],["2024-07-08",87],["2024-07-15",84],["2024-07-22",60],
+    ["2024-07-29",67],["2024-08-05",52],["2024-08-12",40],["2024-08-19",32],["2024-08-26",23],
+    ["2024-09-02",28],["2024-09-09",23],["2024-09-16",23],["2024-09-23",14],["2024-09-30",17],
+    ["2024-10-07",14],["2024-10-14",12],["2024-10-21",27],["2024-10-28",18],["2024-11-04",34],
+    ["2024-11-11",28],["2024-11-18",29],["2024-11-25",29],["2024-12-02",33],["2024-12-09",26],
+    ["2024-12-16",22],["2024-12-23",16],["2024-12-30",22],
+    ["2025-01-06",19],["2025-01-13",22],["2025-01-20",24],["2025-01-27",14],["2025-02-03",17],
+    ["2025-02-10",17],["2025-02-17",16],["2025-02-24",19],["2025-03-03",16],["2025-03-10",13],
+    ["2025-03-17",16],["2025-03-24",14],["2025-03-31",24],["2025-04-07",26],["2025-04-14",32],
+    ["2025-04-21",19],["2025-04-28",26],["2025-05-05",26],["2025-05-12",25],["2025-05-19",32],
+    ["2025-05-26",33],["2025-06-02",32],["2025-06-09",29],["2025-06-16",24],["2025-06-23",31],
+    ["2025-06-30",35],["2025-07-07",28],["2025-07-14",39],["2025-07-21",15],["2025-07-28",18],
+    ["2025-08-04",17],["2025-08-11",15],["2025-08-18",4],["2025-08-25",7],["2025-09-01",6],
+    ["2025-09-08",7],["2025-09-15",9],["2025-09-22",6],["2025-09-29",9],["2025-10-06",15],
+    ["2025-10-13",7],["2025-10-20",12],["2025-10-27",8],["2025-11-03",12],["2025-11-10",17],
+    ["2025-11-17",20],["2025-11-24",14],["2025-12-01",20],["2025-12-08",13],["2025-12-15",11],
+    ["2025-12-22",11],["2025-12-29",12],
+    ["2026-01-05",10],["2026-01-12",31],["2026-01-19",27],["2026-01-26",32],["2026-02-02",21],
+    ["2026-02-09",41],["2026-02-16",42],["2026-02-23",41],["2026-03-02",29],["2026-03-09",28],
+    ["2026-03-16",35],["2026-03-23",31],["2026-03-30",38],["2026-04-06",35]
+  ];
+  var t0 = Date.UTC(2024, 0, 1);
+  var WK = 7 * 24 * 3600 * 1000;
+  var pts = weekly.map(function (r) {
+    var p = r[0].split("-");
+    return { x: (Date.UTC(+p[0], +p[1] - 1, +p[2]) - t0) / WK, y: r[1] };
+  });
+  var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function wkFmt(v) {
+    var d = new Date(t0 + v * WK);
+    return MON[d.getUTCMonth()] + " " + String(d.getUTCFullYear()).slice(2);
+  }
+
+  DN.line("#ex3", {
+    title: "Laboratory-confirmed measles cases by week of symptom onset, England, January 2024 to April 2026",
+    summary: "Across the 119 weeks from 1 January 2024 to the week beginning 6 April 2026, England did not report a single week with zero laboratory-confirmed measles cases. Weekly counts peaked at 106 in the week beginning 8 April 2024 and fell to a low of 4 in the week beginning 18 August 2025, but never reached zero. WHO treats measles as re-established when transmission continues for 12 months or more, so it is the floor of this series rather than its peak that governs elimination status.",
+    height: 300,
+    series: [{ name: "Confirmed cases per week", points: pts, color: "#1C46C2" }],
+    x: { fmt: wkFmt, ticks: [0, 26, 52.2857, 78.1429, 104.4286], title: "Week of symptom onset" },
+    y: { zero: true, title: "Confirmed cases", decimals: 0 },
+    refsY: [{ value: 0, label: "Zero — the line elimination requires for 12 months" }],
+    notes: [
+      { x: pts[14].x, y: 106, text: "106 — peak", sub: "w/c 8 Apr 2024", dy: -14 },
+      { x: pts[85].x, y: 4,   text: "4 — quietest week", sub: "w/c 18 Aug 2025, still not zero", dy: -30 }
+    ]
+  });
+})();
+</script>
+</body>
+</html>

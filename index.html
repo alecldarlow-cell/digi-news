@@ -102,10 +102,13 @@
   .stat[data-len="6"] .fig{font-size:17cqw}
   .stat .unit{font-size:.42em;font-weight:700;color:var(--faint);
     letter-spacing:0;margin-left:.05em}
-  .stat.haslabel .fig{margin-top:-7cqw}
+  .stat.haslabel .fig{margin-top:-8cqw}
+  /* --muted, not --faint: 6.03:1 on the tile against --faint's 2.64:1, which
+     failed WCAG AA outright. Sized off the tile but floored in px — at 7.5cqw
+     this set at 7.2px on a phone, which no contrast ratio can rescue. */
   .stat .lab{position:absolute;left:0;right:0;bottom:7cqw;padding:0 5px;
-    font-family:var(--display);font-weight:600;font-size:7.5cqw;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--faint);
+    font-family:var(--display);font-weight:600;font-size:min(10.5cqw,11px);
+    letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   /* Container queries are Safari 16+ / Chrome 105+. Older browsers get the
      same tile at fixed sizes off the 96px box rather than a 1em numeral. */
@@ -116,8 +119,8 @@
     .stat[data-len="4"] .fig{font-size:25px}
     .stat[data-len="5"] .fig{font-size:20px}
     .stat[data-len="6"] .fig{font-size:16px}
-    .stat.haslabel .fig{margin-top:-7px}
-    .stat .lab{font-size:7.5px;bottom:7px}
+    .stat.haslabel .fig{margin-top:-8px}
+    .stat .lab{font-size:10px;bottom:7px}
   }
 
   /* puzzle tile: a preview of the piece's own grid, built from feed.json's

@@ -12,6 +12,8 @@
      <meta name="dn:kind"       content="report|puzzle">
      <meta name="dn:read"       content="~8 min">      (optional)
      <meta name="dn:thumb"      content="url">          (optional)
+     <meta name="dn:statlabel"  content="of patients">  (optional — overrides the
+       caption read off the piece's own hero stat; keep it to ~16 characters)
 
    Anything missing is inferred from <title>/<h1>/.topic/.standfirst or from the
    filename (YYYY-MM-DD-topic-slug.html). Missing metadata is reported to the
@@ -54,8 +56,10 @@ function meta(html, name) {
   );
   const tag = html.match(re);
   if (!tag) return '';
-  const c = tag[0].match(/content=["']([\s\S]*?)["']/i);
-  return c ? decode(c[1]).trim() : '';
+  // Match the closing quote to the OPENING one. A loose ["'] ends the capture at
+  // the first apostrophe, so content="CRISPR's cure…" silently became "CRISPR".
+  const c = tag[0].match(/content=(["'])([\s\S]*?)\1/i);
+  return c ? decode(c[2]).trim() : '';
 }
 
 function firstMatch(html, re) {
@@ -116,19 +120,64 @@ function canonTopic(raw, rel, warnings) {
 // ---- hero stat --------------------------------------------------------------
 // The card tile shows the piece's first hero stat. Hero stats are measured
 // figures by house rule (§3), so nothing projected can reach a card.
+//
+// Returned in three parts, because the tile sets them at three sizes: the
+// figure large (and sized to the box by its own length — so the unit must not
+// inflate the count), the unit small, and the label small underneath. The label
+// is the stat's existing on-page caption — the sibling of .n in the herostats
+// block — so nothing new has to be authored. dn:statlabel overrides it.
 function heroStat(html) {
   const block = html.match(/<div class="herostats"[\s\S]{0,4000}?<\/div>\s*<\/div>/i);
   const scope = block ? block[0] : html;
-  const m = scope.match(/<div class="n"[^>]*>([\s\S]*?)<\/div>/i);
-  if (!m) return '';
+  const m = scope.match(/<div class="n"[^>]*>([\s\S]*?)<\/div>\s*(?:<div[^>]*>([\s\S]*?)<\/div>)?/i);
+  if (!m) return null;
   const txt = stripTags(m[1]).replace(/\s+/g, '');
-  if (!txt || txt.length > 8) return '';
-  if (!/[0-9]/.test(txt)) return '';
+  if (!txt || txt.length > 8) return null;
+  if (!/[0-9]/.test(txt)) return null;
   // Reject dash/zero placeholders — an interactive tool's score slot reads
   // "—/100" until the reader scores it, and that must never reach a card.
-  if (/[\u2014\u2013-]/.test(txt)) return '';
-  if (/^(0|00|0,000)$/.test(txt)) return '';
-  return txt;
+  if (/[\u2014\u2013-]/.test(txt)) return null;
+  if (/^(0|00|0,000)$/.test(txt)) return null;
+  // "93%" → 93 + %   "£1,284" → £1,284 + ''   "1,284×" → 1,284 + ×
+  const parts = txt.match(/^([^0-9]*[0-9][0-9.,]*)(.*)$/);
+  return {
+    figure: parts ? parts[1] : txt,
+    unit:   parts ? parts[2] : '',
+    label:  stripTags(m[2] || '')
+  };
+}
+
+// ---- puzzle grid mask -------------------------------------------------------
+// A puzzle's card tile is a preview of its own grid, read straight out of the
+// puzzle file's puzzle object — never hand-drawn, and never a spoiler: only the
+// SHAPE travels (blocks and pre-locked cells), never a letter.
+//   #  black square      L  pre-locked cell (LexiDoku)      .  to be filled
+// Returns a 25-char string, or '' if the object can't be read — in which case
+// the card falls back to the Play glyph rather than inventing a grid.
+function puzzleMask(html, rel, warnings) {
+  const g = html.match(/\bgrid\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
+  if (!g) { warnings.push(`${rel} — no grid found in the puzzle object; card falls back to the Play tile`); return ''; }
+
+  const cells = g[1].match(/"[^"]*"|'[^']*'/g) || [];
+  if (cells.length !== 25) {
+    warnings.push(`${rel} — grid parsed as ${cells.length} cells, expected 25; card falls back to the Play tile`);
+    return '';
+  }
+  const mask = cells.map(c => c.slice(1, -1).trim() === '#' ? '#' : '.');
+
+  // LexiDoku: locked is [[row,col],…], 1-indexed, per the type spec.
+  const lk = html.match(/\blocked\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
+  if (lk) {
+    const pairs = lk[1].match(/\[\s*\d+\s*,\s*\d+\s*\]/g) || [];
+    for (const p of pairs) {
+      const [r, c] = p.match(/\d+/g).map(Number);
+      const i = (r - 1) * 5 + (c - 1);
+      if (i < 0 || i > 24) { warnings.push(`${rel} — locked cell [${r},${c}] is off the grid; ignored`); continue; }
+      if (mask[i] === '#') { warnings.push(`${rel} — locked cell [${r},${c}] is a black square; ignored`); continue; }
+      mask[i] = 'L';
+    }
+  }
+  return mask.join('');
 }
 
 const warnings = [];
@@ -171,6 +220,17 @@ for (const { dir, kind } of DIRS) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) warnings.push(`${rel} — no usable date; card will sort last`);
 
     const kindVal = (meta(head, 'dn:kind') || kind).toLowerCase();
+
+    // Puzzles have no measured hero stat — their number slots are score
+    // placeholders — so their tile is drawn from the grid instead.
+    const hs = (kindVal === 'puzzle') ? null : heroStat(html);
+    const mask = (kindVal === 'puzzle') ? puzzleMask(html, rel, warnings) : '';
+
+    let statLabel = meta(head, 'dn:statlabel') || (hs ? hs.label : '');
+    if (statLabel.length > 16) {
+      warnings.push(`${rel} — stat label "${statLabel}" is ${statLabel.length} chars; the tile fits ~16, so it will be clipped (set a shorter dn:statlabel)`);
+    }
+
     items.push({
       path: rel,
       kind: kindVal,
@@ -180,9 +240,12 @@ for (const { dir, kind } of DIRS) {
       date,
       read: meta(head, 'dn:read') || (firstMatch(html, /<div class="dateline"[^>]*>([\s\S]*?)<\/div>/i).match(/~\s*\d+\s*min/i) || [''])[0].replace(/\s+/g, ' '),
       thumb: meta(head, 'dn:thumb') || '',
-      // Puzzles have no measured hero stat — their number slots are score
-      // placeholders — so the card falls back to the Play tile.
-      stat: (kindVal === 'puzzle') ? '' : heroStat(html)
+      // stat is now the FIGURE only — the tile sizes itself by its length, so a
+      // trailing "%" or "×" must not count. unit and label are set separately.
+      stat: hs ? hs.figure : '',
+      statUnit: hs ? hs.unit : '',
+      statLabel: hs ? statLabel : '',
+      mask
     });
   }
 }

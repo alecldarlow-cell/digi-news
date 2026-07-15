@@ -83,6 +83,54 @@ function mtimeDate(p) {
   catch { return ''; }
 }
 
+// ---- controlled topic vocabulary -------------------------------------------
+// The front-page chips are only useful if one beat has exactly one label.
+// Canonical list; anything not in it is kept verbatim and reported, so a
+// genuinely new beat is never silently mangled into the wrong bucket.
+const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World'];
+const TOPIC_ALIASES = {
+  'politics': 'UK politics', 'westminster': 'UK politics', 'uk politics': 'UK politics',
+  'economics': 'Economy', 'economy': 'Economy', 'money': 'Economy', 'business': 'Economy',
+  'money & well-being': 'Economy', 'money and well-being': 'Economy', 'pay': 'Economy',
+  'migration': 'Immigration', 'immigration': 'Immigration',
+  'artificial intelligence': 'AI', 'technology': 'AI', 'tech': 'AI', 'ai': 'AI',
+  'science': 'Science', 'physics': 'Science', 'energy': 'Science',
+  'medicine': 'Medicine', 'health': 'Medicine',
+  'society': 'Society', 'world': 'World'
+};
+
+function canonTopic(raw, rel, warnings) {
+  const t = String(raw || '').trim();
+  if (!t) return '';
+  const exact = TOPICS.find(c => c.toLowerCase() === t.toLowerCase());
+  if (exact) return exact;
+  const alias = TOPIC_ALIASES[t.toLowerCase()];
+  if (alias) {
+    warnings.push(`${rel} — topic "${t}" mapped to "${alias}" (set dn:topic to the canonical label)`);
+    return alias;
+  }
+  warnings.push(`${rel} — topic "${t}" is not in the vocabulary [${TOPICS.join(', ')}] — kept verbatim; it will get its own chip`);
+  return t;
+}
+
+// ---- hero stat --------------------------------------------------------------
+// The card tile shows the piece's first hero stat. Hero stats are measured
+// figures by house rule (§3), so nothing projected can reach a card.
+function heroStat(html) {
+  const block = html.match(/<div class="herostats"[\s\S]{0,4000}?<\/div>\s*<\/div>/i);
+  const scope = block ? block[0] : html;
+  const m = scope.match(/<div class="n"[^>]*>([\s\S]*?)<\/div>/i);
+  if (!m) return '';
+  const txt = stripTags(m[1]).replace(/\s+/g, '');
+  if (!txt || txt.length > 8) return '';
+  if (!/[0-9]/.test(txt)) return '';
+  // Reject dash/zero placeholders — an interactive tool's score slot reads
+  // "—/100" until the reader scores it, and that must never reach a card.
+  if (/[\u2014\u2013-]/.test(txt)) return '';
+  if (/^(0|00|0,000)$/.test(txt)) return '';
+  return txt;
+}
+
 const warnings = [];
 const items = [];
 
@@ -106,11 +154,12 @@ for (const { dir, kind } of DIRS) {
       meta(head, 'dn:standfirst') ||
       firstMatch(html, /<p class="stand(?:first)?"[^>]*>([\s\S]*?)<\/p>/i);
 
-    const topic =
+    const rawTopic =
       meta(head, 'dn:topic') ||
       firstMatch(html, /<div class="topic"[^>]*>([\s\S]*?)<\/div>/i).split('\u00b7')[0].trim() ||
       fn.topic ||
       (kind === 'puzzle' ? 'Puzzle' : 'Data');
+    const topic = canonTopic(rawTopic, rel, warnings);
 
     const date = meta(head, 'dn:date') || fn.date || mtimeDate(path.join(abs, file));
 
@@ -121,15 +170,19 @@ for (const { dir, kind } of DIRS) {
     if (missing.length) warnings.push(`${rel} — inferred: ${missing.join(', ')}`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) warnings.push(`${rel} — no usable date; card will sort last`);
 
+    const kindVal = (meta(head, 'dn:kind') || kind).toLowerCase();
     items.push({
       path: rel,
-      kind: (meta(head, 'dn:kind') || kind).toLowerCase(),
+      kind: kindVal,
       topic,
       headline,
       standfirst: standfirst.length > 240 ? standfirst.slice(0, 237).trimEnd() + '\u2026' : standfirst,
       date,
       read: meta(head, 'dn:read') || (firstMatch(html, /<div class="dateline"[^>]*>([\s\S]*?)<\/div>/i).match(/~\s*\d+\s*min/i) || [''])[0].replace(/\s+/g, ' '),
-      thumb: meta(head, 'dn:thumb') || ''
+      thumb: meta(head, 'dn:thumb') || '',
+      // Puzzles have no measured hero stat — their number slots are score
+      // placeholders — so the card falls back to the Play tile.
+      stat: (kindVal === 'puzzle') ? '' : heroStat(html)
     });
   }
 }
@@ -141,4 +194,3 @@ fs.writeFileSync(path.join(ROOT, 'feed.json'), JSON.stringify(feed, null, 2) + '
 
 console.log(`feed.json written — ${items.length} item(s)`);
 for (const w of warnings) console.log('  note: ' + w);
-        

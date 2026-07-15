@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dn:headline"   content="Net migration has nearly halved. But fewer people are choosing to come &mdash; not fewer arriving by boat.">
+<meta name="dn:standfirst" content="UK net migration fell to 171,000 in the year to December 2025 &mdash; its lowest in four years and 82% below the 2023 peak. The fall is driven almost entirely by fewer legal arrivals on work and study visas. Small boat crossings rose again in 2025 and remain near their all-time high.">
+<meta name="dn:topic"      content="Immigration">
+<meta name="dn:date"       content="2026-06-23">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~10 min">
+<title>Digi News — UK Net Migration Falls to 171,000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB;--paper:#FFFFFF;--ink:#15171C;--muted:#5F636B;
+    --faint:#9AA0A6;--hair:#E6E6E2;--accent:#1C46C2;--accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p+p{margin-top:12px}
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)}.pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:10px 12px;border-bottom:1px solid var(--hair);font-size:13px;color:var(--ink)}
+  table.tbl tr:last-child td{border-bottom:none}
+  table.tbl td.num{font-family:var(--display);font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+  .more{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:12px}
+  .more li{border-left:3px solid var(--hair);padding:10px 14px;font-size:15px;background:#fff}
+  .more li b{color:var(--accent)}
+  .foot{margin-top:56px;padding-top:20px;border-top:2px solid var(--ink);font-size:12.5px;color:var(--muted)}
+  .foot .fm{margin-bottom:14px;line-height:1.6}
+  .foot .fm b{color:var(--ink);font-weight:600}
+  .sources{margin-top:18px}
+  .sources ol{padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:12px;line-height:1.55}
+  .sources ol li a{color:var(--accent)}
+  .foot .ver{margin-top:18px;font-size:11px;letter-spacing:.05em;color:var(--faint);text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">Immigration<br>23 Jun 2026</div>
+  </header>
+
+  <div class="head">
+    <div class="topic">Immigration &middot; UK data</div>
+    <h1>Net migration has nearly halved. But fewer people are choosing to come &mdash; not fewer arriving by boat.</h1>
+    <p class="standfirst">UK net migration fell to 171,000 in the year to December 2025 &mdash; its lowest in four years and 82% below the 2023 peak. The fall is driven almost entirely by fewer legal arrivals on work and study visas. Small boat crossings rose again in 2025 and remain near their all-time high.</p>
+    <div class="dateline">Digi News data desk &middot; Figures to 23 June 2026 &middot; Reading time ~10 min</div>
+  </div>
+
+  <div class="herostats">
+    <div class="hs">
+      <div class="n">171<small>k</small></div>
+      <div class="l">Net migration, year to Dec 2025 — nearly halved from 331k in 2024</div>
+    </div>
+    <div class="hs">
+      <div class="n">41<small>k</small></div>
+      <div class="l">Small boat arrivals in 2025 — second-highest on record, up 13%</div>
+    </div>
+    <div class="hs">
+      <div class="n">813<small>k</small></div>
+      <div class="l">People who moved to the UK long-term in 2025 — still well above pre-2020 norms</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: THE HEADLINE FALL -->
+  <section class="section">
+    <div class="eyebrow">The trend</div>
+    <h2>Net migration is at a four-year low &mdash; but gross immigration remains historically high</h2>
+    <p>Net migration to the UK &mdash; people arriving to live for at least a year, minus those who leave &mdash; was provisionally estimated at 171,000 in the year to December 2025.<sup class="cite"><a href="#s1">1</a></sup> That is almost half the 331,000 recorded in December 2024, and 82% below the peak of 944,000 in the year to March 2023.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>The 2025 level matches figures last seen when the post-Brexit immigration system launched in early 2021 during Covid travel restrictions. It is also, notably, below the net migration levels typical of the mid-2010s. However, the gross immigration figure &mdash; 813,000 people arriving &mdash; remains far above the 500,000&ndash;650,000 range that characterised the decade before the pandemic.<sup class="cite"><a href="#s7">7</a></sup> That comparison should be read with care: the pre-2020 range comes from the old International Passenger Survey, while the 813,000 is built from administrative records that capture arrivals the survey missed &mdash; the new method has added several hundred thousand to cumulative counts over four years &mdash; so part of the apparent gap reflects better measurement, not only more people. Even so, net migration has fallen sharply while the scale of arrivals has not returned to pre-2020 norms.</p>
+    <p>The Office for National Statistics cautions that all current figures are "official statistics in development": the admin-data methodology, backdated to 2012, has been revised several times and remains subject to further updates.<sup class="cite"><a href="#s2">2</a></sup> Estimates from before June 2021 use a different method and are not directly comparable.</p>
+
+    <figure class="exhibit">
+      <div class="ex-head">
+        <div class="ex-num">Exhibit 01</div>
+        <div class="ex-title">UK net migration, year ending December 2021–2025 (thousands)</div>
+      </div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> ONS, Long-term international migration, provisional: year ending December 2025, 21 May 2026.<sup class="cite"><a href="#s1">1</a></sup> New admin-data methodology backdated to 2021; data before June 2021 uses a different method and is not fully comparable. All figures provisional and subject to revision. The 2023 bar uses the YE December 2023 figure on the new ONS methodology.</figcaption>
+    </figure>
+
+    <p>Stretching the horizon back three decades puts the 2025 figure in context. Net migration in the early 1990s ran near 44,000 a year; it climbed through the 2000s and 2010s, reached a recorded all-time high of 944,000 in the year to March 2023, and has fallen back sharply since.<sup class="cite"><a href="#s7">7</a></sup> The longer view also makes the data&rsquo;s central limitation visible: the figures before and after 2021 come from different measurement systems, so the series below is shown as discrete, individually sourced reference points rather than a continuous line.</p>
+
+    <figure class="exhibit">
+      <div class="ex-head">
+        <div class="ex-num">Exhibit 02</div>
+        <div class="ex-title">The long view &mdash; UK net migration at selected sourced points, 1991&ndash;2025 (thousands)</div>
+      </div>
+      <div class="ex-chart"><div id="exLong"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> ONS;<sup class="cite"><a href="#s1">1</a></sup> House of Commons Library, Migration statistics;<sup class="cite"><a href="#s7">7</a></sup> Migration Advisory Committee.<sup class="cite"><a href="#s4">4</a></sup> <b>Selected reference points, not every year.</b> A continuous annual line is deliberately avoided because the measurement method changed in 2021. <b>1991:</b> 44k (calendar year, IPS-based). <b>2015:</b> 336k (YE June 2015, mid-2010s level, IPS). <b>2020:</b> 111k (YE June 2020, Covid trough). <b>2023:</b> 944k (YE March 2023, recorded all-time peak, new admin method). <b>2024:</b> 331k and <b>2025:</b> 171k (YE December, new admin method). Figures before and after the 2021 method change are not directly comparable; values are rounded.</figcaption>
+    </figure>
+
+    <div class="callout"><b>Key distinction.</b> The fall in net migration is real and substantial. But it has been driven almost entirely by fewer people arriving on legal work and study visas &mdash; not by any significant change in small boat or asylum arrivals, which have moved in the opposite direction.</div>
+  </section>
+
+  <!-- SECTION 2: WHO IS NOT COMING -->
+  <section class="section">
+    <div class="eyebrow">Who is not coming</div>
+    <h2>Two policy decisions did most of the work: care workers and student dependants</h2>
+    <p>The fall in arrivals is highly concentrated. Health and Care Worker visa grants fell by around 85% from their 2023 peak of approximately 156,000, to just 23,000 in 2024, after the previous Conservative government tightened sponsor requirements and barred most care workers from bringing dependants.<sup class="cite"><a href="#s5">5</a></sup> Student dependant visas collapsed 83% in a single year after a January 2024 rule change restricted them to research-based postgraduate students only.<sup class="cite"><a href="#s5">5</a></sup></p>
+    <p>The ONS reports that work-related non-EU immigration fell 47% in 2025 alone.<sup class="cite"><a href="#s1">1</a></sup> The Migration Advisory Committee, the independent body that advises government, attributed the earlier post-pandemic surge to three factors: a rise in work visas especially in health and social care, new humanitarian routes for Ukrainians and Hong Kong BNO holders, and increased overseas student recruitment as university finances deteriorated.<sup class="cite"><a href="#s4">4</a></sup> The current Labour government added further restrictions in May 2025, including closing the care worker route to new overseas recruitment, with the Home Office estimating those changes would reduce visa grants by a further 98,000.<sup class="cite"><a href="#s3">3</a></sup> Those restrictions are not yet fully visible in the 2025 data.</p>
+
+    <figure class="exhibit">
+      <div class="ex-head">
+        <div class="ex-num">Exhibit 03</div>
+        <div class="ex-title">Visa grants by route, selected categories, 2019&ndash;2024 (thousands)</div>
+      </div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Home Office, Immigration system statistics, year ending March 2026; analysis from House of Commons Library and Electronic Immigration Network.<sup class="cite"><a href="#s5">5</a></sup> Visa grants differ from long-term migration estimates: they include some holders who may not stay 12 months. Health &amp; Care Worker grants peaked at approx. 156,000 in 2023, falling to 23,000 in 2024 (−85%). Skilled Worker fell 23% in 2024. Student dependants fell 83% in 2024.</figcaption>
+    </figure>
+  </section>
+
+  <!-- SECTION 3: SIGNATURE — IMMIGRATION/EMIGRATION BY GROUP -->
+  <section class="section">
+    <div class="eyebrow">The full picture &mdash; signature exhibit</div>
+    <h2>813,000 in, 642,000 out: who is moving and in which direction</h2>
+    <p>The headline figure of 171,000 is the balance of two large and opposite flows. In 2025, 813,000 people made a long-term move to the UK, while 642,000 left for a year or more. Among nationality groups, only non-EU nationals show positive net migration; both EU nationals and British citizens are in net emigration, with more leaving than arriving.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>The 278,000 non-EU nationals who left in 2025 are largely an echo of the 2022–23 surge: more than half were former students whose visas had expired.<sup class="cite"><a href="#s1">1</a></sup> British emigration, estimated at 246,000, appears high but the ONS cautions this reflects a methodological change in November 2025 rather than a new outflow trend &mdash; the new RAPID method captures departures that were previously unmeasured.<sup class="cite"><a href="#s2">2</a></sup></p>
+
+    <figure class="exhibit">
+      <div class="ex-head">
+        <div class="ex-num">Exhibit 04 &mdash; Signature exhibit</div>
+        <div class="ex-title">UK long-term immigration and emigration by nationality group, year ending December 2025 (thousands)</div>
+      </div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> ONS, Long-term international migration, provisional: year ending December 2025, 21 May 2026.<sup class="cite"><a href="#s1">1</a></sup> Net = immigration minus emigration. British nationals: &minus;136k net; EU nationals: &minus;42k net; Non-EU nationals: +350k net. ONS publishes the non-EU net figure as +350k, computed on unrounded data; the rounded columns shown here (627k in, 278k out) imply +349k by subtraction. Group figures are each rounded to the nearest thousand, so the three groups need not sum exactly to the +171k headline (350 &minus; 42 &minus; 136 &asymp; 171). British nationals figure uses revised RAPID methodology; ONS says the trend, not the precise level, is the reliable signal.</figcaption>
+    </figure>
+
+    <p>The reversal is clearer still over a decade. In 2015, near the mid-2010s peak, EU nationals were the largest arriving group; today they are the smallest, while non-EU arrivals have more than doubled. Total immigration actually <em>rose</em> over the ten years &mdash; from roughly 632,000 to 813,000 &mdash; even as net migration fell, because emigration rose faster.<sup class="cite"><a href="#s7">7</a></sup></p>
+
+    <figure class="exhibit">
+      <div class="ex-head">
+        <div class="ex-num">Exhibit 05</div>
+        <div class="ex-title">A decade of change: long-term immigration by nationality group, 2015 vs 2025 (thousands)</div>
+      </div>
+      <div class="ex-chart"><div id="exGeo"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> 2015 from House of Commons Library, Migration statistics (SN06077), International Passenger Survey basis;<sup class="cite"><a href="#s7">7</a></sup> 2025 from ONS, year ending December 2025, administrative-data basis.<sup class="cite"><a href="#s1">1</a></sup> EU arrivals fell about 72% (269k&rarr;76k); non-EU arrivals rose about 125% (279k&rarr;627k); British returns rose (84k&rarr;110k). The EU/non-EU reversal is robust to the method change, but the two years rest on different measurement systems (survey vs administrative records), so exact levels are not perfectly comparable. Totals: 2015 &asymp; 632k, 2025 = 813k.</figcaption>
+    </figure>
+  </section>
+  <section class="section">
+    <div class="eyebrow">The irregular route</div>
+    <h2>Small boat crossings rose again in 2025. They are not what drove net migration down.</h2>
+    <p>While net migration fell, arrivals by small boat across the English Channel moved in the opposite direction. A provisional 41,472 people crossed in 2025 &mdash; a 13% rise on 2024's 36,816, and the second-highest annual total since the Home Office began systematic recording in 2018, when 299 people made the crossing.<sup class="cite"><a href="#s8">8</a></sup> Only 2022's 45,774 arrivals was higher.</p>
+    <p>Small boat arrivals are a legally and statistically separate measure from the ONS net migration figures. The key distinction: net migration counts people who move for at least 12 months; small boat crossings are counted on arrival regardless of what happens next. Virtually all who arrive by small boat (99% in 2025) subsequently claim asylum,<sup class="cite"><a href="#s9">9</a></sup> and asylum applicants are included in the ONS figures only once they are assessed as long-term migrants. Small boat arrivals accounted for 41% of all UK asylum claims in 2025.<sup class="cite"><a href="#s9">9</a></sup></p>
+    <p>The grant rate for asylum claims from small boat arrivals, measured across 2018–2025, was 62% &mdash; higher than the overall grant rate for asylum applicants.<sup class="cite"><a href="#s9">9</a></sup> Returns have been limited: approximately 7,500 of the 193,000 people who arrived since 2018 had been removed from the UK by end-2025, a return rate of around 4%.<sup class="cite"><a href="#s9">9</a></sup></p>
+    <p>Twenty-four people died attempting the crossing in 2025, down from 73 the previous year.<sup class="cite"><a href="#s9">9</a></sup> The UK and French governments agreed a £662 million deal in April 2026 to fund enforcement operations on northern French beaches over three years.<sup class="cite"><a href="#s8">8</a></sup> A "one-in, one-out" returns pilot with France ran from August 2025 until 11 June 2026; as of early March 2026 it had returned 377 people and accepted 380 in exchange &mdash; a near net-neutral outcome.<sup class="cite"><a href="#s8">8</a></sup></p>
+    <p>The most recent data shows early signs of a slowdown: around 9,000 people crossed in the first five months of 2026, 38% fewer than in the same period of 2025, though the busier summer season has not yet fully passed.<sup class="cite"><a href="#s9">9</a></sup></p>
+
+    <figure class="exhibit">
+      <div class="ex-head">
+        <div class="ex-num">Exhibit 06</div>
+        <div class="ex-title">Small boat arrivals in the English Channel, 2018&ndash;2025 (people detected)</div>
+      </div>
+      <div class="ex-chart"><div id="ex4"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Home Office, Immigration statistics quarterly: Illegal entry routes data; House of Commons Library briefing CBP-10590, updated June 2026.<sup class="cite"><a href="#s8">8</a></sup> Figures are provisional and subject to revision. 2018 total: 299. 2019: 1,843. 2020: 8,466. 2021: 28,526. 2022: 45,774 (peak). 2023: 29,437. 2024: 36,816. 2025: 41,472.</figcaption>
+    </figure>
+
+    <div class="callout"><b>The political disconnect.</b> Polling consistently shows small boats as the dominant public concern around immigration. The data shows this route &mdash; around 41,000 people in 2025 &mdash; is a small fraction of the 813,000 who moved to the UK legally. The two trends have moved in opposite directions: legal arrivals fell sharply; irregular arrivals did not.</div>
+  </section>
+
+  <!-- SECTION 5: REASONS FOR ARRIVAL -->
+  <section class="section">
+    <div class="eyebrow">Why people come</div>
+    <h2>Study remains the largest single reason &mdash; asylum is 14%</h2>
+    <p>Of the 627,000 non-EU nationals who arrived in 2025, 47% came for study-related reasons, 23% for work, 14% as asylum applicants, and 7% for family reunion.<sup class="cite"><a href="#s1">1</a></sup> These figures are based on the original visa type or asylum status on arrival and do not capture people who later switch visa categories. EU nationals, who made up 9% of total arrivals, are not broken down by reason in the same way because many hold EU Settled Status or residual rights.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>Study has been the largest single reason for non-EU migration for most of the past two decades, and the recent fall has been concentrated in work rather than study. Non-EU work immigration peaked at roughly 471,000 in the year to mid-2023 before falling to about 146,000 on a reason basis in 2025, as the care-worker and dependant restrictions took effect; study volumes fell more modestly.<sup class="cite"><a href="#s1">1</a></sup> A fuller decade-by-reason series can be built from the Home Office&rsquo;s published visa grants by category, which run back to 2005.<sup class="cite"><a href="#s5">5</a></sup></p>
+
+    <figure class="exhibit">
+      <div class="ex-head">
+        <div class="ex-num">Exhibit 07</div>
+        <div class="ex-title">Reasons for non-EU immigration to UK, year ending December 2025 (thousands)</div>
+      </div>
+      <div class="ex-chart"><div id="ex5"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> ONS, Long-term international migration, provisional: year ending December 2025, 21 May 2026.<sup class="cite"><a href="#s1">1</a></sup> Percentages are of non-EU immigration (627,000 total). Reasons based on original visa type or asylum status; do not capture later visa changes. 39% of all UK asylum applicants in 2025 had arrived legally on work, study, visitor or other visas before claiming asylum (Migration Observatory).<sup class="cite"><a href="#s3">3</a></sup></figcaption>
+    </figure>
+  </section>
+
+  <!-- SECTION 6: CONTESTED -->
+  <section class="section">
+    <div class="eyebrow">Where it's contested</div>
+    <h2>Lower net migration: public mandate met, or workforce problem created?</h2>
+    <p>The fall in net migration reflects stated government policy and responds to persistent public concern. Whether it is the right outcome involves both empirical questions (what are the workforce effects?) and value questions (how should society weigh population size against economic need?) that evidence alone cannot resolve.</p>
+    <div class="positions">
+      <div class="pos case">
+        <div class="tag">The case for the fall</div>
+        <p>Net migration at 171,000 is below mid-2010s levels and fulfils both parties' stated commitments to reduce it. Ipsos polling found half the public view immigration levels as a concern, with three in ten naming it the single biggest issue.<sup class="cite"><a href="#s6">6</a></sup> (Sample size, margin of error and fieldwork dates are not given in the source that cites this polling, so treat the precise shares as indicative.) Proponents argue tighter visa rules restore democratic mandate, ease pressure on housing and public services, and allow the labour market to price domestic workers more fairly.</p>
+        <div class="kind">Value &amp; empirical dispute</div>
+      </div>
+      <div class="pos counter">
+        <div class="tag">The workforce concern</div>
+        <p>The NHS Confederation warned that the fall was "driven largely by fewer non-EU nationals arriving for work and study" and could "create serious challenges for how vital public services, including the NHS, are delivered."<sup class="cite"><a href="#s6">6</a></sup> The MAC noted the health and social care sectors had come to depend on overseas recruitment while domestic pipelines remained constrained. Universities face funding pressure as international student numbers fall.</p>
+        <div class="kind">Empirical dispute</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="section">
+    <div class="eyebrow">By the numbers</div>
+    <div class="statband">
+      <div class="c"><div class="n">944<small>k</small></div><div class="l">Net migration peak, YE March 2023 (ONS new method)</div></div>
+      <div class="c"><div class="n">−85<small>%</small></div><div class="l">Fall in Health &amp; Care Worker visa grants from 2023 peak to 2024</div></div>
+      <div class="c"><div class="n">41<small>k</small></div><div class="l">Small boat arrivals in 2025 — 2nd highest since records began in 2018</div></div>
+      <div class="c"><div class="n">4<small>%</small></div><div class="l">Share of small boat arrivals since 2018 who have been returned (7,500 of 193,000)</div></div>
+    </div>
+    <div class="caveat"><b>Strongest objection to the headline fall.</b> All ONS migration figures from 2021 onwards are "official statistics in development" — not National Statistics. The YE December 2024 estimate has already been revised down by roughly 100,000 since first publication — from 431,000 to 331,000 across successive releases. The direction of travel is clear; the precise level is uncertain. Additionally, the 2025 Labour restrictions on care and work visas are not yet fully reflected in the 2025 data — the fall may continue into 2026 figures, or partly reverse as the emigration echo from 2022–23 arrivals fades.</div>
+  </section>
+
+  <!-- WHAT WE DON'T KNOW -->
+  <div class="unknowns">
+    <div class="h">What we don't know</div>
+    <p>ONS does not publish long-term migration estimates at local authority level from this source. The reasons why British nationals emigrate are poorly understood — qualitative research suggests career and lifestyle motivations, but no large-scale study isolates cause. The ONS will publish long-term migration estimates to end-June 2026 in November 2026: it is unknown whether the fall has continued. The impact of the May 2025 Labour restrictions will not be fully visible until late-2026 data. The causal effect of falling migration on NHS and social care workforce supply remains contested; no published study yet isolates the effect of the 2024–25 policy changes specifically. For small boats, it is not known how many of those prevented from crossing by French authorities later make successful attempts.</p>
+  </div>
+
+  <!-- REFERENCE APPENDIX -->
+  <section class="section">
+    <div class="eyebrow">Reference &middot; the full record</div>
+    <h2>Key data</h2>
+    <div class="appx">
+      <table class="tbl">
+        <thead><tr><th>Measure</th><th>Value</th><th>Prior year / comparison</th><th>Change</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Net migration (YE Dec 2025)</td><td class="num">171,000</td><td class="num">331,000 (YE Dec 2024)</td><td class="num">−48%</td><td>ONS T1</td></tr>
+          <tr><td>Total immigration</td><td class="num">813,000</td><td class="num">1,012,000</td><td class="num">−20%</td><td>ONS T1</td></tr>
+          <tr><td>Total emigration</td><td class="num">642,000</td><td class="num">680,000</td><td class="num">−6%</td><td>ONS T1</td></tr>
+          <tr><td>Non-EU immigration</td><td class="num">627,000</td><td class="num">780,000</td><td class="num">−20%</td><td>ONS T1</td></tr>
+          <tr><td>Non-EU net migration</td><td class="num">+350,000</td><td class="num">+511,000</td><td class="num">−31%</td><td>ONS T1</td></tr>
+          <tr><td>EU net migration</td><td class="num">−42,000</td><td class="num">−69,000 (updated)</td><td class="num">—</td><td>ONS T1</td></tr>
+          <tr><td>British net migration</td><td class="num">−136,000</td><td class="num">−114,000</td><td class="num">—</td><td>ONS T1 (revised method)</td></tr>
+          <tr><td>Work non-EU immigration fall</td><td class="num">−47%</td><td class="num">2024 vs 2025</td><td class="num">—</td><td>ONS T1</td></tr>
+          <tr><td>H&amp;CW visa grants 2024</td><td class="num">23,000</td><td class="num">~156,000 (2023 peak)</td><td class="num">−85%</td><td>Home Office T1</td></tr>
+          <tr><td>Student dependant visas 2024</td><td class="num">18,000</td><td class="num">~106,000</td><td class="num">−83%</td><td>Home Office T1</td></tr>
+          <tr><td>Small boat arrivals 2025</td><td class="num">41,472</td><td class="num">36,816 (2024)</td><td class="num">+13%</td><td>Home Office T1</td></tr>
+          <tr><td>Small boat arrivals 2022 (peak)</td><td class="num">45,774</td><td class="num">—</td><td class="num">—</td><td>Home Office T1</td></tr>
+          <tr><td>Small boat arrivals Jan–May 2026</td><td class="num">~9,000</td><td class="num">~14,500 (same period 2025)</td><td class="num">−38%</td><td>Migration Obs T2</td></tr>
+          <tr><td>Returns of small boat arrivals (total since 2018)</td><td class="num">~7,500</td><td class="num">193,000 arrivals</td><td class="num">~4%</td><td>Migration Obs T2</td></tr>
+          <tr><td>Deaths crossing in 2025</td><td class="num">24</td><td class="num">73 (2024)</td><td class="num">−67%</td><td>Migration Obs T2</td></tr>
+          <tr><td>Net migration peak</td><td class="num">944,000</td><td class="num">YE March 2023</td><td class="num">—</td><td>ONS T1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- GO DEEPER -->
+  <section class="section">
+    <div class="eyebrow">Go deeper</div>
+    <h2>What this piece left out</h2>
+    <ul class="more">
+      <li><div><b>Asylum backlog in full.</b> The number of cases awaiting an initial decision fell to 35,744 (about 48,758 people) at the end of March 2026 &mdash; roughly 55% lower than a year earlier and the lowest since September 2019, after a concerted push to clear the backlog. The asylum grant rate at initial decision has also eased from its post-2022 highs (around 45% in the year to September 2025). The backlog&rsquo;s composition and the rise in appeals are a substantial story in their own right.</div></li>
+      <li><div><b>Regional impact.</b> ONS does not publish local authority breakdowns from this source; the geographic distribution of both legal and irregular arrivals is not captured here.</div></li>
+      <li><div><b>UK nationals abroad.</b> Approximately 1.3 million UK nationals live in EU countries. The reasons why British people are leaving — and whether the new RAPID data represents a genuine trend shift — merits dedicated analysis.</div></li>
+      <li><div><b>ONS methodology in transition.</b> The move from the International Passenger Survey to admin-data (RAPID for British nationals, HOBI for non-EU and EU) is ongoing. The implications for data comparability across time deserve separate treatment.</div></li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> Net migration is long-term immigration minus long-term emigration (12 months or more). ONS provisional series uses administrative data: HOBI (Home Office Borders and Immigration) for non-EU and EU nationals; RAPID (DWP/DfE registration records) for British nationals. New methodology backdated to June 2021 in November 2025; pre-June 2021 figures are not directly comparable. All 2025 ONS figures are provisional. Small boat figures are from Home Office operational data, provisional and subject to revision; finalised figures appear in the quarterly Immigration system statistics. Derived statistics were computed independently in Node.js before publication. Health &amp; Care Worker peak is approximated from Home Office visa statistics consistent with the −85% figure reported by the Electronic Immigration Network. The signature exhibit uses grouped columns rather than a Sankey flow to avoid misleading disconnected sub-flows (immigration total &ne; emigration total). The two long-run exhibits (1991&ndash;2025 net migration and the 2015-vs-2025 nationality comparison) deliberately use discrete, individually sourced reference points rather than a continuous annual line, because the underlying measurement method changed in 2021 and a fully comparable annual series is not available across the whole period. In this revision, every load-bearing figure was reconciled against the ONS <em>Long-term international migration, year ending December 2025</em> release and corroborating House of Commons Library and Migration Observatory analyses.</div>
+
+    <div class="sources">
+      <b>Sources</b>
+      <ol>
+        <li id="s1"><span class="tier t1">T1</span> ONS, <em>Long-term international migration, provisional: year ending December 2025</em>, 21 May 2026. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration/bulletins/longterminternationalmigrationprovisional/yearendingdecember2025" target="_blank">ons.gov.uk</a>. Retrieved 23 June 2026.</li>
+        <li id="s2"><span class="tier t1">T1</span> ONS, <em>Improving long-term international migration statistics, updating our methods and estimates</em>, November 2025. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration/articles/improvinglongterminternationalmigrationstatisticsupdatingourmethodsandestimates/november2025" target="_blank">ons.gov.uk</a>. Retrieved 23 June 2026.</li>
+        <li id="s3"><span class="tier t2">T2</span> Migration Observatory, University of Oxford, <em>Net migration to the UK</em>, updated June 2026. <a href="https://migrationobservatory.ox.ac.uk/resources/briefings/long-term-international-migration-flows-to-and-from-the-uk/" target="_blank">migrationobservatory.ox.ac.uk</a>. Retrieved 23 June 2026.</li>
+        <li id="s4"><span class="tier t1">T1</span> Migration Advisory Committee, <em>Net Migration Report</em>, May 2025. <a href="https://www.gov.uk/government/publications/migration-advisory-committee-report-on-net-migration/net-migration-report-accessible" target="_blank">gov.uk</a>. Retrieved 23 June 2026.</li>
+        <li id="s5"><span class="tier t2">T2</span> Electronic Immigration Network / House of Commons Library, analysis of Home Office Immigration system statistics, year ending March 2026. <a href="https://www.ein.org.uk/news/2024-sees-record-numerical-fall-net-migration-uk-latest-ons-estimates-show" target="_blank">ein.org.uk</a>. Retrieved 23 June 2026.</li>
+        <li id="s6"><span class="tier t2">T2</span> NHS Confederation, <em>Response to net migration statistics</em>, November 2025; Ipsos polling cited therein. <a href="https://www.nhsconfed.org/news/nhs-confederation-responds-net-migration-stats" target="_blank">nhsconfed.org</a>. Retrieved 23 June 2026.</li>
+        <li id="s7"><span class="tier t2">T2</span> House of Commons Library, <em>Migration statistics</em>, updated June 2026. <a href="https://commonslibrary.parliament.uk/research-briefings/sn06077/" target="_blank">commonslibrary.parliament.uk</a>. Retrieved 23 June 2026.</li>
+        <li id="s8"><span class="tier t1">T1</span> House of Commons Library, <em>Statistics on small boat Channel crossings</em>, CBP-10590, updated June 2026 (citing Home Office Immigration statistics quarterly: Illegal entry routes data). <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10590/" target="_blank">commonslibrary.parliament.uk</a>. Retrieved 23 June 2026.</li>
+        <li id="s9"><span class="tier t2">T2</span> Migration Observatory, University of Oxford, <em>People crossing the English Channel in small boats</em>, updated June 2026. <a href="https://migrationobservatory.ox.ac.uk/resources/briefings/people-crossing-the-english-channel-in-small-boats/" target="_blank">migrationobservatory.ox.ac.uk</a>. Retrieved 23 June 2026.</li>
+      </ol>
+    </div>
+    <div class="fm" style="margin-top:18px"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div class="ver">Digi News &middot; Version 1.2 &middot; Published 23 June 2026 &middot; Figures to 23 June 2026 &middot; Validation &amp; long-run revision</div>
+  </div>
+
+</div>
+<script>
+(function(){
+'use strict';
+var REDUCE=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var C={subject:'#1C46C2',contrast:'#E0312A',muted:'#9AA0A6',axis:'#9AA0A6',hair:'#E6E6E2',band:'#1C46C2',neg:'#E0312A'};
+var CATS=['#1C46C2','#E69F00','#56B4E9','#009E73','#F0E442','#CC79A7','#D55E00'];
+function cat(i){return CATS[i%CATS.length];}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function svgEl(tag,attrs){var el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(var k in(attrs||{}))el.setAttribute(k,String(attrs[k]));return el;}
+function clear(el){while(el.firstChild)el.removeChild(el.firstChild);}
+function resolve(t){return typeof t==='string'?document.querySelector(t):t;}
+function fmt(v,o){o=o||{};var n=+v;if(isNaN(n))return String(v);var s=o.compact?function(x){if(Math.abs(x)>=1e6)return(x/1e6).toFixed(o.decimals!=null?o.decimals:1)+'m';if(Math.abs(x)>=1e3)return(x/1e3).toFixed(o.decimals!=null?o.decimals:0)+'k';return x.toFixed(o.decimals||0);}(n):n.toFixed(o.decimals||0);if(o.prefix)s=o.prefix+s;if(o.suffix)s=s+o.suffix;if(o.pct)s=n.toFixed(o.decimals||1)+'%';if(o.plus&&n>0)s='+'+s;return s;}
+function niceNum(r,round){var exp=Math.floor(Math.log(r)/Math.LN10),frac=r/Math.pow(10,exp),nf;if(round)nf=frac<1.5?1:frac<3?2:frac<7?5:10;else nf=frac<=1?1:frac<=2?2:frac<=5?5:10;return nf*Math.pow(10,exp);}
+function niceScale(min,max,maxTicks){maxTicks=maxTicks||5;if(min===max){max=min+1;}if(max<min){var t=min;min=max;max=t;}var range=niceNum(max-min||1,false);var step=niceNum(range/(maxTicks-1),true);var nmin=Math.floor(min/step)*step,nmax=Math.ceil(max/step)*step,ticks=[],v;for(v=nmin;v<=nmax+step*0.5;v+=step)ticks.push(+v.toFixed(10));return{min:nmin,max:nmax,step:step,ticks:ticks};}
+function lin(dom,ran){var d0=dom[0],d1=dom[1],r0=ran[0],r1=ran[1],m=(d1===d0)?0:(r1-r0)/(d1-d0);return function(v){return r0+(v-d0)*m;};}
+function xticks(x0,x1,n){var ns=niceScale(x0,x1,n),ts=ns.ticks.filter(function(t){return t>=x0-1e-9&&t<=x1+1e-9;});if(!ts.length)ts=[x0,x1];if(Math.abs(ts[0]-x0)>1e-9)ts.unshift(x0);if(Math.abs(ts[ts.length-1]-x1)>1e-9)ts.push(x1);return ts.filter(function(v,i){return i===0||Math.abs(v-ts[i-1])>1e-9;});}
+function mount(target){var host=resolve(target);host.classList.add('dn-fig');var svg=svgEl('svg',{class:'dn-svg',role:'img'});var legend=document.createElement('div');legend.className='dn-legend';var sr=document.createElement('div');sr.className='dn-sr-only';clear(host);host.appendChild(svg);host.appendChild(legend);host.appendChild(sr);return{host:host,svg:svg,legend:legend,sr:sr};}
+function lifecycle(host,render){var raf;function go(){cancelAnimationFrame(raf);raf=requestAnimationFrame(render);}if(typeof ResizeObserver!=='undefined'){new ResizeObserver(go).observe(host);}else{window.addEventListener('resize',go);}if(document.fonts&&document.fonts.ready)document.fonts.ready.then(render).catch(function(){});render();}
+function describe(svg,spec){var lab=(spec.title||'')+(spec.summary?'. '+spec.summary:'');svg.setAttribute('aria-label',lab);var t=svgEl('title');t.textContent=spec.title||'';svg.appendChild(t);if(spec.summary){var d=svgEl('desc');d.textContent=spec.summary;svg.appendChild(d);}}
+function a11yTable(sr,title,columns,rows){var h='<table><caption>'+esc(title)+'</caption><thead><tr>';columns.forEach(function(c){h+='<th>'+esc(c)+'</th>';});h+='</tr></thead><tbody>';rows.forEach(function(r){h+='<tr>';r.forEach(function(c){h+='<td>'+esc(c)+'</td>';});h+='</tr>';});sr.innerHTML=h+'</tbody></table>';}
+function drawLegend(legend,items){if(!items||items.length<2){legend.style.display='none';legend.innerHTML='';return;}legend.style.display='';legend.innerHTML=items.map(function(it){return'<span class="dn-key"><i style="background:'+it.color+'"></i>'+esc(it.name)+'</span>';}).join('');}
+function animateLine(path){if(REDUCE)return;try{var L=path.getTotalLength();path.style.strokeDasharray=L;path.style.strokeDashoffset=L;path.style.transition='stroke-dashoffset 1.1s ease-out';requestAnimationFrame(function(){requestAnimationFrame(function(){path.style.strokeDashoffset=0;});});}catch(e){}}
+function growRect(r,delay){if(REDUCE)return;var y=+r.getAttribute('y'),h=+r.getAttribute('height'),base=y+h;r.setAttribute('y',base);r.setAttribute('height',0);var common={dur:'.6s',begin:delay+'s',fill:'freeze',calcMode:'spline',keySplines:'.2 .8 .2 1',keyTimes:'0;1'};var a1=svgEl('animate',{attributeName:'y',values:base+';'+y});for(var k in common)a1.setAttribute(k,common[k]);r.appendChild(a1);var a2=svgEl('animate',{attributeName:'height',values:'0;'+h});for(var k2 in common)a2.setAttribute(k2,common[k2]);r.appendChild(a2);}
+function growBar(r,delay){if(REDUCE)return;var w=+r.getAttribute('width');r.setAttribute('width',0);r.appendChild(svgEl('animate',{attributeName:'width',values:'0;'+w,dur:'.6s',begin:delay+'s',fill:'freeze',calcMode:'spline',keySplines:'.2 .8 .2 1',keyTimes:'0;1'}));}
+
+/* LINE */
+function line(target,spec){
+  var m=mount(target),series=spec.series||[];
+  var yzero=!(spec.y&&spec.y.zero===false);
+  function render(){
+    var svg=m.svg;clear(svg);
+    var W=Math.max(m.host.clientWidth,240),small=W<460;
+    var H=spec.height||Math.round(Math.min(Math.max(W*0.6,220),420));
+    var mL=small?34:44,mR=spec.endLabels?(small?54:110):18,mT=18,mB=34;
+    var xs=[],ys=[];
+    series.forEach(function(s){s.points.forEach(function(p){xs.push(p.x);ys.push(p.y);});});
+    (spec.refsY||[]).forEach(function(r){ys.push(r.value);});
+    var x0=(spec.x&&spec.x.min!=null)?spec.x.min:Math.min.apply(null,xs);
+    var x1=(spec.x&&spec.x.max!=null)?spec.x.max:Math.max.apply(null,xs);
+    var yMax=(spec.y&&spec.y.max!=null)?spec.y.max:Math.max.apply(null,ys);
+    var yMinData=Math.min.apply(null,ys);
+    var ns=niceScale(yzero?0:yMinData,yMax,small?4:5);
+    var X=lin([x0,x1],[mL,W-mR]),Y=lin([ns.min,ns.max],[H-mB,mT]);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);describe(svg,spec);
+    (spec.bands||[]).forEach(function(b){
+      if(b.x0==null)return;
+      var bx0=X(b.x0),bx1=X(b.x1);
+      svg.appendChild(svgEl('rect',{x:Math.min(bx0,bx1),y:mT,width:Math.abs(bx1-bx0),height:(H-mB)-mT,fill:'#1C46C2','fill-opacity':0.07}));
+      if(b.label){var t=svgEl('text',{x:(bx0+bx1)/2,y:mT+12,'text-anchor':'middle','class':'dn-anno'});t.textContent=b.label;svg.appendChild(t);}
+    });
+    ns.ticks.forEach(function(tv){
+      var gy=Y(tv);
+      svg.appendChild(svgEl('line',{x1:mL,y1:gy,x2:W-mR,y2:gy,stroke:tv===ns.min?C.axis:C.hair,'stroke-width':tv===ns.min?1.2:1}));
+      var tl=svgEl('text',{x:mL-8,y:gy+4,'text-anchor':'end','class':'dn-ax'});tl.textContent=fmt(tv,spec.y||{});svg.appendChild(tl);
+    });
+    if(spec.y&&spec.y.label){var yl=svgEl('text',{x:mL-8,y:mT-7,'text-anchor':'start','class':'dn-axlabel'});yl.textContent=spec.y.label;svg.appendChild(yl);}
+    var xt=(spec.x&&spec.x.ticks)?spec.x.ticks:xticks(x0,x1,small?3:5);
+    xt.forEach(function(xv){var t=svgEl('text',{x:X(xv),y:H-mB+20,'text-anchor':'middle','class':'dn-ax'});t.textContent=(spec.x&&spec.x.fmt)?spec.x.fmt(xv):xv;svg.appendChild(t);});
+    var legItems=[];
+    series.forEach(function(s,si){
+      var col=s.color||(series.length===1?C.subject:cat(si));
+      legItems.push({name:s.name||('Series '+(si+1)),color:col});
+      var pts=s.points.slice().sort(function(a,b){return a.x-b.x;});
+      var path=function(arr){return'M'+arr.map(function(p){return X(p.x)+','+Y(p.y);}).join(' L');};
+      if(s.projectFrom!=null){
+        var solid=pts.filter(function(p){return p.x<=s.projectFrom;});
+        var proj=pts.filter(function(p){return p.x>=s.projectFrom;});
+        var ln=svgEl('path',{d:path(solid),fill:'none',stroke:col,'stroke-width':2.4,'stroke-linecap':'round','stroke-linejoin':'round'});svg.appendChild(ln);animateLine(ln);
+        if(proj.length>1)svg.appendChild(svgEl('path',{d:path(proj),fill:'none',stroke:col,'stroke-width':2.4,'stroke-dasharray':'2 5','stroke-linecap':'round'}));
+      }else{
+        var ln2=svgEl('path',{d:path(pts),fill:'none',stroke:col,'stroke-width':2.4,'stroke-linecap':'round','stroke-linejoin':'round'});svg.appendChild(ln2);animateLine(ln2);
+      }
+      var last=pts[pts.length-1];
+      svg.appendChild(svgEl('circle',{cx:X(last.x),cy:Y(last.y),r:3.4,fill:col}));
+      if(spec.endLabels){var el=svgEl('text',{x:X(last.x)+8,y:Y(last.y)+4,'text-anchor':'start','class':'dn-endlab'});el.setAttribute('fill',col);el.textContent=s.name||fmt(last.y,spec.y||{});svg.appendChild(el);}
+    });
+    (spec.refsY||[]).forEach(function(r){
+      var gy=Y(r.value);
+      svg.appendChild(svgEl('line',{x1:mL,y1:gy,x2:W-mR,y2:gy,stroke:r.color||C.subject,'stroke-width':1,'stroke-dasharray':'3 4','stroke-opacity':0.85}));
+      if(r.label){var t=svgEl('text',{x:mL+6,y:gy-6,'class':'dn-anno'});t.setAttribute('fill',r.color||C.subject);t.textContent=r.label;svg.appendChild(t);}
+    });
+    (spec.notes||[]).forEach(function(nt){
+      var nx=X(nt.x),ny=Y(nt.y),dy=nt.dy==null?-10:nt.dy;
+      var t=svgEl('text',{x:nx+(nt.dx||0),y:ny+dy,'text-anchor':nt.anchor||'middle','class':'dn-anno'});t.textContent=nt.text;svg.appendChild(t);
+      if(nt.sub){var t2=svgEl('text',{x:nx+(nt.dx||0),y:ny+dy+13,'text-anchor':nt.anchor||'middle','class':'dn-annosub'});t2.textContent=nt.sub;svg.appendChild(t2);}
+    });
+    drawLegend(m.legend,legItems);
+    var xset=[];series.forEach(function(s){s.points.forEach(function(p){if(xset.indexOf(p.x)<0)xset.push(p.x);});});xset.sort(function(a,b){return a-b;});
+    a11yTable(m.sr,spec.title||'Chart data',[(spec.x&&spec.x.title)||'x'].concat(series.map(function(s,i){return s.name||('Series '+(i+1));})),xset.map(function(xv){return[(spec.x&&spec.x.fmt)?spec.x.fmt(xv):String(xv)].concat(series.map(function(s){var p=s.points.filter(function(q){return q.x===xv;})[0];return p?fmt(p.y,spec.y||{}):'';},));}));
+  }
+  lifecycle(m.host,render);return{render:render};
+}
+
+/* BARS */
+function bars(target,spec){
+  var m=mount(target),data=spec.data||[];
+  if(spec.sort==='asc')data=data.slice().sort(function(a,b){return a.value-b.value;});
+  else if(spec.sort!=='none')data=data.slice().sort(function(a,b){return b.value-a.value;});
+  function render(){
+    var svg=m.svg;clear(svg);
+    var W=Math.max(m.host.clientWidth,240),small=W<460,n=data.length;
+    var rowH=spec.rowH||(small?26:30),gap=spec.gap||10;
+    var mT=(spec.refValue!=null)?22:8,mB=8;
+    var H=mT+mB+n*rowH+(n-1)*gap;
+    var maxChars=Math.max.apply(null,data.map(function(d){return String(d.label).length;}));
+    var mL=Math.min(Math.max(maxChars*(small?6.0:6.8)+14,64),W*0.44);
+    var mR=small?46:56;
+    var max=(spec.max!=null)?spec.max:Math.max.apply(null,data.map(function(d){return d.value;}).concat(spec.refValue!=null?[spec.refValue]:[]));
+    var ns=niceScale(0,max,small?3:5),iw=(W-mR)-mL;
+    var Xv=function(v){return mL+(v/ns.max)*iw;};
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);describe(svg,spec);
+    ns.ticks.forEach(function(tv){
+      var gx=Xv(tv);
+      svg.appendChild(svgEl('line',{x1:gx,y1:mT,x2:gx,y2:H-mB,stroke:tv===0?C.axis:C.hair,'stroke-width':tv===0?1.2:1}));
+      var t=svgEl('text',{x:gx,y:mT-7,'text-anchor':'middle','class':'dn-ax'});t.textContent=fmt(tv,spec.x||{});svg.appendChild(t);
+    });
+    data.forEach(function(d,i){
+      var y=mT+i*(rowH+gap),w=Math.max(Xv(d.value)-mL,0),col=d.color||(d.highlight?C.subject:C.muted);
+      var lab=svgEl('text',{x:mL-10,y:y+rowH/2+4,'text-anchor':'end','class':'dn-clabel'});if(d.highlight)lab.setAttribute('fill',C.subject);lab.textContent=d.label;svg.appendChild(lab);
+      var r=svgEl('rect',{x:mL,y:y,width:w,height:rowH,fill:col,rx:2});svg.appendChild(r);growBar(r,0.05+i*0.05);
+      var v=svgEl('text',{x:mL+w+8,y:y+rowH/2+4,'text-anchor':'start','class':'dn-vlabel'});if(d.highlight)v.setAttribute('fill',C.subject);v.textContent=fmt(d.value,spec.x||{});svg.appendChild(v);
+    });
+    m.legend.style.display='none';
+    a11yTable(m.sr,spec.title||'Chart data',[spec.labelTitle||'Item',spec.valueTitle||'Value'],data.map(function(d){return[String(d.label),fmt(d.value,spec.x||{})];}));
+  }
+  lifecycle(m.host,render);return{render:render};}
+
+/* COLUMNS grouped */
+function columns(target,spec){
+  var m=mount(target),groups=spec.groups||[],series=spec.series||[],mode=spec.mode||'grouped';
+  function render(){
+    var svg=m.svg;clear(svg);
+    var W=Math.max(m.host.clientWidth,240),small=W<460;
+    var H=spec.height||Math.round(Math.min(Math.max(W*0.6,220),400));
+    var mL=small?34:44,mR=14,mT=18,mB=small?50:44;
+    var yMax;
+    if(mode==='stacked')yMax=Math.max.apply(null,groups.map(function(g){return series.reduce(function(s,se){return s+(g.values[se.name]||0);},0);}));
+    else yMax=Math.max.apply(null,groups.map(function(g){return Math.max.apply(null,series.map(function(se){return g.values[se.name]||0;}));}));
+    var ns=niceScale(0,yMax,small?4:5),iw=(W-mR)-mL,ih=(H-mB)-mT;
+    var Y=function(v){return mT+ih-(v/ns.max)*ih;},gw=iw/groups.length,gpad=gw*0.18;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);describe(svg,spec);
+    ns.ticks.forEach(function(tv){
+      var gy=Y(tv);
+      svg.appendChild(svgEl('line',{x1:mL,y1:gy,x2:W-mR,y2:gy,stroke:tv===0?C.axis:C.hair,'stroke-width':tv===0?1.2:1}));
+      var t=svgEl('text',{x:mL-8,y:gy+4,'text-anchor':'end','class':'dn-ax'});t.textContent=fmt(tv,spec.y||{});svg.appendChild(t);
+    });
+    groups.forEach(function(g,gi){
+      var gx=mL+gi*gw+gpad;
+      var availW=gw-2*gpad;
+      var bw=mode==='grouped'?availW/series.length:availW;
+      var bpad=mode==='grouped'?bw*0.12:0;
+      var stackY=H-mB;
+      series.forEach(function(se,si){
+        var col=se.color||cat(si);
+        var v=g.values[se.name]||0;
+        if(v<=0)return;
+        var bx,by,bh,bwi;
+        if(mode==='grouped'){bx=gx+si*(bw)+si*bpad;bwi=bw-bpad;by=Y(v);bh=(H-mB)-by;}
+        else{bh=(v/ns.max)*ih;by=stackY-bh;bx=gx;bwi=availW;stackY=by;}
+        var r=svgEl('rect',{x:bx,y:by,width:Math.max(bwi,1),height:Math.max(bh,1),fill:col,rx:1});svg.appendChild(r);growRect(r,0.04+gi*0.04+si*0.04);
+      });
+      var tx=mL+gi*gw+gw/2;
+      var label=String(g.label);
+      // wrap on small screens
+      if(small&&label.length>8){
+        var words=label.split(' ');
+        var mid=Math.ceil(words.length/2);
+        var l1=words.slice(0,mid).join(' '),l2=words.slice(mid).join(' ');
+        var t1=svgEl('text',{x:tx,y:H-mB+14,'text-anchor':'middle','class':'dn-ax'});t1.textContent=l1;svg.appendChild(t1);
+        var t2=svgEl('text',{x:tx,y:H-mB+25,'text-anchor':'middle','class':'dn-ax'});t2.textContent=l2;svg.appendChild(t2);
+      }else{
+        var t=svgEl('text',{x:tx,y:H-mB+14,'text-anchor':'middle','class':'dn-ax'});t.textContent=label;svg.appendChild(t);
+      }
+    });
+    drawLegend(m.legend,series.map(function(se,si){return{name:se.name,color:se.color||cat(si)};}));
+    a11yTable(m.sr,spec.title||'Chart data',['Group'].concat(series.map(function(se){return se.name;})),groups.map(function(g){return[String(g.label)].concat(series.map(function(se){return fmt(g.values[se.name]||0,spec.y||{});}));}));
+  }
+  lifecycle(m.host,render);return{render:render};}
+
+/* INIT */
+window.addEventListener('DOMContentLoaded',function(){
+
+  /* Exhibit 1: Net migration trend 2021-2025 */
+  line('#ex1',{
+    title:'UK net migration, year ending December 2021–2025 (thousands)',
+    summary:'Net migration rose sharply from 239k in 2021 to around 740k in 2023, then fell to 171k in 2025.',
+    series:[{
+      name:'Net migration',color:'#1C46C2',
+      points:[{x:2021,y:239},{x:2022,y:606},{x:2023,y:740},{x:2024,y:331},{x:2025,y:171}]
+    }],
+    x:{title:'Year (YE Dec)',ticks:[2021,2022,2023,2024,2025],fmt:function(v){return String(v);}},
+    y:{compact:true,suffix:'k',label:'Thousands'},
+    notes:[
+      {x:2023,y:740,text:'Peak zone (YE Mar 2023: 944k)',sub:'new ONS method',dy:-14,anchor:'middle'},
+      {x:2025,y:171,text:'171k',sub:'2025',dy:20,anchor:'middle'}
+    ]
+  });
+
+  /* Exhibit 02: Long view — net migration at selected sourced points */
+  bars('#exLong',{
+    title:'The long view — UK net migration at selected sourced points, 1991–2025 (thousands)',
+    summary:'Net migration ran near 44k in 1991, 336k in 2015, fell to 111k in the 2020 Covid trough, peaked at 944k in YE March 2023, then fell to 331k in 2024 and 171k in 2025. Selected reference points, not a continuous series.',
+    sort:'none',
+    rowH:30,
+    data:[
+      {label:'1991',value:44,highlight:false,color:'#9AA0A6'},
+      {label:'2015',value:336,highlight:false,color:'#9AA0A6'},
+      {label:'2020',value:111,highlight:false,color:'#9AA0A6'},
+      {label:'2023 (peak)',value:944,highlight:false,color:'#E0312A'},
+      {label:'2024',value:331,highlight:false,color:'#9AA0A6'},
+      {label:'2025',value:171,highlight:true,color:'#1C46C2'}
+    ],
+    x:{compact:false,suffix:'k'},
+    labelTitle:'Year / period',
+    valueTitle:'Net migration (thousands)'
+  });
+
+  /* Exhibit 03: Visa grants line chart */
+  line('#ex2',{
+    title:'Visa grants by route, selected categories, 2019–2024 (thousands)',
+    summary:'Health and Care Worker visas peaked at 156k in 2023 then collapsed to 23k in 2024. Student dependant visas fell 83%.',
+    endLabels:true,
+    series:[
+      {name:'Student (main)',color:'#56B4E9',points:[{x:2019,y:248},{x:2020,y:165},{x:2021,y:294},{x:2022,y:449},{x:2023,y:449},{x:2024,y:403}]},
+      {name:'H&CW visa',color:'#E0312A',points:[{x:2019,y:7},{x:2020,y:5},{x:2021,y:21},{x:2022,y:77},{x:2023,y:156},{x:2024,y:23}]},
+      {name:'Skilled Worker',color:'#1C46C2',points:[{x:2019,y:32},{x:2020,y:18},{x:2021,y:50},{x:2022,y:84},{x:2023,y:105},{x:2024,y:81}]},
+      {name:'Student dependants',color:'#E69F00',points:[{x:2019,y:17},{x:2020,y:11},{x:2021,y:20},{x:2022,y:67},{x:2023,y:105},{x:2024,y:18}]}
+    ],
+    x:{title:'Year',ticks:[2019,2020,2021,2022,2023,2024],fmt:function(v){return String(v);}},
+    y:{compact:true,suffix:'k',label:'Thousands'}
+  });
+
+  /* Exhibit 04: Signature — grouped columns immigration vs emigration by nationality */
+  columns('#ex3',{
+    title:'UK long-term immigration and emigration by nationality group, year ending December 2025 (thousands)',
+    summary:'Non-EU: 627k in, 278k out (+349k net). EU: 76k in, 118k out (-42k net). British: 110k in, 246k out (-136k net).',
+    mode:'grouped',
+    series:[
+      {name:'Immigration (arriving)',color:'#1C46C2'},
+      {name:'Emigration (leaving)',color:'#E69F00'}
+    ],
+    groups:[
+      {label:'Non-EU nationals',values:{'Immigration (arriving)':627,'Emigration (leaving)':278}},
+      {label:'EU nationals',values:{'Immigration (arriving)':76,'Emigration (leaving)':118}},
+      {label:'British nationals',values:{'Immigration (arriving)':110,'Emigration (leaving)':246}}
+    ],
+    y:{compact:true,suffix:'k',label:'Thousands'}
+  });
+
+  /* Exhibit 05: A decade of change — immigration by nationality 2015 vs 2025 */
+  columns('#exGeo',{
+    title:'Long-term immigration by nationality group, 2015 vs 2025 (thousands)',
+    summary:'EU arrivals fell from 269k in 2015 to 76k in 2025 (about -72%); non-EU arrivals rose from 279k to 627k (about +125%); British returns rose from 84k to 110k. Total immigration rose from about 632k to 813k.',
+    mode:'grouped',
+    series:[
+      {name:'2015 (IPS basis)',color:'#9AA0A6'},
+      {name:'2025 (admin basis)',color:'#1C46C2'}
+    ],
+    groups:[
+      {label:'Non-EU nationals',values:{'2015 (IPS basis)':279,'2025 (admin basis)':627}},
+      {label:'EU nationals',values:{'2015 (IPS basis)':269,'2025 (admin basis)':76}},
+      {label:'British nationals',values:{'2015 (IPS basis)':84,'2025 (admin basis)':110}}
+    ],
+    y:{compact:true,suffix:'k',label:'Thousands'}
+  });
+
+  /* Exhibit 06: Small boats bar chart */
+  bars('#ex4',{
+    title:'Small boat arrivals in the English Channel by year, 2018–2025',
+    summary:'Crossings rose from 299 in 2018 to a peak of 45,774 in 2022, fell to 29,437 in 2023, then rose again to 41,472 in 2025.',
+    sort:'none',
+    data:[
+      {label:'2018',value:299,highlight:false,color:'#9AA0A6'},
+      {label:'2019',value:1843,highlight:false,color:'#9AA0A6'},
+      {label:'2020',value:8466,highlight:false,color:'#9AA0A6'},
+      {label:'2021',value:28526,highlight:false,color:'#9AA0A6'},
+      {label:'2022',value:45774,highlight:false,color:'#E0312A'},
+      {label:'2023',value:29437,highlight:false,color:'#9AA0A6'},
+      {label:'2024',value:36816,highlight:false,color:'#9AA0A6'},
+      {label:'2025',value:41472,highlight:true,color:'#1C46C2'}
+    ],
+    x:{compact:false,suffix:''},
+    labelTitle:'Year',
+    valueTitle:'People detected'
+  });
+
+  /* Exhibit 07: Non-EU immigration by reason */
+  bars('#ex5',{
+    title:'Reasons for non-EU immigration to UK, year ending December 2025 (thousands)',
+    summary:'Study is the most common reason at 294k (47%), followed by work at 146k (23%) and asylum at 88k (14%).',
+    sort:'none',
+    data:[
+      {label:'Study',value:294,highlight:false,color:'#56B4E9'},
+      {label:'Work (incl. dependants)',value:146,highlight:false,color:'#1C46C2'},
+      {label:'Asylum',value:88,highlight:false,color:'#E69F00'},
+      {label:'Family',value:44,highlight:false,color:'#009E73'},
+      {label:'Humanitarian',value:38,highlight:false,color:'#CC79A7'},
+      {label:'Other',value:17,highlight:false,color:'#9AA0A6'}
+    ],
+    x:{compact:false,suffix:'k'},
+    labelTitle:'Reason',
+    valueTitle:'Thousands'
+  });
+});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dn:headline"   content="Where do you sit on Britain's two value scales?">
+<meta name="dn:standfirst" content="The companion to our piece on the British spectrum. Answer the same eleven statements the British Social Attitudes survey has used since 1986 &mdash; five for the economic left&ndash;right scale, six for the liberal&ndash;authoritarian scale &mdash; and we'll place you on the same 0&ndash;100 map, against the national average and where each party's support leans.">
+<meta name="dn:topic"      content="UK politics">
+<meta name="dn:date"       content="2026-06-22">
+<meta name="dn:kind"       content="puzzle">
+<meta name="dn:read"       content="~3 min">
+<title>Digi News — Where do you sit? The British Social Attitudes scales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 64px}
+
+  .mast{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--ink);padding:16px 0;margin-bottom:8px}
+  .mast .mono{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.16em;background:var(--ink);color:#fff;padding:4px 7px;border-radius:3px}
+  .mast .word{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.01em}
+  .mast .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;color:var(--muted);text-align:right;line-height:1.35}
+
+  .topic{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:26px 0 8px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(27px,6vw,40px);line-height:1.08;letter-spacing:-.015em;margin:0 0 14px}
+  .stand{font-size:18px;color:var(--muted);margin:0 0 6px}
+  .stand b{color:var(--ink);font-weight:600}
+  .dateline{font-size:12px;color:var(--faint);letter-spacing:.03em;margin-top:12px;font-family:var(--display);font-weight:600}
+
+  .note{background:var(--accent-soft);border:1px solid #D5DEFA;border-radius:10px;padding:14px 16px;font-size:14.5px;color:#27324d;margin:22px 0}
+  .note b{color:var(--ink)}
+
+  h2{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.01em;margin:34px 0 4px}
+  .scaledesc{font-size:14.5px;color:var(--muted);margin:0 0 14px}
+
+  fieldset{border:none;border-top:1px solid var(--hair);margin:0;padding:18px 0 6px}
+  legend{font-family:var(--body);font-weight:600;font-size:16.5px;color:var(--ink);padding:0;margin-bottom:12px}
+  legend .q{color:var(--faint);font-weight:600;font-family:var(--display);font-size:12px;letter-spacing:.08em;margin-right:8px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{flex:1 1 auto}
+  .opt input{position:absolute;opacity:0;width:0;height:0}
+  .opt label{display:block;text-align:center;border:1px solid var(--hair);border-radius:999px;padding:9px 10px;font-size:13.5px;color:var(--muted);cursor:pointer;background:var(--paper);transition:background .12s,border-color .12s,color .12s;white-space:nowrap}
+  .opt input:checked + label{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .opt input:focus-visible + label{outline:2px solid var(--accent);outline-offset:2px}
+
+  .actions{display:flex;gap:12px;align-items:center;margin:26px 0 0;flex-wrap:wrap}
+  .btn{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.01em;border:none;border-radius:8px;padding:13px 22px;cursor:pointer;background:var(--ink);color:#fff}
+  .btn[disabled]{opacity:.4;cursor:not-allowed}
+  .btn.sec{background:transparent;color:var(--muted);border:1px solid var(--hair)}
+  .progress{font-size:13px;color:var(--muted)}
+
+  .result{margin-top:30px;border:2px solid var(--ink);border-radius:12px;padding:20px;background:var(--paper);display:none}
+  .result.show{display:block}
+  .scores{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px}
+  @media(max-width:520px){.scores{grid-template-columns:1fr}}
+  .sc{border:1px solid var(--hair);border-radius:10px;padding:14px}
+  .sc .lab{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .sc .n{font-family:var(--display);font-weight:800;font-size:34px;line-height:1.1;margin:4px 0}
+  .sc .n small{font-size:16px;color:var(--faint);font-weight:600}
+  .sc .band{font-size:14px;color:var(--muted)}
+
+  .mapwrap{margin-top:16px}
+  .mapwrap svg{width:100%;height:auto;display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center;font-size:13px;color:var(--muted);margin:10px 2px 0}
+  .legend .k{display:inline-flex;align-items:center;gap:6px}
+  .legend .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .legend .sw{width:13px;height:13px;border-radius:3px;display:inline-block;border:1px solid var(--hair)}
+
+  .small{font-size:13.5px;color:var(--muted);line-height:1.65}
+  .foot{margin-top:40px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink)}
+  .foot a{color:var(--accent)}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+  a{color:var(--accent)}
+  .sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">INTERACTIVE<br>22 JUN 2026</div>
+  </header>
+
+  <div class="topic">UK politics &middot; find your place</div>
+  <h1>Where do you sit on Britain's two value scales?</h1>
+  <p class="stand">The companion to our piece on the British spectrum. Answer the <b>same eleven statements</b> the British Social Attitudes survey has used since 1986 &mdash; five for the economic <b>left&ndash;right</b> scale, six for the <b>liberal&ndash;authoritarian</b> scale &mdash; and we'll place you on the same 0&ndash;100 map, against the national average and where each party's support leans.</p>
+  <div class="dateline">Digi News data desk &middot; self-scored &middot; ~3 min</div>
+
+  <div class="note"><b>Read me first.</b> These are NatCen's genuine British Social Attitudes scale items, scored the way NatCen scores them. But this is a <b>self-test, not the survey</b>: the real BSA is a weighted random-probability sample of thousands of people. Your single result is a personal indication, not a data point in any study, and nothing is sent anywhere &mdash; the maths runs in your browser. There is no public tool that returns your &ldquo;official&rdquo; BSA score; the nearest well-known lookalike, the Political Compass, uses a different questionnaire and its own scoring.</div>
+
+  <form id="quiz" novalidate>
+    <h2>Economic: left&ndash;right</h2>
+    <p class="scaledesc">How far you think the economy is stacked against ordinary people, and what the state should do about it. <b>Agreeing leans left.</b></p>
+    <div id="econ"></div>
+
+    <h2>Social: liberal&ndash;authoritarian</h2>
+    <p class="scaledesc">Whether society should enforce shared rules and traditional norms, or leave people to make their own choices. <b>Agreeing leans authoritarian.</b></p>
+    <div id="soc"></div>
+
+    <div class="actions">
+      <button type="button" class="btn" id="go" disabled>See where I sit</button>
+      <button type="button" class="btn sec" id="reset">Clear</button>
+      <span class="progress" id="prog" aria-live="polite">0 of 11 answered</span>
+    </div>
+  </form>
+
+  <section class="result" id="result" aria-live="polite">
+    <div class="scores">
+      <div class="sc">
+        <div class="lab">Economic left&ndash;right</div>
+        <div class="n" id="econN">&mdash;<small>/100</small></div>
+        <div class="band" id="econBand"></div>
+      </div>
+      <div class="sc">
+        <div class="lab">Liberal&ndash;authoritarian</div>
+        <div class="n" id="socN">&mdash;<small>/100</small></div>
+        <div class="band" id="socBand"></div>
+      </div>
+    </div>
+
+    <div class="mapwrap">
+      <div id="map"></div>
+      <div id="mapTable" class="sr"></div>
+      <div class="legend">
+        <span class="k"><span class="dot" style="background:#1C46C2"></span> You</span>
+        <span class="k"><span class="dot" style="background:#CC79A7"></span> Britain (avg)</span>
+        <span class="k"><span class="sw" style="background:rgba(0,158,115,.18)"></span> shaded = party territory (indicative)</span>
+      </div>
+    </div>
+
+    <p class="small" id="readout" style="margin-top:14px"></p>
+    <p class="small">0&nbsp;=&nbsp;most left / most liberal, 100&nbsp;=&nbsp;most right / most authoritarian; 50 is the midpoint. &ldquo;Britain&rdquo; is the recent national average from our piece (economic 33, 2022; social 59, 2025). The faint party names mark where each party's <em>supporters</em> lean on these two scales &mdash; indicative directions from British Social Attitudes 43, <b>not</b> surveyed coordinates.</p>
+  </section>
+
+  <div class="foot">
+    <p><b>Method.</b> Each statement is answered on the standard five-point scale (strongly agree &rarr; strongly disagree). For the economic scale, agreement is scored as more left-wing; for the social scale, agreement is scored as more authoritarian. Each scale is the mean of its items (1&ndash;5), rescaled to 0&ndash;100 exactly as in the article (0&nbsp;=&nbsp;left / liberal, 100&nbsp;=&nbsp;right / authoritarian). All eleven items must be answered for a score. Computation happens entirely in your browser; no responses are stored or transmitted.</p>
+    <p><b>On the party territories.</b> Parties are <em>not</em> plotted at precise points, because no published source gives each party's mean on these exact 0&ndash;100 voter scales. The shaded zones show, directionally, where each party's <em>supporters</em> concentrate on the two scales &mdash; e.g. Reform and Conservative support is heavily authoritarian (Reform only mildly right on economics), while Green, Labour and Liberal Democrat support leans liberal and left-of-centre. Quantifying a party precisely would need either its voters' BSA averages or an expert/manifesto rating such as the Chapel Hill Expert Survey, which uses a different scale from this self-test.</p>
+    <p><b>Source.</b> Scale items and the directional party leanings: British Social Attitudes survey, National Centre for Social Research (NatCen) &mdash; economic left&ndash;right and libertarian&ndash;authoritarian batteries (fielded since 1986) and BSA&nbsp;43, &ldquo;Who supports Reform?&rdquo;. National averages: NatCen BSA&nbsp;40 and BSA&nbsp;43. <a href="https://natcen.ac.uk/british-social-attitudes">natcen.ac.uk</a></p>
+    <p><b>Caveat.</b> A self-administered scale can't reproduce the survey's sampling, weighting or interviewer context, and the six-item social scale deliberately leaves out immigration and trans-rights debates &mdash; so read your result, and the party zones, as useful indications rather than verdicts.</p>
+    <p><b>Figures to 22 Jun 2026.</b> <span class="ver">Digi News &middot; v3.0 &middot; BSA self-scorer.</span></p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var ECON = [
+    "Government should redistribute income from the better-off to those who are less well off",
+    "Big business benefits owners at the expense of workers",
+    "Ordinary working people do not get their fair share of the nation's wealth",
+    "There is one law for the rich and one for the poor",
+    "Management will always try to get the better of employees if it gets the chance"
+  ];
+  var SOC = [
+    "Young people today don't have enough respect for traditional British values",
+    "People who break the law should be given stiffer sentences",
+    "For some crimes, the death penalty is the most appropriate sentence",
+    "Schools should teach children to obey authority",
+    "The law should always be obeyed, even if a particular law is wrong",
+    "Censorship of films and magazines is necessary to uphold moral standards"
+  ];
+  var OPTS = ["Strongly agree","Agree","Neither","Disagree","Strongly disagree"];
+  var answers = {};
+  var TOTAL = ECON.length + SOC.length;
+
+  function buildGroup(hostId, items, prefix){
+    var host = document.getElementById(hostId);
+    items.forEach(function(text, i){
+      var key = prefix + i;
+      var fs = document.createElement("fieldset");
+      var lg = document.createElement("legend");
+      lg.innerHTML = '<span class="q">' + (prefix==="e"?("E"+(i+1)):("S"+(i+1))) + '</span>' + text;
+      fs.appendChild(lg);
+      var opts = document.createElement("div");
+      opts.className = "opts"; opts.setAttribute("role","radiogroup"); opts.setAttribute("aria-label", text);
+      OPTS.forEach(function(label, oi){
+        var wrap = document.createElement("div"); wrap.className="opt";
+        var id = key + "_" + oi;
+        var input = document.createElement("input");
+        input.type="radio"; input.name=key; input.id=id; input.value=String(oi);
+        input.addEventListener("change", function(){ answers[key]=oi; refresh(); });
+        var lab = document.createElement("label"); lab.setAttribute("for", id); lab.textContent=label;
+        wrap.appendChild(input); wrap.appendChild(lab); opts.appendChild(wrap);
+      });
+      fs.appendChild(opts); host.appendChild(fs);
+    });
+  }
+
+  function refresh(){
+    var n = Object.keys(answers).length;
+    document.getElementById("prog").textContent = n + " of " + TOTAL + " answered";
+    document.getElementById("go").disabled = (n < TOTAL);
+  }
+
+  function scoreScale(prefix, n, agreeIsLow){
+    var sum=0;
+    for(var i=0;i<n;i++){ var r=answers[prefix+i]; sum += agreeIsLow ? (r+1) : (5-r); }
+    return Math.round(((sum/n)-1)/4*100);
+  }
+
+  function econBand(s){
+    var rel = s<50 ? "left of centre" : (s>50 ? "right of centre" : "right on the centre");
+    var vsUK = s<33 ? "further left than Britain's 2022 average" : (s>33 ? "to the right of Britain's 2022 average" : "level with Britain's 2022 average");
+    return {short: rel, full: vsUK};
+  }
+  function socBand(s){
+    var rel = s<50 ? "on the liberal side" : (s>50 ? "on the authoritarian side" : "right on the midpoint");
+    var vsUK = s<59 ? "more liberal than Britain's 2025 average" : (s>59 ? "more authoritarian than Britain's 2025 average" : "level with Britain's 2025 average");
+    return {short: rel, full: vsUK};
+  }
+
+  /* ---------- bespoke 0-100 map ---------- */
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs){ var e=document.createElementNS(SVGNS, tag); for(var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  function txt(x,y,s,attrs){ var t=el("text", Object.assign({x:x,y:y}, attrs||{})); t.textContent=s; return t; }
+
+  // indicative party territories (BSA 43 directions): x=economic(0 left-100 right), y=social(0 liberal-100 auth)
+  var PARTIES = [
+    { name:"Green",        x:20, y:24, tint:"#009E73" },
+    { name:"Labour",       x:33, y:42, tint:"#009E73" },
+    { name:"Lib Dem",      x:52, y:34, tint:"#56B4E9" },
+    { name:"Conservative", x:70, y:68, tint:"#D55E00" },
+    { name:"Reform",       x:58, y:84, tint:"#D55E00" }
+  ];
+
+  function buildMap(e, s){
+    var host = document.getElementById("map");
+    host.innerHTML = "";
+    var W=400, H=400, mL=44, mR=22, mT=30, mB=46;
+    var px0=mL, px1=W-mR, py0=H-mB, py1=mT;
+    function X(v){ return px0 + v/100*(px1-px0); }
+    function Y(v){ return py0 - v/100*(py0-py1); }
+
+    var svg = el("svg", { viewBox:"0 0 "+W+" "+H, role:"img", "aria-labelledby":"mapTitle mapDesc" });
+    svg.appendChild(Object.assign(el("title",{id:"mapTitle"}),{textContent:"Your position on Britain's two value scales"}));
+    var desc = el("desc",{id:"mapDesc"});
+    desc.textContent = "A 0 to 100 map. Horizontal axis: economic left (0) to right (100). Vertical axis: social liberal (0) to authoritarian (100). Your point is at economic "+e+", social "+s+". The national average is at economic 33, social 59. Shaded zones indicate, directionally, where each party's supporters lean.";
+    svg.appendChild(desc);
+
+    // quadrant tints (very subtle)
+    var quads = [
+      {x:0,y:0,w:50,h:50, fill:"#009E73"}, // liberal-left
+      {x:50,y:0,w:50,h:50, fill:"#56B4E9"},// liberal-right
+      {x:0,y:50,w:50,h:50, fill:"#E69F00"},// auth-left
+      {x:50,y:50,w:50,h:50, fill:"#D55E00"}// auth-right
+    ];
+    quads.forEach(function(q){
+      svg.appendChild(el("rect",{ x:X(q.x), y:Y(q.y+q.h), width:X(q.x+q.w)-X(q.x), height:Y(q.y)-Y(q.y+q.h), fill:q.fill, "fill-opacity":0.07 }));
+    });
+
+    // frame
+    svg.appendChild(el("rect",{ x:px0, y:py1, width:px1-px0, height:py0-py1, fill:"none", stroke:"#E6E6E2" }));
+    // midpoint dashed crosshair
+    svg.appendChild(el("line",{ x1:X(50), y1:py1, x2:X(50), y2:py0, stroke:"#9AA0A6", "stroke-dasharray":"3 4" }));
+    svg.appendChild(el("line",{ x1:px0, y1:Y(50), x2:px1, y2:Y(50), stroke:"#9AA0A6", "stroke-dasharray":"3 4" }));
+
+    // ticks 0/50/100
+    [0,50,100].forEach(function(v){
+      svg.appendChild(txt(X(v), py0+18, String(v), {"text-anchor":"middle","font-family":"Inter,sans-serif","font-size":"11","fill":"#9AA0A6"}));
+      svg.appendChild(txt(px0-8, Y(v)+4, String(v), {"text-anchor":"end","font-family":"Inter,sans-serif","font-size":"11","fill":"#9AA0A6"}));
+    });
+    // axis labels
+    svg.appendChild(txt((px0+px1)/2, H-8, "economic:  left \u2190 0      50      100 \u2192 right", {"text-anchor":"middle","font-family":"Inter,sans-serif","font-size":"11.5","fill":"#5F636B"}));
+    var ylab = txt(0,0,"social:  liberal \u2190 0    100 \u2192 auth.", {"text-anchor":"middle","font-family":"Inter,sans-serif","font-size":"11.5","fill":"#5F636B","transform":"translate("+(px0-30)+","+((py0+py1)/2)+") rotate(-90)"});
+    svg.appendChild(ylab);
+
+    // party territory labels (indicative, muted)
+    PARTIES.forEach(function(p){
+      svg.appendChild(el("circle",{ cx:X(p.x), cy:Y(p.y), r:3, fill:p.tint, "fill-opacity":0.55 }));
+      svg.appendChild(txt(X(p.x), Y(p.y)-7, p.name, {"text-anchor":"middle","font-family":"Inter,sans-serif","font-size":"12","font-weight":"600","fill":"#5F636B"}));
+    });
+
+    // Britain average
+    svg.appendChild(el("circle",{ cx:X(33), cy:Y(59), r:8.5, fill:"#fff" }));
+    svg.appendChild(el("circle",{ cx:X(33), cy:Y(59), r:6, fill:"#CC79A7" }));
+    svg.appendChild(txt(X(33)+12, Y(59)+4, "Britain (avg)", {"font-family":"Archivo,sans-serif","font-size":"12.5","font-weight":"700","fill":"#15171C"}));
+
+    // You
+    svg.appendChild(el("circle",{ cx:X(e), cy:Y(s), r:9.5, fill:"#fff" }));
+    svg.appendChild(el("circle",{ cx:X(e), cy:Y(s), r:7, fill:"#1C46C2" }));
+    var yx=X(e), yy=Y(s);
+    var anchor = e>78 ? "end" : "start";
+    var dx = e>78 ? -12 : 12;
+    svg.appendChild(txt(yx+dx, yy+4, "You", {"text-anchor":anchor,"font-family":"Archivo,sans-serif","font-size":"13.5","font-weight":"800","fill":"#1C46C2"}));
+
+    host.appendChild(svg);
+
+    // visually-hidden data table
+    var tbl = '<table><caption>Your position on Britain&rsquo;s two value scales (0&ndash;100)</caption>'
+      + '<thead><tr><th>Point</th><th>Economic (left&ndash;right)</th><th>Social (liberal&ndash;authoritarian)</th></tr></thead><tbody>'
+      + '<tr><td>You</td><td>'+e+'</td><td>'+s+'</td></tr>'
+      + '<tr><td>Britain (recent average)</td><td>33</td><td>59</td></tr>'
+      + PARTIES.map(function(p){ return '<tr><td>'+p.name+' supporters (indicative)</td><td>'+p.x+'</td><td>'+p.y+'</td></tr>'; }).join('')
+      + '</tbody></table>';
+    document.getElementById("mapTable").innerHTML = tbl;
+  }
+
+  function show(){
+    var e = scoreScale("e", ECON.length, true);
+    var s = scoreScale("s", SOC.length, false);
+    document.getElementById("econN").innerHTML = e + '<small>/100</small>';
+    document.getElementById("socN").innerHTML = s + '<small>/100</small>';
+    var eb = econBand(e), sb = socBand(s);
+    document.getElementById("econBand").textContent = eb.short.charAt(0).toUpperCase()+eb.short.slice(1)+" \u00b7 "+eb.full;
+    document.getElementById("socBand").textContent = sb.short.charAt(0).toUpperCase()+sb.short.slice(1)+" \u00b7 "+sb.full;
+    document.getElementById("readout").innerHTML =
+      "You scored <b>"+e+"</b> on the economic scale and <b>"+s+"</b> on the social scale &mdash; "+eb.full+" and "+sb.full+". Your dot is in blue; the national average is in pink.";
+    buildMap(e, s);
+    var res = document.getElementById("result");
+    res.classList.add("show");
+    if (typeof res.scrollIntoView === "function") res.scrollIntoView({behavior:(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)?'auto':'smooth', block:"start"});
+  }
+
+  function reset(){
+    answers = {};
+    var inputs = document.querySelectorAll('#quiz input[type=radio]');
+    for(var i=0;i<inputs.length;i++) inputs[i].checked=false;
+    document.getElementById("result").classList.remove("show");
+    refresh();
+    var q=document.getElementById("quiz");
+    if (typeof q.scrollIntoView === "function") q.scrollIntoView({behavior:'auto',block:'start'});
+  }
+
+  buildGroup("econ", ECON, "e");
+  buildGroup("soc", SOC, "s");
+  document.getElementById("go").addEventListener("click", show);
+  document.getElementById("reset").addEventListener("click", reset);
+  refresh();
+})();
+</script>
+</body>
+</html>

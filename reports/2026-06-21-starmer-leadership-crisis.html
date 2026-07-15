@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dn:headline"   content="Two years after a landslide, Keir Starmer&rsquo;s leadership is in open crisis">
+<meta name="dn:standfirst" content="The Observer reports the prime minister is expected to set out a timetable for his departure on Monday; a government source told Reuters he remains focused on the job, and Downing Street has not confirmed anything. Whatever Monday brings, the measured picture is already stark: near-record-low ratings, the heaviest local-election losses in a generation, and a rival newly installed in Parliament with a route to the top.">
+<meta name="dn:topic"      content="UK politics">
+<meta name="dn:date"       content="2026-06-21">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~6 min">
+<title>Digi News — A landslide leader in crisis: why Starmer became so unpopular</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== MASTHEAD ===================== -->
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>21 JUN 2026</div>
+  </header>
+
+  <!-- ===================== HEADLINE ===================== -->
+  <div class="head">
+    <div class="topic">UK politics &middot; Westminster</div>
+    <h1>Two years after a landslide, Keir Starmer&rsquo;s leadership is in open crisis</h1>
+    <p class="standfirst">The Observer reports the prime minister is expected to set out a timetable for his departure on Monday; a government source told Reuters he remains focused on the job, and Downing Street has not confirmed anything.<sup class="cite"><a href="#s5">5</a></sup> Whatever Monday brings, the measured picture is already stark: near-record-low ratings, the heaviest local-election losses in a generation, and a rival newly installed in Parliament with a route to the top.</p>
+    <div class="dateline">Digi News data desk &middot; reading time ~6 min</div>
+  </div>
+
+  <!-- ===================== HERO STATS (measured figures only) ===================== -->
+  <div class="herostats">
+    <div class="hs"><div class="n">&minus;45</div><div class="l">Starmer&rsquo;s net favourability, YouGov, mid-June 2026 &mdash; among the worst recorded for a serving PM<sup class="cite"><a href="#s1">1</a></sup></div></div>
+    <div class="hs"><div class="n">54.8<small>%</small></div><div class="l">Vote share for rival Andy Burnham in the Makerfield by-election, 18 June 2026<sup class="cite"><a href="#s4">4</a></sup></div></div>
+    <div class="hs"><div class="n">6</div><div class="l">UK prime ministers who will have left office in a decade, if Starmer goes<sup class="cite"><a href="#s7">7</a></sup></div></div>
+  </div>
+
+  <!-- ===================== SECTION 1 — WHY UNPOPULAR ===================== -->
+  <section class="section">
+    <div class="eyebrow">What the data shows</div>
+    <h2>A steep, early and broad-based fall in support</h2>
+    <p>Labour won the July 2024 general election with a Commons majority of 172 &mdash; but on the smallest share of the vote of any majority government in modern record-keeping.<sup class="cite"><a href="#s3">3</a></sup> That thin foundation eroded quickly. Starmer&rsquo;s net favourability began marginally positive and fell across his premiership; by January 2026 YouGov put it at roughly &minus;57, a level it otherwise records only for Liz Truss, and it sat near &minus;45 in mid-June 2026.<sup class="cite"><a href="#s1">1</a></sup> The government&rsquo;s own net approval was about &minus;51 in June, leaving Labour almost as unpopular as the Conservatives were on the eve of their 2024 defeat.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>The discontent came from several directions at once. Early policy choices set the tone: a means-test on the winter fuel payment for pensioners &mdash; later largely reversed in 2025 &mdash; was the single least-popular early measure, and surveys soon showed majorities unhappy on immigration, the NHS and an early-release prisons policy.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s8">8</a></sup> Critics on the right attacked tax rises and small-boats numbers; critics on the left objected to welfare reform, the government&rsquo;s stance on the Gaza war and its refusal of a wealth tax.<sup class="cite"><a href="#s8">8</a></sup> Pollster Luke Tryl of More in Common described Starmer as having &ldquo;become a vessel for people&rsquo;s frustration with the system&rdquo;.<sup class="cite"><a href="#s8">8</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">The early policy backlash that set the trajectory</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> YouGov, September 2024, reported in contemporaneous coverage.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s8">8</a></sup> Figures are the share of GB adults expressing the negative view named. Online sample; these are snapshots from early in the premiership, shown to illustrate where the slide began, not current readings.</figcaption>
+    </figure>
+    <p>A separate scandal compounded matters: the appointment, then September 2025 dismissal, of Peter Mandelson &mdash; a friend of the late convicted sex offender Jeffrey Epstein &mdash; as ambassador to Washington, and questions over what Starmer knew and when. Starmer never met Epstein and is not accused of wrongdoing.<sup class="cite"><a href="#s7">7</a></sup></p>
+  </section>
+
+  <!-- ===================== SECTION 2 — WHY NOW ===================== -->
+  <section class="section">
+    <div class="eyebrow">Why the pressure has peaked now</div>
+    <h2>The verdict at the ballot box, then inside the party</h2>
+    <p>Unpopularity became an existential threat when it showed up in votes. At the May 2026 local elections Labour lost control of around 35 councils and close to 1,500 councillors; the BBC&rsquo;s projected national vote share put the party on about 17% &mdash; roughly half its general-election level, and level-pegging for third.<sup class="cite"><a href="#s6">6</a></sup> By mid-May, more than 95 Labour MPs had publicly urged Starmer to resign or set a departure date, and a health secretary, four junior ministers and several aides had quit.<sup class="cite"><a href="#s8">8</a></sup> The threat sharpened on 18 June, when Greater Manchester mayor Andy Burnham &mdash; long seen as the most plausible alternative &mdash; won the Makerfield by-election with 54.8% of the vote and a majority of about 9,200, returning to Parliament and making himself eligible to stand in any leadership contest.<sup class="cite"><a href="#s4">4</a></sup></p>
+    <p>The public verdict is unambiguous in the most recent polling. In an Ipsos survey of 1,142 GB adults conducted 12&ndash;16 June 2026, 52% said Starmer should stand down as prime minister against 35% who said he should continue; two-thirds &mdash; 67% &mdash; said he should not lead Labour into the next general election, and just 8% thought the party more likely to win with him than without.<sup class="cite"><a href="#s2">2</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">&ldquo;Should Keir Starmer stand down as prime minister?&rdquo;</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Ipsos, online survey of 1,142 GB adults aged 18+, 12&ndash;16 June 2026 (before the by-election result).<sup class="cite"><a href="#s2">2</a></sup> Figures weighted to the population; as with all polls, subject to sampling and other error.</figcaption>
+    </figure>
+    <div class="statband">
+      <div class="c"><div class="n">~1,500</div><div class="l">Labour councillors lost at the May 2026 local elections<sup class="cite"><a href="#s6">6</a></sup></div></div>
+      <div class="c"><div class="n">17<small style="font-size:.5em">%</small></div><div class="l">BBC-projected national vote share, 2026 locals &mdash; about half the 2024 level<sup class="cite"><a href="#s6">6</a></sup></div></div>
+      <div class="c"><div class="n">95<small style="font-size:.5em">+</small></div><div class="l">Labour MPs who urged Starmer to go by mid-May 2026<sup class="cite"><a href="#s8">8</a></sup></div></div>
+      <div class="c"><div class="n">&minus;51</div><div class="l">UK government net approval, YouGov, June 2026<sup class="cite"><a href="#s1">1</a></sup></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 3 — HISTORICAL CONTEXT (signature) ===================== -->
+  <section class="section">
+    <div class="eyebrow">In historical context</div>
+    <h2>Six prime ministers in ten years</h2>
+    <p>A leader losing public confidence and being pushed out by their own party between elections is, in itself, an ordinary feature of Britain&rsquo;s parliamentary system: voters elect MPs, not a prime minister directly, and a governing party can replace its leader at any time.<sup class="cite"><a href="#s7">7</a></sup> What is unusual is the <em>pace</em>. In the 26 years from 1979 to 2005 the UK had three prime ministers; from 2005 to 2015, three more; since 2016 it has had six &mdash; four of them in the four years to 2024.<sup class="cite"><a href="#s8">8</a></sup> If Starmer departs, he becomes the sixth to leave office in a decade, and a successor would be the seventh prime minister in ten years.<sup class="cite"><a href="#s7">7</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 03</div><div class="ex-title">Tenures of UK prime ministers, 1979&ndash;2026 &mdash; the spans are getting shorter</div></div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Dates of office, public record; turnover framing per UK in a Changing Europe and contemporaneous coverage.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s7">7</a></sup> Width &prop; time in office. Starmer&rsquo;s bar runs to 21 June 2026 and is ongoing; no future end-date is implied.</figcaption>
+    </figure>
+    <p>The contrast is sharpest when turnover is read as a rate. Three leaders across 26 years is one about every nine years; three across the next decade is one every three; six in the most recent decade is one roughly every 20 months.<sup class="cite"><a href="#s8">8</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 04</div><div class="ex-title">Number of prime ministers per period</div></div>
+      <div class="ex-chart"><div id="ex4"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Public record of offices held; periods as framed by analysts of UK political turnover.<sup class="cite"><a href="#s8">8</a></sup> <b>Caution:</b> the first window spans 26 years and the latter two 10 each, so the counts are not directly comparable &mdash; the meaningful signal is the rising rate noted above, not the raw bars.</figcaption>
+    </figure>
+    <p>Starmer is, in one respect, an outlier even within this turbulent run. His four immediate predecessors were largely &ldquo;takeover&rdquo; prime ministers who inherited crises mid-Parliament; of them, only Rishi Sunak lost a general election, while Theresa May, Boris Johnson and Liz Truss were effectively removed by their own MPs.<sup class="cite"><a href="#s3">3</a></sup> Starmer, by contrast, won a landslide just two years ago &mdash; and the last two leaders to win by comparable margins, Margaret Thatcher and Tony Blair, each governed for around a decade.<sup class="cite"><a href="#s3">3</a></sup></p>
+  </section>
+
+  <!-- ===================== WHAT WE DON'T KNOW ===================== -->
+  <div class="unknowns">
+    <div class="h">What we don&rsquo;t know</div>
+    <p>Whether &mdash; and when &mdash; Starmer actually resigns is unconfirmed: The Observer reports an expected Monday statement, while a government source says he remains focused on governing, and there is no Downing Street confirmation.<sup class="cite"><a href="#s5">5</a></sup> Nor is it settled whether a formal contest will be triggered (a challenger needs 81 nominations) or who would win it. The causes of his unpopularity are many and overlapping &mdash; the economy, Brexit&rsquo;s long shadow, specific policies and scandals &mdash; and polling cannot cleanly isolate which mattered most. Ratings here are snapshots; YouGov&rsquo;s favourability figures come from online panels for which no classical margin of error applies, and small wave-to-wave differences should not be read as real movement.</p>
+  </div>
+
+  <!-- ===================== POSITIONS (genuinely contested) ===================== -->
+  <section class="section">
+    <div class="eyebrow">Where it&rsquo;s genuinely contested</div>
+    <h2>Is rapid turnover a sign of a healthy democracy?</h2>
+    <p>On the facts of how it happens, there is little dispute: mid-term removal of a leader is constitutional and routine in Westminster systems. On what it <em>signifies</em>, credible observers genuinely disagree &mdash; partly an empirical question about consequences, partly a value question about what we want from democracy.</p>
+    <div class="positions">
+      <div class="pos case"><div class="tag">Reads as accountability</div><p>That a party can remove a leader who has lost public confidence &mdash; without a country waiting years for the next election &mdash; is the system being responsive, not breaking down. Voters do not elect a PM directly; the mechanism that lets MPs act on a collapse in support is a feature, not a fault.<sup class="cite"><a href="#s7">7</a></sup></p><div class="kind">Empirical &amp; value</div></div>
+      <div class="pos counter"><div class="tag">Reads as instability</div><p>Frequent changes weaken the office, break policy continuity and can signal a deeper malaise &mdash; weak party loyalty, a stagnant post-Brexit economy, leaders unable to deliver. Landslide winners failing within two years is historically abnormal and, on this view, a symptom of dysfunction rather than healthy renewal.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s7">7</a></sup></p><div class="kind">Empirical &amp; value</div></div>
+    </div>
+    <div class="caveat"><b>Caveat.</b> Two cautions on any tidy reading. First, Starmer&rsquo;s ratings, though very poor, were not quite as low as Johnson&rsquo;s, Sunak&rsquo;s or Truss&rsquo;s immediately before they fell &mdash; so the numbers alone do not fully explain the pressure; party management and Burnham&rsquo;s emergence matter too.<sup class="cite"><a href="#s9">9</a></sup> Second, because he is a landslide winner rather than a mid-term takeover, his case may be partly idiosyncratic, which weakens any claim that his troubles prove a purely <em>structural</em> instability.<sup class="cite"><a href="#s3">3</a></sup></div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> &ldquo;Net favourability&rdquo; is the share favourable minus the share unfavourable; &ldquo;net approval&rdquo; the equivalent for satisfaction with the government. Derived figures &mdash; turnover rates (one PM per period &divide; years in that period) and the by-election majority &mdash; were computed in code and checked against the published results; the per-period PM counts use windows of differing length (26 / 10 / 10 years), so Exhibit 04 is read for rate, not raw height. Hero figures use only measured data; the reported Monday resignation is an unconfirmed scenario and is excluded from every headline figure. Polls cited carry pollster, sample and fielding dates inline; online opt-in panels (YouGov) have no classical margin of error, while Ipsos figures here are from weighted online samples of roughly 1,000&ndash;2,200 GB adults.</div>
+    <div class="fm"><b>Sources.</b> Numbered, highest tier first; each inline citation resolves here.
+      <ol>
+        <li id="s4"><span class="tier t1">T1</span>Makerfield by-election result, 18 June 2026 (electoral record) &mdash; via ITV News / PA and PollCheck. Burnham (Lab) 54.8%, majority ~9,241. Retrieved 21 Jun 2026.</li>
+        <li id="s1"><span class="tier t2">T2</span>YouGov leader-favourability and UK government-approval trackers (Aug 2024&ndash;Jun 2026), accessed via Statista: Starmer net favourability ~&minus;45 (Jun 2026), ~&minus;57 (Jan 2026); government net approval ~&minus;51 (Jun 2026). Retrieved 21 Jun 2026.</li>
+        <li id="s2"><span class="tier t2">T2</span>Ipsos, UK political surveys 2026, incl. Political Pulse 12&ndash;16 Jun 2026 (n=1,142) and 5&ndash;9 Jun 2026 (n=2,247), GB adults 18+, online, weighted. Retrieved 21 Jun 2026.</li>
+        <li id="s3"><span class="tier t2">T2</span>UK in a Changing Europe, Ben Worthy, &ldquo;Why is the UK losing so many Prime Ministers?&rdquo; (2026) &mdash; turnover analysis, takeover-PM framing, dates of office. Retrieved 21 Jun 2026.</li>
+        <li id="s5"><span class="tier t3">T3</span>The Observer (report that Starmer is expected to resign Monday and set a departure timetable) and Reuters (government source says he remains focused on the job), as carried 20&ndash;21 Jun 2026. Retrieved 21 Jun 2026.</li>
+        <li id="s6"><span class="tier t3">T3</span>BBC, 2026 UK local elections &mdash; council losses and projected national vote share (~17%), as reported. Retrieved 21 Jun 2026.</li>
+        <li id="s7"><span class="tier t3">T3</span>CBS News and NBC News, explainers on UK prime-ministerial turnover (&ldquo;six in ten years&rdquo;), the Mandelson&ndash;Epstein appointment, and the by-election&rsquo;s significance, Jun 2026. Retrieved 21 Jun 2026.</li>
+        <li id="s8"><span class="tier t3">T3</span>Contemporaneous coverage of the 2026 Labour leadership crisis aggregating named sources (YouGov, LabourList, The Guardian, More in Common) &mdash; policy-backlash figures, MP letter counts, era turnover counts. Retrieved 21 Jun 2026.</li>
+        <li id="s9"><span class="tier t3">T3</span>The Conversation (academic-authored), on long-run PM satisfaction trends and comparative ratings before recent resignations, Apr 2026. Retrieved 21 Jun 2026.</li>
+      </ol>
+    </div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 21 Jun 2026.</b> <span class="ver">Digi News &middot; v1.0 &middot; published 21 Jun 2026. A developing story; figures and the resignation question may change after publication.</span></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* LINE */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mL = small ? 34 : 44, mR = spec.endLabels ? (small ? 54 : 104) : 18, mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      xt.forEach(function (xv) { var t = svgEl("text", { x: X(xv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : xv; svg.appendChild(t); });
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) { var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col); el.textContent = s.name || fmt(last.y, spec.y || {}); svg.appendChild(el); }
+      });
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var t = svgEl("text", { x: mL + 6, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy;
+        var t = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy, "text-anchor": nt.anchor || "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy + 13, "text-anchor": nt.anchor || "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* BARS */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = (spec.refValue != null) ? 22 : 8, mB = 8;
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var maxChars = Math.max.apply(null, data.map(function (d) { return String(d.label).length; }));
+      var mL = Math.min(Math.max(maxChars * (small ? 6.0 : 6.8) + 14, 64), W * 0.44);
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (d.highlight) lab.setAttribute("fill", C.subject); lab.textContent = d.label; svg.appendChild(lab);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var v = svgEl("text", { x: mL + w + 8, y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (d.highlight) v.setAttribute("fill", C.subject); v.textContent = fmt(d.value, spec.x || {}); svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* COLUMNS */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mL = small ? 34 : 44, mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5), iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var xl = svgEl("text", { x: mL + gi * gw + gw / 2, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = g.label; svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || (g.colors && g.colors[se.name]) || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+            var vt = svgEl("text", { x: x + bw / 2, y: y1 - 6, "text-anchor": "middle", "class": "dn-vlabel" }); vt.textContent = fmt(val, spec.y || {}); svg.appendChild(vt);
+          });
+        }
+      });
+      if (series.length > 1) drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* SLOPE */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: xL, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = spec.left || ""; svg.appendChild(hl);
+      var hr = svgEl("text", { x: xR, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = spec.right || ""; svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      items.forEach(function (it) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = Y(it.from), y1 = Y(it.to);
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var ll = svgEl("text", { x: xL - 10, y: y0 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = it.label; svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: y1 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = fmt(it.to, spec.y || {}); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* SCATTER */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mL = small ? 38 : 48, mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      nx.ticks.forEach(function (tv) { var t = svgEl("text", { x: X(tv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) { var t = svgEl("text", { x: X(p.x) + (p.r || 4.5) + 4, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" }); t.textContent = p.label; svg.appendChild(t); }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* RANGE STRIP */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", idealText(e.projectFrom != null ? col : col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: (bx0 + bx1) / 2, y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: nx, y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: nx, y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30;
+        var maxChars = Math.max.apply(null, events.map(function (e) { return String(e.label).length; }));
+        var mL = Math.min(Math.max(maxChars * (small ? 5.6 : 6.6) + 12, 70), W * 0.4);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); lab.textContent = e.label; svg.appendChild(lab);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+<script>
+(function(){
+var yr = function (v) { return String(Math.round(v)); };
+
+/* Exhibit 01 — early policy backlash (YouGov, Sept 2024) */
+DN.bars("#ex1", {
+  title: "Early policy backlash, September 2024",
+  summary: "Share of GB adults expressing the negative view: against early prisoner release 70%, negative on government immigration policy 67%, NHS managed badly 64%.",
+  data: [
+    { label: "Against early prisoner release", value: 70 },
+    { label: "Negative on immigration policy", value: 67 },
+    { label: "NHS being managed badly", value: 64 }
+  ],
+  sort: "desc",
+  x: { suffix: "%" },
+  max: 100,
+  labelTitle: "View", valueTitle: "% of GB adults"
+});
+
+/* Exhibit 02 — Ipsos June verdict on Starmer's future */
+DN.bars("#ex2", {
+  title: "Should Keir Starmer stand down as prime minister?",
+  summary: "Ipsos, 12 to 16 June 2026: 52% say stand down, 35% say continue, 13% don't know.",
+  data: [
+    { label: "Should stand down", value: 52, highlight: true },
+    { label: "Should continue", value: 35 },
+    { label: "Don't know", value: 13 }
+  ],
+  sort: "none",
+  x: { suffix: "%" },
+  max: 60,
+  labelTitle: "Response", valueTitle: "% of GB adults"
+});
+
+/* Exhibit 03 — signature: PM tenures barcode 1979-2026 */
+DN.rangeStrip("#ex3", {
+  title: "Tenures of UK prime ministers, 1979 to 2026",
+  summary: "Bar width is proportional to time in office. Thatcher (11.6 years) and Blair (10.2) are long; since 2016 the spans shorten sharply, with Truss lasting 49 days. Starmer's bar runs to June 2026 and is ongoing.",
+  mode: "barcode",
+  x: { fmt: yr, min: 1979, max: 2026.5 },
+  categories: [{ name: "Conservative", color: "#0072B2" }, { name: "Labour", color: "#E0312A" }],
+  events: [
+    { label: "Thatcher", start: 1979.34, end: 1990.91, category: "Conservative" },
+    { label: "Major", start: 1990.91, end: 1997.33, category: "Conservative" },
+    { label: "Blair", start: 1997.33, end: 2007.48, category: "Labour" },
+    { label: "Brown", start: 2007.48, end: 2010.36, category: "Labour" },
+    { label: "Cameron", start: 2010.36, end: 2016.53, category: "Conservative" },
+    { label: "May", start: 2016.53, end: 2019.56, category: "Conservative" },
+    { label: "Johnson", start: 2019.56, end: 2022.68, category: "Conservative" },
+    { label: "Truss", start: 2022.68, end: 2022.81, category: "Conservative" },
+    { label: "Sunak", start: 2022.81, end: 2024.51, category: "Conservative" },
+    { label: "Starmer", start: 2024.51, end: 2026.47, category: "Labour" }
+  ],
+  brackets: [{ x0: 2016.53, x1: 2026.47, label: "Six PMs since 2016" }]
+});
+
+/* Exhibit 04 — PMs per period (counts; window lengths differ) */
+DN.columns("#ex4", {
+  title: "Number of UK prime ministers per period",
+  summary: "1979 to 2005 had 3 prime ministers; 2005 to 2015 had 3; 2016 to 2026 had 6.",
+  mode: "grouped",
+  series: [{ name: "PMs", color: "#1C46C2" }],
+  groups: [
+    { label: "1979\u201305 (26y)", values: { "PMs": 3 } },
+    { label: "2005\u201315 (10y)", values: { "PMs": 3 } },
+    { label: "2016\u201326 (10y)", values: { "PMs": 6 } }
+  ],
+  y: { zero: true }
+});
+})();
+</script>
+</body>
+</html>

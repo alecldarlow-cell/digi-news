@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dn:headline"   content="Britain leaned left and liberal. Its politics turned right anyway.">
+<meta name="dn:standfirst" content="The left&ndash;right spectrum can be measured &mdash; Britain has done it the same way since 1986. On those yardsticks the public's average economic and social attitudes have drifted left and become markedly more liberal over the past 15 years. Yet a right-wing populist party has just posted its best-ever result and now leads the polls. What changed most is not the centre of gravity, but the shape of the divide.">
+<meta name="dn:topic"      content="UK politics">
+<meta name="dn:date"       content="2026-06-22">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~12 min">
+<title>Britain leaned left and liberal — its politics turned right anyway | Digi News</title>
+<!--
+  ============================================================================
+  DIGI NEWS — HOUSE TEMPLATE v2   (reuse this chrome for every piece)
+  ============================================================================
+  WHAT'S NEW IN v3 (vs v2)
+  - DN.sankey: flow diagram — ribbon width is proportional to volume (honest
+    length encoding), CVD-safe gradient links (colour marks source->target,
+    paired with a text label + value, so colour is never the sole carrier),
+    automatic layering + crossing-reduction, a hidden flow data <table>, and
+    real-pixel responsive rendering like every other DN chart.
+  - Fix: rangeStrip projected-span labels now use ink over the hatch (legible).
+
+  WHAT'S NEW IN v2 (vs v1)
+  - Embedded DN visualization library (self-contained, no external deps):
+      DN.line · DN.bars · DN.columns · DN.slope · DN.scatter · DN.rangeStrip · DN.sankey
+    Newsroom-idiom SVG: honest scales, annotation layer, colourblind-safe
+    palette, a number formatter, and — critically — REAL-PIXEL RESPONSIVE
+    rendering (1 SVG unit = 1 CSS px via ResizeObserver) so chart type never
+    shrinks below legible on a phone. Every chart also emits a visually-hidden
+    data <table> for screen readers and auditing.
+  - Inline numbered citations with source-tier badges (T1/T2/T3) so evidentiary
+    strength is visible at the point of each claim.
+  - Structural slots for honesty: a "What we don't know" box and a caveat card.
+  - Promoted from the field: signature strip exhibit, reference appendix table.
+  - Footer now carries Corrections + a version line alongside Method + Sources.
+
+  HOW TO USE
+  - Keep the chrome, footer, and the <style> tokens. Replace copy marked REPLACE
+    and the exhibit data in the init script block at the foot of the file.
+  - Build each exhibit by calling a DN.* helper on a <figure>'s chart <div>.
+  - Number exhibits in order. Every exhibit needs a title + a sourced caption.
+  - .positions only when a topic is genuinely contested (steelman both sides).
+  - "What we don't know" whenever data is thin/lagged/modelled or cause unproven.
+  - "Go deeper" only when material was deliberately omitted to hold length.
+  - NEVER let a projection/scenario be the headline or a hero stat. Label it,
+    cordon it (dashed/hatched), and lead with the measured figure.
+
+  DN QUICK REFERENCE  (full notes in the library header below)
+    DN.line(sel,{series:[{name,points:[{x,y}],projectFrom?,band?:[{x,lo,hi}],color?}],
+                 x:{fmt,ticks,min,max,title}, y:{suffix,prefix,decimals,compact,zero},
+                 refsY:[{value,label}], bands:[{x0,x1,label}], notes:[{x,y,text,sub}],
+                 endLabels?, title, summary})
+    DN.bars(sel,{data:[{label,value,highlight?,color?}], sort?, refValue?, refLabel?,
+                 x:{compact,suffix}, title})
+    DN.columns(sel,{mode:'grouped'|'stacked', series:[{name,color?}],
+                 groups:[{label,values:{<seriesName>:n}}], y:{}, title})
+    DN.slope(sel,{left,right, items:[{label,from,to,highlight?}], y:{}, title})
+    DN.scatter(sel,{points:[{x,y,r?,label?,group?}], x:{label}, y:{label},
+                 quadrant:{x?,y?}, title})
+    DN.rangeStrip(sel,{mode:'barcode'|'rows', events:[{label,start,end,category?,projectFrom?}],
+                 categories:[{name,color}], brackets:[{x0,x1,label}], notes:[{x,text,sub}],
+                 x:{fmt}, title})
+    DN.sankey(sel,{nodes?:[{id,label?,color?}], links:[{source,target,value,color?}],
+                 align?:'justify'|'left', nodeWidth?, nodePad?, value:{compact,prefix,suffix,decimals}, title})
+    DN.fmt(v,{decimals,compact,prefix,suffix,plus,pct})
+  PALETTE: ink #15171C · cobalt subject #1C46C2 · contrast-red #E0312A (charts only)
+  Categorical scale is Okabe-Ito (CVD-safe); accent stays reserved for the subject.
+  ============================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- headline ---------- */
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  /* ---------- hero stats ---------- */
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  /* ---------- sections ---------- */
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  /* ---------- exhibit ---------- */
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  /* ---------- DN chart library styling (real-px responsive SVG) ---------- */
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* sankey: labels keep a paper halo so they stay legible over flow ribbons */
+  .dn-nodelabel{paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+  .dn-flow{transition:fill-opacity .15s ease}
+  .dn-flow:hover{fill-opacity:.72}
+  @media(prefers-reduced-motion:reduce){.dn-flow{transition:none}}
+
+  /* ---------- callout ---------- */
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  /* ---------- inline citation + source tiers ---------- */
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  /* ---------- "what we don't know" ---------- */
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- positions (contested only) ---------- */
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  /* ---------- stat band ---------- */
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  /* ---------- caveat card ---------- */
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  /* ---------- appendix table ---------- */
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair)}
+  table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  table.tbl tr:last-child td{border-bottom:none}
+
+  /* ---------- go deeper ---------- */
+  .more{margin-top:18px;list-style:none;border-top:1px solid var(--hair)}
+  .more li{padding:13px 0;border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--muted)}
+  .more li::before{content:"\2192";color:var(--accent);font-weight:700}
+  .more li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== MASTHEAD (fixed) ===================== -->
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>22 JUN 2026</div>
+  </header>
+
+  <!-- ===================== HEADLINE ===================== -->
+  <div class="head">
+    <div class="topic">UK politics &middot; public opinion</div>
+    <h1>Britain leaned left and liberal. Its politics turned right anyway.</h1>
+    <p class="standfirst">The left&ndash;right spectrum can be measured &mdash; Britain has done it the same way since 1986. On those yardsticks the public's average economic and social attitudes have drifted <em>left</em> and become markedly more <em>liberal</em> over the past 15 years. Yet a right-wing populist party has just posted its best-ever result and now leads the polls. What changed most is not the centre of gravity, but the shape of the divide.</p>
+    <div class="dateline">Digi News data desk &middot; reading time ~12 min</div>
+  </div>
+
+  <!-- ===================== HERO STATS (measured figures only) ===================== -->
+  <div class="herostats">
+    <div class="hs"><div class="n">33<small>/100</small></div><div class="l">Economic left&ndash;right score, 2022 (0&nbsp;=&nbsp;left, 100&nbsp;=&nbsp;right) &mdash; down from 41 in 2010<sup class="cite"><a href="#s1">1</a></sup></div></div>
+    <div class="hs"><div class="n">56<small>/100</small></div><div class="l">Liberal&ndash;authoritarian score, 2022 (0&nbsp;=&nbsp;liberal) &mdash; down from 69 in 2011<sup class="cite"><a href="#s1">1</a></sup></div></div>
+    <div class="hs"><div class="n">14.3<small>%</small></div><div class="l">Reform UK's 2024 vote share &mdash; the best general-election result for a right-wing populist party in Britain<sup class="cite"><a href="#s2">2</a></sup></div></div>
+  </div>
+
+  <!-- ===================== EXHIBIT 01 — SIGNATURE: 40 years, two scales ===================== -->
+  <section class="section">
+    <div class="eyebrow">Can it be quantified?</div>
+    <h2>Forty years of the British spectrum, on one scale</h2>
+    <p>The intuition that a country has &ldquo;moved right&rdquo; is testable. Since 1986 the British Social Attitudes survey has placed people on two value scales, each built from a fixed battery of agree/disagree statements and scored from 0 to 100: an <b>economic left&ndash;right</b> scale (redistribution, business, fairness) and a <b>liberal&ndash;authoritarian</b> scale (rules, order, personal freedom).<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s5">5</a></sup> Read together, they are the closest thing Britain has to a thermometer of where the public sits.</p>
+    <p>Two different stories emerge. Economic attitudes are <b>cyclical</b>: Britain edged right under New Labour &mdash; the score peaked near 42 around 2004 and was still 41 in 2010 &mdash; then swung back. By 2022 it stood at 33, close to where it was in the mid-1990s.<sup class="cite"><a href="#s1">1</a></sup> Social attitudes show a <b>one-way, secular shift</b>: the liberal&ndash;authoritarian score held around 69&ndash;71 for a quarter-century, then fell to 56 by 2022 &mdash; a sustained move toward a more liberal outlook on sex, family and personal choice.<sup class="cite"><a href="#s1">1</a></sup> The one recent wrinkle, and the kernel of truth in the &ldquo;moved right&rdquo; feeling, is a small reversal: the score edged back up to 59 by 2025, the first clear turn toward the authoritarian end in the series.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">The signature view &mdash; both value scales, 1986 to 2025 (higher&nbsp;=&nbsp;more right / more authoritarian)</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> British Social Attitudes / NatCen, BSA&nbsp;40 and BSA&nbsp;43.<sup class="cite"><a href="#s1">1</a></sup> Both scales run 0&ndash;100; the dotted line marks the scale midpoint. Points are reported BSA averages for the years shown (the series is collected annually). The latest published economic reading is 2022; the social scale runs to 2025 and shows the recent uptick. On both measures Britain remains less right-wing and less authoritarian than 15 years ago.</figcaption>
+    </figure>
+    <div class="callout"><b>Key finding.</b> On the two long-run measures of British values, the public's average position in 2022 was <b>to the left of, and more liberal than,</b> its position around 2010 &mdash; the opposite of a rightward drift in attitudes.</div>
+  </section>
+
+  <!-- ===================== EXHIBIT 02 — the widening (generational) ===================== -->
+  <section class="section">
+    <div class="eyebrow">Where it widened</div>
+    <h2>The spectrum did stretch &mdash; by age, not by a shared shift right</h2>
+    <p>There is a real sense in which the spectrum has widened. For decades, young and old held almost identical average economic views: in 1986 both the under-35s and the over-55s scored 37, and as recently as 2019 both scored 38.<sup class="cite"><a href="#s1">1</a></sup> Then they parted. By 2022 the under-35s had moved sharply left to 28, while the over-55s barely moved, at 36 &mdash; opening an eight-point gap where there had been none.<sup class="cite"><a href="#s1">1</a></sup> The widening is driven by the <em>young moving left</em>, not by the country moving right.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">Economic left&ndash;right score by age &mdash; the 2019&rarr;2022 divergence</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> British Social Attitudes / NatCen, BSA&nbsp;40.<sup class="cite"><a href="#s1">1</a></sup> Same 0&ndash;100 economic scale as Exhibit&nbsp;01 (lower&nbsp;=&nbsp;more left-wing); bars are zero-based, so length is proportional to the score. Both groups were identical (38) in 2019; by 2022 the under-35 bar has dropped while the over-55 bar holds &mdash; an eight-point gap that did not exist before. Both also scored 37 back in 1986. NatCen judged the divergence real, not a method artefact.<sup class="cite"><a href="#s1">1</a></sup></figcaption>
+    </figure>
+    <p>Your instinct that younger people have grown more liberal while older generations have not is broadly right &mdash; and it is the deeper engine of the whole picture. Throughout the survey's 40 years, the young have always been the more liberal; the country liberalises chiefly because <b>each new generation enters more liberal than the one it replaces</b>.<sup class="cite"><a href="#s1">1</a></sup> Crucially, NatCen's age&ndash;cohort&ndash;period modelling finds this is a <em>birth-cohort</em> effect, not an ageing one: people do not generally turn conservative as they get older, they largely keep the outlook they formed young.<sup class="cite"><a href="#s1">1</a></sup> Take one marker of liberal family values &mdash; disagreeing that people who want children should marry. Just 5% of those born in the 1920s took that view; 41% of the 1960s cohort do (almost unchanged from the 43% they recorded back in 1994); and 55% of those born in the 1990s.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 03</div><div class="ex-title">Each generation more liberal than the last &mdash; family values by birth decade</div></div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> British Social Attitudes / NatCen, BSA&nbsp;40.<sup class="cite"><a href="#s1">1</a></sup> Share who <em>disagree</em> that &ldquo;people who want children should get married&rdquo;, by decade of birth. The 1920s reading is from 1994; the others are recent. Two caveats: some shifts (same-sex relationships, abortion) moved <em>all</em> generations together, not just by replacement; and the newest culture-war issue runs the other way &mdash; support for letting transgender people change their birth certificate fell from 53% in 2019 to 30% now.<sup class="cite"><a href="#s1">1</a></sup></figcaption>
+    </figure>
+    <div class="callout"><b>Consistent with the bigger picture.</b> Generational replacement is exactly why a country can grow steadily more socially liberal even when few individuals change their minds &mdash; and why that drift is likely to continue as older cohorts shrink.</div>
+  </section>
+
+  <!-- ===================== EXHIBIT 03 — the realignment ===================== -->
+  <section class="section">
+    <div class="eyebrow">A second dimension</div>
+    <h2>What really changed: values now predict the vote far more strongly</h2>
+    <p>The bigger structural change is not where people sit but how their values map onto parties. British politics used to run mainly along the economic axis. Now a cultural axis &mdash; liberal versus authoritarian, the dimension that tracks Brexit, immigration and identity &mdash; is roughly as decisive.<sup class="cite"><a href="#s1">1</a></sup> In 2015, libertarians were 21 points more likely than authoritarians to back Labour, the Liberal Democrats or the Greens; by 2024&ndash;25 that gap had doubled to 42 points. The mirror gap on the right &mdash; authoritarians favouring the Conservatives or Reform &mdash; widened from 19 to 32 points.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 04</div><div class="ex-title">How strongly social values pull the vote &mdash; 2015 vs now</div></div>
+      <div class="ex-chart"><div id="ex4"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> British Social Attitudes / NatCen, BSA&nbsp;41.<sup class="cite"><a href="#s1">1</a></sup> Bars show the gap, in percentage points (&ldquo;pts&rdquo; on the axis), in support for each bloc between the most liberal and most authoritarian third of voters. A taller bar means values divide the vote more sharply.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== EXHIBIT 05 — values vs protest ===================== -->
+  <section class="section">
+    <div class="eyebrow">Values or protest?</div>
+    <h2>Are voters swayed off core issues &mdash; or onto a new one?</h2>
+    <p>This is the heart of your question: with the same economic and social scales, can we see whether voters are still moved by bread-and-butter interests, or pulled away by identity and culture-war debates? NatCen's anatomy of the Reform vote is the cleanest test. Support for Reform is sharply sorted by the <b>identity</b> (liberal&ndash;authoritarian) scale &mdash; 34% of the most authoritarian third back it against just 5% of the most liberal, a 29-point gap &mdash; and by welfare attitudes (a 21-point gap). But it is barely sorted by the classic <b>economic</b> left&ndash;right scale at all: a 6-point gap, with only 37% of Reform supporters even sitting on the economic right.<sup class="cite"><a href="#s1">1</a></sup> The party's surge since 2024 came overwhelmingly from the authoritarian end (up 12 points there, against 4 among liberals).<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>So voters have not simply abandoned their material interests for populist theatre. Reform supporters <em>are</em> more discontented &mdash; more likely to be struggling financially and dissatisfied with the NHS &mdash; but NatCen's modelling finds that their <b>ideology</b>, and the identity axis above all, predicts support far more strongly than discontent does.<sup class="cite"><a href="#s1">1</a></sup> The honest summary: a second, cultural axis now does much of the mobilising that economics used to, cross-cutting the old left&ndash;right line rather than erasing it.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 05</div><div class="ex-title">What divides the Reform vote &mdash; identity far more than economics</div></div>
+      <div class="ex-chart"><div id="ex5"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> British Social Attitudes / NatCen, BSA&nbsp;43 (&ldquo;Who supports Reform?&rdquo;).<sup class="cite"><a href="#s1">1</a></sup> Each bar is the gap in Reform support (percentage points) between the opposing thirds of voters on that scale. The economic left&ndash;right gap is small; the identity gap is nearly five times larger.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== EXHIBIT 06 — the education divide ===================== -->
+  <section class="section">
+    <div class="eyebrow">The fault line that did widen</div>
+    <h2>Graduates and non-graduates &mdash; the modern cleavage</h2>
+    <p>If one division has genuinely opened, it is education. Support for Reform climbs steeply as qualifications fall &mdash; from 9% of graduates to 40% of those whose highest qualification is below A-level &mdash; while the Greens, Labour and the Liberal Democrats lean the opposite way.<sup class="cite"><a href="#s1">1</a></sup> It is the modern analogue of the old class divide, but it now runs more on identity than on pay: graduates cluster at the liberal pole, non-graduates at the authoritarian one.</p>
+    <p>And the ground is shifting under it. The share of working-age adults classed as graduates (above A-level) has roughly doubled &mdash; from 24% in 2002 to 42% by 2017.<sup class="cite"><a href="#s9">9</a></sup> Because graduates are the most socially liberal and least Reform-leaning group, this steady expansion keeps <b>enlarging the liberal pole</b> by sheer weight of numbers. That is a large part of why the population's social average drifts liberal across the decades even as the populist-right vote climbs &mdash; the right is winning a bigger share of a group (older non-graduates) that is itself shrinking as a proportion of the country.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 06</div><div class="ex-title">Party support by highest qualification</div></div>
+      <div class="ex-chart"><div id="ex6"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> British Social Attitudes / NatCen, BSA&nbsp;43;<sup class="cite"><a href="#s1">1</a></sup> graduate-share trend, ONS Labour Force Survey.<sup class="cite"><a href="#s9">9</a></sup> Party-support figures are among those who name a party. &ldquo;Graduate&rdquo; in the ONS series is the broad measure (qualifications above A-level), slightly wider than the degree-holder group in the BSA breakdown.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== EXHIBIT 07 — the reconciliation ===================== -->
+  <section class="section">
+    <div class="eyebrow">So why does it feel more right-wing?</div>
+    <h2>Because the electoral right grew, even as average values did not</h2>
+    <p>The feeling is not imaginary &mdash; it is mostly about <em>votes</em>, not values. The principal right-wing populist vehicle (UKIP, then the Brexit Party, now Reform UK) took 12.6% in 2015, fell away in 2017 and 2019 as the Conservatives absorbed the Leave vote, then surged to 14.3% in 2024: the best general-election share a right-wing populist party has ever won in Britain.<sup class="cite"><a href="#s2">2</a></sup><sup class="cite"><a href="#s3">3</a></sup> Researchers note the 2024 Reform vote was almost a mirror image of UKIP's 2015 map (constituency correlation r&nbsp;=&nbsp;0.86) &mdash; a re-emergence and consolidation more than an unprecedented new tide.<sup class="cite"><a href="#s3">3</a></sup></p>
+    <p>That vehicle has since gone further. Through 2025&ndash;26 Reform led national voting-intention polls, peaking around 34% in September 2025 before settling near 25% in spring 2026, with Labour and the Conservatives tied well behind.<sup class="cite"><a href="#s6">6</a></sup> Those are volatile poll estimates, not a recorded result &mdash; but the direction is clear, and the combined Conservative-plus-Labour share at the 2024 election, 57.4%, was already a record low.<sup class="cite"><a href="#s8">8</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 07</div><div class="ex-title">The radical-right vote at UK general elections, 2010&ndash;2024</div></div>
+      <div class="ex-chart"><div id="ex7"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> House of Commons Library general-election results.<sup class="cite"><a href="#s2">2</a></sup> UKIP (2010&ndash;17), the Brexit Party (2019) and Reform&nbsp;UK (2024). The 2017 and 2019 troughs reflect the Conservatives absorbing the Leave vote, not the sentiment disappearing.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== WHAT WE DON'T KNOW ===================== -->
+  <div class="unknowns">
+    <div class="h">What we don't know</div>
+    <p>The two value scales are robust but partial. They were designed around economics, order and personal morality &mdash; and capture <em>immigration</em> and <em>gender/trans</em> debates only weakly, the very issues that animate today's culture-war politics.<sup class="cite"><a href="#s7">7</a></sup> So &ldquo;more socially liberal on the scale&rdquo; does not mean more liberal on every flashpoint. Vote intention is also not the same as a settled value, and current polls are volatile: Ipsos changed its method in mid-2025 (now prompting for Reform), so comparisons across that break need care.<sup class="cite"><a href="#s6">6</a></sup> Averages can also hide a more mobilised flank &mdash; see the caveat below. None of this establishes cause.</p>
+  </div>
+
+  <!-- ===================== POSITIONS (genuinely contested) ===================== -->
+  <section class="section">
+    <div class="eyebrow">Where it's contested</div>
+    <h2>Is Britain actually pulling apart?</h2>
+    <p>Whether the country is &ldquo;polarising&rdquo; is genuinely disputed among credible researchers &mdash; partly because the word hides several different things. This is an empirical dispute, and the evidence points in both directions.</p>
+    <div class="positions">
+      <div class="pos case"><div class="tag">The case: yes, it's fragmenting</div><p>Party support has splintered: the two main parties' combined share hit a record low, and Reform and the Greens are rising at opposite poles.<sup class="cite"><a href="#s8">8</a></sup> &ldquo;Affective&rdquo; polarisation around Brexit identities is real, the share of Britons who say the country feels divided has reached a record 84%, and analysts find some social and geographic divides hardening rather than healing.<sup class="cite"><a href="#s4">4</a></sup><sup class="cite"><a href="#s3">3</a></sup></p><div class="kind">Empirical dispute</div></div>
+      <div class="pos counter"><div class="tag">The counter-case: it's overstated</div><p>Classic <em>issue</em> polarisation &mdash; opinions spreading apart &mdash; is weak: on most social questions Britain is converging on more liberal answers.<sup class="cite"><a href="#s7">7</a></sup> And 62% of the public think politicians invent or exaggerate culture wars as a tactic, up from 44% in 2020 &mdash; suggesting much of the &ldquo;war&rdquo; is elite-driven rather than a deep split in values.<sup class="cite"><a href="#s4">4</a></sup></p><div class="kind">Empirical dispute</div></div>
+    </div>
+    <p style="margin-top:16px;font-size:15px;color:var(--muted)">A reasonable reading: <b>identity-based and party-system fragmentation are real and growing; a wholesale spreading of underlying attitudes is not.</b> Both can be true at once.</p>
+  </section>
+
+  <!-- ===================== STAT BAND + CAVEAT ===================== -->
+  <section class="section">
+    <div class="eyebrow">By the numbers</div>
+    <div class="statband">
+      <div class="c"><div class="n">&minus;8</div><div class="l">Points the economic score fell, 2010&ndash;2022 (leftward)<sup class="cite"><a href="#s1">1</a></sup></div></div>
+      <div class="c"><div class="n">&minus;13</div><div class="l">Points the liberal&ndash;authoritarian score fell, 2011&ndash;2022 (more liberal)<sup class="cite"><a href="#s1">1</a></sup></div></div>
+      <div class="c"><div class="n">2&times;</div><div class="l">Growth in how strongly social values divide the vote, 2015&ndash;now<sup class="cite"><a href="#s1">1</a></sup></div></div>
+      <div class="c"><div class="n">+1.7</div><div class="l">Points Reform 2024 beat UKIP's 2015 peak<sup class="cite"><a href="#s2">2</a></sup></div></div>
+    </div>
+    <div class="caveat"><b>Caveat &mdash; the strongest objection.</b> An average moving left is consistent with a louder, more mobilised <em>right flank</em>. NatCen finds Reform's recent gains were largest among the most right-wing third of voters and among the over-55s.<sup class="cite"><a href="#s1">1</a></sup> So &ldquo;the typical Briton moved left and liberal&rdquo; and &ldquo;the right got bigger and louder at the ballot box&rdquo; are both true. The intuition that the country feels more right-wing captures the second; the value scales capture the first.</div>
+  </section>
+
+  <!-- ===================== REFERENCE APPENDIX ===================== -->
+  <section class="section">
+    <div class="eyebrow">Reference &middot; the full record</div>
+    <h2>The data behind the exhibits</h2>
+    <p>The figures plotted above, so the work can be checked. Value-scale scores are 0&ndash;100 BSA averages; vote shares are GB general-election results.</p>
+    <div class="appx">
+      <table class="tbl">
+        <thead><tr><th>Series</th><th>Year</th><th class="num">Value</th><th>Basis</th></tr></thead>
+        <tbody>
+          <tr><td>Economic left&ndash;right</td><td>2004</td><td class="num">42</td><td>peak (right), New Labour</td></tr>
+          <tr><td>Economic left&ndash;right</td><td>2010</td><td class="num">41</td><td>&mdash;</td></tr>
+          <tr><td>Economic left&ndash;right</td><td>2022</td><td class="num">33</td><td>&asymp; mid-1990s level</td></tr>
+          <tr><td>Liberal&ndash;authoritarian</td><td>2011</td><td class="num">69</td><td>&mdash;</td></tr>
+          <tr><td>Liberal&ndash;authoritarian</td><td>2022</td><td class="num">56</td><td>secular liberal shift</td></tr>
+          <tr><td>Liberal&ndash;authoritarian</td><td>2025</td><td class="num">59</td><td>recent uptick (authoritarian)</td></tr>
+          <tr><td>Economic, under-35s</td><td>2022</td><td class="num">28</td><td>was 38 in 2019</td></tr>
+          <tr><td>Economic, 55+</td><td>2022</td><td class="num">36</td><td>was 38 in 2019</td></tr>
+          <tr><td>&ldquo;Children &rarr; marry&rdquo; % disagree, born 1920s</td><td>1994</td><td class="num">5</td><td>generational marker</td></tr>
+          <tr><td>&ldquo;Children &rarr; marry&rdquo; % disagree, born 1960s</td><td>now</td><td class="num">41</td><td>43 in 1994 &mdash; held</td></tr>
+          <tr><td>&ldquo;Children &rarr; marry&rdquo; % disagree, born 1990s</td><td>now</td><td class="num">55</td><td>most liberal cohort</td></tr>
+          <tr><td>Reform support gap, identity scale</td><td>2025</td><td class="num">29 pts</td><td>auth 34 vs lib 5</td></tr>
+          <tr><td>Reform support gap, economic scale</td><td>2025</td><td class="num">6 pts</td><td>right 21 vs left 15</td></tr>
+          <tr><td>Reform support, by qualification</td><td>2025</td><td class="num">9&ndash;40%</td><td>graduate 9 &rarr; below A-level 40</td></tr>
+          <tr><td>Graduate share, working-age</td><td>2002&ndash;17</td><td class="num">24&rarr;42%</td><td>ONS LFS (above A-level)</td></tr>
+          <tr><td>Radical-right vote</td><td>2015</td><td class="num">12.6%</td><td>UKIP</td></tr>
+          <tr><td>Radical-right vote</td><td>2019</td><td class="num">2.0%</td><td>Brexit Party (Leave vote absorbed by Cons)</td></tr>
+          <tr><td>Radical-right vote</td><td>2024</td><td class="num">14.3%</td><td>Reform UK &mdash; best-ever</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== GO DEEPER ===================== -->
+  <section class="section">
+    <div class="eyebrow">Go deeper</div>
+    <h2>Read more</h2>
+    <p>Threads deliberately held back to keep this piece focused on the national spectrum.</p>
+    <ul class="more">
+      <li><div><b>Immigration: salience vs attitude.</b> Public views on whether migrants are good for Britain stayed net-positive even as immigration became the single most-cited &ldquo;most important issue&rdquo; &mdash; a salience surge, more than an attitude collapse, that this piece only touches.</div></li>
+      <li><div><b>The nations.</b> Scotland's constitutional divide and a London-versus-rest gap on welfare and identity sit beneath the GB-wide averages used here.</div></li>
+      <li><div><b>The young left.</b> Among 18&ndash;24s the Greens, not Labour, now poll first &mdash; a left-pole story that the &ldquo;moved right&rdquo; frame misses entirely.</div></li>
+    </ul>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> The two value scales are the British Social Attitudes survey's standard left&ndash;right and liberal&ndash;authoritarian indices, each built from a fixed battery of agree/disagree items first fielded in 1986 and rescaled 0&ndash;100 (higher&nbsp;=&nbsp;more right-wing / more authoritarian). Scores are NatCen's reported annual averages; the years plotted are those NatCen highlights across the 40-year record. &ldquo;Radical-right vote&rdquo; is the GB general-election share of the principal right-wing populist party of the day (UKIP &rarr; Brexit Party &rarr; Reform&nbsp;UK). The value-to-vote &ldquo;gap&rdquo; in Exhibit&nbsp;04 is the percentage-point difference in a bloc's support between the most liberal and most authoritarian voters; the Reform-vote gaps in Exhibit&nbsp;05 are defined the same way across each value scale. The generational figures in Exhibit&nbsp;03 are a birth-cohort breakdown (year of birth), which NatCen's age&ndash;cohort&ndash;period modelling identifies as the dominant driver of social liberalisation, distinct from any ageing effect. &ldquo;Graduate&rdquo; in the ONS trend is the Labour Force Survey measure (qualifications above A-level), marginally broader than the degree-holder group in the BSA party-by-education breakdown. All derived differences were computed in code and checked against source figures; poll figures are reported with their volatility and a mid-2025 method change noted.</div>
+    <div class="fm"><b>Sources.</b> Numbered, highest tier first; each inline citation resolves here. Retrieved 22 Jun 2026.
+      <ol>
+        <li id="s1"><span class="tier t1">T1</span>British Social Attitudes survey, National Centre for Social Research (NatCen) &mdash; BSA&nbsp;40 (&ldquo;A different Britain?&rdquo; / &ldquo;Secular or cyclical?&rdquo; / &ldquo;Towards a more liberal Britain&rdquo; cohort analysis, 2023&ndash;24), BSA&nbsp;41 (2024), BSA&nbsp;42 (2025) and BSA&nbsp;43 (&ldquo;Who supports Reform?&rdquo;, Curtice et&nbsp;al., 2026). Value-scale averages, age and cohort breakdowns, value-to-vote analysis, the Reform-vote anatomy, and education breakdowns. <a href="https://natcen.ac.uk/british-social-attitudes">natcen.ac.uk</a></li>
+        <li id="s2"><span class="tier t1">T1</span>House of Commons Library &mdash; General Election results and analysis, 2010, 2015, 2017, 2019; and &ldquo;2024 general election: performance of Reform and the Greens&rdquo;. <a href="https://commonslibrary.parliament.uk">commonslibrary.parliament.uk</a></li>
+        <li id="s3"><span class="tier t2">T2</span>Heath, O. &amp; Prosser, C., &ldquo;The 2024 General Election and the Rise of Reform UK&rdquo;, <i>The Political Quarterly</i> (2025) &mdash; social base of the Reform vote; UKIP-2015/Reform-2024 similarity (r&nbsp;=&nbsp;0.86); hardening divides.</li>
+        <li id="s4"><span class="tier t2">T2</span>The Policy Institute, King's College London &amp; Ipsos &mdash; &ldquo;Culture wars&rdquo; / &ldquo;Divided Britain&rdquo; research programme, 2020&ndash;2025 (perceived division; whether culture wars are exaggerated; polarisation typology).</li>
+        <li id="s5"><span class="tier t1">T1</span>Evans, G., Heath, A. &amp; Lalljee, M., &ldquo;Measuring Left&ndash;Right and Libertarian&ndash;Authoritarian Values in the British Electorate&rdquo;, <i>British Journal of Sociology</i> (1996) &mdash; scale construction.</li>
+        <li id="s6"><span class="tier t3">T3</span>Ipsos UK Political Monitor and YouGov voting-intention polls, 2025&ndash;26. Ipsos guidance: a 9-in-10 chance the true value is within ~4 points; sample &asymp;2,250; online random-probability panel from June 2025. Polls, not results &mdash; treated as indicative.</li>
+        <li id="s7"><span class="tier t3">T3</span>Jennings, W., analysis of British Election Study Internet Panel data (2023) &mdash; cited as attribution for the liberal direction of travel and the scales' limited coverage of immigration and trans issues.</li>
+        <li id="s8"><span class="tier t2">T2</span>&ldquo;Fragmentation revisited: the UK General Election of 2024&rdquo;, <i>West European Politics</i> (2024) &mdash; record party-system fragmentation; best-ever right-wing populist GE result.</li>
+        <li id="s9"><span class="tier t1">T1</span>Office for National Statistics &mdash; &ldquo;Graduates in the UK labour market&rdquo; (Labour Force Survey). Share of the working-age population (21&ndash;64) classed as graduates rose from 24% (2002) to 42% (2017). <a href="https://www.ons.gov.uk">ons.gov.uk</a></li>
+      </ol>
+    </div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 22 Jun 2026.</b> <span class="ver">Digi News &middot; v3.0 &middot; UK political spectrum.</span></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ----------------------------------------------------------------------------
+   Newsroom-idiom SVG charts: honest scales, real-px responsive rendering,
+   colourblind-safe palette, annotation layer, and an accessible data table
+   emitted alongside every chart. Mobile-first: charts re-render at 1 SVG unit
+   = 1 CSS pixel via ResizeObserver, so label type never shrinks below legible.
+
+   PUBLIC API  (every chart: DN.<type>(targetSelectorOrEl, spec))
+     DN.line(t, spec)        multi-series time line; projection split; bands; refs; notes
+     DN.bars(t, spec)        horizontal ranked bars; highlight; reference line
+     DN.columns(t, spec)     vertical columns; grouped or stacked; legend
+     DN.slope(t, spec)       slope / dumbbell before-after comparison
+     DN.scatter(t, spec)     x/y points; optional groups; quadrant guides
+     DN.rangeStrip(t, spec)  time spans (barcode timeline / Gantt); projection hatch
+     DN.sankey(t, spec)      flows; ribbon width ∝ volume; gradient links; flow table
+
+     DN.fmt(value, opts)     number formatter (decimals, compact, prefix/suffix, plus, pct)
+     DN.colors, DN.palette   semantic tokens + categorical (Okabe-Ito) scale
+
+   COMMON spec fields: title (required, drives a11y), summary, height,
+     x:{min,max,fmt,ticks,title,label}, y:{min,max,zero,fmt,title,label,decimals,suffix,prefix,compact}
+   Projection rule: pass projectFrom on a series/event; the segment beyond it
+     renders dashed/hatched. Projections must never be the headline figure.
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  /* ---- palette: semantic tokens + Okabe-Ito categorical (CVD-safe) ---- */
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  /* ---- tiny DOM/SVG helpers ---- */
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  /* ---- number formatter ---- */
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  /* ---- nice scale (Heckbert) ---- */
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  /* ---- relative luminance → ideal overlaid text colour ---- */
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  /* ---- responsive mount + lifecycle ---- */
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* ====================================================================== */
+  /* LINE                                                                    */
+  /* ====================================================================== */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mL = small ? 34 : 44, mR = spec.endLabels ? (small ? 54 : 104) : 18, mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      xt.forEach(function (xv) { var t = svgEl("text", { x: X(xv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : xv; svg.appendChild(t); });
+
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) { var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col); el.textContent = s.name || fmt(last.y, spec.y || {}); svg.appendChild(el); }
+      });
+
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var t = svgEl("text", { x: mL + 6, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy;
+        var t = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy, "text-anchor": nt.anchor || "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy + 13, "text-anchor": nt.anchor || "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* BARS (horizontal, ranked)                                               */
+  /* ====================================================================== */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = (spec.refValue != null) ? 22 : 8, mB = 8;
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var maxChars = Math.max.apply(null, data.map(function (d) { return String(d.label).length; }));
+      var mL = Math.min(Math.max(maxChars * (small ? 6.0 : 6.8) + 14, 64), W * 0.44);
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (d.highlight) lab.setAttribute("fill", C.subject); lab.textContent = d.label; svg.appendChild(lab);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var v = svgEl("text", { x: mL + w + 8, y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (d.highlight) v.setAttribute("fill", C.subject); v.textContent = fmt(d.value, spec.x || {}); svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* COLUMNS (vertical, grouped or stacked)                                  */
+  /* ====================================================================== */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mL = small ? 34 : 44, mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5), iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var xl = svgEl("text", { x: mL + gi * gw + gw / 2, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = g.label; svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+          });
+        }
+      });
+      drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SLOPE / DUMBBELL                                                        */
+  /* ====================================================================== */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: xL, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = spec.left || ""; svg.appendChild(hl);
+      var hr = svgEl("text", { x: xR, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = spec.right || ""; svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      items.forEach(function (it) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = Y(it.from), y1 = Y(it.to);
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var ll = svgEl("text", { x: xL - 10, y: y0 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = it.label; svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: y1 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = fmt(it.to, spec.y || {}); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SCATTER                                                                 */
+  /* ====================================================================== */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mL = small ? 38 : 48, mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      nx.ticks.forEach(function (tv) { var t = svgEl("text", { x: X(tv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) { var t = svgEl("text", { x: X(p.x) + (p.r || 4.5) + 4, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" }); t.textContent = p.label; svg.appendChild(t); }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* RANGE STRIP (barcode timeline / Gantt rows)                             */
+  /* ====================================================================== */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", (e.projectFrom != null && (e.start + e.end) / 2 >= e.projectFrom) ? C.ink : idealText(col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: (bx0 + bx1) / 2, y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: nx, y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: nx, y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30;
+        var maxChars = Math.max.apply(null, events.map(function (e) { return String(e.label).length; }));
+        var mL = Math.min(Math.max(maxChars * (small ? 5.6 : 6.6) + 12, 70), W * 0.4);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); lab.textContent = e.label; svg.appendChild(lab);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SANKEY (flows — ribbon width proportional to volume)                    */
+  /* ---------------------------------------------------------------------- */
+  /* Honest encoding: a flow's height (at both ends) and a node's height are  */
+  /* proportional to value on one shared px-per-unit scale. Colour only marks */
+  /* provenance (gradient source -> target); every node carries a text label  */
+  /* and value, so colour is never the sole carrier. Layout: longest-path     */
+  /* layering + barycentre relaxation to reduce crossings. Assumes a DAG.     */
+  /* ====================================================================== */
+  function sankey(target, spec) {
+    var m = mount(target);
+    var rawLinks = (spec.links || []).filter(function (l) { return l && l.value > 0; });
+    var nodeMap = {}, nodes = [];
+    function getNode(id) {
+      var key = "$" + id;
+      if (!Object.prototype.hasOwnProperty.call(nodeMap, key)) {
+        nodeMap[key] = { id: id, label: String(id), ins: [], outs: [], idx: nodes.length };
+        nodes.push(nodeMap[key]);
+      }
+      return nodeMap[key];
+    }
+    (spec.nodes || []).forEach(function (nd) {
+      var n = getNode(nd.id);
+      if (nd.label != null) n.label = String(nd.label);
+      if (nd.color) n.color = nd.color;
+    });
+    var links = rawLinks.map(function (l) {
+      var s = getNode(l.source), t = getNode(l.target);
+      var link = { source: s, target: t, value: +l.value, color: l.color };
+      s.outs.push(link); t.ins.push(link);
+      return link;
+    });
+    nodes.forEach(function (n, i) { if (!n.color) n.color = cat(i); });
+
+    /* longest-path layering (assumes a DAG) */
+    nodes.forEach(function (n) { n.depth = 0; });
+    for (var pass = 0; pass < nodes.length + 1; pass++) {
+      var changed = false;
+      links.forEach(function (l) {
+        if (l.target.depth < l.source.depth + 1) { l.target.depth = l.source.depth + 1; changed = true; }
+      });
+      if (!changed) break;
+    }
+    var maxDepth = 0; nodes.forEach(function (n) { if (n.depth > maxDepth) maxDepth = n.depth; });
+    if (spec.align !== "left") nodes.forEach(function (n) { if (n.outs.length === 0 && n.ins.length) n.depth = maxDepth; });
+    var columns = [];
+    nodes.forEach(function (n) { (columns[n.depth] = columns[n.depth] || []).push(n); });
+    for (var qi = 0; qi < columns.length; qi++) if (!columns[qi]) columns[qi] = [];
+
+    function nodeVal(n) {
+      var i = n.ins.reduce(function (s, l) { return s + l.value; }, 0);
+      var o = n.outs.reduce(function (s, l) { return s + l.value; }, 0);
+      return Math.max(i, o);
+    }
+    function center(n) { return n.y + n.h / 2; }
+    function truncate(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "\u2026" : s; }
+
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.62, 250), 460));
+      var nodeW = spec.nodeWidth || (small ? 11 : 15);
+      var pad = spec.nodePad || (small ? 11 : 16);
+      var labCap = small ? 12 : 22;
+      var first = columns[0] || [], lastCol = columns[columns.length - 1] || [];
+      var lc = Math.max.apply(null, [4].concat(first.map(function (n) { return truncate(n.label, labCap).length; })));
+      var rc = Math.max.apply(null, [4].concat(lastCol.map(function (n) { return truncate(n.label, labCap).length; })));
+      var chpx = small ? 5.7 : 6.7;
+      var mL = Math.min(Math.max(lc * chpx + 12, 38), W * 0.34);
+      var mR = Math.min(Math.max(rc * chpx + 12, 38), W * 0.34);
+      var mT = 16, mB = 12;
+      var innerW = Math.max(W - mL - mR, 60), innerH = Math.max(H - mT - mB, 80);
+      var cols = columns.length;
+      var colStep = cols > 1 ? (innerW - nodeW) / (cols - 1) : 0;
+      function nodeX(d) { return mL + d * colStep; }
+
+      /* one shared value->px scale across every column (honest) */
+      var k = Infinity;
+      columns.forEach(function (col) {
+        var sum = col.reduce(function (s, n) { return s + nodeVal(n); }, 0);
+        var avail = innerH - (col.length - 1) * pad;
+        if (sum > 0) k = Math.min(k, avail / sum);
+      });
+      if (!isFinite(k) || k <= 0) k = 1;
+      nodes.forEach(function (n) { n.h = Math.max(nodeVal(n) * k, 1.5); });
+
+      columns.forEach(function (col) {
+        var totalH = col.reduce(function (s, n) { return s + n.h; }, 0) + (col.length - 1) * pad;
+        var y = mT + (innerH - totalH) / 2;
+        col.forEach(function (n) { n.y = y; y += n.h + pad; });
+      });
+      function collide(col) {
+        col.sort(function (a, b) { return a.y - b.y; });
+        var y = mT, i, n;
+        for (i = 0; i < col.length; i++) { n = col[i]; if (n.y < y) n.y = y; y = n.y + n.h + pad; }
+        y = mT + innerH;
+        for (i = col.length - 1; i >= 0; i--) { n = col[i]; if (n.y + n.h > y) n.y = y - n.h; y = n.y - pad; }
+      }
+      var ITER = 7;
+      for (var it = 0; it < ITER; it++) {
+        var alpha = 0.9 * (1 - it / ITER);
+        for (var c = 1; c < columns.length; c++) {
+          columns[c].forEach(function (n) {
+            if (n.ins.length) { var w = 0, sy = 0; n.ins.forEach(function (l) { sy += center(l.source) * l.value; w += l.value; }); if (w) n.y += (sy / w - center(n)) * alpha; }
+          });
+          collide(columns[c]);
+        }
+        for (var c2 = columns.length - 2; c2 >= 0; c2--) {
+          columns[c2].forEach(function (n) {
+            if (n.outs.length) { var w2 = 0, sy2 = 0; n.outs.forEach(function (l) { sy2 += center(l.target) * l.value; w2 += l.value; }); if (w2) n.y += (sy2 / w2 - center(n)) * alpha; }
+          });
+          collide(columns[c2]);
+        }
+      }
+
+      /* order each node's links by partner position, then stack the bands */
+      nodes.forEach(function (n) {
+        n.outs.sort(function (a, b) { return center(a.target) - center(b.target); });
+        n.ins.sort(function (a, b) { return center(a.source) - center(b.source); });
+        var so = 0; n.outs.forEach(function (l) { l.sy0 = n.y + so; so += l.value * k; l.sy1 = n.y + so; });
+        var ti = 0; n.ins.forEach(function (l) { l.ty0 = n.y + ti; ti += l.value * k; l.ty1 = n.y + ti; });
+      });
+
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var defs = svgEl("defs"); svg.appendChild(defs);
+
+      var gFlows = svgEl("g");
+      links.forEach(function (l) {
+        var x0 = nodeX(l.source.depth) + nodeW, x1 = nodeX(l.target.depth), xm = (x0 + x1) / 2;
+        var fill;
+        if (l.color) { fill = l.color; }
+        else {
+          var gid = "dnsk" + (++UID);
+          var lg = svgEl("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: x0, y1: 0, x2: x1, y2: 0 });
+          lg.appendChild(svgEl("stop", { offset: "0%", "stop-color": l.source.color }));
+          lg.appendChild(svgEl("stop", { offset: "100%", "stop-color": l.target.color }));
+          defs.appendChild(lg); fill = "url(#" + gid + ")";
+        }
+        var d = "M" + x0 + "," + l.sy0 +
+          "C" + xm + "," + l.sy0 + " " + xm + "," + l.ty0 + " " + x1 + "," + l.ty0 +
+          "L" + x1 + "," + l.ty1 +
+          "C" + xm + "," + l.ty1 + " " + xm + "," + l.sy1 + " " + x0 + "," + l.sy1 + "Z";
+        var p = svgEl("path", { d: d, fill: fill, "fill-opacity": (spec.linkOpacity != null ? spec.linkOpacity : 0.44), "class": "dn-flow" });
+        var tt = svgEl("title"); tt.textContent = l.source.label + " \u2192 " + l.target.label + ": " + fmt(l.value, spec.value || {}); p.appendChild(tt);
+        gFlows.appendChild(p);
+      });
+      svg.appendChild(gFlows);
+      if (!REDUCE) {
+        gFlows.style.opacity = 0; gFlows.style.transition = "opacity .7s ease-out";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { gFlows.style.opacity = 1; }); });
+      }
+
+      nodes.forEach(function (n) {
+        var x = nodeX(n.depth), tall = n.h > 26;
+        svg.appendChild(svgEl("rect", { x: x, y: n.y, width: nodeW, height: n.h, fill: n.color, rx: 2 }));
+        var isLast = (n.depth === columns.length - 1);
+        var lx = isLast ? x - 8 : x + nodeW + 8, anchor = isLast ? "end" : "start", cy = n.y + n.h / 2;
+        var lab = svgEl("text", { x: lx, y: cy + (tall ? -1 : 3.5), "text-anchor": anchor, "class": "dn-clabel dn-nodelabel" });
+        lab.textContent = truncate(n.label, labCap); svg.appendChild(lab);
+        if (tall) {
+          var val = svgEl("text", { x: lx, y: cy + 13, "text-anchor": anchor, "class": "dn-annosub dn-nodelabel" });
+          val.textContent = fmt(nodeVal(n), spec.value || {}); svg.appendChild(val);
+        }
+      });
+
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Flow data",
+        [spec.fromTitle || "From", spec.toTitle || "To", spec.valueTitle || "Value"],
+        links.map(function (l) { return [l.source.label, l.target.label, fmt(l.value, spec.value || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip, sankey: sankey,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+<script>
+(function(){
+var yr = function (v) { return String(Math.round(v)); };
+
+/* Exhibit 01 — signature: both BSA value scales, 1986–2025 (higher = right/authoritarian) */
+DN.line("#ex1", {
+  title: "Britain's two value scales, 1986 to 2025",
+  summary: "Economic left-right and liberal-authoritarian averages on a 0-100 scale. Economic attitudes swing cyclically; social attitudes fell sharply (more liberal) before a small recent uptick.",
+  x: { fmt: yr, min: 1986, max: 2025, ticks: [1986, 1996, 2006, 2016, 2025] },
+  y: { zero: true, max: 100 },
+  endLabels: true,
+  refsY: [{ value: 50, label: "Scale midpoint" }],
+  series: [
+    { name: "Economic", color: "#1C46C2",
+      points: [{x:1986,y:38},{x:1995,y:34},{x:2004,y:42},{x:2010,y:41},{x:2013,y:38},{x:2022,y:33}] },
+    { name: "Social", color: "#E69F00",
+      points: [{x:1986,y:69},{x:1999,y:71},{x:2011,y:69},{x:2022,y:56},{x:2025,y:59}] }
+  ]
+});
+
+/* Exhibit 02 — economic scale by age: honest zero-based before/after columns */
+DN.columns("#ex2", {
+  title: "Economic left-right score by age, 2019 vs 2022",
+  summary: "Under-35s and over-55s both averaged 38 on the 0-100 economic scale in 2019. By 2022 the under-35s had moved left to 28 while the over-55s barely moved, at 36. Lower = more left-wing.",
+  mode: "grouped",
+  series: [
+    { name: "2019", color: "#9AA0A6" },
+    { name: "2022", color: "#1C46C2" }
+  ],
+  groups: [
+    { label: "Under 35", values: { "2019": 38, "2022": 28 } },
+    { label: "55 and over", values: { "2019": 38, "2022": 36 } }
+  ],
+  y: { zero: true, max: 50 }
+});
+
+/* Exhibit 03 — generational liberalisation (birth-cohort), % who disagree "people who want children should marry" */
+DN.bars("#ex3", {
+  title: "Each generation is more liberal than the last",
+  summary: "Percentage who disagree that people who want children should get married, by decade of birth. Each younger cohort is markedly more liberal; cohorts then largely keep their views for life.",
+  data: [
+    { label: "Born 1920s", value: 5 },
+    { label: "Born 1960s", value: 41 },
+    { label: "Born 1990s", value: 55, highlight: true }
+  ],
+  sort: "none",
+  x: { suffix: "%" },
+  labelTitle: "Birth cohort", valueTitle: "% disagree people who want children should marry"
+});
+
+/* Exhibit 04 — value-to-vote gap doubled (BSA 41) */
+DN.columns("#ex4", {
+  title: "How strongly social values divide the vote, 2015 vs now",
+  summary: "The percentage-point gap in support for each bloc between the most liberal and most authoritarian voters has roughly doubled since 2015.",
+  mode: "grouped",
+  series: [{ name: "2015" }, { name: "Now" }],
+  groups: [
+    { label: "Liberals \u2192 Lab/LD/Grn", values: { "2015": 21, "Now": 42 } },
+    { label: "Authoritarians \u2192 Con/Reform", values: { "2015": 19, "Now": 32 } }
+  ],
+  y: { zero: true, suffix: " pts" }
+});
+
+/* Exhibit 05 — what the Reform vote runs on: identity, not economics (BSA 43) */
+DN.bars("#ex5", {
+  title: "What divides the Reform vote: identity, not economics",
+  summary: "Gap in Reform support between opposing thirds of voters on each value scale. The identity (liberal-authoritarian) gap is large; the economic left-right gap is small.",
+  data: [
+    { label: "Identity (lib\u2013auth)", value: 29, highlight: true },
+    { label: "Welfare", value: 21 },
+    { label: "Economic (left\u2013right)", value: 6 }
+  ],
+  sort: "none",
+  x: { suffix: " pts" },
+  labelTitle: "Value scale", valueTitle: "Gap in Reform support (percentage points)"
+});
+
+/* Exhibit 06 — the education divide in party support (BSA 43, Table 2) */
+DN.columns("#ex6", {
+  title: "Party support by highest qualification",
+  summary: "Reform support rises steeply as qualifications fall; support for the Greens, Labour and the Liberal Democrats moves the opposite way.",
+  mode: "grouped",
+  series: [
+    { name: "Reform", color: "#D55E00" },
+    { name: "Labour", color: "#E0312A" },
+    { name: "Green", color: "#009E73" },
+    { name: "Lib Dem", color: "#E69F00" }
+  ],
+  groups: [
+    { label: "Degree", values: { Reform: 9, Labour: 35, Green: 16, "Lib Dem": 16 } },
+    { label: "A-level", values: { Reform: 24, Labour: 30, Green: 12, "Lib Dem": 9 } },
+    { label: "Below A-level", values: { Reform: 40, Labour: 23, Green: 5, "Lib Dem": 7 } }
+  ],
+  y: { zero: true, suffix: "%" }
+});
+
+/* Exhibit 07 — radical-right GE vote share over time (HoC Library) */
+DN.columns("#ex7", {
+  title: "Radical-right vote share at UK general elections, 2010-2024",
+  summary: "UKIP, then the Brexit Party, then Reform UK. The vote peaked in 2015, was absorbed by the Conservatives in 2017-19, and reached a record 14.3% in 2024.",
+  mode: "grouped",
+  series: [{ name: "Vote share", color: "#0072B2" }],
+  groups: [
+    { label: "2010", values: { "Vote share": 3.1 } },
+    { label: "2015", values: { "Vote share": 12.6 } },
+    { label: "2017", values: { "Vote share": 1.8 } },
+    { label: "2019", values: { "Vote share": 2.0 } },
+    { label: "2024", values: { "Vote share": 14.3 } }
+  ],
+  y: { zero: true, suffix: "%" }
+});
+})();
+</script>
+
+</body>
+</html>

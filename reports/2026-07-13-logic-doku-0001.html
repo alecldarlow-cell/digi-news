@@ -1,0 +1,548 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="dn:headline"   content="Doku 0001">
+<meta name="dn:standfirst" content="No clues, just letters. Place every banked tile so each across and down run reads as a real word.">
+<meta name="dn:topic"      content="Logic">
+<meta name="dn:date"       content="2026-07-13">
+<meta name="dn:kind"       content="puzzle">
+<meta name="dn:read"       content="~3 min">
+<title>Digi Puzzles — The Digi Doku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Digi Puzzles house style ----------
+   Cobalt + marigold on cool paper. Mono for the machinery (DP tile, IDs,
+   numbers, timer), Space Grotesk for the wordmark, letters & UI. One bold
+   move: the marigold active cell / selected tile. Everything else stays quiet. */
+:root{
+  --paper:#EDEEF2; --card:#FFFFFF; --ink:#141726; --ink-soft:#5A5F73;
+  --line:#141726; --brand:#2E5BFF; --brand-deep:#1B3B9E;
+  --active:#FFD54A; --active-word:#FFF0B8; --good:#1F9E6B; --good-bg:#E4F4EC;
+  --bad:#E4483B; --block:#141726; --radius:14px;
+  --mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
+  --sans:"Space Grotesk",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+  line-height:1.45;-webkit-font-smoothing:antialiased;padding:18px;display:flex;justify-content:center}
+.app{width:100%;max-width:560px}
+/* masthead — Digi house family (tile + one-word wordmark + rule) */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;border-bottom:2px solid var(--ink);padding-bottom:11px}
+.masthead{display:flex;align-items:center;gap:10px}
+.mono-mark{flex:0 0 auto;width:32px;height:32px;border-radius:7px;background:var(--brand);color:#fff;
+  font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.04em;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.18),0 1.5px 0 var(--brand-deep)}
+.mh-text{display:flex;flex-direction:column;line-height:1.05}
+.mh-name{font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.mh-name .accent{color:var(--brand)}
+.mh-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px}
+.streakbox{font-family:var(--mono);font-size:13px;color:var(--ink-soft);background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:4px 12px}
+.streakbox b{color:var(--ink)}
+.meta{font-family:var(--mono);font-size:12px;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:14px;display:flex;gap:10px;align-items:center}
+.tag{background:var(--brand);color:#fff;border-radius:5px;padding:1px 7px;text-transform:uppercase;font-weight:700;font-size:11px}
+#timer{margin-left:auto;color:var(--ink);font-weight:700}
+main{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px}
+.howto{font-size:13.5px;color:var(--ink-soft);text-align:center;max-width:360px;margin:0 auto 12px}
+
+/* grid — cells are a FIXED square (five equal rows & cols) so a box never resizes as it fills */
+.grid{--n:5;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);gap:0;width:min(100%,320px);aspect-ratio:1;
+  border:3px solid var(--line);background:var(--line);border-radius:10px;overflow:hidden}
+.cell{position:relative;min-width:0;min-height:0;background:var(--card);border:1px solid #cfd3dc;display:flex;align-items:center;justify-content:center;user-select:none;transition:background .12s}
+.cell.play{cursor:pointer}
+.cell.block{background:var(--block);cursor:default;border-color:var(--block)}
+.cell .num{position:absolute;top:2px;left:4px;font-family:var(--mono);font-size:10px;color:var(--ink-soft);line-height:1;pointer-events:none}
+.cell .ltr{font-family:var(--sans);font-weight:700;font-size:min(6vw,26px);text-transform:uppercase;pointer-events:none}
+.cell.locked{background:#eef0f6}
+.cell.locked .ltr{color:var(--ink)}
+.cell.filled .ltr{color:var(--brand-deep)}
+.cell.inword{background:var(--active-word)}      /* current run — pale marigold */
+.cell.active{background:var(--active)}            /* the one bold move — marigold */
+.cell.solved{background:var(--good-bg)}
+.cell.solved .ltr{color:var(--good)}
+.cell.dragover{background:var(--active-word);box-shadow:inset 0 0 0 2px var(--brand)}
+.cell.reject{animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.cell.pop{animation:cellpop .34s ease}
+@keyframes cellpop{0%{transform:scale(1)}45%{transform:scale(.86)}100%{transform:scale(1)}}
+/* off-screen input that summons the device (native) keyboard */
+.hiddeninput{position:absolute;top:0;left:50%;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0;margin:0;font-size:16px}
+
+/* bank */
+.bankwrap{width:min(100%,340px);margin-top:16px}
+.banklabel{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.banklabel b{color:var(--ink)}
+.bank{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;min-height:46px;background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:10px}
+.tile{width:40px;height:44px;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:700;font-size:20px;text-transform:uppercase;
+  background:var(--card);border:1.5px solid var(--ink);border-radius:9px;cursor:grab;transition:transform .08s,background .12s,box-shadow .12s}
+.tile:hover{background:#e3e6ee}
+.tile:active{cursor:grabbing}
+.tile.sel{background:var(--active);border-color:var(--brand-deep);box-shadow:0 0 0 3px var(--active-word);transform:translateY(-2px)}
+.bank.empty::after{content:"bank empty — tap a placed letter to send it back";color:var(--ink-soft);font-size:13px;font-family:var(--sans)}
+
+/* controls + msg */
+.msg{min-height:22px;margin:16px 0 4px;font-size:15px;color:var(--brand-deep);text-align:center;font-weight:500}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-bottom:12px}
+button{font-family:var(--sans);font-size:13px;font-weight:500;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);border-radius:9px;padding:8px 14px;cursor:pointer}
+button:hover{background:#e3e6ee}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+button.primary:hover{background:var(--brand-deep)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+
+/* win celebration */
+.grid.celebrate .cell:not(.block){animation:cellwin .6s ease both}
+@keyframes cellwin{0%{transform:scale(1)}35%{transform:scale(1.14);background:var(--active)}70%{background:var(--active-word)}100%{transform:scale(1);background:var(--good-bg)}}
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60;display:none}
+.confetti.on{display:block}
+.modal{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:20px;
+  background:rgba(20,23,38,.42);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.modal.on{display:flex}
+.modalcard{width:100%;max-width:340px;background:var(--card);border:2px solid var(--ink);border-radius:16px;
+  padding:22px 20px 18px;text-align:center;box-shadow:0 10px 0 var(--brand-deep),0 26px 44px rgba(20,23,38,.30);
+  animation:rise .48s cubic-bezier(.2,.9,.25,1.12)}
+@keyframes rise{from{transform:translateY(20px) scale(.95);opacity:0}to{transform:none;opacity:1}}
+.modalcard .check{width:54px;height:54px;border-radius:50%;background:var(--good);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:30px;line-height:1;box-shadow:0 4px 0 #157a52}
+.modalcard h2{font-family:var(--sans);font-size:25px;margin:0 0 3px;color:var(--ink);letter-spacing:-.01em}
+.modalcard .sub{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:15px}
+.statrow{display:flex;gap:10px;justify-content:center;margin-bottom:16px}
+.stat{flex:1;max-width:100px;background:var(--paper);border:1.5px solid var(--ink);border-radius:11px;padding:9px 6px}
+.stat b{display:block;font-family:var(--mono);font-size:21px;color:var(--ink);line-height:1.15}
+.stat span{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.modalbtns{display:flex;gap:8px}
+.modalbtns button{flex:1;margin:0}
+@media(prefers-reduced-motion:reduce){.grid.celebrate .cell:not(.block){animation:none}.modalcard{animation:none}.cell.pop,.cell.reject{animation:none}}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.05em;margin-top:10px;text-align:center}
+</style></head><body><div class="app">
+<header>
+  <div class="masthead">
+    <span class="mono-mark" aria-hidden="true">DP</span>
+    <span class="mh-text">
+      <span class="mh-name"><b>Digi</b><span class="accent">Puzzles</span></span>
+      <span class="mh-eyebrow">The Digi Doku</span>
+    </span>
+  </div>
+  <div class="streakbox">streak <b id="streak">0</b> · best <b id="best">0</b></div>
+</header>
+<div class="meta"><span id="pid">DP·LEXI·0001</span><span>·</span><span class="tag" id="pband">medium</span><span id="timer">00:00</span></div>
+
+<p class="howto">Fill every white square. Tap a bank letter then a square to place it — or tap a square and type on your keyboard (only bank letters land). Tap a placed letter to send it back.</p>
+
+<main>
+  <div id="grid" class="grid" aria-label="LexiDoku grid"></div>
+  <div class="bankwrap">
+    <div class="banklabel">Letter bank<span>left <b id="bankleft">0</b></span></div>
+    <div id="bank" class="bank"></div>
+  </div>
+  <input id="hidden" class="hiddeninput" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" aria-hidden="true" tabindex="-1">
+</main>
+
+<div id="msg" class="msg"></div>
+<div class="controls">
+  <button id="keyboard">⌨︎ Keyboard</button>
+  <button id="shuffle">Shuffle bank</button>
+  <button id="reset" class="primary">Reset</button>
+</div>
+<footer>THE DIGI DOKU · spatial word logic · validated in-browser · code, not eye</footer>
+
+<canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+<div id="winModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+  <div class="modalcard">
+    <div class="check" aria-hidden="true">✓</div>
+    <h2 id="winTitle">Solved!</h2>
+    <div class="sub" id="winSub">The Digi Doku</div>
+    <div class="statrow">
+      <div class="stat"><b id="winTime">00:00</b><span>time</span></div>
+      <div class="stat"><b id="winStreak">0</b><span>streak</span></div>
+      <div class="stat"><b id="winBest">0</b><span>best</span></div>
+    </div>
+    <div class="modalbtns">
+      <button id="winShare">Share result</button>
+      <button id="winAgain" class="primary">Play again</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const B="#";
+
+/* ---- puzzle data (validated in code before shipping) ---- */
+const PUZZLE={
+  id:"DP·LEXI·0001", band:"medium",
+  sol:[
+    [B,   B,   "C","A","M"],
+    [B,   "M", "O","L","E"],
+    ["R", "A", "V","E","N"],
+    ["A", "R", "E","S", B ],
+    ["N", "E", "T", B,  B ],
+  ],
+  locked:[[2,4],[3,3],[4,2],[5,1]].map(([r,c])=>[r-1,c-1]),
+  bank:["A","A","A","C","E","E","E","E","M","M","N","O","R","S","T"],
+};
+
+/* ---- self-validation gate: a broken puzzle refuses to render ---- */
+(function gate(){
+  const g=PUZZLE.sol, lk=new Set(PUZZLE.locked.map(([r,c])=>r+","+c));
+  const need={};
+  for(let r=0;r<5;r++)for(let c=0;c<5;c++){
+    const ch=g[r][c]; if(ch===B) continue;
+    if(lk.has(r+","+c)) continue;
+    need[ch]=(need[ch]||0)+1;
+  }
+  const have={}; PUZZLE.bank.forEach(x=>have[x]=(have[x]||0)+1);
+  const keys=new Set([...Object.keys(need),...Object.keys(have)]);
+  for(const k of keys){ if((need[k]||0)!==(have[k]||0)) throw "bank does not match playable cells: "+k; }
+})();
+
+/* ---- state ---- */
+let entries, bank, selTile, active, solved, started, seconds, tHandle, wordCells, solvedKeys;
+
+const isBlock=(r,c)=>PUZZLE.sol[r][c]===B;
+const isLocked=(r,c)=>PUZZLE.locked.some(([lr,lc])=>lr===r&&lc===c);
+const letterAt=(r,c)=>isLocked(r,c)?PUZZLE.sol[r][c]:(entries[r][c]||"");
+const inBounds=(r,c)=>r>=0&&r<5&&c>=0&&c<5;
+
+/* across/down word runs (length >=2) as lists of [r,c] cells */
+function buildWords(){
+  const words=[];
+  for(let r=0;r<5;r++){let run=[];for(let c=0;c<5;c++){
+    if(isBlock(r,c)){if(run.length>=2)words.push({dir:"A",cells:run});run=[];}else run.push([r,c]);}
+    if(run.length>=2)words.push({dir:"A",cells:run});}
+  for(let c=0;c<5;c++){let run=[];for(let r=0;r<5;r++){
+    if(isBlock(r,c)){if(run.length>=2)words.push({dir:"D",cells:run});run=[];}else run.push([r,c]);}
+    if(run.length>=2)words.push({dir:"D",cells:run});}
+  return words;
+}
+function runAt(r,c,dir){
+  const w=wordCells.find(w=>w.dir===dir&&w.cells.some(([rr,cc])=>rr===r&&cc===c));
+  return w?w.cells:null;
+}
+
+/* standard crossword numbering for the corner numbers */
+function numbering(){
+  const nums={};let n=0;
+  for(let r=0;r<5;r++)for(let c=0;c<5;c++){
+    if(isBlock(r,c))continue;
+    const startA=(c===0||isBlock(r,c-1))&&(c+1<5&&!isBlock(r,c+1));
+    const startD=(r===0||isBlock(r-1,c))&&(r+1<5&&!isBlock(r+1,c));
+    if(startA||startD){n++;nums[r+","+c]=n;}
+  }
+  return nums;
+}
+const nums=numbering();
+
+/* ---- device (native) keyboard via an off-screen input ---- */
+const hidden=$("#hidden");
+const TOUCH=(window.matchMedia&&window.matchMedia("(pointer:coarse)").matches)||("ontouchstart" in window);
+function wantNative(){return TOUCH;}
+function focusHidden(){if(solved)return;try{hidden.focus({preventScroll:true});}catch(_){hidden.focus();}}
+function clearHidden(){hidden.value="";}
+function feed(str){for(const ch of str){if(/[a-z]/i.test(ch))tryLetter(ch);}}
+hidden.addEventListener("beforeinput",e=>{
+  if(e.inputType==="insertText"||e.inputType==="insertCompositionText"){if(e.data)feed(e.data);e.preventDefault();clearHidden();}
+  else if(e.inputType&&e.inputType.indexOf("delete")===0){backspace();e.preventDefault();clearHidden();}
+});
+hidden.addEventListener("input",()=>{const v=hidden.value;if(v){feed(v);clearHidden();}}); // fallback where beforeinput is unsupported
+/* physical keyboards — guard against double-entry when the off-screen input already handled it */
+document.addEventListener("keydown",e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.target===hidden)return;                       // hidden input's beforeinput handles it
+  if(/^[a-zA-Z]$/.test(e.key)){tryLetter(e.key);e.preventDefault();}
+  else if(e.key==="Backspace"){backspace();e.preventDefault();}
+  else if(e.key==="ArrowRight"){moveActive(0,1);e.preventDefault();}
+  else if(e.key==="ArrowLeft"){moveActive(0,-1);e.preventDefault();}
+  else if(e.key==="ArrowDown"){moveActive(1,0);e.preventDefault();}
+  else if(e.key==="ArrowUp"){moveActive(-1,0);e.preventDefault();}
+});
+
+/* ---- render grid ---- */
+function paintGrid(){
+  const g=$("#grid"); g.innerHTML="";
+  const solvedSet=solvedWordCellSet();
+  const runCells=active?runAt(active.r,active.c,active.dir):null;
+  for(let r=0;r<5;r++)for(let c=0;c<5;c++){
+    const d=document.createElement("div");
+    d.dataset.r=r; d.dataset.c=c;
+    if(isBlock(r,c)){d.className="cell block";g.appendChild(d);continue;}
+    d.className="cell play";
+    const num=nums[r+","+c];
+    if(num){const s=document.createElement("span");s.className="num";s.textContent=num;d.appendChild(s);}
+    const ltr=letterAt(r,c);
+    if(ltr){const s=document.createElement("span");s.className="ltr";s.textContent=ltr;d.appendChild(s);}
+    if(isLocked(r,c)) d.classList.add("locked");
+    else if(entries[r][c]) d.classList.add("filled");
+    const isSolved=solvedSet.has(r+","+c);
+    if(isSolved) d.classList.add("solved");
+    if(!isSolved&&runCells&&runCells.some(([rr,cc])=>rr===r&&cc===c)) d.classList.add("inword");
+    if(active&&active.r===r&&active.c===c) d.classList.add("active");
+    d.addEventListener("click",()=>onCell(r,c));
+    d.addEventListener("dragover",e=>{if(!isLocked(r,c)&&!entries[r][c]&&!solved){e.preventDefault();d.classList.add("dragover");}});
+    d.addEventListener("dragleave",()=>d.classList.remove("dragover"));
+    d.addEventListener("drop",e=>{e.preventDefault();d.classList.remove("dragover");
+      const i=+e.dataTransfer.getData("text/plain"); if(!isNaN(i))placeFromBank(i,r,c);});
+    g.appendChild(d);
+  }
+}
+function cellEl(r,c){return $("#grid").children[r*5+c];}
+function popCell(r,c){const el=cellEl(r,c);if(el){el.classList.add("pop");setTimeout(()=>el.classList.remove("pop"),340);}}
+function rejectCell(r,c){const el=cellEl(r,c);if(el){el.classList.add("reject");setTimeout(()=>el.classList.remove("reject"),300);}}
+
+function solvedWordCellSet(){
+  const set=new Set();
+  for(const w of wordCells){
+    const ok=w.cells.every(([r,c])=>letterAt(r,c)===PUZZLE.sol[r][c]);
+    if(ok)w.cells.forEach(([r,c])=>set.add(r+","+c));
+  }
+  return set;
+}
+
+/* ---- render bank ---- */
+function paintBank(){
+  const host=$("#bank"); host.innerHTML="";
+  host.classList.toggle("empty",bank.length===0);
+  bank.forEach((ch,i)=>{
+    const t=document.createElement("div");
+    t.className="tile"+(selTile===i?" sel":"");
+    t.textContent=ch; t.setAttribute("draggable","true");
+    t.addEventListener("click",e=>{e.stopPropagation();selectTile(i);});
+    t.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",i);e.dataTransfer.effectAllowed="move";});
+    host.appendChild(t);
+  });
+  $("#bankleft").textContent=bank.length;
+}
+
+/* ---- active cell + direction ---- */
+function pickDir(r,c){ // prefer across if the cell sits in an across run
+  if(runAt(r,c,"A"))return "A"; if(runAt(r,c,"D"))return "D"; return "A";
+}
+function setActive(r,c,keepDir){
+  if(isBlock(r,c))return;
+  if(active&&active.r===r&&active.c===c&&!keepDir){
+    const other=active.dir==="A"?"D":"A";                  // tap again toggles direction
+    if(runAt(r,c,other))active.dir=other;
+  }else{
+    active={r,c,dir:keepDir&&active?active.dir:pickDir(r,c)};
+    if(!runAt(r,c,active.dir))active.dir=active.dir==="A"?"D":"A";
+  }
+  paintGrid(); if(wantNative())focusHidden();
+}
+function moveActive(dr,dc){
+  if(!active||solved)return;
+  let {r,c}=active;
+  for(let k=0;k<5;k++){r+=dr;c+=dc;if(!inBounds(r,c))return;if(!isBlock(r,c)){active={r,c,dir:(dr===0?"A":"D")};paintGrid();if(wantNative())focusHidden();return;}}
+}
+function advanceInRun(){
+  if(!active)return;
+  const cells=runAt(active.r,active.c,active.dir); if(!cells)return;
+  const idx=cells.findIndex(([r,c])=>r===active.r&&c===active.c);
+  for(let k=idx+1;k<cells.length;k++){const [r,c]=cells[k];if(!isLocked(r,c)&&!entries[r][c]){active={r,c,dir:active.dir};return;}}
+}
+
+/* ---- interactions ---- */
+function selectTile(i){ if(solved)return; selTile=(selTile===i)?null:i; paintBank(); }
+
+function onCell(r,c){
+  if(solved||isBlock(r,c))return;
+  if(isLocked(r,c)){ setActive(r,c); return; }            // locked: just move focus here
+  if(entries[r][c]){                                       // placed letter -> back to bank
+    returnLetter(r,c); setActive(r,c,true); return;
+  }
+  if(selTile!==null){ placeFromBank(selTile,r,c); return; } // empty + tile selected -> place
+  setActive(r,c);                                           // empty, no tile -> activate + raise keyboard
+}
+
+function takeFromBank(ch){ const i=bank.indexOf(ch); if(i<0)return false; bank.splice(i,1); return true; }
+
+function placeFromBank(i,r,c){
+  if(solved||i<0||i>=bank.length)return;
+  if(isBlock(r,c)||isLocked(r,c)||entries[r][c])return;
+  startTimer();
+  entries[r][c]=bank[i]; bank.splice(i,1);
+  selTile=null; active={r,c,dir:active?active.dir:pickDir(r,c)};
+  if(!runAt(r,c,active.dir))active.dir=pickDir(r,c);
+  advanceInRun();
+  afterMove([[r,c]]);
+}
+
+/* type a letter into the active cell, pulled from the bank */
+function tryLetter(ch){
+  if(solved)return;
+  if(!active) return;
+  const r=active.r,c=active.c;
+  if(isLocked(r,c)){advanceInRun();paintGrid();return;}
+  ch=ch.toUpperCase();
+  const existing=entries[r][c];
+  if(existing===ch){advanceInRun();paintGrid();return;}     // already there — just advance
+  // free the cell first so its letter is available again, then require ch from the bank
+  if(existing) bank.push(existing);
+  if(!takeFromBank(ch)){
+    if(existing) bank.pop();                                 // undo the temporary return
+    rejectCell(r,c);
+    $("#msg").textContent=`No “${ch}” left in the bank.`;
+    paintBank();
+    return;
+  }
+  startTimer();
+  entries[r][c]=ch;
+  advanceInRun();
+  afterMove([[r,c]]);
+}
+
+function returnLetter(r,c){
+  if(solved||!entries[r][c])return;
+  bank.push(entries[r][c]); entries[r][c]="";
+  afterMove([]);
+}
+function backspace(){
+  if(solved||!active)return;
+  const {r,c}=active;
+  if(entries[r][c]){ returnLetter(r,c); paintGrid(); return; }
+  // empty: step back within the run and clear that one
+  const cells=runAt(r,c,active.dir); if(!cells)return;
+  const idx=cells.findIndex(([rr,cc])=>rr===r&&cc===c);
+  for(let k=idx-1;k>=0;k--){const [pr,pc]=cells[k];if(!isLocked(pr,pc)){active={r:pr,c:pc,dir:active.dir};if(entries[pr][pc])returnLetter(pr,pc);paintGrid();return;}}
+}
+
+function afterMove(pops){
+  paintGrid(); paintBank();
+  announceNewWords();
+  pops.forEach(([r,c])=>popCell(r,c));
+  checkWin();
+}
+
+/* ephemeral feedback when a whole word turns correct */
+const wordKey=cells=>cells.map(([r,c])=>r+","+c).join("|");
+const wordString=cells=>cells.map(([r,c])=>PUZZLE.sol[r][c]).join("");
+function announceNewWords(){
+  for(const w of wordCells){
+    const ok=w.cells.every(([r,c])=>letterAt(r,c)===PUZZLE.sol[r][c]);
+    const k=wordKey(w.cells);
+    if(ok&&!solvedKeys.has(k)){solvedKeys.add(k);if(!solved)$("#msg").textContent=wordString(w.cells)+" ✓";}
+    if(!ok&&solvedKeys.has(k))solvedKeys.delete(k);
+  }
+}
+
+/* ---- timer ---- */
+function startTimer(){if(started||solved)return;started=true;tHandle=setInterval(()=>{seconds++;renderTime();},1000);}
+function stopTimer(){if(tHandle)clearInterval(tHandle);tHandle=null;}
+function renderTime(){const m=String(Math.floor(seconds/60)).padStart(2,"0"),s=String(seconds%60).padStart(2,"0");$("#timer").textContent=`${m}:${s}`;}
+
+/* ---- win + celebration ---- */
+const reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+function checkWin(){
+  if(solved)return;
+  let done=true;
+  for(let r=0;r<5;r++)for(let c=0;c<5;c++){if(isBlock(r,c))continue;if(letterAt(r,c)!==PUZZLE.sol[r][c]){done=false;}}
+  if(!done)return;
+  solved=true; stopTimer(); selTile=null; active=null;
+  $("#msg").innerHTML=`Solved in <b>${$("#timer").textContent}</b>. Nice.`;
+  celebrate(); bumpStreak();
+}
+function celebrate(){
+  $("#winTime").textContent=$("#timer").textContent;
+  $("#winStreak").textContent=$("#streak").textContent;
+  $("#winBest").textContent=$("#best").textContent;
+  $("#winSub").textContent=`${PUZZLE.id} · ${PUZZLE.band}`;
+  paintGrid();
+  if(reduceMotion){$("#winModal").classList.add("on");return;}
+  // beat 1 — green cascade sweeps diagonally across the grid (~1.2s)
+  const g=$("#grid"); g.classList.add("celebrate");
+  $$("#grid .cell").forEach(cell=>{const r=+cell.dataset.r,c=+cell.dataset.c;if(isBlock(r,c))return;cell.style.animationDelay=((r+c)*90)+"ms";});
+  setTimeout(()=>{g.classList.remove("celebrate");$$("#grid .cell").forEach(c=>c.style.animationDelay="");},1900);
+  // beat 2 — confetti a beat into the cascade
+  setTimeout(()=>confettiBurst(200),350);
+  // beat 3 — results card rises after the wave, with a small second burst
+  setTimeout(()=>{confettiBurst(80);$("#winModal").classList.add("on");},1450);
+}
+let _cf={cv:null,ctx:null,parts:[],raf:0,W:0,H:0,dpr:1};
+function confettiBurst(n){
+  if(reduceMotion)return;
+  const cv=$("#confetti"); if(!cv||!cv.getContext)return;
+  const ctx=cv.getContext("2d"); if(!ctx)return;
+  const dpr=Math.min(2,window.devicePixelRatio||1);
+  if(!_cf.raf){
+    cv.classList.add("on");
+    _cf.dpr=dpr; _cf.W=cv.width=innerWidth*dpr; _cf.H=cv.height=innerHeight*dpr;
+    cv.style.width=innerWidth+"px"; cv.style.height=innerHeight+"px";
+    _cf.cv=cv; _cf.ctx=ctx; _cf.parts.length=0;
+  }
+  const d=_cf.dpr, cols=["#2E5BFF","#FFD54A","#1F9E6B","#1B3B9E","#ffffff"];
+  const rect=$("#grid").getBoundingClientRect();
+  const ox=(rect.left+rect.width/2)*d, oy=(rect.top+rect.height*0.42)*d;
+  for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2, sp=(4+Math.random()*9)*d;
+    _cf.parts.push({x:ox,y:oy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-8*d,g:.16*d,
+      w:(5+Math.random()*6)*d,rot:Math.random()*6.28,vr:(-.35+Math.random()*.7),
+      col:cols[i%cols.length],life:0,max:110+Math.random()*70});}
+  if(!_cf.raf)confettiLoop();
+}
+function confettiLoop(){
+  const {ctx,W,H}=_cf; ctx.clearRect(0,0,W,H); let alive=false;
+  for(const p of _cf.parts){ if(p.life>p.max)continue; alive=true;
+    p.life++; p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+    ctx.save(); ctx.globalAlpha=Math.max(0,1-p.life/p.max);
+    ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.col;
+    ctx.fillRect(-p.w/2,-p.w/2,p.w,p.w*0.6); ctx.restore(); }
+  if(alive){_cf.raf=requestAnimationFrame(confettiLoop);}
+  else{_cf.raf=0; _cf.parts.length=0; ctx.clearRect(0,0,W,H); _cf.cv.classList.remove("on");}
+}
+$("#winShare").onclick=async()=>{
+  const txt=`The Digi Doku · ${PUZZLE.id}\nSolved in ${$("#timer").textContent} — streak ${$("#streak").textContent} (best ${$("#best").textContent})\nmade with Digi Puzzles`;
+  const b=$("#winShare");
+  try{await navigator.clipboard.writeText(txt);b.textContent="Copied ✓";}
+  catch(_){b.textContent="Copy unavailable";}
+  setTimeout(()=>b.textContent="Share result",1500);
+};
+$("#winAgain").onclick=()=>{$("#winModal").classList.remove("on");init();};
+$("#winModal").addEventListener("click",e=>{if(e.target===$("#winModal"))$("#winModal").classList.remove("on");});
+
+/* per-day streak (persistent via window.storage when available, else in-memory) */
+const SKEY="digi-doku-streak";
+async function getStreak(){
+  try{ if(window.storage){const r=await window.storage.get(SKEY);return r?JSON.parse(r.value):null;} }catch(e){}
+  return window.__streak||null;
+}
+async function saveStreak(o){
+  window.__streak=o;
+  try{ if(window.storage){await window.storage.set(SKEY,JSON.stringify(o));} }catch(e){}
+}
+const today=()=>new Date().toISOString().slice(0,10);
+async function bumpStreak(){
+  let s=await getStreak()||{last:null,streak:0,best:0,dates:[]};
+  const t=today();
+  if(s.dates&&s.dates.includes(t)){return refreshStreakUI(s);}
+  const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+  s.streak=(s.last===y)?s.streak+1:1;
+  s.last=t; s.best=Math.max(s.best||0,s.streak);
+  s.dates=[...new Set([...(s.dates||[]),t])].slice(-90);
+  await saveStreak(s); refreshStreakUI(s);
+}
+async function refreshStreakUI(s){
+  s=s||await getStreak()||{streak:0,best:0};
+  $("#streak").textContent=s.streak||0; $("#best").textContent=s.best||0;
+  if(solved){$("#winStreak").textContent=s.streak||0;$("#winBest").textContent=s.best||0;}
+}
+
+/* ---- controls ---- */
+$("#reset").onclick=()=>init();
+$("#keyboard").onclick=()=>{ if(!active){const f=firstEmpty();if(f)active={r:f[0],c:f[1],dir:pickDir(f[0],f[1])};} paintGrid(); focusHidden(); };
+$("#shuffle").onclick=()=>{ if(solved)return; for(let i=bank.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bank[i],bank[j]]=[bank[j],bank[i]];} selTile=null; paintBank(); };
+document.addEventListener("click",e=>{ if(!e.target.closest(".tile")&&!e.target.closest(".cell")&&!e.target.closest("button")){selTile=null;paintBank();} });
+function firstEmpty(){for(let r=0;r<5;r++)for(let c=0;c<5;c++)if(!isBlock(r,c)&&!isLocked(r,c)&&!entries[r][c])return [r,c];return null;}
+
+/* ---- init ---- */
+function init(){
+  entries=Array.from({length:5},()=>Array(5).fill(""));
+  bank=[...PUZZLE.bank];
+  selTile=null; active=null; solved=false; started=false; seconds=0;
+  if(tHandle)clearInterval(tHandle); tHandle=null;
+  wordCells=buildWords(); solvedKeys=new Set();
+  $("#pid").textContent=PUZZLE.id; $("#pband").textContent=PUZZLE.band;
+  $("#msg").textContent=""; $("#winModal").classList.remove("on");
+  renderTime(); paintGrid(); paintBank();
+}
+init();
+refreshStreakUI();
+</script></div></body></html>

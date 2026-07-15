@@ -1,5 +1,5 @@
 {
-  "built": "2026-07-15T08:18:04.449Z",
+  "built": "2026-07-15T14:37:53.118Z",
   "count": 18,
   "items": [
     {
@@ -11,7 +11,10 @@
       "date": "2026-07-14",
       "read": "~5 min",
       "thumb": "",
-      "stat": "11"
+      "stat": "11",
+      "statUnit": "",
+      "statLabel": "Times NIF has reached fusion ignition, Dec 2022–Jun 2026 1",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-14-logic-doku-0002.html",
@@ -22,7 +25,10 @@
       "date": "2026-07-14",
       "read": "~3 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ".#LL....L.LL......L.L..#."
     },
     {
       "path": "reports/2026-07-14-medicine-crispr-leaves-the-lab.html",
@@ -33,7 +39,10 @@
       "date": "2026-07-14",
       "read": "~9 min",
       "thumb": "",
-      "stat": "93%"
+      "stat": "93",
+      "statUnit": "%",
+      "statLabel": "Sickle cell patients free of severe pain crises for 12 months or more (39 of 42 evaluable, long-term follow-up)",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-13-logic-doku-0001.html",
@@ -44,7 +53,10 @@
       "date": "2026-07-13",
       "read": "~3 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-12-crossword-mini-0004.html",
@@ -55,7 +67,10 @@
       "date": "2026-07-12",
       "read": "~3 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "#...#...............#...#"
     },
     {
       "path": "reports/2026-07-11-crossword-mini-0003.html",
@@ -66,7 +81,10 @@
       "date": "2026-07-11",
       "read": "~3 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "#...#...............#...#"
     },
     {
       "path": "reports/2026-07-10-crossword-mini-0002.html",
@@ -77,7 +95,10 @@
       "date": "2026-07-10",
       "read": "~3 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "#...#...............#...#"
     },
     {
       "path": "reports/2026-07-08-ai-pace-of-progress.html",
@@ -88,7 +109,10 @@
       "date": "2026-07-08",
       "read": "~8 min",
       "thumb": "",
-      "stat": "94%"
+      "stat": "94",
+      "statUnit": "%",
+      "statLabel": "Top GPQA Diamond science score today, up from 39% at GPT-4 in 2023 3 6",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-04-ai-grid-cost.html",
@@ -99,7 +123,10 @@
       "date": "2026-07-04",
       "read": "~5 min",
       "thumb": "",
-      "stat": "415TWh"
+      "stat": "415",
+      "statUnit": "TWh",
+      "statLabel": "Electricity used by data centres worldwide, 2024",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-30-ubi-evidence-and-cost.html",
@@ -110,7 +137,10 @@
       "date": "2026-06-30",
       "read": "~6 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-29-burnham-platform.html",
@@ -121,7 +151,10 @@
       "date": "2026-06-29",
       "read": "~6 min",
       "thumb": "",
-      "stat": "9,241"
+      "stat": "9,241",
+      "statUnit": "",
+      "statLabel": "Burnham’s majority in the Makerfield by-election, 18 June 2026 4",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-27-money-and-happiness.html",
@@ -132,7 +165,10 @@
       "date": "2026-06-27",
       "read": "~11 min",
       "thumb": "",
-      "stat": "2×"
+      "stat": "2",
+      "statUnit": "×",
+      "statLabel": "A doubling of income buys roughly the same step up in well-being — from $30k or from $300k 2",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-27-uk-wages-vs-g7.html",
@@ -143,7 +179,10 @@
       "date": "2026-06-27",
       "read": "~6 min",
       "thumb": "",
-      "stat": "$63,691"
+      "stat": "$63,691",
+      "statUnit": "",
+      "statLabel": "UK average annual wage, 2024 (real, USD PPP) — 4th in the G7 1",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-23-uk-migration-falls.html",
@@ -154,7 +193,10 @@
       "date": "2026-06-23",
       "read": "~10 min",
       "thumb": "",
-      "stat": "171k"
+      "stat": "171",
+      "statUnit": "k",
+      "statLabel": "Net migration, year to Dec 2025 — nearly halved from 331k in 2024",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-22-starmer-why-unpopular.html",
@@ -165,29 +207,38 @@
       "date": "2026-06-22",
       "read": "~8 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-22-uk-political-spectrum.html",
       "kind": "report",
       "topic": "UK politics",
       "headline": "Britain leaned left and liberal. Its politics turned right anyway.",
-      "standfirst": "The left–right spectrum can be measured — Britain has done it the same way since 1986. On those yardsticks the public",
+      "standfirst": "The left–right spectrum can be measured — Britain has done it the same way since 1986. On those yardsticks the public's average economic and social attitudes have drifted left and become markedly more liberal over the past 15 years. Yet…",
       "date": "2026-06-22",
       "read": "~12 min",
       "thumb": "",
-      "stat": "33/100"
+      "stat": "33",
+      "statUnit": "/100",
+      "statLabel": "Economic left–right score, 2022 (0 = left, 100 = right) — down from 41 in 2010 1",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-22-where-do-you-sit.html",
       "kind": "puzzle",
       "topic": "UK politics",
-      "headline": "Where do you sit on Britain",
-      "standfirst": "The companion to our piece on the British spectrum. Answer the same eleven statements the British Social Attitudes survey has used since 1986 — five for the economic left–right scale, six for the liberal–authoritarian scale — and we",
+      "headline": "Where do you sit on Britain's two value scales?",
+      "standfirst": "The companion to our piece on the British spectrum. Answer the same eleven statements the British Social Attitudes survey has used since 1986 — five for the economic left–right scale, six for the liberal–authoritarian scale — and we'll p…",
       "date": "2026-06-22",
       "read": "~3 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     },
     {
       "path": "reports/2026-06-21-starmer-leadership-crisis.html",
@@ -198,7 +249,10 @@
       "date": "2026-06-21",
       "read": "~6 min",
       "thumb": "",
-      "stat": ""
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     }
   ]
 }

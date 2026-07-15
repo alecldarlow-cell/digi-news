@@ -1,7 +1,17 @@
 {
-  "built": "2026-07-15T07:57:48.536Z",
-  "count": 9,
+  "built": "2026-07-15T08:03:44.412Z",
+  "count": 13,
   "items": [
+    {
+      "path": "reports/2026-07-14-fusion-ignition.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Eleven times, a lab has made more fusion energy than its lasers delivered",
+      "standfirst": "Since December 2022 the National Ignition Facility has reached fusion ignition eleven times, peaking at a record 8.6 megajoules in April 2025. But that milestone counts energy on target — not the roughly 300–400 megajoules the lasers dra…",
+      "date": "2026-07-14",
+      "read": "~5 min",
+      "thumb": ""
+    },
     {
       "path": "reports/2026-07-14-medicine-crispr-leaves-the-lab.html",
       "kind": "report",
@@ -13,12 +23,42 @@
       "thumb": ""
     },
     {
+      "path": "reports/2026-07-08-ai-pace-of-progress.html",
+      "kind": "report",
+      "topic": "Artificial intelligence",
+      "headline": "Frontier AI’s exam scores have stalled near the ceiling. Its real-world reach is still doubling.",
+      "standfirst": "The benchmarks the industry leaned on have saturated, which makes progress look like a plateau. On task length — the least saturated measure available — the reach of frontier models has gone on doubling roughly every four to seven months…",
+      "date": "2026-07-08",
+      "read": "~8 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-07-04-ai-grid-cost.html",
+      "kind": "report",
+      "topic": "Technology",
+      "headline": "AI is still a small slice of the world’s electricity",
+      "standfirst": "Data centres used about 1.5% of global electricity in 2024, and AI only a fraction of that. The load is growing fast and set to roughly double by 2030 — yet even then it would add less new demand than cooling or electric cars. The same p…",
+      "date": "2026-07-04",
+      "read": "~5 min",
+      "thumb": ""
+    },
+    {
       "path": "reports/2026-06-30-ubi-evidence-and-cost.html",
       "kind": "report",
       "topic": "Economics",
       "headline": "Basic income barely moved how much people work. The cost is the sticking point.",
       "standfirst": "A decade of experiments — Helsinki, Texas, Stockton, rural Kenya — finds that unconditional cash reliably improves financial security and wellbeing, with small and mixed effects on employment. What none of them can settle is whether a co…",
       "date": "2026-06-30",
+      "read": "~6 min",
+      "thumb": ""
+    },
+    {
+      "path": "reports/2026-06-29-burnham-platform.html",
+      "kind": "report",
+      "topic": "UK politics",
+      "headline": "The Burnham platform: where a new Labour leader would break from Starmer—and where he couldn’t",
+      "standfirst": "Andy Burnham is the clear favourite to succeed Keir Starmer, who resigned on 22 June. He has no published manifesto, but in interviews he has set out positions that diverge from the present government on transport, public ownership, the…",
+      "date": "2026-06-29",
       "read": "~6 min",
       "thumb": ""
     },

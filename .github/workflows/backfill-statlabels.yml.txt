@@ -1,0 +1,100 @@
+name: Backfill stat labels (one-shot)
+
+# A throwaway. It writes a dn:statlabel meta into the nine reports that predate
+# the tile kicker, so you never open them by hand. Run it once from the Actions
+# tab, check the diff on the commit it makes, then DELETE THIS FILE — future
+# pieces carry the meta from the template and nothing needs backfilling again.
+#
+# It is idempotent and inert by default: dry-run unless you tick the box, and it
+# skips any file that already has a dn:statlabel.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Untick for a dry run (prints the diff, commits nothing)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write dn:statlabel into the reports
+        env:
+          APPLY: ${{ inputs.apply }}
+        run: |
+          cat > /tmp/backfill.js <<'SCRIPT'
+          const fs = require('fs');
+
+          // path → kicker. Max 14 chars: the tile fits no more, and the builder
+          // drops anything longer rather than clipping it.
+          const LABELS = {
+            'reports/2026-07-14-fusion-ignition.html':                'ignitions',
+            'reports/2026-07-14-medicine-crispr-leaves-the-lab.html': 'of patients',
+            'reports/2026-07-08-ai-pace-of-progress.html':            'exam score',
+            'reports/2026-07-04-ai-grid-cost.html':                   'data centres',
+            'reports/2026-06-29-burnham-platform.html':               'majority',
+            'reports/2026-06-27-money-and-happiness.html':            'per step up',
+            'reports/2026-06-27-uk-wages-vs-g7.html':                 'avg wage',
+            'reports/2026-06-23-uk-migration-falls.html':             'net migration',
+            'reports/2026-06-22-uk-political-spectrum.html':          'left–right'
+          };
+
+          const apply = process.env.APPLY === 'true';
+          let changed = 0, skipped = 0, missing = 0;
+
+          for (const [file, label] of Object.entries(LABELS)) {
+            if (!fs.existsSync(file)) { console.log(`  MISSING  ${file}`); missing++; continue; }
+            const src = fs.readFileSync(file, 'utf8');
+
+            if (/name=["']dn:statlabel["']/i.test(src)) {
+              console.log(`  skip     ${file} — already has one`); skipped++; continue;
+            }
+            if (label.length > 14) {
+              console.log(`  SKIP     ${file} — "${label}" is ${label.length} chars, over the 14 limit`); skipped++; continue;
+            }
+
+            // Insert after the LAST dn:* meta, matching the block's alignment so
+            // the head still reads as a tidy column rather than a patch.
+            const metas = [...src.matchAll(/^[ \t]*<meta[ \t]+name=["']dn:[^"']+["'][ \t]*content=/gim)];
+            if (!metas.length) { console.log(`  MISSING  ${file} — no dn:* meta block found`); missing++; continue; }
+
+            const col = Math.max(...metas.map(m => m[0].length - 'content='.length));
+            const name = `<meta name="dn:statlabel"`;
+            const pad  = ' '.repeat(Math.max(1, col - name.length));
+            const line = `${name}${pad}content="${label}">`;
+
+            const last = metas[metas.length - 1];
+            const eol  = src.indexOf('\n', last.index);
+            const out  = src.slice(0, eol + 1) + line + '\n' + src.slice(eol + 1);
+
+            console.log(`  write    ${file}`);
+            console.log(`           ${line}`);
+            if (apply) fs.writeFileSync(file, out);
+            changed++;
+          }
+
+          console.log(`\n${apply ? 'Wrote' : 'Would write'} ${changed} file(s); ${skipped} skipped; ${missing} missing.`);
+          if (!apply) console.log('Dry run — nothing written. Re-run with "apply" ticked to commit.');
+          if (missing) process.exitCode = 1;
+          SCRIPT
+          node /tmp/backfill.js
+
+      - name: Commit
+        if: ${{ inputs.apply }}
+        run: |
+          git config user.name  "digi-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          if git diff --staged --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "chore: backfill dn:statlabel on pre-kicker reports"
+            git push
+          fi

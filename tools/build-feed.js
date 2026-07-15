@@ -226,9 +226,18 @@ for (const { dir, kind } of DIRS) {
     const hs = (kindVal === 'puzzle') ? null : heroStat(html);
     const mask = (kindVal === 'puzzle') ? puzzleMask(html, rel, warnings) : '';
 
-    let statLabel = meta(head, 'dn:statlabel') || (hs ? hs.label : '');
-    if (statLabel.length > 16) {
-      warnings.push(`${rel} — stat label "${statLabel}" is ${statLabel.length} chars; the tile fits ~16, so it will be clipped (set a shorter dn:statlabel)`);
+    // The tile's label is a KICKER, not a caption: ~14 characters, two words.
+    // The piece's own hero-stat caption is written to sit under a big number in
+    // an article, so it's usually a full sentence — and it can carry flattened
+    // footnote markers. It's offered as a default, but anything over the limit is
+    // DROPPED, never clipped: "TIMES NIF HAS REAC…" tells the reader less than a
+    // bare number does. Set dn:statlabel to give the tile a short one.
+    const MAX_LABEL = 14;
+    const authored = meta(head, 'dn:statlabel');
+    let statLabel = authored || (hs ? hs.label : '');
+    if (statLabel.length > MAX_LABEL) {
+      warnings.push(`${rel} — ${authored ? 'dn:statlabel' : 'hero-stat caption'} "${statLabel.slice(0, 40)}${statLabel.length > 40 ? '…' : ''}" is ${statLabel.length} chars; the tile fits ${MAX_LABEL}, so no label is shown${authored ? '' : ' (set dn:statlabel to give it one)'}`);
+      statLabel = '';
     }
 
     items.push({

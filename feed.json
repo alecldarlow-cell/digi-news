@@ -1,6 +1,6 @@
 {
-  "built": "2026-07-15T08:03:44.412Z",
-  "count": 13,
+  "built": "2026-07-15T08:18:04.449Z",
+  "count": 18,
   "items": [
     {
       "path": "reports/2026-07-14-fusion-ignition.html",
@@ -10,7 +10,19 @@
       "standfirst": "Since December 2022 the National Ignition Facility has reached fusion ignition eleven times, peaking at a record 8.6 megajoules in April 2025. But that milestone counts energy on target — not the roughly 300–400 megajoules the lasers dra…",
       "date": "2026-07-14",
       "read": "~5 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "11"
+    },
+    {
+      "path": "reports/2026-07-14-logic-doku-0002.html",
+      "kind": "puzzle",
+      "topic": "Logic",
+      "headline": "Doku 0002",
+      "standfirst": "The letter bank returns. Slot each tile into the 5x5 so every run is a word - and there is exactly one way to do it.",
+      "date": "2026-07-14",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": ""
     },
     {
       "path": "reports/2026-07-14-medicine-crispr-leaves-the-lab.html",
@@ -20,37 +32,85 @@
       "standfirst": "Nine in ten treated patients are free of the crises that defined their disease, and the effect has now lasted more than five years. Yet in the ten countries where the therapy is licensed, over 60,000 people are eligible — and 64 were inf…",
       "date": "2026-07-14",
       "read": "~9 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "93%"
+    },
+    {
+      "path": "reports/2026-07-13-logic-doku-0001.html",
+      "kind": "puzzle",
+      "topic": "Logic",
+      "headline": "Doku 0001",
+      "standfirst": "No clues, just letters. Place every banked tile so each across and down run reads as a real word.",
+      "date": "2026-07-13",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": ""
+    },
+    {
+      "path": "reports/2026-07-12-crossword-mini-0004.html",
+      "kind": "puzzle",
+      "topic": "Crossword",
+      "headline": "Mini 0004",
+      "standfirst": "A villa, a fixed route and a church-hall shout. A medium 5x5 in the house style: crisp clues, common words, checked in code.",
+      "date": "2026-07-12",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": ""
+    },
+    {
+      "path": "reports/2026-07-11-crossword-mini-0003.html",
+      "kind": "puzzle",
+      "topic": "Crossword",
+      "headline": "Mini 0003",
+      "standfirst": "Genes, eagles and something to wear on your sleeve. A medium 5x5 where the clues carry a bit of angle.",
+      "date": "2026-07-11",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": ""
+    },
+    {
+      "path": "reports/2026-07-10-crossword-mini-0002.html",
+      "kind": "puzzle",
+      "topic": "Crossword",
+      "headline": "Mini 0002",
+      "standfirst": "A medium 5x5 with a Venetian canal, a tossed salad and a nod to Studio Ghibli. Ten entries, every one a common word.",
+      "date": "2026-07-10",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": ""
     },
     {
       "path": "reports/2026-07-08-ai-pace-of-progress.html",
       "kind": "report",
-      "topic": "Artificial intelligence",
+      "topic": "AI",
       "headline": "Frontier AI’s exam scores have stalled near the ceiling. Its real-world reach is still doubling.",
       "standfirst": "The benchmarks the industry leaned on have saturated, which makes progress look like a plateau. On task length — the least saturated measure available — the reach of frontier models has gone on doubling roughly every four to seven months…",
       "date": "2026-07-08",
       "read": "~8 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "94%"
     },
     {
       "path": "reports/2026-07-04-ai-grid-cost.html",
       "kind": "report",
-      "topic": "Technology",
+      "topic": "AI",
       "headline": "AI is still a small slice of the world’s electricity",
       "standfirst": "Data centres used about 1.5% of global electricity in 2024, and AI only a fraction of that. The load is growing fast and set to roughly double by 2030 — yet even then it would add less new demand than cooling or electric cars. The same p…",
       "date": "2026-07-04",
       "read": "~5 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "415TWh"
     },
     {
       "path": "reports/2026-06-30-ubi-evidence-and-cost.html",
       "kind": "report",
-      "topic": "Economics",
+      "topic": "Economy",
       "headline": "Basic income barely moved how much people work. The cost is the sticking point.",
       "standfirst": "A decade of experiments — Helsinki, Texas, Stockton, rural Kenya — finds that unconditional cash reliably improves financial security and wellbeing, with small and mixed effects on employment. What none of them can settle is whether a co…",
       "date": "2026-06-30",
       "read": "~6 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": ""
     },
     {
       "path": "reports/2026-06-29-burnham-platform.html",
@@ -60,17 +120,19 @@
       "standfirst": "Andy Burnham is the clear favourite to succeed Keir Starmer, who resigned on 22 June. He has no published manifesto, but in interviews he has set out positions that diverge from the present government on transport, public ownership, the…",
       "date": "2026-06-29",
       "read": "~6 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "9,241"
     },
     {
       "path": "reports/2026-06-27-money-and-happiness.html",
       "kind": "report",
-      "topic": "Money & well-being",
+      "topic": "Economy",
       "headline": "Money keeps buying happiness — just less of it with every step",
       "standfirst": "For most people, both day-to-day mood and overall life satisfaction keep climbing with income, and no study has yet found a ceiling. But the gains run through the logarithm of income, so each extra pound counts for less than the last. An…",
       "date": "2026-06-27",
       "read": "~11 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "2×"
     },
     {
       "path": "reports/2026-06-27-uk-wages-vs-g7.html",
@@ -80,7 +142,8 @@
       "standfirst": "Since the 2008 financial crisis, the average British wage has barely moved in real terms — up about 4% over fourteen years, while America’s rose four times as fast. The result is a typical pay packet still hovering around its 2008 level,…",
       "date": "2026-06-27",
       "read": "~6 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "$63,691"
     },
     {
       "path": "reports/2026-06-23-uk-migration-falls.html",
@@ -90,7 +153,8 @@
       "standfirst": "UK net migration fell to 171,000 in the year to December 2025 — its lowest in four years and 82% below the 2023 peak. The fall is driven almost entirely by fewer legal arrivals on work and study visas. Small boat crossings rose again in…",
       "date": "2026-06-23",
       "read": "~10 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "171k"
     },
     {
       "path": "reports/2026-06-22-starmer-why-unpopular.html",
@@ -100,7 +164,8 @@
       "standfirst": "A landslide built on a thin vote, a coalition pulling in opposite directions, and a run of named, datable decisions that tracked his ratings down. As reports swirl that the prime minister may set out his departure — unconfirmed by Downin…",
       "date": "2026-06-22",
       "read": "~8 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": ""
     },
     {
       "path": "reports/2026-06-22-uk-political-spectrum.html",
@@ -110,7 +175,8 @@
       "standfirst": "The left–right spectrum can be measured — Britain has done it the same way since 1986. On those yardsticks the public",
       "date": "2026-06-22",
       "read": "~12 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": "33/100"
     },
     {
       "path": "reports/2026-06-22-where-do-you-sit.html",
@@ -120,7 +186,8 @@
       "standfirst": "The companion to our piece on the British spectrum. Answer the same eleven statements the British Social Attitudes survey has used since 1986 — five for the economic left–right scale, six for the liberal–authoritarian scale — and we",
       "date": "2026-06-22",
       "read": "~3 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": ""
     },
     {
       "path": "reports/2026-06-21-starmer-leadership-crisis.html",
@@ -130,7 +197,8 @@
       "standfirst": "The Observer reports the prime minister is expected to set out a timetable for his departure on Monday; a government source told Reuters he remains focused on the job, and Downing Street has not confirmed anything. Whatever Monday brings…",
       "date": "2026-06-21",
       "read": "~6 min",
-      "thumb": ""
+      "thumb": "",
+      "stat": ""
     }
   ]
 }

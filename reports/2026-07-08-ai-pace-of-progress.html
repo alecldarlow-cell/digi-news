@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="dn:headline"   content="Frontier AI&rsquo;s exam scores have stalled near the ceiling. Its real-world reach is still doubling.">
+<meta name="dn:standfirst" content="The benchmarks the industry leaned on have saturated, which makes progress look like a plateau. On task length &mdash; the least saturated measure available &mdash; the reach of frontier models has gone on doubling roughly every four to seven months. The pre-training recipe that built the 2023 models has hit real limits; a different engine is now doing most of the work.">
+<meta name="dn:topic"      content="Artificial intelligence">
+<meta name="dn:date"       content="2026-07-08">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~8 min">
+<title>Frontier AI: is the pace slowing? — Digi News</title>
+<!--
+  ============================================================================
+  DIGI NEWS — HOUSE TEMPLATE v3   (reuse this chrome for every piece)
+  ============================================================================
+  WHAT'S NEW IN v3 (vs v2)
+  - DN.sankey: flow diagram — ribbon width is proportional to volume (honest
+    length encoding), CVD-safe gradient links (colour marks source->target,
+    paired with a text label + value, so colour is never the sole carrier),
+    automatic layering + crossing-reduction, a hidden flow data <table>, and
+    real-pixel responsive rendering like every other DN chart.
+  - Fix: rangeStrip projected-span labels now use ink over the hatch (legible).
+
+  WHAT'S NEW IN v2 (vs v1)
+  - Embedded DN visualization library (self-contained, no external deps):
+      DN.line · DN.bars · DN.columns · DN.slope · DN.scatter · DN.rangeStrip · DN.sankey
+    Newsroom-idiom SVG: honest scales, annotation layer, colourblind-safe
+    palette, a number formatter, and — critically — REAL-PIXEL RESPONSIVE
+    rendering (1 SVG unit = 1 CSS px via ResizeObserver) so chart type never
+    shrinks below legible on a phone. Every chart also emits a visually-hidden
+    data <table> for screen readers and auditing.
+  - Inline numbered citations with source-tier badges (T1/T2/T3) so evidentiary
+    strength is visible at the point of each claim.
+  - Structural slots for honesty: a "What we don't know" box and a caveat card.
+  - Promoted from the field: signature strip exhibit, reference appendix table.
+  - Footer now carries Corrections + a version line alongside Method + Sources.
+
+  HOW TO USE
+  - Keep the chrome, footer, and the <style> tokens. Replace the marked copy
+    and the exhibit data in the init script block at the foot of the file.
+  - Build each exhibit by calling a DN.* helper on a <figure>'s chart <div>.
+  - Number exhibits in order. Every exhibit needs a title + a sourced caption.
+  - .positions only when a topic is genuinely contested (steelman both sides).
+  - "What we don't know" whenever data is thin/lagged/modelled or cause unproven.
+  - "Go deeper" only when material was deliberately omitted to hold length.
+  - NEVER let a projection/scenario be the headline or a hero stat. Label it,
+    cordon it (dashed/hatched), and lead with the measured figure.
+
+  DN QUICK REFERENCE  (full notes in the library header below)
+    DN.line(sel,{series:[{name,points:[{x,y}],projectFrom?,band?:[{x,lo,hi}],color?}],
+                 x:{fmt,ticks,min,max,title}, y:{suffix,prefix,decimals,compact,zero},
+                 refsY:[{value,label}], bands:[{x0,x1,label}], notes:[{x,y,text,sub}],
+                 endLabels?, title, summary})
+    DN.bars(sel,{data:[{label,value,highlight?,color?}], sort?, refValue?, refLabel?,
+                 x:{compact,suffix}, title})
+    DN.columns(sel,{mode:'grouped'|'stacked', series:[{name,color?}],
+                 groups:[{label,values:{<seriesName>:n}}], y:{}, title})
+    DN.slope(sel,{left,right, items:[{label,from,to,highlight?}], y:{}, title})
+    DN.scatter(sel,{points:[{x,y,r?,label?,group?}], x:{label}, y:{label},
+                 quadrant:{x?,y?}, title})
+    DN.rangeStrip(sel,{mode:'barcode'|'rows', events:[{label,start,end,category?,projectFrom?}],
+                 categories:[{name,color}], brackets:[{x0,x1,label}], notes:[{x,text,sub}],
+                 x:{fmt}, title})
+    DN.sankey(sel,{nodes?:[{id,label?,color?}], links:[{source,target,value,color?}],
+                 align?:'justify'|'left', nodeWidth?, nodePad?, value:{compact,prefix,suffix,decimals}, title})
+    DN.fmt(v,{decimals,compact,prefix,suffix,plus,pct})
+  PALETTE: ink #15171C · cobalt subject #1C46C2 · contrast-red #E0312A (charts only)
+  Categorical scale is Okabe-Ito (CVD-safe); accent stays reserved for the subject.
+  ============================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- headline ---------- */
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  /* ---------- hero stats ---------- */
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  /* ---------- sections ---------- */
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  /* ---------- exhibit ---------- */
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  /* ---------- DN chart library styling (real-px responsive SVG) ---------- */
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* sankey: labels keep a paper halo so they stay legible over flow ribbons */
+  .dn-nodelabel{paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+  .dn-flow{transition:fill-opacity .15s ease}
+  .dn-flow:hover{fill-opacity:.72}
+  @media(prefers-reduced-motion:reduce){.dn-flow{transition:none}}
+
+  /* ---------- callout ---------- */
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  /* ---------- inline citation + source tiers ---------- */
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  /* ---------- "what we don't know" ---------- */
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- positions (contested only) ---------- */
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  /* ---------- stat band ---------- */
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  /* ---------- caveat card ---------- */
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  /* ---------- appendix table ---------- */
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair)}
+  table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  table.tbl tr:last-child td{border-bottom:none}
+
+  /* ---------- go deeper ---------- */
+  .more{margin-top:18px;list-style:none;border-top:1px solid var(--hair)}
+  .more li{padding:13px 0;border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--muted)}
+  .more li::before{content:"\2192";color:var(--accent);font-weight:700}
+  .more li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== MASTHEAD (fixed) ===================== -->
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>8 JUL 2026</div>
+  </header>
+
+  <!-- HEADLINE -->
+  <div class="head">
+    <div class="topic">Artificial intelligence &middot; the pace of progress</div>
+    <h1>Frontier AI&rsquo;s exam scores have stalled near the ceiling. Its real-world reach is still doubling.</h1>
+    <p class="standfirst">The benchmarks the industry leaned on have saturated, which makes progress look like a plateau. On task length &mdash; the least saturated measure available &mdash; the reach of frontier models has gone on doubling roughly every four to seven months. The pre-training recipe that built the 2023 models has hit real limits; a different engine is now doing most of the work.</p>
+    <div class="dateline">Digi News data desk &middot; reading time ~8 min</div>
+  </div>
+
+  <!-- HERO STATS (measured only) -->
+  <div class="herostats">
+    <div class="hs"><div class="n">94<small>%</small></div><div class="l">Top GPQA Diamond science score today, up from 39% at GPT-4 in 2023<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s6">6</a></sup></div></div>
+    <div class="hs"><div class="n">~5<small>hrs</small></div><div class="l">Longest task the best-measured 2025 model does at 50% reliability (Claude Opus 4.5)<sup class="cite"><a href="#s1">1</a></sup></div></div>
+    <div class="hs"><div class="n">~4<small>mo</small></div><div class="l">Doubling time of that reach on 2023-onward data &mdash; versus ~7 months over 2019&ndash;25<sup class="cite"><a href="#s1">1</a></sup></div></div>
+  </div>
+
+  <!-- SECTION 1 — GPQA saturation -->
+  <section class="section">
+    <div class="eyebrow">What the data shows</div>
+    <h2>The exam scores stalled &mdash; because the exams ran out</h2>
+    <p>The most-quoted way to track AI progress is the score on a hard benchmark, and by that measure the top models have bunched up. On GPQA Diamond, a set of graduate-level science questions where subject-matter PhDs score about 65% and random guessing yields 25%,<sup class="cite"><a href="#s3">3</a></sup> GPT-4 managed 39% in 2023.<sup class="cite"><a href="#s3">3</a></sup> By early 2026 the leading models from OpenAI, Anthropic and Google were all clustered between roughly 91% and 94% &mdash; on a 198-item test whose top scores now differ by only a handful of questions.<sup class="cite"><a href="#s8">8</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">Three labs, one ceiling: GPQA Diamond scores converge</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> GPQA benchmark paper (Rein et al., 2023) for the GPT-4 baseline, expert and chance levels;<sup class="cite"><a href="#s3">3</a></sup> company-reported figures for GPT-4o, o1, o3, GPT-5 and GPT-5.4, for Claude 3 Opus, 3.5 and 3.7 Sonnet and Opus 4.6, and for Gemini 1.5 Pro and the 2.5 and 3-series,<sup class="cite"><a href="#s5">5</a></sup><sup class="cite"><a href="#s6">6</a></sup><sup class="cite"><a href="#s7">7</a></sup> with Gemini 2.5 Pro independently confirmed at 84% by Epoch AI.<sup class="cite"><a href="#s8">8</a></sup> The shaded strip marks the arrival of reasoning models (o1, Sep 2024). <b>Note:</b> scores vary by test harness &mdash; extended-thinking, tool-use and voting settings differ, and GPT-5 in particular ranges ~83&ndash;85% by harness &mdash; so read the lines as trajectories, not a precise ranking. Zero-based axis.</figcaption>
+    </figure>
+    <p>Two things are happening at once. The steep early climb is real; the near-vertical jump on the OpenAI line in late 2024 is the arrival of &ldquo;reasoning&rdquo; models &mdash; o1, which is trained to work through a problem step by step before answering.<sup class="cite"><a href="#s5">5</a></sup> But the flattening at the top is largely an artefact of the ruler, not the runner: once models answer almost every valid question, there is no headroom left to measure, and Epoch AI notes that GPQA and several older tests are now effectively saturated as tools for separating frontier systems.<sup class="cite"><a href="#s8">8</a></sup></p>
+    <div class="callout"><b>Key finding.</b> A flat line at the top of a saturated benchmark is evidence that the test has run out of difficulty &mdash; not, on its own, evidence that the models have stopped improving.</div>
+  </section>
+
+  <!-- SECTION 2 — METR time horizon (signature) -->
+  <section class="section">
+    <div class="eyebrow">The ruler that hasn&rsquo;t broken</div>
+    <h2>Measured in task length, capability is still doubling</h2>
+    <p>To see past the ceiling you need a measure with room to grow. The research group METR uses one: the <b>task-completion time horizon</b> &mdash; the length of job, measured by how long a human expert takes, that a model can finish at a given success rate.<sup class="cite"><a href="#s1">1</a></sup> It converts an abstract score into something concrete (&ldquo;this system reliably does tasks that take people about X hours&rdquo;) and, crucially, it does not saturate.</p>
+    <p>Across models from 2019 to 2025, METR found the 50% time horizon doubling about every seven months, an exponential fit with no sign of a plateau.<sup class="cite"><a href="#s2">2</a></sup> Its January 2026 re-estimate put the long-run doubling at 196 days &mdash; but the trend measured only on 2023-onward models is faster, around 131 days (~4 months), and the 2024-onward slice faster still.<sup class="cite"><a href="#s1">1</a></sup> A four-month doubling is roughly a sevenfold increase in reach per year; the seven-month rate is about 3.6-fold. Either way the direction is up, and the recent slope is steeper, not shallower.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">The reach of frontier models keeps lengthening (log scale)</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> METR time-horizon data (Time Horizon 1.1 re-estimate, all 2023-onward points on one method).<sup class="cite"><a href="#s1">1</a></sup> Measured 50% horizons: GPT-4 3.5&nbsp;min; Claude 3.7 Sonnet 60&nbsp;min; o3 121&nbsp;min; Claude Opus 4 101&nbsp;min; GPT-5 214&nbsp;min; Claude Opus 4.5 320&nbsp;min (~5.3&nbsp;h). <b>The dashed line and shaded wedge are a projection, not data:</b> the dashed line extends METR&rsquo;s long-run 7-month doubling from the last measured point; the band widens up to its faster ~4-month (2023-onward) rate. Confidence intervals on individual points are wide (e.g. Opus 4.5: 170&ndash;729&nbsp;min).</figcaption>
+    </figure>
+    <p>This is the honest answer to whether the current model set is slowing: on the best unsaturated measure available, it is not &mdash; through mid-2026 the pace has held or quickened. But the instrument is straining. METR&rsquo;s longest calibrated tasks run to about eight hours, so estimates above that are extrapolations, the confidence bands are very wide, and the group flags that measurements beyond roughly 16 hours are unreliable with its current task suite.<sup class="cite"><a href="#s1">1</a></sup> The measure also leans heavily on software and research-engineering tasks, which the labs optimise for hardest.</p>
+  </section>
+
+  <!-- SECTION 3 — why it feels slower -->
+  <section class="section">
+    <div class="eyebrow">Why it can still feel slower</div>
+    <h2>One recipe really did hit its limits</h2>
+    <p>The plateau intuition is not baseless. The specific thing that drove the 2020&ndash;2023 leaps &mdash; training ever-larger models on ever-more web text (&ldquo;pre-training scaling&rdquo;) &mdash; has run into diminishing returns. At NeurIPS in December 2024 Ilya Sutskever, OpenAI&rsquo;s former chief scientist, argued that &ldquo;pre-training as we know it will end&rdquo; because the field has reached &ldquo;peak data&rdquo;: compute keeps growing but the single dataset big enough to train on, the public internet, does not.<sup class="cite"><a href="#s10">10</a></sup> OpenAI researchers have said a shortage of fresh data, more than compute, constrained their GPT-4.5-class training run.<sup class="cite"><a href="#s4">4</a></sup> As the analyst Nathan Lambert puts it, both stories can be true at once: scaling still works at a technical level while the rate of visible improvement for everyday users slows.<sup class="cite"><a href="#s11">11</a></sup></p>
+  </section>
+
+  <!-- SECTION 4 — the engine swap (signature strip) -->
+  <section class="section">
+    <div class="eyebrow">A new basis, already arriving</div>
+    <h2>From bigger models to longer thinking</h2>
+    <p>The reason the capability curve kept climbing while pre-training stalled is that the industry changed its engine. Chain-of-thought prompting (2022) and then reasoning models such as o1 (September 2024) opened a second axis of scaling: spending more computation at the moment of answering &mdash; &ldquo;test-time&rdquo; or &ldquo;inference-time&rdquo; compute &mdash; rather than only at training.<sup class="cite"><a href="#s9">9</a></sup> That shift, paired with reinforcement learning on verifiable tasks, is what the GPQA jump and the lengthening METR horizons largely reflect. In other words, part of the follow-up question &mdash; whether a new basis will be needed &mdash; has already been answered on the ground: a new basis &mdash; in training process, and increasingly in data source &mdash; is being adopted now.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 03</div><div class="ex-title">The growth engine has already been swapped once</div></div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source &amp; framing:</b> Digi News, from dated milestones &mdash; the transformer (2017) and the pre-training era it enabled;<sup class="cite"><a href="#s9">9</a></sup> the reasoning / test-time-compute turn from o1 (Sep 2024);<sup class="cite"><a href="#s9">9</a></sup> and Epoch AI&rsquo;s projected public-text exhaustion window, 2026&ndash;2032 (median 2028).<sup class="cite"><a href="#s4">4</a></sup> Bars mark when each approach was, or is projected to be, a leading source of gains; <b>hatched blocks are projected or emerging, not recorded.</b> Era boundaries are an editorial simplification.</figcaption>
+    </figure>
+    <p>On the data side, the constraint is concrete. Epoch AI estimates the usable stock of public human text at about 300 trillion tokens and projects that training sets will grow to meet it somewhere between 2026 and 2032, with a median of 2028.<sup class="cite"><a href="#s4">4</a></sup> The proposed ways round the wall are the other half of the &ldquo;new basis&rdquo; question: synthetic (model-generated) data, especially for reasoning; other modalities such as image, audio and video; and squeezing more from the same data.<sup class="cite"><a href="#s4">4</a></sup> Whether any of these fully substitutes for fresh human text is unproven.</p>
+  </section>
+
+  <!-- WHAT WE DON'T KNOW -->
+  <div class="unknowns">
+    <div class="h">What we don&rsquo;t know</div>
+    <p>Whether the recent, faster doubling rate is a durable regime or a temporary burst from reinforcement-learning gains that will revert toward the seven-month trend. Whether reasoning and test-time compute face their own diminishing returns as pre-training did. And how much of the measured acceleration is real capability versus an artefact of a measuring instrument that runs out of long-enough tasks. The projections here &mdash; the METR wedge and the data-wall window &mdash; are scenarios on current trends, not forecasts we endorse.</p>
+  </div>
+
+  <!-- POSITIONS (contested — empirical) -->
+  <section class="section">
+    <div class="eyebrow">Where it&rsquo;s contested</div>
+    <h2>Will the current pace hold?</h2>
+    <p>Credible researchers genuinely disagree. This is largely an <em>empirical</em> dispute &mdash; the kind evidence can eventually settle &mdash; about how long the present paradigm keeps delivering.</p>
+    <div class="positions">
+      <div class="pos case"><div class="tag">The case for continuation</div><p>Test-time compute and reinforcement learning have opened a second scaling axis with headroom left; the 2024&ndash;25 gains came largely without proportionally more training compute, and the METR horizon has, if anything, accelerated. Anthropic&rsquo;s Dario Amodei has said scaling is &ldquo;probably going to continue&rdquo;; OpenAI&rsquo;s Sam Altman maintains &ldquo;there is no wall.&rdquo;<sup class="cite"><a href="#s11">11</a></sup></p><div class="kind">Empirical dispute</div></div>
+      <div class="pos counter"><div class="tag">The case for a slowdown</div><p>Pre-training&rsquo;s data source is finite and near-exhausted; synthetic data has not clearly closed the gap; and inference-time scaling may hit its own diminishing returns, since buying performance with ever-more compute per answer gets expensive fast. Sutskever&rsquo;s &ldquo;peak data&rdquo; and Epoch&rsquo;s data-wall work point the same way.<sup class="cite"><a href="#s10">10</a></sup><sup class="cite"><a href="#s4">4</a></sup></p><div class="kind">Empirical dispute</div></div>
+    </div>
+    <p style="margin-top:14px;font-size:14.5px;color:var(--muted)"><b>Bottom line.</b> The evidence to mid-2026 supports a narrow claim: the current model set has <em>not</em> slowed on the best available capability measure, and a genuine change of basis &mdash; reasoning and test-time compute &mdash; is what kept it moving. The broader claim, that this pace continues for years, is not established. The strongest objection to &ldquo;no slowdown&rdquo; is that the one metric still showing acceleration is also the one whose measuring instrument is closest to breaking.</p>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="section">
+    <div class="eyebrow">By the numbers</div>
+    <div class="statband">
+      <div class="c"><div class="n">~300T</div><div class="l">Estimated usable tokens of public human text (Epoch AI)<sup class="cite"><a href="#s4">4</a></sup></div></div>
+      <div class="c"><div class="n">2028<small> proj.</small></div><div class="l">Median year that stock is projected to be fully used<sup class="cite"><a href="#s4">4</a></sup></div></div>
+      <div class="c"><div class="n">+55<small> pts</small></div><div class="l">GPQA Diamond climb, GPT-4 (2023) to today&rsquo;s best<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s6">6</a></sup></div></div>
+      <div class="c"><div class="n">161</div><div class="l">Highest Epoch Capabilities Index score to date (mid-2026)<sup class="cite"><a href="#s8">8</a></sup></div></div>
+    </div>
+    <div class="caveat"><b>Caveat.</b> The headline &ldquo;no slowdown&rdquo; rests most heavily on METR&rsquo;s time horizon, whose longest calibrated tasks are about eight hours and which is weighted toward software work. If the top of that scale is mismeasured, or if software progress outruns other domains, the acceleration could be narrower than it looks.<sup class="cite"><a href="#s1">1</a></sup></div>
+  </section>
+
+  <!-- REFERENCE APPENDIX -->
+  <section class="section">
+    <div class="eyebrow">Reference &middot; the measured record</div>
+    <h2>The time-horizon points behind Exhibit 02</h2>
+    <p>METR&rsquo;s 50% time horizons (Time Horizon 1.1 method), the measured series in Exhibit 02. Values are minutes of human-expert task time; the reader can check the log-scale plot against them.</p>
+    <div class="appx">
+      <table class="tbl">
+        <thead><tr><th>Model</th><th>Released</th><th class="num">50% horizon (min)</th><th class="num">\u2248 human time</th></tr></thead>
+        <tbody>
+          <tr><td>GPT-4</td><td>Mar 2023</td><td class="num">3.5</td><td class="num">~4 min</td></tr>
+          <tr><td>Claude 3.7 Sonnet</td><td>Feb 2025</td><td class="num">60</td><td class="num">1 h</td></tr>
+          <tr><td>o3</td><td>Apr 2025</td><td class="num">121</td><td class="num">~2 h</td></tr>
+          <tr><td>Claude Opus 4</td><td>May 2025</td><td class="num">101</td><td class="num">~1.7 h</td></tr>
+          <tr><td>GPT-5</td><td>Aug 2025</td><td class="num">214</td><td class="num">~3.6 h</td></tr>
+          <tr><td>Claude Opus 4.5</td><td>Dec 2025</td><td class="num">320</td><td class="num">~5.3 h</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- GO DEEPER -->
+  <section class="section">
+    <div class="eyebrow">Go deeper</div>
+    <h2>Read more</h2>
+    <p>Threads held back to keep this to length:</p>
+    <ul class="more">
+      <li><div><b>The cost curve.</b> Test-time compute buys capability with money and energy; the price of a fixed benchmark score is falling fast even as the cost of the frontier rises.</div></li>
+      <li><div><b>Beyond the transformer.</b> State-space models, world models and continual-learning approaches are candidates if today&rsquo;s architecture plateaus &mdash; none yet displaces it at the frontier.</div></li>
+      <li><div><b>The rest of the field.</b> Open-weight and Chinese models (DeepSeek, Qwen) now track the frontier within months, changing who the &ldquo;current model set&rdquo; even refers to.</div></li>
+    </ul>
+  </section>
+
+  <!-- ===================== FOOTER (mandatory) ===================== -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> This piece asks two things: is the current frontier-model paradigm slowing, and will a new basis be needed. To avoid the ceiling effect that makes saturated exams look like a plateau, the pace question is judged on METR&rsquo;s task-completion time horizon, the least saturated public measure of capability, alongside GPQA Diamond (shown precisely because it has saturated). All plotted figures are transcribed from the cited primary or independent sources and re-checked in code; GPQA values are company-reported except where independently confirmed, and differ by test harness, so Exhibit 01 is read as a set of trajectories. The METR projection (Exhibit 02) extends the group&rsquo;s own published doubling times &mdash; 196 days (long-run) and ~131 days (2023-onward) &mdash; from the last measured point; it is rendered dashed/shaded and excluded from every hero figure. The &ldquo;data wall&rdquo; window (2026&ndash;2032, median 2028) and the era boundaries in Exhibit 03 are projections and editorial framing respectively, labelled as such.</div>
+    <div class="fm"><b>Sources.</b> Highest tier first; each inline citation resolves here.
+      <ol>
+        <li id="s1"><span class="tier t1">T1</span>METR &mdash; <i>Task-Completion Time Horizons of Frontier AI Models</i> (live data) and <i>Time Horizon 1.1</i> update, metr.org. Retrieved 8 Jul 2026.</li>
+        <li id="s2"><span class="tier t1">T1</span>Kwa, West et&nbsp;al. (METR) &mdash; <i>Measuring AI Ability to Complete Long Software Tasks</i>, arXiv:2503.14499, 2025.</li>
+        <li id="s3"><span class="tier t1">T1</span>Rein et&nbsp;al. &mdash; <i>GPQA: A Graduate-Level Google-Proof Q&amp;A Benchmark</i>, arXiv:2311.12022, 2023 (GPT-4 39%; PhD-expert ~65%; chance 25%).</li>
+        <li id="s4"><span class="tier t1">T1</span>Villalobos et&nbsp;al. (Epoch AI) &mdash; <i>Will we run out of data? Limits of LLM scaling based on human-generated data</i>, arXiv:2211.04325 / epoch.ai. Retrieved 8 Jul 2026.</li>
+        <li id="s5"><span class="tier t1">T1</span>OpenAI &mdash; model reports for o1 (&ldquo;Learning to reason with LLMs&rdquo;, 2024), o3 and GPT-5.4. Company-reported (interested party).</li>
+        <li id="s6"><span class="tier t1">T1</span>Google DeepMind &mdash; Gemini 2.5 Pro and Gemini 3.1 Pro model cards. Company-reported (interested party).</li>
+        <li id="s7"><span class="tier t1">T1</span>Anthropic &mdash; Claude 3, Claude 3.7 Sonnet and Claude Opus 4.6 model cards. Company-reported (interested party).</li>
+        <li id="s8"><span class="tier t2">T2</span>Epoch AI &mdash; Benchmarking Hub and Capabilities Index (independent evaluations; GPQA saturation; Gemini 2.5 Pro 84%; ECI to 161), epoch.ai. Retrieved 8 Jul 2026.</li>
+        <li id="s9"><span class="tier t2">T2</span>Test-time-compute / reasoning literature &mdash; ARC Prize technical reports and test-time-scaling papers (arXiv), on the pre-training vs inference-time paradigms.</li>
+        <li id="s10"><span class="tier t3">T3</span>I. Sutskever, NeurIPS 2024 remarks (&ldquo;pre-training as we know it will end&rdquo;, &ldquo;peak data&rdquo;), as reported by The Verge and Reuters. Cited for attribution.</li>
+        <li id="s11"><span class="tier t3">T3</span>Scaling-debate positions &mdash; D. Amodei and S. Altman (public remarks) and N. Lambert (analysis), via press. Cited for attribution.</li>
+      </ol>
+    </div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 8 Jul 2026.</b> <span class="ver">Digi News &middot; v1.0 &middot; ai-pace-of-progress.</span></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ----------------------------------------------------------------------------
+   Newsroom-idiom SVG charts: honest scales, real-px responsive rendering,
+   colourblind-safe palette, annotation layer, and an accessible data table
+   emitted alongside every chart. Mobile-first: charts re-render at 1 SVG unit
+   = 1 CSS pixel via ResizeObserver, so label type never shrinks below legible.
+
+   PUBLIC API  (every chart: DN.<type>(targetSelectorOrEl, spec))
+     DN.line(t, spec)        multi-series time line; projection split; bands; refs; notes
+     DN.bars(t, spec)        horizontal ranked bars; highlight; reference line
+     DN.columns(t, spec)     vertical columns; grouped or stacked; legend
+     DN.slope(t, spec)       slope / dumbbell before-after comparison
+     DN.scatter(t, spec)     x/y points; optional groups; quadrant guides
+     DN.rangeStrip(t, spec)  time spans (barcode timeline / Gantt); projection hatch
+     DN.sankey(t, spec)      flows; ribbon width ∝ volume; gradient links; flow table
+
+     DN.fmt(value, opts)     number formatter (decimals, compact, prefix/suffix, plus, pct)
+     DN.colors, DN.palette   semantic tokens + categorical (Okabe-Ito) scale
+
+   COMMON spec fields: title (required, drives a11y), summary, height,
+     x:{min,max,fmt,ticks,title,label}, y:{min,max,zero,fmt,title,label,decimals,suffix,prefix,compact}
+   Projection rule: pass projectFrom on a series/event; the segment beyond it
+     renders dashed/hatched. Projections must never be the headline figure.
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  /* ---- palette: semantic tokens + Okabe-Ito categorical (CVD-safe) ---- */
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  /* ---- tiny DOM/SVG helpers ---- */
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  /* ---- number formatter ---- */
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  /* ---- nice scale (Heckbert) ---- */
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  /* ---- relative luminance → ideal overlaid text colour ---- */
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  /* ---- responsive mount + lifecycle ---- */
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* ====================================================================== */
+  /* LINE                                                                    */
+  /* ====================================================================== */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mL = small ? 34 : 44, mR = spec.endLabels ? (small ? 54 : 104) : 18, mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      if (spec.y && spec.y.ticks) { var _yt = spec.y.ticks.slice().sort(function(a,b){return a-b;}); ns = { min:_yt[0], max:_yt[_yt.length-1], step:0, ticks:_yt }; }
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      xt.forEach(function (xv) { var t = svgEl("text", { x: X(xv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : xv; svg.appendChild(t); });
+
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) { var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col); el.textContent = s.name || fmt(last.y, spec.y || {}); svg.appendChild(el); }
+      });
+
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var t = svgEl("text", { x: mL + 6, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy;
+        var t = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy, "text-anchor": nt.anchor || "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy + 13, "text-anchor": nt.anchor || "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* BARS (horizontal, ranked)                                               */
+  /* ====================================================================== */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = (spec.refValue != null) ? 22 : 8, mB = 8;
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var maxChars = Math.max.apply(null, data.map(function (d) { return String(d.label).length; }));
+      var mL = Math.min(Math.max(maxChars * (small ? 6.0 : 6.8) + 14, 64), W * 0.44);
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (d.highlight) lab.setAttribute("fill", C.subject); lab.textContent = d.label; svg.appendChild(lab);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var v = svgEl("text", { x: mL + w + 8, y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (d.highlight) v.setAttribute("fill", C.subject); v.textContent = fmt(d.value, spec.x || {}); svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* COLUMNS (vertical, grouped or stacked)                                  */
+  /* ====================================================================== */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mL = small ? 34 : 44, mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5), iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var xl = svgEl("text", { x: mL + gi * gw + gw / 2, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = g.label; svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+          });
+        }
+      });
+      drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SLOPE / DUMBBELL                                                        */
+  /* ====================================================================== */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: xL, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = spec.left || ""; svg.appendChild(hl);
+      var hr = svgEl("text", { x: xR, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = spec.right || ""; svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      items.forEach(function (it) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = Y(it.from), y1 = Y(it.to);
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var ll = svgEl("text", { x: xL - 10, y: y0 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = it.label; svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: y1 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = fmt(it.to, spec.y || {}); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SCATTER                                                                 */
+  /* ====================================================================== */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mL = small ? 38 : 48, mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      nx.ticks.forEach(function (tv) { var t = svgEl("text", { x: X(tv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) { var t = svgEl("text", { x: X(p.x) + (p.r || 4.5) + 4, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" }); t.textContent = p.label; svg.appendChild(t); }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* RANGE STRIP (barcode timeline / Gantt rows)                             */
+  /* ====================================================================== */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", (e.projectFrom != null && (e.start + e.end) / 2 >= e.projectFrom) ? C.ink : idealText(col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: (bx0 + bx1) / 2, y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: nx, y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: nx, y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30;
+        var maxChars = Math.max.apply(null, events.map(function (e) { return String(e.label).length; }));
+        var mL = Math.min(Math.max(maxChars * (small ? 5.6 : 6.6) + 12, 70), W * 0.4);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); lab.textContent = e.label; svg.appendChild(lab);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SANKEY (flows — ribbon width proportional to volume)                    */
+  /* ---------------------------------------------------------------------- */
+  /* Honest encoding: a flow's height (at both ends) and a node's height are  */
+  /* proportional to value on one shared px-per-unit scale. Colour only marks */
+  /* provenance (gradient source -> target); every node carries a text label  */
+  /* and value, so colour is never the sole carrier. Layout: longest-path     */
+  /* layering + barycentre relaxation to reduce crossings. Assumes a DAG.     */
+  /* ====================================================================== */
+  function sankey(target, spec) {
+    var m = mount(target);
+    var rawLinks = (spec.links || []).filter(function (l) { return l && l.value > 0; });
+    var nodeMap = {}, nodes = [];
+    function getNode(id) {
+      var key = "$" + id;
+      if (!Object.prototype.hasOwnProperty.call(nodeMap, key)) {
+        nodeMap[key] = { id: id, label: String(id), ins: [], outs: [], idx: nodes.length };
+        nodes.push(nodeMap[key]);
+      }
+      return nodeMap[key];
+    }
+    (spec.nodes || []).forEach(function (nd) {
+      var n = getNode(nd.id);
+      if (nd.label != null) n.label = String(nd.label);
+      if (nd.color) n.color = nd.color;
+    });
+    var links = rawLinks.map(function (l) {
+      var s = getNode(l.source), t = getNode(l.target);
+      var link = { source: s, target: t, value: +l.value, color: l.color };
+      s.outs.push(link); t.ins.push(link);
+      return link;
+    });
+    nodes.forEach(function (n, i) { if (!n.color) n.color = cat(i); });
+
+    /* longest-path layering (assumes a DAG) */
+    nodes.forEach(function (n) { n.depth = 0; });
+    for (var pass = 0; pass < nodes.length + 1; pass++) {
+      var changed = false;
+      links.forEach(function (l) {
+        if (l.target.depth < l.source.depth + 1) { l.target.depth = l.source.depth + 1; changed = true; }
+      });
+      if (!changed) break;
+    }
+    var maxDepth = 0; nodes.forEach(function (n) { if (n.depth > maxDepth) maxDepth = n.depth; });
+    if (spec.align !== "left") nodes.forEach(function (n) { if (n.outs.length === 0 && n.ins.length) n.depth = maxDepth; });
+    var columns = [];
+    nodes.forEach(function (n) { (columns[n.depth] = columns[n.depth] || []).push(n); });
+    for (var qi = 0; qi < columns.length; qi++) if (!columns[qi]) columns[qi] = [];
+
+    function nodeVal(n) {
+      var i = n.ins.reduce(function (s, l) { return s + l.value; }, 0);
+      var o = n.outs.reduce(function (s, l) { return s + l.value; }, 0);
+      return Math.max(i, o);
+    }
+    function center(n) { return n.y + n.h / 2; }
+    function truncate(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "\u2026" : s; }
+
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.62, 250), 460));
+      var nodeW = spec.nodeWidth || (small ? 11 : 15);
+      var pad = spec.nodePad || (small ? 11 : 16);
+      var labCap = small ? 12 : 22;
+      var first = columns[0] || [], lastCol = columns[columns.length - 1] || [];
+      var lc = Math.max.apply(null, [4].concat(first.map(function (n) { return truncate(n.label, labCap).length; })));
+      var rc = Math.max.apply(null, [4].concat(lastCol.map(function (n) { return truncate(n.label, labCap).length; })));
+      var chpx = small ? 5.7 : 6.7;
+      var mL = Math.min(Math.max(lc * chpx + 12, 38), W * 0.34);
+      var mR = Math.min(Math.max(rc * chpx + 12, 38), W * 0.34);
+      var mT = 16, mB = 12;
+      var innerW = Math.max(W - mL - mR, 60), innerH = Math.max(H - mT - mB, 80);
+      var cols = columns.length;
+      var colStep = cols > 1 ? (innerW - nodeW) / (cols - 1) : 0;
+      function nodeX(d) { return mL + d * colStep; }
+
+      /* one shared value->px scale across every column (honest) */
+      var k = Infinity;
+      columns.forEach(function (col) {
+        var sum = col.reduce(function (s, n) { return s + nodeVal(n); }, 0);
+        var avail = innerH - (col.length - 1) * pad;
+        if (sum > 0) k = Math.min(k, avail / sum);
+      });
+      if (!isFinite(k) || k <= 0) k = 1;
+      nodes.forEach(function (n) { n.h = Math.max(nodeVal(n) * k, 1.5); });
+
+      columns.forEach(function (col) {
+        var totalH = col.reduce(function (s, n) { return s + n.h; }, 0) + (col.length - 1) * pad;
+        var y = mT + (innerH - totalH) / 2;
+        col.forEach(function (n) { n.y = y; y += n.h + pad; });
+      });
+      function collide(col) {
+        col.sort(function (a, b) { return a.y - b.y; });
+        var y = mT, i, n;
+        for (i = 0; i < col.length; i++) { n = col[i]; if (n.y < y) n.y = y; y = n.y + n.h + pad; }
+        y = mT + innerH;
+        for (i = col.length - 1; i >= 0; i--) { n = col[i]; if (n.y + n.h > y) n.y = y - n.h; y = n.y - pad; }
+      }
+      var ITER = 7;
+      for (var it = 0; it < ITER; it++) {
+        var alpha = 0.9 * (1 - it / ITER);
+        for (var c = 1; c < columns.length; c++) {
+          columns[c].forEach(function (n) {
+            if (n.ins.length) { var w = 0, sy = 0; n.ins.forEach(function (l) { sy += center(l.source) * l.value; w += l.value; }); if (w) n.y += (sy / w - center(n)) * alpha; }
+          });
+          collide(columns[c]);
+        }
+        for (var c2 = columns.length - 2; c2 >= 0; c2--) {
+          columns[c2].forEach(function (n) {
+            if (n.outs.length) { var w2 = 0, sy2 = 0; n.outs.forEach(function (l) { sy2 += center(l.target) * l.value; w2 += l.value; }); if (w2) n.y += (sy2 / w2 - center(n)) * alpha; }
+          });
+          collide(columns[c2]);
+        }
+      }
+
+      /* order each node's links by partner position, then stack the bands */
+      nodes.forEach(function (n) {
+        n.outs.sort(function (a, b) { return center(a.target) - center(b.target); });
+        n.ins.sort(function (a, b) { return center(a.source) - center(b.source); });
+        var so = 0; n.outs.forEach(function (l) { l.sy0 = n.y + so; so += l.value * k; l.sy1 = n.y + so; });
+        var ti = 0; n.ins.forEach(function (l) { l.ty0 = n.y + ti; ti += l.value * k; l.ty1 = n.y + ti; });
+      });
+
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var defs = svgEl("defs"); svg.appendChild(defs);
+
+      var gFlows = svgEl("g");
+      links.forEach(function (l) {
+        var x0 = nodeX(l.source.depth) + nodeW, x1 = nodeX(l.target.depth), xm = (x0 + x1) / 2;
+        var fill;
+        if (l.color) { fill = l.color; }
+        else {
+          var gid = "dnsk" + (++UID);
+          var lg = svgEl("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: x0, y1: 0, x2: x1, y2: 0 });
+          lg.appendChild(svgEl("stop", { offset: "0%", "stop-color": l.source.color }));
+          lg.appendChild(svgEl("stop", { offset: "100%", "stop-color": l.target.color }));
+          defs.appendChild(lg); fill = "url(#" + gid + ")";
+        }
+        var d = "M" + x0 + "," + l.sy0 +
+          "C" + xm + "," + l.sy0 + " " + xm + "," + l.ty0 + " " + x1 + "," + l.ty0 +
+          "L" + x1 + "," + l.ty1 +
+          "C" + xm + "," + l.ty1 + " " + xm + "," + l.sy1 + " " + x0 + "," + l.sy1 + "Z";
+        var p = svgEl("path", { d: d, fill: fill, "fill-opacity": (spec.linkOpacity != null ? spec.linkOpacity : 0.44), "class": "dn-flow" });
+        var tt = svgEl("title"); tt.textContent = l.source.label + " \u2192 " + l.target.label + ": " + fmt(l.value, spec.value || {}); p.appendChild(tt);
+        gFlows.appendChild(p);
+      });
+      svg.appendChild(gFlows);
+      if (!REDUCE) {
+        gFlows.style.opacity = 0; gFlows.style.transition = "opacity .7s ease-out";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { gFlows.style.opacity = 1; }); });
+      }
+
+      nodes.forEach(function (n) {
+        var x = nodeX(n.depth), tall = n.h > 26;
+        svg.appendChild(svgEl("rect", { x: x, y: n.y, width: nodeW, height: n.h, fill: n.color, rx: 2 }));
+        var isLast = (n.depth === columns.length - 1);
+        var lx = isLast ? x - 8 : x + nodeW + 8, anchor = isLast ? "end" : "start", cy = n.y + n.h / 2;
+        var lab = svgEl("text", { x: lx, y: cy + (tall ? -1 : 3.5), "text-anchor": anchor, "class": "dn-clabel dn-nodelabel" });
+        lab.textContent = truncate(n.label, labCap); svg.appendChild(lab);
+        if (tall) {
+          var val = svgEl("text", { x: lx, y: cy + 13, "text-anchor": anchor, "class": "dn-annosub dn-nodelabel" });
+          val.textContent = fmt(nodeVal(n), spec.value || {}); svg.appendChild(val);
+        }
+      });
+
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Flow data",
+        [spec.fromTitle || "From", spec.toTitle || "To", spec.valueTitle || "Value"],
+        links.map(function (l) { return [l.source.label, l.target.label, fmt(l.value, spec.value || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip, sankey: sankey,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var yr = function (v) { return String(Math.round(v)); };
+// human-duration formatter for a log10(minutes) axis
+var dur = function (v) {
+  var m = Math.pow(10, v);
+  if (m < 59.5) return Math.round(m) + " min";
+  if (m < 1439) return Math.round(m/60) + " h";
+  if (m < 10079) return Math.round(m/1440) + " d";
+  if (m < 43199) return Math.round(m/10080) + " wk";
+  return Math.round(m/43200) + " mo";
+};
+var L = Math.log10;
+
+/* ---- Exhibit 01 — GPQA Diamond by lab family: the climb into the ceiling ---- */
+DN.line("#ex1", {
+  title: "GPQA Diamond score by lab family, 2023\u20132026",
+  summary: "Best reported accuracy on the GPQA Diamond graduate-science benchmark for each lab's flagship, over time. Scores climb steeply, then converge near a ceiling.",
+  x: { fmt: yr, min: 2023, max: 2026.5, ticks: [2023, 2024, 2025, 2026] },
+  y: { suffix: "%", zero: true, max: 100 },
+  refsY: [{ value: 65, label: "PhD-expert \u2248 65%" }],
+  bands: [{ x0: 2024.60, x1: 2024.80, label: "reasoning models (o1)" }],
+  series: [
+    { name: "GPT / o-series (OpenAI)", color: "#1C46C2",
+      points: [
+        {x:2023.20,y:39.0},{x:2024.37,y:53.6},{x:2024.70,y:77.3},
+        {x:2025.29,y:83.3},{x:2025.62,y:85.0},{x:2026.18,y:92.8}
+      ] },
+    { name: "Claude (Anthropic)", color: "#E69F00",
+      points: [
+        {x:2024.20,y:50.4},{x:2024.47,y:59.4},{x:2025.15,y:78.0},{x:2026.10,y:91.3}
+      ] },
+    { name: "Gemini (Google)", color: "#009E73",
+      points: [
+        {x:2024.40,y:46.2},{x:2025.23,y:84.0},{x:2025.92,y:93.8},{x:2026.13,y:94.3}
+      ] }
+  ]
+})
+
+/* ---- Exhibit 02 (signature) — METR 50% task time-horizon, log scale ---- */
+DN.line("#ex2", {
+  title: "METR 50% task-completion time horizon, frontier models",
+  summary: "Human-expert task length at which a model succeeds half the time, on a log scale. Solid is measured; the dashed line and shaded wedge are a labelled projection.",
+  x: { fmt: yr, min: 2023, max: 2028, ticks: [2023, 2024, 2025, 2026, 2027, 2028] },
+  y: { fmt: dur, zero: false, ticks: [0, L(60), L(1440), L(10080), L(43200)] },
+  series: [
+    { name: "50% time horizon", color: "#1C46C2",
+      points: [
+        {x:2023.20,y:L(3.5)}, {x:2025.12,y:L(60)}, {x:2025.29,y:L(121)},
+        {x:2025.38,y:L(101)}, {x:2025.62,y:L(214)}, {x:2025.96,y:L(320)},
+        {x:2028.00,y:L(4432)}
+      ],
+      projectFrom: 2025.96,
+      band: [{x:2025.96, lo:L(320), hi:L(320)}, {x:2028.00, lo:L(4432), hi:L(16595)}]
+    }
+  ],
+  notes: [
+    { x:2023.20, y:L(3.5),  text:"GPT-4", sub:"3.5 min", dy:-8, anchor:"start" },
+    { x:2024.55, y:1.15,    text:"reasoning models", sub:"o1, late 2024", dy:0, anchor:"middle" },
+    { x:2025.96, y:L(320),  text:"Opus 4.5", sub:"~5 h", dy:-12, anchor:"end" }
+  ]
+});
+
+/* ---- Exhibit 03 (signature strip) — the growth engine, swapped once already ---- */
+DN.rangeStrip("#ex3", {
+  title: "Sources of AI capability gains over time (Digi News framing)",
+  summary: "Approximate periods in which each approach was, or is projected to be, a leading driver of frontier gains. Hatched blocks are projected or emerging.",
+  mode: "rows",
+  x: { fmt: yr, min: 2017, max: 2032 },
+  categories: [
+    { name: "Training-time scale", color: "#0072B2" },
+    { name: "Inference-time compute", color: "#1C46C2" },
+    { name: "New training data", color: "#009E73" },
+    { name: "Data constraint", color: "#D55E00" },
+    { name: "Speculative", color: "#CC79A7" }
+  ],
+  events: [
+    { label: "Pre-training scale-up", start: 2018, end: 2024, category: "Training-time scale" },
+    { label: "Test-time compute", start: 2024.7, end: 2028, category: "Inference-time compute", projectFrom: 2026.52 },
+    { label: "New data sources", start: 2025, end: 2029.5, category: "New training data", projectFrom: 2026.52 },
+    { label: "Public-text \u2018data wall\u2019", start: 2026, end: 2032, category: "Data constraint", projectFrom: 2026 },
+    { label: "New architectures?", start: 2027.5, end: 2030, category: "Speculative", projectFrom: 2027.5 }
+  ]
+});
+})();
+</script>
+</body>
+</html>

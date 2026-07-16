@@ -1,6 +1,6 @@
 {
-  "built": "2026-07-16T10:56:20.018Z",
-  "count": 24,
+  "built": "2026-07-16T15:48:31.357Z",
+  "count": 25,
   "items": [
     {
       "path": "reports/2026-07-16-crossword-mini-0005.html",
@@ -15,6 +15,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "#...#...............#...#"
+    },
+    {
+      "path": "reports/2026-07-16-enzymatic-dna-synthesis-on-silicon.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "DNA reading costs fell 782 times further than writing costs. A silicon chip has now written 64 strands in water.",
+      "standfirst": "A Harvard-led team used a CMOS chip to synthesise 64 distinct DNA sequences at once, enzymatically, in water — the largest published parallel enzymatic demonstration. Placed on two decades of cost data, it is a laboratory first. No cost…",
+      "date": "2026-07-16",
+      "read": "~7 min",
+      "thumb": "",
+      "stat": "64",
+      "statUnit": "",
+      "statLabel": "sequences",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-16-european-heat-mortality-v4.html",

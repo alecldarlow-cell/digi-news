@@ -1,7 +1,35 @@
 {
-  "built": "2026-07-15T19:08:37.709Z",
-  "count": 19,
+  "built": "2026-07-16T06:03:12.845Z",
+  "count": 21,
   "items": [
+    {
+      "path": "reports/2026-07-16-crossword-mini-0005.html",
+      "kind": "puzzle",
+      "topic": "Crossword",
+      "headline": "Mini 0005",
+      "standfirst": "A five-letter row that means to bicker, a bird of prey down the middle and a three-letter yes. A medium 5x5 with a little angle on the clues.",
+      "date": "2026-07-16",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "#...#...............#...#"
+    },
+    {
+      "path": "reports/2026-07-16-logic-doku-0003.html",
+      "kind": "puzzle",
+      "topic": "Logic",
+      "headline": "Doku 0003",
+      "standfirst": "No clues, just tiles. Seven letters are nailed down; place the other sixteen so every across and down run reads as a real word. Exactly one arrangement works.",
+      "date": "2026-07-16",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ".#LL..L.L......LL..L...#."
+    },
     {
       "path": "reports/2026-07-15-measles-coverage-gap.html",
       "kind": "report",

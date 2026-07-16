@@ -498,11 +498,15 @@ function buildBank(){
 }
 function paint(){
   const active=wordAt(sel.r,sel.c,sel.dir);
+  /* Hints are SOLUTION-match, not dictionary-match. A completed run only greens
+     when every letter matches the intended fill. The grid is proved unique, so a
+     run that is merely "a word" (SAVER where ROVER belongs) is a guaranteed dead
+     end — greening it would be locally true and strategically false. */
   const green=new Set();
   if(hints&&!solved){
     for(const s of P.slots){
-      const w=s.cells.map(([r,c])=>entries[r][c]).join("");   // empty cells contribute nothing, so length proves the run is full
-      if(w.length===s.L&&WORDS[String(s.L)][w.toLowerCase()]!==undefined)
+      const full=s.cells.every(([r,c])=>entries[r][c]);
+      if(full&&s.cells.every(([r,c])=>entries[r][c]===P.grid[r][c]))
         for(const [r,c] of s.cells)green.add(r+","+c);
     }
   }

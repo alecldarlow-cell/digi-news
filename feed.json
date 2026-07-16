@@ -1,6 +1,6 @@
 {
-  "built": "2026-07-16T06:03:12.845Z",
-  "count": 21,
+  "built": "2026-07-16T06:32:31.345Z",
+  "count": 22,
   "items": [
     {
       "path": "reports/2026-07-16-crossword-mini-0005.html",
@@ -15,6 +15,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "#...#...............#...#"
+    },
+    {
+      "path": "reports/2026-07-16-european-heat-mortality-v4.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "The heat was measured to two decimal places. The death toll is two different numbers.",
+      "standfirst": "Western Europe averaged 20.74°C in June — a record, and 3.06°C above normal. For the single week the heat peaked, Europe has two figures for the dead: 10,650 and 20,390. One starts from registered deaths. The other never looks at one.",
+      "date": "2026-07-16",
+      "read": "~7 min",
+      "thumb": "",
+      "stat": "20.74",
+      "statUnit": "°C",
+      "statLabel": "western europe",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-16-logic-doku-0003.html",

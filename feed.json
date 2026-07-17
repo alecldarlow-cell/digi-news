@@ -1,9 +1,23 @@
 {
-  "built": "2026-07-17T10:21:15.281Z",
+  "built": "2026-07-17T11:01:15.271Z",
   "today": "2026-07-17",
   "timezone": "Europe/London",
-  "count": 25,
+  "count": 26,
   "items": [
+    {
+      "path": "reports/2026-07-17-crossword-mini-0006.html",
+      "kind": "puzzle",
+      "topic": "Crossword",
+      "headline": "Mini 0006",
+      "standfirst": "A race where you hand something over, and someone not from around here at all. A medium 5x5 to open the run.",
+      "date": "2026-07-17",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "#...#...............#...#"
+    },
     {
       "path": "reports/2026-07-16-crossword-mini-0005.html",
       "kind": "puzzle",

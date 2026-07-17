@@ -1,5 +1,7 @@
 {
-  "built": "2026-07-17T06:09:49.532Z",
+  "built": "2026-07-17T06:10:13.170Z",
+  "today": "2026-07-17",
+  "timezone": "Europe/London",
   "count": 25,
   "items": [
     {
@@ -10,11 +12,7 @@
       "standfirst": "A five-letter row that means to bicker, a bird of prey down the middle and a three-letter yes. A medium 5x5 with a little angle on the clues.",
       "date": "2026-07-16",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": "#...#...............#...#"
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-16-enzymatic-dna-synthesis-on-silicon.html",
@@ -24,11 +22,7 @@
       "standfirst": "A Harvard-led team used a CMOS chip to synthesise 64 distinct DNA sequences at once, enzymatically, in water — the largest published parallel enzymatic demonstration. Placed on two decades of cost data, it is a laboratory first. No cost…",
       "date": "2026-07-16",
       "read": "~7 min",
-      "thumb": "",
-      "stat": "64",
-      "statUnit": "",
-      "statLabel": "sequences",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-16-european-heat-mortality-v4.html",
@@ -38,11 +32,7 @@
       "standfirst": "Western Europe averaged 20.74°C in June — a record, and 3.06°C above normal. For the single week the heat peaked, Europe has two figures for the dead: 10,650 and 20,390. One starts from registered deaths. The other never looks at one.",
       "date": "2026-07-16",
       "read": "~7 min",
-      "thumb": "",
-      "stat": "20.74",
-      "statUnit": "°C",
-      "statLabel": "western europe",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-16-logic-doku-0003.html",
@@ -52,11 +42,7 @@
       "standfirst": "No clues, just tiles. Seven letters are nailed down; place the other sixteen so every across and down run reads as a real word. Exactly one arrangement works.",
       "date": "2026-07-16",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": ".#LL..L.L......LL..L...#."
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-16-primates-crystals.html",
@@ -66,11 +52,7 @@
       "standfirst": "Nine rescued chimpanzees near Madrid picked quartz and calcite out of pebble piles within seconds, then held them up to the light for minutes at a time. That much is measured. The claim that it explains 780,000 years of human mineral-col…",
       "date": "2026-07-16",
       "read": "~5 min",
-      "thumb": "",
-      "stat": "9",
-      "statUnit": "",
-      "statLabel": "chimpanzees",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/digi-doku-0004.html",
@@ -80,25 +62,17 @@
       "standfirst": "No clues, just tiles. Seven letters are fixed; place the other sixteen so every across and down run reads as a real word. Exactly one arrangement works.",
       "date": "2026-07-16",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": "L...#L......LL.L..L.#.L.."
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-15-measles-coverage-gap.html",
       "kind": "report",
       "topic": "Medicine",
-      "headline": "England's measles jab rate is rising on average. In the poorest areas it is falling.",
+      "headline": "England",
       "standfirst": "The national second-dose figure has gone up for three quarters running. In the latest quarter, coverage in the 30 most deprived councils fell — and the gap to the least deprived reached 10.6 points, the widest of the four childhood vacci…",
       "date": "2026-07-15",
       "read": "~6 min",
-      "thumb": "",
-      "stat": "10.6",
-      "statUnit": "pp",
-      "statLabel": "coverage gap",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-14-fusion-ignition.html",
@@ -108,11 +82,7 @@
       "standfirst": "Since December 2022 the National Ignition Facility has reached fusion ignition eleven times, peaking at a record 8.6 megajoules in April 2025. But that milestone counts energy on target — not the roughly 300–400 megajoules the lasers dra…",
       "date": "2026-07-14",
       "read": "~5 min",
-      "thumb": "",
-      "stat": "11",
-      "statUnit": "",
-      "statLabel": "ignitions",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-14-logic-doku-0002.html",
@@ -122,11 +92,7 @@
       "standfirst": "The letter bank returns. Slot each tile into the 5x5 so every run is a word - and there is exactly one way to do it.",
       "date": "2026-07-14",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": ".#LL....L.LL......L.L..#."
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-14-medicine-crispr-leaves-the-lab.html",
@@ -136,11 +102,7 @@
       "standfirst": "Nine in ten treated patients are free of the crises that defined their disease, and the effect has now lasted more than five years. Yet in the ten countries where the therapy is licensed, over 60,000 people are eligible — and 64 were inf…",
       "date": "2026-07-14",
       "read": "~9 min",
-      "thumb": "",
-      "stat": "93",
-      "statUnit": "%",
-      "statLabel": "of patients",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-13-logic-doku-0001.html",
@@ -150,11 +112,7 @@
       "standfirst": "No clues, just letters. Place every banked tile so each across and down run reads as a real word.",
       "date": "2026-07-13",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-12-crossword-mini-0004.html",
@@ -164,11 +122,7 @@
       "standfirst": "A villa, a fixed route and a church-hall shout. A medium 5x5 in the house style: crisp clues, common words, checked in code.",
       "date": "2026-07-12",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": "#...#...............#...#"
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-11-crossword-mini-0003.html",
@@ -178,11 +132,7 @@
       "standfirst": "Genes, eagles and something to wear on your sleeve. A medium 5x5 where the clues carry a bit of angle.",
       "date": "2026-07-11",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": "#...#...............#...#"
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-10-crossword-mini-0002.html",
@@ -192,53 +142,37 @@
       "standfirst": "A medium 5x5 with a Venetian canal, a tossed salad and a nod to Studio Ghibli. Ten entries, every one a common word.",
       "date": "2026-07-10",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": "#...#...............#...#"
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-08-ai-pace-of-progress.html",
       "kind": "report",
-      "topic": "AI",
+      "topic": "Artificial intelligence",
       "headline": "Frontier AI’s exam scores have stalled near the ceiling. Its real-world reach is still doubling.",
       "standfirst": "The benchmarks the industry leaned on have saturated, which makes progress look like a plateau. On task length — the least saturated measure available — the reach of frontier models has gone on doubling roughly every four to seven months…",
       "date": "2026-07-08",
       "read": "~8 min",
-      "thumb": "",
-      "stat": "94",
-      "statUnit": "%",
-      "statLabel": "exam score",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-07-04-ai-grid-cost.html",
       "kind": "report",
-      "topic": "AI",
+      "topic": "Technology",
       "headline": "AI is still a small slice of the world’s electricity",
       "standfirst": "Data centres used about 1.5% of global electricity in 2024, and AI only a fraction of that. The load is growing fast and set to roughly double by 2030 — yet even then it would add less new demand than cooling or electric cars. The same p…",
       "date": "2026-07-04",
       "read": "~5 min",
-      "thumb": "",
-      "stat": "415",
-      "statUnit": "TWh",
-      "statLabel": "data centres",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-30-ubi-evidence-and-cost.html",
       "kind": "report",
-      "topic": "Economy",
+      "topic": "Economics",
       "headline": "Basic income barely moved how much people work. The cost is the sticking point.",
       "standfirst": "A decade of experiments — Helsinki, Texas, Stockton, rural Kenya — finds that unconditional cash reliably improves financial security and wellbeing, with small and mixed effects on employment. What none of them can settle is whether a co…",
       "date": "2026-06-30",
       "read": "~6 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-29-burnham-platform.html",
@@ -248,25 +182,17 @@
       "standfirst": "Andy Burnham is the clear favourite to succeed Keir Starmer, who resigned on 22 June. He has no published manifesto, but in interviews he has set out positions that diverge from the present government on transport, public ownership, the…",
       "date": "2026-06-29",
       "read": "~6 min",
-      "thumb": "",
-      "stat": "9,241",
-      "statUnit": "",
-      "statLabel": "majority",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-27-money-and-happiness.html",
       "kind": "report",
-      "topic": "Economy",
+      "topic": "Money & well-being",
       "headline": "Money keeps buying happiness — just less of it with every step",
       "standfirst": "For most people, both day-to-day mood and overall life satisfaction keep climbing with income, and no study has yet found a ceiling. But the gains run through the logarithm of income, so each extra pound counts for less than the last. An…",
       "date": "2026-06-27",
       "read": "~11 min",
-      "thumb": "",
-      "stat": "2",
-      "statUnit": "×",
-      "statLabel": "per step up",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-27-uk-wages-vs-g7.html",
@@ -276,11 +202,7 @@
       "standfirst": "Since the 2008 financial crisis, the average British wage has barely moved in real terms — up about 4% over fourteen years, while America’s rose four times as fast. The result is a typical pay packet still hovering around its 2008 level,…",
       "date": "2026-06-27",
       "read": "~6 min",
-      "thumb": "",
-      "stat": "$63,691",
-      "statUnit": "",
-      "statLabel": "avg wage",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-23-uk-migration-falls.html",
@@ -290,11 +212,7 @@
       "standfirst": "UK net migration fell to 171,000 in the year to December 2025 — its lowest in four years and 82% below the 2023 peak. The fall is driven almost entirely by fewer legal arrivals on work and study visas. Small boat crossings rose again in…",
       "date": "2026-06-23",
       "read": "~10 min",
-      "thumb": "",
-      "stat": "171",
-      "statUnit": "k",
-      "statLabel": "net migration",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-22-starmer-why-unpopular.html",
@@ -304,39 +222,27 @@
       "standfirst": "A landslide built on a thin vote, a coalition pulling in opposite directions, and a run of named, datable decisions that tracked his ratings down. As reports swirl that the prime minister may set out his departure — unconfirmed by Downin…",
       "date": "2026-06-22",
       "read": "~8 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-22-uk-political-spectrum.html",
       "kind": "report",
       "topic": "UK politics",
       "headline": "Britain leaned left and liberal. Its politics turned right anyway.",
-      "standfirst": "The left–right spectrum can be measured — Britain has done it the same way since 1986. On those yardsticks the public's average economic and social attitudes have drifted left and become markedly more liberal over the past 15 years. Yet…",
+      "standfirst": "The left–right spectrum can be measured — Britain has done it the same way since 1986. On those yardsticks the public",
       "date": "2026-06-22",
       "read": "~12 min",
-      "thumb": "",
-      "stat": "33",
-      "statUnit": "/100",
-      "statLabel": "left–right",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-22-where-do-you-sit.html",
       "kind": "puzzle",
       "topic": "UK politics",
-      "headline": "Where do you sit on Britain's two value scales?",
-      "standfirst": "The companion to our piece on the British spectrum. Answer the same eleven statements the British Social Attitudes survey has used since 1986 — five for the economic left–right scale, six for the liberal–authoritarian scale — and we'll p…",
+      "headline": "Where do you sit on Britain",
+      "standfirst": "The companion to our piece on the British spectrum. Answer the same eleven statements the British Social Attitudes survey has used since 1986 — five for the economic left–right scale, six for the liberal–authoritarian scale — and we",
       "date": "2026-06-22",
       "read": "~3 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": ""
+      "thumb": ""
     },
     {
       "path": "reports/2026-06-21-starmer-leadership-crisis.html",
@@ -346,11 +252,7 @@
       "standfirst": "The Observer reports the prime minister is expected to set out a timetable for his departure on Monday; a government source told Reuters he remains focused on the job, and Downing Street has not confirmed anything. Whatever Monday brings…",
       "date": "2026-06-21",
       "read": "~6 min",
-      "thumb": "",
-      "stat": "",
-      "statUnit": "",
-      "statLabel": "",
-      "mask": ""
+      "thumb": ""
     }
   ]
 }

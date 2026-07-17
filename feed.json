@@ -1,8 +1,8 @@
 {
-  "built": "2026-07-17T15:22:58.394Z",
+  "built": "2026-07-17T15:27:43.633Z",
   "today": "2026-07-17",
   "timezone": "Europe/London",
-  "count": 27,
+  "count": 28,
   "items": [
     {
       "path": "reports/2026-07-17-crossword-mini-0006.html",
@@ -17,6 +17,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "#...#...............#...#"
+    },
+    {
+      "path": "reports/2026-07-17-logic-doku-0004.html",
+      "kind": "puzzle",
+      "topic": "Logic",
+      "headline": "Doku 0004",
+      "standfirst": "No clues, just tiles. Seven letters are fixed; place the other sixteen so every across and down run reads as a real word. Exactly one arrangement works.",
+      "date": "2026-07-17",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "L...#L......LL.L..L.#.L.."
     },
     {
       "path": "reports/DP-SWEEP-2026-07-17.html",

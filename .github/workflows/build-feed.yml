@@ -1,12 +1,26 @@
 name: Build feed
 
+# Rebuilds feed.json whenever a piece is added, changed or removed.
+# Nothing to run by hand — uploading an HTML file is the whole workflow.
+#
+# The nightly schedule exists because forward-dated pieces are held out of the
+# feed by tools/build-feed.js until their dn:date arrives (Europe/London). A
+# push-only trigger would leave tomorrow's puzzle invisible until someone
+# committed something; the cron releases it on its own.
+
 on:
   push:
     paths:
       - 'reports/**'
       - 'puzzles/**'
-      - 'tools/**'
+      - 'tools/build-feed.js'
       - '.github/workflows/build-feed.yml'
+  schedule:
+    # 00:05 UTC daily. Europe/London midnight is 00:00 UTC in winter and
+    # 23:00 UTC the previous day in BST, so this always lands after the
+    # boundary. GitHub queues scheduled runs and can delay them by 15+
+    # minutes under load — treat release as "early morning", not 00:05 sharp.
+    - cron: '5 0 * * *'
   workflow_dispatch:
 
 permissions:

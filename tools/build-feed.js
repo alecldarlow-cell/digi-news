@@ -1,29 +1,29 @@
 #!/usr/bin/env node
-/* ==========================================================================
-   DIGI NEWS — tools/build-feed.js
-   Rebuilds feed.json from the files in /reports and /puzzles. The front page
-   renders its cards from that file, so publishing is: upload an HTML file.
-   --------------------------------------------------------------------------
-   Each piece carries its own metadata in <head>:
-     dn:headline  dn:standfirst  dn:topic  dn:date  dn:kind  dn:read
-   Anything missing is inferred from the <h1>, the standfirst, the .topic
-   line, or the filename. Missing metadata is reported to the Actions log but
-   never fails the build — a piece always makes it to the feed.
+/* Digi News — feed builder.
+   Scans /reports and /puzzles for .html files, reads the dn:* meta block from
+   each head, and writes feed.json at the repo root. Run by GitHub Actions on
+   every push; needs no dependencies. Node 18+.
 
-   PUBLICATION DATE FILTER (added v1.1)
-   -----------------------------------
-   Pieces may be committed ahead of their release day. A piece enters the
-   feed only once its dn:date has arrived in Europe/London — the desk's
-   timezone, fixed here so that neither the runner's UTC clock nor British
-   Summer Time can drift the boundary. Forward-dated files sit in the repo,
-   out of the feed, until their day; the nightly cron in
-   .github/workflows/build-feed.yml rebuilds without a push.
+   Per-file metadata (in the <head> of each piece):
+     <meta name="dn:headline"   content="…">
+     <meta name="dn:standfirst" content="…">
+     <meta name="dn:topic"      content="…">
+     <meta name="dn:date"       content="YYYY-MM-DD">
+     <meta name="dn:kind"       content="report|puzzle">
+     <meta name="dn:read"       content="~8 min">      (optional)
+     <meta name="dn:thumb"      content="url">          (optional)
+     <meta name="dn:statlabel"  content="of patients">  (optional — overrides the
+       caption read off the piece's own hero stat; keep it to ~16 characters)
 
-   The filter is build-time, not client-side: future items never reach
-   feed.json, so their headlines are not readable in the page source. The
-   files themselves remain live at their own URLs — a filtered feed hides the
-   card, not the document.
-   ========================================================================== */
+   Anything missing is inferred from <title>/<h1>/.topic/.standfirst or from the
+   filename (YYYY-MM-DD-topic-slug.html). Missing metadata is reported to the
+   Actions log but never fails the build — a piece always makes it to the feed.
+
+   Pieces may be committed ahead of their release day: anything whose dn:date is
+   later than today in Europe/London is held out of feed.json until that date
+   arrives. See the publication cut-off block below. The nightly cron in
+   .github/workflows/build-feed.yml releases held pieces without a push.
+*/
 const fs = require('fs');
 const path = require('path');
 
@@ -33,13 +33,21 @@ const DIRS = [
   { dir: 'puzzles', kind: 'puzzle' }
 ];
 
-/* -- Publication cut-off ------------------------------------------------- */
+// ---- publication cut-off ----------------------------------------------------
+// Pieces may be committed ahead of their release day. A piece enters the feed
+// only once its dn:date has arrived in Europe/London — the desk's timezone,
+// fixed here so that neither the runner's UTC clock nor British Summer Time can
+// drift the boundary. Forward-dated files sit in the repo, out of the feed,
+// until their day; the nightly cron in build-feed.yml releases them without a
+// push. The filter is build-time, so a held headline never reaches feed.json
+// and cannot be read out of the page source — but the file stays live at its
+// own URL. A filtered feed hides the card, not the document.
 const TZ = 'Europe/London';
 const TODAY = new Intl.DateTimeFormat('en-CA', {
   timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit'
 }).format(new Date()); // -> 'YYYY-MM-DD'
-// Escape hatch: FEED_INCLUDE_FUTURE=1 node tools/build-feed.js  (preview only —
-// never set this in the workflow, or the feed ships tomorrow's cards today.)
+// Preview only: FEED_INCLUDE_FUTURE=1 node tools/build-feed.js
+// Never set this in the workflow, or the feed ships tomorrow's cards today.
 const INCLUDE_FUTURE = process.env.FEED_INCLUDE_FUTURE === '1';
 
 const ENTITIES = {
@@ -65,13 +73,15 @@ const stripTags = s => decode(String(s || '').replace(/<[^>]*>/g, ' ').replace(/
 function meta(html, name) {
   // tolerant of attribute order and of single or double quotes
   const re = new RegExp(
-    '<meta[^>]*name=["\']' + name + '["\'][^>]*>',
+    '<meta[^>]*name=["\']' + name.replace(':', ':') + '["\'][^>]*>',
     'i'
   );
   const tag = html.match(re);
   if (!tag) return '';
-  const c = tag[0].match(/content=["']([\s\S]*?)["']/i);
-  return c ? decode(c[1]).trim() : '';
+  // Match the closing quote to the OPENING one. A loose ["'] ends the capture at
+  // the first apostrophe, so content="CRISPR's cure…" silently became "CRISPR".
+  const c = tag[0].match(/content=(["'])([\s\S]*?)\1/i);
+  return c ? decode(c[2]).trim() : '';
 }
 
 function firstMatch(html, re) {
@@ -99,6 +109,104 @@ function mtimeDate(p) {
   catch { return ''; }
 }
 
+// ---- controlled topic vocabulary -------------------------------------------
+// The front-page chips are only useful if one beat has exactly one label.
+// Canonical list; anything not in it is kept verbatim and reported, so a
+// genuinely new beat is never silently mangled into the wrong bucket.
+const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword'];
+const TOPIC_ALIASES = {
+  'politics': 'UK politics', 'westminster': 'UK politics', 'uk politics': 'UK politics',
+  'economics': 'Economy', 'economy': 'Economy', 'money': 'Economy', 'business': 'Economy',
+  'money & well-being': 'Economy', 'money and well-being': 'Economy', 'pay': 'Economy',
+  'migration': 'Immigration', 'immigration': 'Immigration',
+  'artificial intelligence': 'AI', 'technology': 'AI', 'tech': 'AI', 'ai': 'AI',
+  'science': 'Science', 'physics': 'Science', 'energy': 'Science',
+  'medicine': 'Medicine', 'health': 'Medicine',
+  'society': 'Society', 'world': 'World',
+  // The two puzzle beats. They're real chips, not strays — without them every
+  // puzzle logs a vocabulary warning on every build, which buries the notes
+  // that actually need reading.
+  'logic': 'Logic', 'lexidoku': 'Logic', 'doku': 'Logic',
+  'crossword': 'Crossword', 'mini': 'Crossword'
+};
+
+function canonTopic(raw, rel, warnings) {
+  const t = String(raw || '').trim();
+  if (!t) return '';
+  const exact = TOPICS.find(c => c.toLowerCase() === t.toLowerCase());
+  if (exact) return exact;
+  const alias = TOPIC_ALIASES[t.toLowerCase()];
+  if (alias) {
+    warnings.push(`${rel} — topic "${t}" mapped to "${alias}" (set dn:topic to the canonical label)`);
+    return alias;
+  }
+  warnings.push(`${rel} — topic "${t}" is not in the vocabulary [${TOPICS.join(', ')}] — kept verbatim; it will get its own chip`);
+  return t;
+}
+
+// ---- hero stat --------------------------------------------------------------
+// The card tile shows the piece's first hero stat. Hero stats are measured
+// figures by house rule (§3), so nothing projected can reach a card.
+//
+// Returned in three parts, because the tile sets them at three sizes: the
+// figure large (and sized to the box by its own length — so the unit must not
+// inflate the count), the unit small, and the label small underneath. The label
+// is the stat's existing on-page caption — the sibling of .n in the herostats
+// block — so nothing new has to be authored. dn:statlabel overrides it.
+function heroStat(html) {
+  const block = html.match(/<div class="herostats"[\s\S]{0,4000}?<\/div>\s*<\/div>/i);
+  const scope = block ? block[0] : html;
+  const m = scope.match(/<div class="n"[^>]*>([\s\S]*?)<\/div>\s*(?:<div[^>]*>([\s\S]*?)<\/div>)?/i);
+  if (!m) return null;
+  const txt = stripTags(m[1]).replace(/\s+/g, '');
+  if (!txt || txt.length > 8) return null;
+  if (!/[0-9]/.test(txt)) return null;
+  // Reject dash/zero placeholders — an interactive tool's score slot reads
+  // "—/100" until the reader scores it, and that must never reach a card.
+  if (/[\u2014\u2013-]/.test(txt)) return null;
+  if (/^(0|00|0,000)$/.test(txt)) return null;
+  // "93%" → 93 + %   "£1,284" → £1,284 + ''   "1,284×" → 1,284 + ×
+  const parts = txt.match(/^([^0-9]*[0-9][0-9.,]*)(.*)$/);
+  return {
+    figure: parts ? parts[1] : txt,
+    unit:   parts ? parts[2] : '',
+    label:  stripTags(m[2] || '')
+  };
+}
+
+// ---- puzzle grid mask -------------------------------------------------------
+// A puzzle's card tile is a preview of its own grid, read straight out of the
+// puzzle file's puzzle object — never hand-drawn, and never a spoiler: only the
+// SHAPE travels (blocks and pre-locked cells), never a letter.
+//   #  black square      L  pre-locked cell (LexiDoku)      .  to be filled
+// Returns a 25-char string, or '' if the object can't be read — in which case
+// the card falls back to the Play glyph rather than inventing a grid.
+function puzzleMask(html, rel, warnings) {
+  const g = html.match(/\bgrid\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
+  if (!g) { warnings.push(`${rel} — no grid found in the puzzle object; card falls back to the Play tile`); return ''; }
+
+  const cells = g[1].match(/"[^"]*"|'[^']*'/g) || [];
+  if (cells.length !== 25) {
+    warnings.push(`${rel} — grid parsed as ${cells.length} cells, expected 25; card falls back to the Play tile`);
+    return '';
+  }
+  const mask = cells.map(c => c.slice(1, -1).trim() === '#' ? '#' : '.');
+
+  // LexiDoku: locked is [[row,col],…], 1-indexed, per the type spec.
+  const lk = html.match(/\blocked\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
+  if (lk) {
+    const pairs = lk[1].match(/\[\s*\d+\s*,\s*\d+\s*\]/g) || [];
+    for (const p of pairs) {
+      const [r, c] = p.match(/\d+/g).map(Number);
+      const i = (r - 1) * 5 + (c - 1);
+      if (i < 0 || i > 24) { warnings.push(`${rel} — locked cell [${r},${c}] is off the grid; ignored`); continue; }
+      if (mask[i] === '#') { warnings.push(`${rel} — locked cell [${r},${c}] is a black square; ignored`); continue; }
+      mask[i] = 'L';
+    }
+  }
+  return mask.join('');
+}
+
 const warnings = [];
 const items = [];
 const held = [];
@@ -123,11 +231,12 @@ for (const { dir, kind } of DIRS) {
       meta(head, 'dn:standfirst') ||
       firstMatch(html, /<p class="stand(?:first)?"[^>]*>([\s\S]*?)<\/p>/i);
 
-    const topic =
+    const rawTopic =
       meta(head, 'dn:topic') ||
       firstMatch(html, /<div class="topic"[^>]*>([\s\S]*?)<\/div>/i).split('\u00b7')[0].trim() ||
       fn.topic ||
       (kind === 'puzzle' ? 'Puzzle' : 'Data');
+    const topic = canonTopic(rawTopic, rel, warnings);
 
     const date = meta(head, 'dn:date') || fn.date || mtimeDate(path.join(abs, file));
 
@@ -138,9 +247,34 @@ for (const { dir, kind } of DIRS) {
     if (missing.length) warnings.push(`${rel} — inferred: ${missing.join(', ')}`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) warnings.push(`${rel} — no usable date; card will sort last`);
 
-    /* Hold anything dated after today. Only well-formed dates can be judged
-       future; an unusable date is a data problem, already warned above, and
-       is published rather than silently swallowed. */
+    const kindVal = (meta(head, 'dn:kind') || kind).toLowerCase();
+
+    // Puzzles have no measured hero stat — their number slots are score
+    // placeholders — so their tile is drawn from the grid instead.
+    const hs = (kindVal === 'puzzle') ? null : heroStat(html);
+    const mask = (kindVal === 'puzzle') ? puzzleMask(html, rel, warnings) : '';
+
+    // The tile's label is a KICKER, not a caption: ~14 characters, two words.
+    // The piece's own hero-stat caption is written to sit under a big number in
+    // an article, so it's usually a full sentence — and it can carry flattened
+    // footnote markers. It's offered as a default, but anything over the limit is
+    // DROPPED, never clipped: "TIMES NIF HAS REAC…" tells the reader less than a
+    // bare number does. Set dn:statlabel to give the tile a short one.
+    const MAX_LABEL = 14;
+    const authored = meta(head, 'dn:statlabel');
+    let statLabel = authored || (hs ? hs.label : '');
+    if (statLabel.length > MAX_LABEL) {
+      warnings.push(`${rel} — ${authored ? 'dn:statlabel' : 'hero-stat caption'} "${statLabel.slice(0, 40)}${statLabel.length > 40 ? '…' : ''}" is ${statLabel.length} chars; the tile fits ${MAX_LABEL}, so no label is shown${authored ? '' : ' (set dn:statlabel to give it one)'}`);
+      statLabel = '';
+    }
+
+    // Hold anything dated after today. This sits AFTER the hero-stat and grid
+    // extraction on purpose: a forward-dated piece is still parsed and still
+    // logs its warnings, so a batch of 30 puzzles reports a broken grid or an
+    // over-long stat label on the day it is uploaded — not on the morning it
+    // publishes. Only a well-formed date can be judged future; an unusable one
+    // is a data problem, already warned above, and is published rather than
+    // silently swallowed.
     if (/^\d{4}-\d{2}-\d{2}$/.test(date) && date > TODAY && !INCLUDE_FUTURE) {
       held.push({ rel, date });
       continue;
@@ -148,13 +282,19 @@ for (const { dir, kind } of DIRS) {
 
     items.push({
       path: rel,
-      kind: (meta(head, 'dn:kind') || kind).toLowerCase(),
+      kind: kindVal,
       topic,
       headline,
       standfirst: standfirst.length > 240 ? standfirst.slice(0, 237).trimEnd() + '\u2026' : standfirst,
       date,
-      read: meta(head, 'dn:read') || '',
-      thumb: meta(head, 'dn:thumb') || ''
+      read: meta(head, 'dn:read') || (firstMatch(html, /<div class="dateline"[^>]*>([\s\S]*?)<\/div>/i).match(/~\s*\d+\s*min/i) || [''])[0].replace(/\s+/g, ' '),
+      thumb: meta(head, 'dn:thumb') || '',
+      // stat is now the FIGURE only — the tile sizes itself by its length, so a
+      // trailing "%" or "×" must not count. unit and label are set separately.
+      stat: hs ? hs.figure : '',
+      statUnit: hs ? hs.unit : '',
+      statLabel: hs ? statLabel : '',
+      mask
     });
   }
 }

@@ -9,11 +9,11 @@ on:
       - '.github/workflows/build-feed.yml'
   schedule:
     # Nightly, so forward-dated pieces publish on their own day without a push.
-    # 00:05 UTC: Europe/London midnight is 00:00 UTC in winter and 23:00 UTC the
-    # previous day in BST, so this always lands after the boundary. GitHub queues
-    # scheduled runs and can delay them 15+ minutes under load — treat release as
-    # "early morning", not 00:05 sharp.
-    - cron: '5 0 * * *'
+    # 02:00 UTC: Europe/London midnight is 00:00 UTC in winter and 23:00 UTC the
+    # previous day in BST, so this always lands well after the boundary in both
+    # seasons. GitHub queues scheduled runs and can delay them 15+ minutes under
+    # load — treat release as "early morning", not 02:00 sharp.
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
 permissions:

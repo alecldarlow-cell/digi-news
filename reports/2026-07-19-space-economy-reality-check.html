@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ==== DN FEED META — filled in below. The site front page reads these. ====
+     Plain text only (no HTML tags). Entities like &amp; and &mdash; are fine.
+     If any of these are missing the feed builder falls back to reading the
+     <title>/<h1>/.topic/.standfirst, so a piece never drops off the index —
+     but the fallback is dumber than you, so fill these in.
+
+     dn:topic drives the front-page filter chips, so it is a CONTROLLED
+     VOCABULARY: UK politics | Economy | Immigration | AI | Science |
+     Medicine | Society | World. One beat, one label — "Economy" and
+     "Economics" would split the filter forever. A genuinely new beat may be
+     added to the list, but it is a deliberate act, not a typo.
+
+     The card's tile shows the piece's FIRST HERO STAT, lifted automatically.
+     Hero stats are measured figures by rule (§3), so nothing projected can
+     reach the front page. Keep the first hero stat short (<=8 characters). -->
+<meta name="dn:headline"   content="Orbit got 96% cheaper. The industries built on that are mostly still on paper">
+<meta name="dn:standfirst" content="Launching a kilogram to orbit costs 96% less than in 1960, and forecasters expect it to keep falling. That collapse is real and measured. But satellite refuelling, asteroid mining and orbital data centres — the industries the cheap launch was meant to unlock — are still mostly demonstrations, failures and announcements, not revenue.">
+<meta name="dn:topic"      content="Science">
+<meta name="dn:date"       content="2026-07-19">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~9 min">
+<meta name="dn:statlabel"  content="cost per kg">
+<!-- ======================================================================= -->
+
+<title>Digi News — Orbit got 96% cheaper. The industries built on that are mostly still on paper</title>
+<!--
+  ============================================================================
+  DIGI NEWS — HOUSE TEMPLATE v3.2   (reuse this chrome for every piece)
+  ============================================================================
+  WHAT'S NEW IN v3.2 (vs v3.1)
+  - DN FEED META block in the head (dn:headline / dn:standfirst / dn:topic /
+    dn:date / dn:kind / dn:read). The published site's front page builds its
+    card list from these, so every piece must carry them filled in. They are
+    metadata about the piece, not new editorial surface — dn:headline is the
+    h1 verbatim, dn:date is the same day as "Figures to".
+
+  WHAT'S NEW IN v3 (vs v2)
+  - DN.sankey: flow diagram — ribbon width is proportional to volume (honest
+    length encoding), CVD-safe gradient links (colour marks source->target,
+    paired with a text label + value, so colour is never the sole carrier),
+    automatic layering + crossing-reduction, a hidden flow data <table>, and
+    real-pixel responsive rendering like every other DN chart.
+  - Fix: rangeStrip projected-span labels now use ink over the hatch (legible).
+
+  WHAT'S NEW IN v2 (vs v1)
+  - Embedded DN visualization library (self-contained, no external deps):
+      DN.line · DN.bars · DN.columns · DN.slope · DN.scatter · DN.rangeStrip · DN.sankey
+    Newsroom-idiom SVG: honest scales, annotation layer, colourblind-safe
+    palette, a number formatter, and — critically — REAL-PIXEL RESPONSIVE
+    rendering (1 SVG unit = 1 CSS px via ResizeObserver) so chart type never
+    shrinks below legible on a phone. Every chart also emits a visually-hidden
+    data <table> for screen readers and auditing.
+  - Inline numbered citations with source-tier badges (T1/T2/T3) so evidentiary
+    strength is visible at the point of each claim.
+  - Structural slots for honesty: a "What we don't know" box and a caveat card.
+  - Promoted from the field: signature strip exhibit, reference appendix table.
+  - Footer now carries Corrections + a version line alongside Method + Sources.
+
+  HOW TO USE
+  - Keep the chrome, footer, and the <style> tokens. Replace placeholder copy
+    and the exhibit data in the init script block at the foot of the file.
+  - Build each exhibit by calling a DN.* helper on a <figure>'s chart <div>.
+  - Number exhibits in order. Every exhibit needs a title + a sourced caption.
+  - .positions only when a topic is genuinely contested (steelman both sides).
+  - "What we don't know" whenever data is thin/lagged/modelled or cause unproven.
+  - "Go deeper" only when material was deliberately omitted to hold length.
+  - NEVER let a projection/scenario be the headline or a hero stat. Label it,
+    cordon it (dashed/hatched), and lead with the measured figure.
+
+  DN QUICK REFERENCE  (full notes in the library header below)
+    DN.line(sel,{series:[{name,points:[{x,y}],projectFrom?,band?:[{x,lo,hi}],color?}],
+                 x:{fmt,ticks,min,max,title}, y:{suffix,prefix,decimals,compact,zero},
+                 refsY:[{value,label}], bands:[{x0,x1,label}], notes:[{x,y,text,sub}],
+                 endLabels?, title, summary})
+    DN.bars(sel,{data:[{label,value,highlight?,color?}], sort?, refValue?, refLabel?,
+                 x:{compact,suffix}, title})
+    DN.columns(sel,{mode:'grouped'|'stacked', series:[{name,color?}],
+                 groups:[{label,values:{<seriesName>:n}}], y:{}, title})
+    DN.slope(sel,{left,right, items:[{label,from,to,highlight?}], y:{}, title})
+    DN.scatter(sel,{points:[{x,y,r?,label?,group?}], x:{label}, y:{label},
+                 quadrant:{x?,y?}, title})
+    DN.rangeStrip(sel,{mode:'barcode'|'rows', events:[{label,start,end,category?,projectFrom?}],
+                 categories:[{name,color}], brackets:[{x0,x1,label}], notes:[{x,text,sub}],
+                 x:{fmt}, title})
+    DN.sankey(sel,{nodes?:[{id,label?,color?}], links:[{source,target,value,color?}],
+                 align?:'justify'|'left', nodeWidth?, nodePad?, value:{compact,prefix,suffix,decimals}, title})
+    DN.fmt(v,{decimals,compact,prefix,suffix,plus,pct})
+  PALETTE: ink #15171C · cobalt subject #1C46C2 · contrast-red #E0312A (charts only)
+  Categorical scale is Okabe-Ito (CVD-safe); accent stays reserved for the subject.
+  ============================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- headline ---------- */
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  /* ---------- hero stats ---------- */
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  /* ---------- sections ---------- */
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  /* ---------- exhibit ---------- */
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  /* ---------- DN chart library styling (real-px responsive SVG) ---------- */
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* sankey: labels keep a paper halo so they stay legible over flow ribbons */
+  .dn-nodelabel{paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+  .dn-flow{transition:fill-opacity .15s ease}
+  .dn-flow:hover{fill-opacity:.72}
+  @media(prefers-reduced-motion:reduce){.dn-flow{transition:none}}
+
+  /* ---------- callout ---------- */
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  /* ---------- inline citation + source tiers ---------- */
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  /* ---------- "what we don't know" ---------- */
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- positions (contested only) ---------- */
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  /* ---------- stat band ---------- */
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  /* ---------- caveat card ---------- */
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  /* ---------- appendix table ---------- */
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair)}
+  table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  table.tbl tr:last-child td{border-bottom:none}
+
+  /* ---------- go deeper ---------- */
+  .more{margin-top:18px;list-style:none;border-top:1px solid var(--hair)}
+  .more li{padding:13px 0;border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--muted)}
+  .more li::before{content:"\2192";color:var(--accent);font-weight:700}
+  .more li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== MASTHEAD (fixed) ===================== -->
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>19 JUL 2026</div>
+  </header>
+
+  <!-- ===================== HEADLINE ===================== -->
+  <div class="head">
+    <div class="topic">Science &middot; the space economy</div>
+    <h1>Orbit got 96% cheaper. The industries built on that are mostly still on paper</h1>
+    <p class="standfirst">Launching a kilogram to orbit costs 96% less than it did in 1960, and economists expect the fall to continue. That collapse is real and measured. But satellite refuelling, asteroid mining and orbital data centres &mdash; the industries cheap launch was meant to unlock &mdash; are still mostly demonstrations, failures and announcements, not revenue.</p>
+    <div class="dateline">Digi News data desk &middot; reading time ~9 min</div>
+  </div>
+
+  <!-- ===================== HERO STATS (measured only) ===================== -->
+  <div class="herostats">
+    <div class="hs"><div class="n">3,868<small>$/kg</small></div><div class="l">Average cost to launch 1kg to low Earth orbit, 2025 (measured)</div></div>
+    <div class="hs"><div class="n">96<small>%</small></div><div class="l">Fall in that cost since 1960 (measured, not projected)</div></div>
+    <div class="hs"><div class="n">80<small>%</small></div><div class="l">Share of all 2025 orbital payload launched by one company, SpaceX</div></div>
+  </div>
+
+  <!-- ===================== EXHIBIT 01 — LINE: launch cost collapse ===================== -->
+  <section class="section">
+    <div class="eyebrow">The number underneath everything else</div>
+    <h2>The one chart that explains why this topic exists now</h2>
+    <p>Every idea in this piece &mdash; mining an asteroid, refuelling a satellite, building a data centre in orbit &mdash; depends on the same underlying trend: it has become dramatically cheaper to get a kilogram of hardware into space. A July 2026 study led by Cambridge&rsquo;s Bennett School of Public Policy and Turin&rsquo;s Politecnico Institute, drawing on 4,405 launches between 1960 and 2025, put the average cost of reaching low Earth orbit at $87,023 per kilogram in 1960.<sup class="cite"><a href="#s1">1</a></sup> That fell to roughly $20,000/kg by the early 1970s as Apollo-era production scaled up, then stalled for two decades once the Saturn V was retired and the Space Shuttle became the main US vehicle.<sup class="cite"><a href="#s1">1</a></sup> It only began falling again after 1989, as Cold War-era state programmes gave way to commercial launch providers &mdash; and by 2025 the global average had reached $3,868/kg, a 96% fall since 1960.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>The same researchers project the fall will continue: to $1,569/kg by 2030 and $273/kg by 2040, if reusable heavy-lift vehicles such as SpaceX&rsquo;s Starship reach routine, high-cadence flight.<sup class="cite"><a href="#s1">1</a></sup> Those two later figures are a model&rsquo;s central projection, not a measurement &mdash; they assume the cost curve continues its recent trajectory, which the researchers themselves flag is not guaranteed (see the caveat below).</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">Cost to launch 1kg to low Earth orbit &mdash; measured 1960&ndash;2025, then a central projection to 2040</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Terzi &amp; Nicoli, <i>PNAS Nexus</i>, July 2026, standardised dataset of 4,405 launches, 1960&ndash;2025.<sup class="cite"><a href="#s1">1</a></sup> Solid line and dots are the study&rsquo;s measured milestone figures; the dashed segment from 2025 is the study&rsquo;s own central projection, not recorded data. Y-axis is linear and zero-baselined, so the scale of the 1960s fall visually dwarfs later changes even though the 1989&ndash;2025 period saw a larger absolute price drop per doubling of cargo (44% per doubling, vs 17% before 1989) &mdash; see the reference table for exact figures.<sup class="cite"><a href="#s1">1</a></sup></figcaption>
+    </figure>
+    <div class="callout"><b>Key finding.</b> The cost of reaching orbit has already fallen 96% since 1960 &mdash; that part is measured history, not a forecast. Everything else in this piece is about how much of an industry has actually been built on top of it so far.</div>
+  </section>
+
+  <!-- ===================== EXHIBIT 02 — BARS: SpaceX share of global payload ===================== -->
+  <section class="section">
+    <div class="eyebrow">Who is actually driving the fall</div>
+    <h2>The cost curve currently runs through one company</h2>
+    <p>The 96% fall is a global average, but it is not evenly produced. SpaceX accounted for roughly 80% of all payload mass launched into orbit worldwide in 2025, on the same Cambridge/Politecnico dataset<sup class="cite"><a href="#s1">1</a></sup> &mdash; a concentration the study&rsquo;s authors compare, in a related working paper, to the East India Company&rsquo;s 19th-century hold on maritime trade.<sup class="cite"><a href="#s2">2</a></sup> That matters for everything that follows: nearly every business case in this piece assumes launch keeps getting cheaper on schedule, and that schedule currently depends heavily on one firm&rsquo;s reusability programme continuing to work and continuing to sell capacity at close to today&rsquo;s prices.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">Share of global payload mass launched to orbit, 2025</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Terzi &amp; Nicoli, <i>PNAS Nexus</i>, July 2026.<sup class="cite"><a href="#s1">1</a></sup> Measured share of tonnage launched in 2025, not of launch providers or of launches by count; a small number of very large payloads (Starlink batches) mean the mass share can differ from a simple launch-count share.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== EXHIBIT 03 — BARS: radiator area per MW ===================== -->
+  <section class="section">
+    <div class="eyebrow">Where the hype gets ahead of the physics</div>
+    <h2>Orbital data centres run into a cooling problem, not a power problem</h2>
+    <p>Of the three industries this piece covers, orbital data centres have generated the most headlines relative to what has actually flown. Nvidia-backed Starcloud launched a 60kg satellite, Starcloud-1, in November 2025 carrying a single Nvidia H100 GPU &mdash; the first time a high-end AI chip has run in orbit &mdash; and used it to run inference and train a small language model.<sup class="cite"><a href="#s3">3</a></sup> That is a genuine first, and a real measured fact. It is also a single GPU on a refrigerator-sized satellite, a long way from the 5-gigawatt facility the company has since pitched.<sup class="cite"><a href="#s4">4</a></sup></p>
+    <p>The constraint is not power &mdash; sunlight in orbit is abundant and, outside eclipse, continuous. It is waste heat. In a vacuum there is no air or water to carry heat away by convection, so every watt a chip draws must eventually leave as infrared radiation, governed by the Stefan-Boltzmann law.<sup class="cite"><a href="#s5">5</a></sup> Engineering estimates published this year put the radiator area needed to reject a single megawatt of waste heat at roughly 1,200 to 1,600 square metres &mdash; several tennis courts to a hockey rink, per megawatt<sup class="cite"><a href="#s5">5</a></sup><sup class="cite"><a href="#s6">6</a></sup> &mdash; and that radiator cannot simply be the back of the solar array, because a panel wants to face the sun while a radiator wants a cold, shaded view of deep space.<sup class="cite"><a href="#s6">6</a></sup> A modern terrestrial AI training cluster draws power in the hundreds of megawatts; scaling that to orbit on current radiator physics implies radiator arrays measured in square kilometres, not square metres.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 03</div><div class="ex-title">Radiator area needed to reject 1 megawatt of waste heat in orbit, by published engineering estimate</div></div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> World Economic Forum engineering analysis, June 2026;<sup class="cite"><a href="#s6">6</a></sup> SatNews, March 2026.<sup class="cite"><a href="#s5">5</a></sup> Both are independent order-of-magnitude engineering estimates for radiating 1MW at roughly 20&deg;C via the Stefan-Boltzmann law, not measurements of a built facility &mdash; no orbital data centre near this scale yet exists to measure. The two estimates differ by about a third, which is itself a sign of how unsettled the engineering is.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== EXHIBIT 04 — SIGNATURE: rangeStrip, the measured record ===================== -->
+  <section class="section">
+    <div class="eyebrow">The signature exhibit</div>
+    <h2>What has actually flown, versus what has only been announced</h2>
+    <p>Strip away the market-size forecasts and the mission announcements, and the measured record across the four industries most often bundled into "the space economy" looks like this. Satellite servicing is the one genuine, repeated commercial success: Northrop Grumman&rsquo;s MEV-1 docked with a commercial satellite in geostationary orbit in February 2020 &mdash; the first such commercial docking &mdash; extended its life for five years, then undocked in April 2025 to serve another customer; MEV-2 has been docked and providing service since April 2021 and was extended in 2024.<sup class="cite"><a href="#s7">7</a></sup> In-space manufacturing has one clear success (Varda&rsquo;s first capsule grew crystals of the drug ritonavir in orbit and returned them intact in February 2024) followed by five further missions that have mostly been repurposed toward hypersonic defence-sensor testing rather than pharmaceutical production.<sup class="cite"><a href="#s8">8</a></sup> Refuelling has real hardware built and contracted, but as of this piece&rsquo;s publication date it has not yet flown: Astroscale U.S.&rsquo;s APS-R spacecraft is manifested to launch in summer 2026 to refuel two Space Force satellites via an Orbit Fab depot.<sup class="cite"><a href="#s9">9</a></sup> Asteroid mining has the weakest record of the four: AstroForge&rsquo;s first mission, Brokkr-1, reached orbit in 2023 but its refinery payload never activated; its second, Odin, launched in February 2025 and lost contact in deep space before reaching its target asteroid; a third mission, Vestri, is scheduled for late 2026 or 2027 to attempt the first-ever private landing on a body beyond the Earth-Moon system &mdash; landing only, not extraction.<sup class="cite"><a href="#s10">10</a></sup></p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 04</div><div class="ex-title">The measured logistics record, 2019&ndash;2027 &mdash; flown missions solid, scheduled-but-not-yet-flown hatched</div></div>
+      <div class="ex-chart"><div id="ex4"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Northrop Grumman;<sup class="cite"><a href="#s7">7</a></sup> Varda Space Industries;<sup class="cite"><a href="#s8">8</a></sup> Astroscale U.S. / SpaceNews;<sup class="cite"><a href="#s9">9</a></sup> AstroForge / Space.com.<sup class="cite"><a href="#s10">10</a></sup> Hatched spans (APS-R, Vestri) are contracted, manifested missions that had not yet flown as of 19 July 2026 &mdash; they are dated announcements, not modelled projections, but are visually distinguished from completed missions for the same reason: nothing here should be mistaken for a result until it has happened. Rows kept under ~22 characters per Digi News house style.</figcaption>
+    </figure>
+    <div class="callout"><b>Key finding.</b> Of the four verticals, only satellite servicing has a multi-year record of repeated, successful commercial missions. The other three have between zero and one qualified success each, against years of announcements.</div>
+  </section>
+
+  <!-- ===================== WHAT WE DON'T KNOW ===================== -->
+  <div class="unknowns">
+    <div class="h">What we don't know</div>
+    <p>The Terzi and Nicoli cost projections apply Wright&rsquo;s Law &mdash; the empirical pattern that costs fall a fixed percentage with each doubling of cumulative output &mdash; forward from 2025; the paper itself flags that monopoly pricing power or geopolitical fragmentation could break that pattern, and no one can yet say which path is more likely.<sup class="cite"><a href="#s1">1</a></sup> The two radiator estimates in Exhibit 03 come from published engineering analysis, not a built and measured facility at that scale; nothing close to a 1MW orbital data centre exists yet to check them against. No independent, audited figure exists for what it would actually cost to extract and process ore from an asteroid, because it has never been done &mdash; industry estimates of asteroid resource value (sometimes quoted in the trillions) describe the metal in place, not a recoverable, sellable quantity net of mission cost, and this piece has deliberately left such figures out rather than repeat them uncited. We also do not know whether Astroscale&rsquo;s APS-R refuelling demonstration, manifested for summer 2026, will succeed by the time this piece is read; nor whether Varda&rsquo;s pivot from pharmaceutical crystallisation toward defence and hypersonic-sensor payloads across its more recent missions reflects a permanent change in its business model or a temporary shift toward the more reliably funded customer.<sup class="cite"><a href="#s8">8</a></sup></p>
+  </div>
+
+  <!-- ===================== POSITIONS ===================== -->
+  <section class="section">
+    <div class="eyebrow">Where it's contested</div>
+    <h2>Three genuine disagreements, not one manufactured one</h2>
+    <p>Credible, informed sources disagree on several distinct questions here. They are not all the same kind of question, so we have labelled each.</p>
+    <div class="positions">
+      <div class="pos case"><div class="tag">The case</div><p>The cost curve keeps falling. Reusability is spreading beyond SpaceX &mdash; Blue Origin&rsquo;s New Glenn and China&rsquo;s emerging reusable boosters both target the same physics &mdash; and the study&rsquo;s authors find the post-1989 rate of decline (44% per doubling of cumulative payload) is accelerating, not slowing, as commercial competition has replaced state monopolies.<sup class="cite"><a href="#s1">1</a></sup></p><div class="kind">Empirical dispute</div></div>
+      <div class="pos counter"><div class="tag">The counter-case</div><p>One firm still launches roughly 80% of world tonnage. The same researchers warn that a profit-maximising near-monopoly, combined with rising geopolitical fragmentation as nations build parallel, protected launch capacity, could stall or reverse the trend well before 2040 &mdash; the projection is a central case, not a guarantee.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s2">2</a></sup></p><div class="kind">Empirical dispute</div></div>
+      <div class="pos case"><div class="tag">The case</div><p>The falling-cost logic already supports real, if narrow, businesses: satellite life-extension has a five-year commercial track record,<sup class="cite"><a href="#s7">7</a></sup> and in-space pharmaceutical manufacturing has produced at least one verified result.<sup class="cite"><a href="#s8">8</a></sup> On this reading, mining and orbital data centres are simply earlier on the same curve servicing already climbed.</p><div class="kind">Empirical dispute</div></div>
+      <div class="pos counter"><div class="tag">The counter-case</div><p>Servicing works because it solves a narrow, well-defined problem (keep an existing satellite flying) using mature docking technology. Mining and data centres face open engineering problems &mdash; unproven in-space ore processing, and cooling physics that scale badly with size &mdash; that cheaper launch alone does not solve; three years of asteroid-mining attempts have yet to return a qualified success.<sup class="cite"><a href="#s10">10</a></sup><sup class="cite"><a href="#s6">6</a></sup></p><div class="kind">Empirical dispute</div></div>
+      <div class="pos case"><div class="tag">The US/Artemis Accords position</div><p>The 2015 US Space Resource Exploration and Utilization Act entitles American citizens to resources they extract in space, and the 69-nation Artemis Accords state that extracting space resources does not, by itself, amount to the "national appropriation" the 1967 Outer Space Treaty prohibits &mdash; extraction is framed as permitted "use," not forbidden ownership of the celestial body itself.<sup class="cite"><a href="#s11">11</a></sup></p><div class="kind">Legal dispute &mdash; resolvable in principle, but untested</div></div>
+      <div class="pos counter"><div class="tag">The treaty-literalist position</div><p>Russia and China, both non-signatories, have called the Accords a unilateral US attempt to write international space law to its own advantage; legal scholars note the Outer Space Treaty is binding as customary international law on all states regardless of signature, and that whether extraction on this scale counts as "appropriation" has never been tested by any court or tribunal.<sup class="cite"><a href="#s12">12</a></sup><sup class="cite"><a href="#s11">11</a></sup></p><div class="kind">Legal dispute &mdash; resolvable in principle, but untested</div></div>
+    </div>
+  </section>
+
+  <!-- ===================== STAT BAND ===================== -->
+  <section class="section">
+    <div class="eyebrow">By the numbers &middot; measured, not modelled</div>
+    <div class="statband">
+      <div class="c"><div class="n">4,900<small>t</small></div><div class="l">Total payload mass launched to orbit worldwide, 2025</div></div>
+      <div class="c"><div class="n">6</div><div class="l">Varda in-space manufacturing/reentry missions flown, Jun 2023&ndash;May 2026</div></div>
+      <div class="c"><div class="n">0</div><div class="l">Successful commercial extractions of material from an asteroid, to date</div></div>
+      <div class="c"><div class="n">$3.5<small>m</small></div><div class="l">Cost of AstroForge&rsquo;s Odin asteroid-scouting mission, built in under 10 months</div></div>
+    </div>
+    <div class="caveat"><b>Caveat &mdash; the strongest objection to this piece&rsquo;s framing.</b> "Still mostly on paper" is a snapshot of a fast-moving field taken in mid-July 2026. Astroscale&rsquo;s refuelling demonstration is manifested for this same summer; if it succeeds before this piece is widely read, the refuelling column of Exhibit 04 will already be out of date, and the piece&rsquo;s framing will look more conservative in hindsight than the state of the industry actually was. The measured record can only describe what has happened by the date printed below &mdash; not what is imminent.</div>
+  </section>
+
+  <!-- ===================== REFERENCE APPENDIX ===================== -->
+  <section class="section">
+    <div class="eyebrow">Reference &middot; the full record</div>
+    <h2>Every figure in this piece</h2>
+    <div class="appx">
+      <table class="tbl">
+        <thead><tr><th>Measure</th><th class="num">Value</th><th>Basis / date</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Launch cost to LEO, 1960</td><td class="num">$87,023/kg</td><td>Dataset average</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Launch cost to LEO, early 1970s plateau</td><td class="num">~$20,000/kg</td><td>Post-Apollo stall to 1989</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Launch cost to LEO, 2025</td><td class="num">$3,868/kg</td><td>Measured average</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Fall, 1960&rarr;2025</td><td class="num">95.6%</td><td>(87,023&minus;3,868)/87,023</td><td>Digi News calc.</td></tr>
+          <tr><td>Launch cost to LEO, 2030 (projected)</td><td class="num">$1,569/kg</td><td>Central model projection</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Launch cost to LEO, 2040 (projected)</td><td class="num">$273/kg</td><td>Central model projection</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Cost fall per doubling of payload, pre-1989</td><td class="num">17%</td><td>Wright&rsquo;s Law fit</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Cost fall per doubling of payload, post-1989</td><td class="num">44%</td><td>Wright&rsquo;s Law fit</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Global payload launched, 2025</td><td class="num">~4,900t</td><td>Measured</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Global payload capacity, 2030 (projected)</td><td class="num">~9,100t/yr</td><td>Central projection</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Global payload capacity, 2040 (projected)</td><td class="num">~32,000t/yr</td><td>Central projection</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>SpaceX share of 2025 global payload mass</td><td class="num">~80%</td><td>Measured</td><td>PNAS Nexus T1</td></tr>
+          <tr><td>Global space economy value, 2024</td><td class="num">$600bn+</td><td>&asymp; Sweden&rsquo;s GDP</td><td>PNAS Nexus / Cambridge T1</td></tr>
+          <tr><td>MEV-1 commercial docking (first ever)</td><td class="num">Feb 2020</td><td>IS-901, GEO graveyard</td><td>Northrop Grumman T1</td></tr>
+          <tr><td>MEV-1 service duration before undocking</td><td class="num">5 yrs</td><td>Ended Apr 2025</td><td>Northrop Grumman T1</td></tr>
+          <tr><td>MEV-2 docking</td><td class="num">Apr 2021</td><td>IS-10-02, GEO, still docked</td><td>Northrop Grumman T1</td></tr>
+          <tr><td>MEV-2 contract extension</td><td class="num">+4 yrs</td><td>Announced May 2024</td><td>Northrop Grumman T1</td></tr>
+          <tr><td>Varda W-1 launch / reentry</td><td class="num">Jun 2023 / Feb 2024</td><td>Ritonavir crystals grown</td><td>Varda T1</td></tr>
+          <tr><td>Varda missions flown to date</td><td class="num">6 (W-1&ndash;W-6)</td><td>Through May 2026</td><td>Varda T1</td></tr>
+          <tr><td>Astroscale APS-R launch</td><td class="num">Manifested, summer 2026</td><td>Not yet flown, 19 Jul 2026</td><td>SpaceNews T3 / Astroscale T1</td></tr>
+          <tr><td>AstroForge Brokkr-1</td><td class="num">Apr 2023</td><td>Refinery payload never activated</td><td>AstroForge T1</td></tr>
+          <tr><td>AstroForge Odin</td><td class="num">Feb 2025</td><td>Lost contact in deep space</td><td>AstroForge / Space.com T1/T3</td></tr>
+          <tr><td>AstroForge Odin build cost</td><td class="num">$3.5m</td><td>Built in &lt;10 months</td><td>Space.com T3</td></tr>
+          <tr><td>AstroForge Vestri</td><td class="num">Scheduled late 2026/2027</td><td>Landing attempt only</td><td>Space.com T3</td></tr>
+          <tr><td>Starcloud-1 launch</td><td class="num">2 Nov 2025</td><td>60kg, 1&times; Nvidia H100</td><td>DCD / CNBC T3</td></tr>
+          <tr><td>Radiator area per 1MW rejected, est. A</td><td class="num">~1,600 m&sup2;</td><td>~20&deg;C, WEF analysis</td><td>WEF T2</td></tr>
+          <tr><td>Radiator area per 1MW rejected, est. B</td><td class="num">~1,200 m&sup2;</td><td>~20&deg;C, SatNews analysis</td><td>SatNews T3</td></tr>
+          <tr><td>Artemis Accords signatories</td><td class="num">69</td><td>As of 16 Jul 2026</td><td>NASA T1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== GO DEEPER ===================== -->
+  <section class="section">
+    <div class="eyebrow">Go deeper</div>
+    <h2>What this piece left out</h2>
+    <ul class="more">
+      <li><div><b>Lunar ISRU and Artemis.</b> NASA&rsquo;s Artemis programme and its plans to extract water ice near the lunar south pole are a distinct, government-led effort from the private mining and manufacturing ventures covered here, with its own funding, timeline and technical record. It deserves its own piece.</div></li>
+      <li><div><b>China&rsquo;s International Lunar Research Station.</b> China and Russia are building a parallel lunar and resource framework outside the Artemis Accords; we noted the legal disagreement but did not assess ILRS&rsquo;s own technical progress.</div></li>
+      <li><div><b>Orbital debris.</b> More launches and more in-space servicing traffic raise collision and debris risk; we did not quantify it here.</div></li>
+      <li><div><b>Space solar power.</b> Beaming solar energy from orbit to Earth is a further idea the falling-cost logic could unlock; it remains earlier-stage than any of the four verticals covered here and was left out for length.</div></li>
+      <li><div><b>Full market-size forecasts.</b> We deliberately did not repeat commercial market-research projections for asteroid mining or orbital manufacturing revenue; several circulating figures could not be traced to a transparent, checkable methodology and were excluded rather than cited uncritically.</div></li>
+    </ul>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> Launch-cost figures (1960, early-1970s plateau, 2025, and the 2030/2040 projections) are taken directly from Terzi &amp; Nicoli, <i>PNAS Nexus</i> (July 2026), a standardised dataset of 4,405 launches from 1960&ndash;2025 across sixteen spacefaring regions; the 2030 and 2040 figures are the paper&rsquo;s own central model projection under Wright&rsquo;s Law and are rendered dashed in Exhibit 01, never used as a hero stat or headline figure. Percentage falls (95.6% for 1960&rarr;2025, 59.4% for 2025&rarr;2030, 92.9% for 2025&rarr;2040) were computed in Node.js from the paper&rsquo;s printed figures and checked against the paper&rsquo;s own rounded statements (&ldquo;~96%&rdquo;, &ldquo;more than 58%&rdquo;, &ldquo;~93%&rdquo;). Exhibit 04&rsquo;s hatched spans mark contracted, publicly announced missions not yet flown as of 19 July 2026 &mdash; a factual publication-date cutoff, not a modelled scenario; every other span is a completed, reported mission event. Radiator-area figures in Exhibit 03 are independent published engineering estimates for radiating 1MW of waste heat at roughly 20&deg;C via the Stefan-Boltzmann law; no orbital facility at that scale has been built, so both are estimates, not measurements, and are presented as a range rather than a single number for that reason. This piece contains no projection, scenario or modelled figure in its headline, standfirst, or hero stats; the only projected figures anywhere are the 2030/2040 launch-cost points, which are explicitly labelled and visually dashed throughout.</div>
+    <div class="fm"><b>Sources.</b> Numbered, highest tier first; each inline citation resolves here. Retrieved 17 July 2026.
+      <ol>
+        <li id="s1"><span class="tier t1">T1</span> Terzi, A. &amp; Nicoli, F., <em>The economics of the space launch industry: falling costs and a new frontier economy</em>, <i>PNAS Nexus</i>, July 2026; University of Cambridge research summary. <a href="https://www.cam.ac.uk/stories/space-cargo-costs-set-to-plummet" target="_blank">cam.ac.uk</a></li>
+        <li id="s7"><span class="tier t1">T1</span> Northrop Grumman, <em>Northrop Grumman Achieves First-Ever Undocking Between Two Commercial Spacecraft in Geosynchronous Orbit</em>, 9 April 2025; and <em>Northrop Grumman Expands Satellite Life-Extension Services</em>, 23 May 2024. <a href="https://news.northropgrumman.com/satellites/Northrop-Grumman-Achieves-First-Ever-Undocking-Between-Two-Commercial-Spacecraft-in-Geosynchronous-Orbit" target="_blank">news.northropgrumman.com</a></li>
+        <li id="s8"><span class="tier t1">T1</span> Varda Space Industries, W-series mission pages and press releases, June 2023&ndash;May 2026, including <em>Varda Space Industries Successfully Executes W-5 Mission Reentry</em>, 29 January 2026. <a href="https://www.varda.com/platform" target="_blank">varda.com</a></li>
+        <li id="s9"><span class="tier t1">T1</span> Astroscale U.S., <em>Astroscale U.S. to Lead the First-Ever Refueling of a United States Space Force Asset</em>, 7 April 2025; mission status page. <a href="https://www.astroscale-us.com/en/missions/provisioner-the-astroscale-us-refueler" target="_blank">astroscale-us.com</a></li>
+        <li id="s10"><span class="tier t1">T1</span> AstroForge, <em>Odin&rsquo;t: A Complete Debrief of Our Deep Space Mission</em>, 2025; mission pages. <a href="https://www.astroforge.com/odin-mission" target="_blank">astroforge.com</a></li>
+        <li id="s11"><span class="tier t1">T1</span> Congressional Research Service, <em>Space Resource Extraction: Overview and Issues for Congress</em>, R48144, Library of Congress. <a href="https://www.congress.gov/crs-product/R48144" target="_blank">congress.gov</a></li>
+        <li id="s6"><span class="tier t2">T2</span> World Economic Forum, <em>Why cooling is the real obstacle to space-based data centres</em>, June 2026. <a href="https://www.weforum.org/stories/2026/06/space-data-centres-cooling/" target="_blank">weforum.org</a></li>
+        <li id="s2"><span class="tier t3">T3</span> SpaceDaily / Eurasia Review coverage of Terzi &amp; Nicoli&rsquo;s related Bennett School working paper on SpaceX&rsquo;s market share, July 2026 &mdash; cited for reporting and attribution of the researchers&rsquo; own comparison, not as independent fact. <a href="https://spacedaily.com/sd-in-july-2026-cambridge-economist-alessio-terzi-and-colleagues-published-the-largest-launch-cost-dataset-ever-assembled-4400-rockets-flown-since-1960-and-projected-that-the-pri/" target="_blank">spacedaily.com</a></li>
+        <li id="s3"><span class="tier t3">T3</span> DCD, <em>Starcloud-1 satellite reaches space, with Nvidia H100 GPU now operating in orbit</em>, and CNBC, <em>Nvidia-backed Starcloud trains first AI model in space</em>, December 2025. <a href="https://www.datacenterdynamics.com/en/news/starcloud-1-satellite-reaches-space-with-nvidia-h100-gpu-now-operating-in-orbit/" target="_blank">datacenterdynamics.com</a></li>
+        <li id="s4"><span class="tier t3">T3</span> NVIDIA Blog, <em>How Starcloud Is Bringing Data Centers to Outer Space</em>, December 2025 &mdash; cited for the company&rsquo;s own stated 5GW ambition, attributed as such, not as an established plan. <a href="https://blogs.nvidia.com/blog/starcloud/" target="_blank">blogs.nvidia.com</a></li>
+        <li id="s5"><span class="tier t3">T3</span> SatNews, <em>The &ldquo;Physics Wall&rdquo;: Orbiting Data Centers Face a Massive Cooling Challenge</em>, March 2026. <a href="https://satnews.com/2026/03/17/the-physics-wall-orbiting-data-centers-face-a-massive-cooling-challenge/" target="_blank">satnews.com</a></li>
+        <li id="s12"><span class="tier t3">T3</span> Britannica, <em>Artemis Accords</em>, updated July 2026 &mdash; cited for the summary of Russian and Chinese objections and signatory count. <a href="https://www.britannica.com/topic/Artemis-Accords" target="_blank">britannica.com</a></li>
+      </ol>
+    </div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 19 Jul 2026.</b> <span class="ver">Digi News &middot; v1.0 &middot; space-economy-reality-check.</span></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ----------------------------------------------------------------------------
+   Newsroom-idiom SVG charts: honest scales, real-px responsive rendering,
+   colourblind-safe palette, annotation layer, and an accessible data table
+   emitted alongside every chart. Mobile-first: charts re-render at 1 SVG unit
+   = 1 CSS pixel via ResizeObserver, so label type never shrinks below legible.
+
+   PUBLIC API  (every chart: DN.<type>(targetSelectorOrEl, spec))
+     DN.line(t, spec)        multi-series time line; projection split; bands; refs; notes
+     DN.bars(t, spec)        horizontal ranked bars; highlight; reference line
+     DN.columns(t, spec)     vertical columns; grouped or stacked; legend
+     DN.slope(t, spec)       slope / dumbbell before-after comparison
+     DN.scatter(t, spec)     x/y points; optional groups; quadrant guides
+     DN.rangeStrip(t, spec)  time spans (barcode timeline / Gantt); projection hatch
+     DN.sankey(t, spec)      flows; ribbon width ∝ volume; gradient links; flow table
+
+     DN.fmt(value, opts)     number formatter (decimals, compact, prefix/suffix, plus, pct)
+     DN.colors, DN.palette   semantic tokens + categorical (Okabe-Ito) scale
+
+   COMMON spec fields: title (required, drives a11y), summary, height,
+     x:{min,max,fmt,ticks,title,label}, y:{min,max,zero,fmt,title,label,decimals,suffix,prefix,compact}
+   Projection rule: pass projectFrom on a series/event; the segment beyond it
+     renders dashed/hatched. Projections must never be the headline figure.
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  /* ---- palette: semantic tokens + Okabe-Ito categorical (CVD-safe) ---- */
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  /* ---- tiny DOM/SVG helpers ---- */
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  /* ---- number formatter ---- */
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  /* ---- nice scale (Heckbert) ---- */
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  /* ---- relative luminance → ideal overlaid text colour ---- */
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  /* ---- responsive mount + lifecycle ---- */
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* ====================================================================== */
+  /* LINE                                                                    */
+  /* ====================================================================== */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mL = small ? 34 : 44, mR = spec.endLabels ? (small ? 54 : 104) : 18, mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      xt.forEach(function (xv) { var t = svgEl("text", { x: X(xv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : xv; svg.appendChild(t); });
+
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) { var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col); el.textContent = s.name || fmt(last.y, spec.y || {}); svg.appendChild(el); }
+      });
+
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var t = svgEl("text", { x: mL + 6, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy;
+        var t = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy, "text-anchor": nt.anchor || "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: nx + (nt.dx || 0), y: ny + dy + 13, "text-anchor": nt.anchor || "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* BARS (horizontal, ranked)                                               */
+  /* ====================================================================== */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = (spec.refValue != null) ? 22 : 8, mB = 8;
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var maxChars = Math.max.apply(null, data.map(function (d) { return String(d.label).length; }));
+      var mL = Math.min(Math.max(maxChars * (small ? 6.0 : 6.8) + 14, 64), W * 0.44);
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (d.highlight) lab.setAttribute("fill", C.subject); lab.textContent = d.label; svg.appendChild(lab);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var v = svgEl("text", { x: mL + w + 8, y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (d.highlight) v.setAttribute("fill", C.subject); v.textContent = fmt(d.value, spec.x || {}); svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* COLUMNS (vertical, grouped or stacked)                                  */
+  /* ====================================================================== */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mL = small ? 34 : 44, mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5), iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var xl = svgEl("text", { x: mL + gi * gw + gw / 2, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = g.label; svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+          });
+        }
+      });
+      drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SLOPE / DUMBBELL                                                        */
+  /* ====================================================================== */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: xL, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = spec.left || ""; svg.appendChild(hl);
+      var hr = svgEl("text", { x: xR, y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = spec.right || ""; svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      items.forEach(function (it) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = Y(it.from), y1 = Y(it.to);
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var ll = svgEl("text", { x: xL - 10, y: y0 + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = it.label; svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: y1 + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = fmt(it.to, spec.y || {}); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SCATTER                                                                 */
+  /* ====================================================================== */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mL = small ? 38 : 48, mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      nx.ticks.forEach(function (tv) { var t = svgEl("text", { x: X(tv), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fmt(tv, spec.x || {}); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) { var t = svgEl("text", { x: X(p.x) + (p.r || 4.5) + 4, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" }); t.textContent = p.label; svg.appendChild(t); }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* RANGE STRIP (barcode timeline / Gantt rows)                             */
+  /* ====================================================================== */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", (e.projectFrom != null && (e.start + e.end) / 2 >= e.projectFrom) ? C.ink : idealText(col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: (bx0 + bx1) / 2, y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: nx, y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: nx, y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30;
+        var maxChars = Math.max.apply(null, events.map(function (e) { return String(e.label).length; }));
+        var mL = Math.min(Math.max(maxChars * (small ? 5.6 : 6.6) + 12, 70), W * 0.4);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        xticks(x0, x1, small ? 4 : 7).forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          var t = svgEl("text", { x: xx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          var lab = svgEl("text", { x: mL - 10, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-clabel" }); lab.textContent = e.label; svg.appendChild(lab);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SANKEY (flows — ribbon width proportional to volume)                    */
+  /* ---------------------------------------------------------------------- */
+  /* Honest encoding: a flow's height (at both ends) and a node's height are  */
+  /* proportional to value on one shared px-per-unit scale. Colour only marks */
+  /* provenance (gradient source -> target); every node carries a text label  */
+  /* and value, so colour is never the sole carrier. Layout: longest-path     */
+  /* layering + barycentre relaxation to reduce crossings. Assumes a DAG.     */
+  /* ====================================================================== */
+  function sankey(target, spec) {
+    var m = mount(target);
+    var rawLinks = (spec.links || []).filter(function (l) { return l && l.value > 0; });
+    var nodeMap = {}, nodes = [];
+    function getNode(id) {
+      var key = "$" + id;
+      if (!Object.prototype.hasOwnProperty.call(nodeMap, key)) {
+        nodeMap[key] = { id: id, label: String(id), ins: [], outs: [], idx: nodes.length };
+        nodes.push(nodeMap[key]);
+      }
+      return nodeMap[key];
+    }
+    (spec.nodes || []).forEach(function (nd) {
+      var n = getNode(nd.id);
+      if (nd.label != null) n.label = String(nd.label);
+      if (nd.color) n.color = nd.color;
+    });
+    var links = rawLinks.map(function (l) {
+      var s = getNode(l.source), t = getNode(l.target);
+      var link = { source: s, target: t, value: +l.value, color: l.color };
+      s.outs.push(link); t.ins.push(link);
+      return link;
+    });
+    nodes.forEach(function (n, i) { if (!n.color) n.color = cat(i); });
+
+    /* longest-path layering (assumes a DAG) */
+    nodes.forEach(function (n) { n.depth = 0; });
+    for (var pass = 0; pass < nodes.length + 1; pass++) {
+      var changed = false;
+      links.forEach(function (l) {
+        if (l.target.depth < l.source.depth + 1) { l.target.depth = l.source.depth + 1; changed = true; }
+      });
+      if (!changed) break;
+    }
+    var maxDepth = 0; nodes.forEach(function (n) { if (n.depth > maxDepth) maxDepth = n.depth; });
+    if (spec.align !== "left") nodes.forEach(function (n) { if (n.outs.length === 0 && n.ins.length) n.depth = maxDepth; });
+    var columns = [];
+    nodes.forEach(function (n) { (columns[n.depth] = columns[n.depth] || []).push(n); });
+    for (var qi = 0; qi < columns.length; qi++) if (!columns[qi]) columns[qi] = [];
+
+    function nodeVal(n) {
+      var i = n.ins.reduce(function (s, l) { return s + l.value; }, 0);
+      var o = n.outs.reduce(function (s, l) { return s + l.value; }, 0);
+      return Math.max(i, o);
+    }
+    function center(n) { return n.y + n.h / 2; }
+    function truncate(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "\u2026" : s; }
+
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.62, 250), 460));
+      var nodeW = spec.nodeWidth || (small ? 11 : 15);
+      var pad = spec.nodePad || (small ? 11 : 16);
+      var labCap = small ? 12 : 22;
+      var first = columns[0] || [], lastCol = columns[columns.length - 1] || [];
+      var lc = Math.max.apply(null, [4].concat(first.map(function (n) { return truncate(n.label, labCap).length; })));
+      var rc = Math.max.apply(null, [4].concat(lastCol.map(function (n) { return truncate(n.label, labCap).length; })));
+      var chpx = small ? 5.7 : 6.7;
+      var mL = Math.min(Math.max(lc * chpx + 12, 38), W * 0.34);
+      var mR = Math.min(Math.max(rc * chpx + 12, 38), W * 0.34);
+      var mT = 16, mB = 12;
+      var innerW = Math.max(W - mL - mR, 60), innerH = Math.max(H - mT - mB, 80);
+      var cols = columns.length;
+      var colStep = cols > 1 ? (innerW - nodeW) / (cols - 1) : 0;
+      function nodeX(d) { return mL + d * colStep; }
+
+      /* one shared value->px scale across every column (honest) */
+      var k = Infinity;
+      columns.forEach(function (col) {
+        var sum = col.reduce(function (s, n) { return s + nodeVal(n); }, 0);
+        var avail = innerH - (col.length - 1) * pad;
+        if (sum > 0) k = Math.min(k, avail / sum);
+      });
+      if (!isFinite(k) || k <= 0) k = 1;
+      nodes.forEach(function (n) { n.h = Math.max(nodeVal(n) * k, 1.5); });
+
+      columns.forEach(function (col) {
+        var totalH = col.reduce(function (s, n) { return s + n.h; }, 0) + (col.length - 1) * pad;
+        var y = mT + (innerH - totalH) / 2;
+        col.forEach(function (n) { n.y = y; y += n.h + pad; });
+      });
+      function collide(col) {
+        col.sort(function (a, b) { return a.y - b.y; });
+        var y = mT, i, n;
+        for (i = 0; i < col.length; i++) { n = col[i]; if (n.y < y) n.y = y; y = n.y + n.h + pad; }
+        y = mT + innerH;
+        for (i = col.length - 1; i >= 0; i--) { n = col[i]; if (n.y + n.h > y) n.y = y - n.h; y = n.y - pad; }
+      }
+      var ITER = 7;
+      for (var it = 0; it < ITER; it++) {
+        var alpha = 0.9 * (1 - it / ITER);
+        for (var c = 1; c < columns.length; c++) {
+          columns[c].forEach(function (n) {
+            if (n.ins.length) { var w = 0, sy = 0; n.ins.forEach(function (l) { sy += center(l.source) * l.value; w += l.value; }); if (w) n.y += (sy / w - center(n)) * alpha; }
+          });
+          collide(columns[c]);
+        }
+        for (var c2 = columns.length - 2; c2 >= 0; c2--) {
+          columns[c2].forEach(function (n) {
+            if (n.outs.length) { var w2 = 0, sy2 = 0; n.outs.forEach(function (l) { sy2 += center(l.target) * l.value; w2 += l.value; }); if (w2) n.y += (sy2 / w2 - center(n)) * alpha; }
+          });
+          collide(columns[c2]);
+        }
+      }
+
+      /* order each node's links by partner position, then stack the bands */
+      nodes.forEach(function (n) {
+        n.outs.sort(function (a, b) { return center(a.target) - center(b.target); });
+        n.ins.sort(function (a, b) { return center(a.source) - center(b.source); });
+        var so = 0; n.outs.forEach(function (l) { l.sy0 = n.y + so; so += l.value * k; l.sy1 = n.y + so; });
+        var ti = 0; n.ins.forEach(function (l) { l.ty0 = n.y + ti; ti += l.value * k; l.ty1 = n.y + ti; });
+      });
+
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var defs = svgEl("defs"); svg.appendChild(defs);
+
+      var gFlows = svgEl("g");
+      links.forEach(function (l) {
+        var x0 = nodeX(l.source.depth) + nodeW, x1 = nodeX(l.target.depth), xm = (x0 + x1) / 2;
+        var fill;
+        if (l.color) { fill = l.color; }
+        else {
+          var gid = "dnsk" + (++UID);
+          var lg = svgEl("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: x0, y1: 0, x2: x1, y2: 0 });
+          lg.appendChild(svgEl("stop", { offset: "0%", "stop-color": l.source.color }));
+          lg.appendChild(svgEl("stop", { offset: "100%", "stop-color": l.target.color }));
+          defs.appendChild(lg); fill = "url(#" + gid + ")";
+        }
+        var d = "M" + x0 + "," + l.sy0 +
+          "C" + xm + "," + l.sy0 + " " + xm + "," + l.ty0 + " " + x1 + "," + l.ty0 +
+          "L" + x1 + "," + l.ty1 +
+          "C" + xm + "," + l.ty1 + " " + xm + "," + l.sy1 + " " + x0 + "," + l.sy1 + "Z";
+        var p = svgEl("path", { d: d, fill: fill, "fill-opacity": (spec.linkOpacity != null ? spec.linkOpacity : 0.44), "class": "dn-flow" });
+        var tt = svgEl("title"); tt.textContent = l.source.label + " \u2192 " + l.target.label + ": " + fmt(l.value, spec.value || {}); p.appendChild(tt);
+        gFlows.appendChild(p);
+      });
+      svg.appendChild(gFlows);
+      if (!REDUCE) {
+        gFlows.style.opacity = 0; gFlows.style.transition = "opacity .7s ease-out";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { gFlows.style.opacity = 1; }); });
+      }
+
+      nodes.forEach(function (n) {
+        var x = nodeX(n.depth), tall = n.h > 26;
+        svg.appendChild(svgEl("rect", { x: x, y: n.y, width: nodeW, height: n.h, fill: n.color, rx: 2 }));
+        var isLast = (n.depth === columns.length - 1);
+        var lx = isLast ? x - 8 : x + nodeW + 8, anchor = isLast ? "end" : "start", cy = n.y + n.h / 2;
+        var lab = svgEl("text", { x: lx, y: cy + (tall ? -1 : 3.5), "text-anchor": anchor, "class": "dn-clabel dn-nodelabel" });
+        lab.textContent = truncate(n.label, labCap); svg.appendChild(lab);
+        if (tall) {
+          var val = svgEl("text", { x: lx, y: cy + 13, "text-anchor": anchor, "class": "dn-annosub dn-nodelabel" });
+          val.textContent = fmt(nodeVal(n), spec.value || {}); svg.appendChild(val);
+        }
+      });
+
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Flow data",
+        [spec.fromTitle || "From", spec.toTitle || "To", spec.valueTitle || "Value"],
+        links.map(function (l) { return [l.source.label, l.target.label, fmt(l.value, spec.value || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip, sankey: sankey,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+<script>
+(function () {
+  var yr = function (v) { return String(Math.round(v)); };
+
+  DN.line("#ex1", {
+    title: "Cost to launch 1kg to low Earth orbit, 1960-2040",
+    summary: "Measured: $87,023/kg in 1960, ~$20,000/kg by the early 1970s plateau, $3,868/kg in 2025. Projected (dashed, central case): $1,569/kg in 2030, $273/kg in 2040.",
+    x: { fmt: yr, min: 1960, max: 2040, ticks: [1960, 1972, 1989, 2025, 2030, 2040] },
+    y: { zero: true, compact: true, prefix: "$", label: "$/kg" },
+    endLabels: false,
+    series: [
+      {
+        name: "Cost per kg to LEO",
+        points: [
+          { x: 1960, y: 87023 },
+          { x: 1972, y: 20000 },
+          { x: 1989, y: 20000 },
+          { x: 2025, y: 3868 },
+          { x: 2030, y: 1569 },
+          { x: 2040, y: 273 }
+        ],
+        projectFrom: 2025
+      }
+    ],
+    notes: [
+      { x: 1960, y: 87023, text: "$87,023", sub: "1960", dy: -14, anchor: "middle" },
+      { x: 2025, y: 3868, text: "$3,868", sub: "2025 (measured)", dy: -14, anchor: "end" },
+      { x: 2040, y: 273, text: "$273", sub: "2040 (projected)", dy: 16, anchor: "start" }
+    ]
+  });
+
+  DN.bars("#ex2", {
+    title: "Share of global payload mass launched to orbit, 2025",
+    summary: "SpaceX launched approximately 80% of all payload mass sent to orbit worldwide in 2025; the rest of the industry combined accounted for about 20%.",
+    data: [
+      { label: "SpaceX", value: 80, highlight: true },
+      { label: "Rest of world combined", value: 20 }
+    ],
+    sort: "none",
+    x: { suffix: "%" },
+    labelTitle: "Launch provider",
+    valueTitle: "Share of 2025 payload mass"
+  });
+
+  DN.bars("#ex3", {
+    title: "Radiator area needed to reject 1 megawatt of waste heat in orbit",
+    summary: "Two independent published engineering estimates: approximately 1,600 square metres (World Economic Forum) and approximately 1,200 square metres (SatNews), both for radiating 1MW at roughly 20 degrees Celsius.",
+    data: [
+      { label: "WEF estimate", value: 1600 },
+      { label: "SatNews estimate", value: 1200 }
+    ],
+    sort: "none",
+    x: { suffix: " m\u00b2", compact: false },
+    labelTitle: "Source",
+    valueTitle: "Radiator area per MW (m\u00b2)"
+  });
+
+  DN.rangeStrip("#ex4", {
+    title: "The measured space-logistics record, 2019-2027, by vertical",
+    mode: "rows",
+    summary: "Servicing: MEV-1 docked Feb 2020 to Apr 2025, MEV-2 docked Apr 2021, ongoing. Manufacturing: Varda W-1 pharma mission Jun 2023 to Feb 2024; W-2 through W-6 defense/hypersonic missions Jan 2025 to May 2026. Refuelling: Astroscale APS-R manifested summer 2026, not yet flown. Mining: Brokkr-1 failed Apr 2023; Odin lost contact Feb-Mar 2025; Vestri landing attempt scheduled late 2026/2027.",
+    x: { min: 2019, max: 2027.5, fmt: yr },
+    categories: [
+      { name: "Servicing", color: "#0072B2" },
+      { name: "Manufacturing", color: "#009E73" },
+      { name: "Refuelling", color: "#E69F00" },
+      { name: "Mining", color: "#D55E00" }
+    ],
+    events: [
+      { label: "MEV-1 servicing", start: 2020.13, end: 2025.27, category: "Servicing" },
+      { label: "MEV-2 servicing", start: 2021.28, end: 2026.55, category: "Servicing" },
+      { label: "Varda W-1 pharma", start: 2023.42, end: 2024.14, category: "Manufacturing" },
+      { label: "Varda W2-W6 (mil.)", start: 2025.04, end: 2026.4, category: "Manufacturing" },
+      { label: "APS-R refuel demo", start: 2026.5, end: 2026.9, category: "Refuelling", projectFrom: 2026.5 },
+      { label: "Brokkr-1 (failed)", start: 2023.27, end: 2023.32, category: "Mining" },
+      { label: "Odin (lost contact)", start: 2025.15, end: 2025.22, category: "Mining" },
+      { label: "Vestri landing sched.", start: 2026.85, end: 2027.2, category: "Mining", projectFrom: 2026.85 }
+    ]
+  });
+})();
+</script>
+</body>
+</html>

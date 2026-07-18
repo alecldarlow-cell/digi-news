@@ -54,7 +54,10 @@ const ENTITIES = {
   amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
   mdash: '\u2014', ndash: '\u2013', middot: '\u00b7', hellip: '\u2026',
   lsquo: '\u2018', rsquo: '\u2019', ldquo: '\u201c', rdquo: '\u201d',
-  pound: '\u00a3', euro: '\u20ac', deg: '\u00b0', times: '\u00d7'
+  pound: '\u00a3', euro: '\u20ac', deg: '\u00b0', times: '\u00d7',
+  minus: '\u2212', plusmn: '\u00b1', divide: '\u00f7', asymp: '\u2248',
+  ge: '\u2265', ne: '\u2260', prop: '\u221d', rarr: '\u2192',
+  cent: '\u00a2', sect: '\u00a7', iacute: '\u00ed', ouml: '\u00f6'
 };
 
 function decode(s) {

@@ -1,8 +1,8 @@
 {
-  "built": "2026-07-18T05:29:10.872Z",
+  "built": "2026-07-18T05:35:29.222Z",
   "today": "2026-07-18",
   "timezone": "Europe/London",
-  "count": 33,
+  "count": 34,
   "items": [
     {
       "path": "reports/2026-07-18-crossword-mini-0007.html",
@@ -17,6 +17,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": ".#.....................#."
+    },
+    {
+      "path": "reports/2026-07-18-digital-nomads-population-count.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "US digital nomads pass 18.5 million, but no one agrees how many exist worldwide",
+      "standfirst": "A consistent seven-year survey series puts America's digital-nomad workforce at 18.5 million and growing. Beyond the US border, published estimates of the same population differ by a factor of two or more.",
+      "date": "2026-07-18",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "18.5",
+      "statUnit": "M",
+      "statLabel": "digital nomads",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-18-great-reallocation-film-tv.html",

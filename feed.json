@@ -1,5 +1,5 @@
 {
-  "built": "2026-07-18T05:35:29.222Z",
+  "built": "2026-07-18T05:48:17.306Z",
   "today": "2026-07-18",
   "timezone": "Europe/London",
   "count": 34,
@@ -41,9 +41,9 @@
       "date": "2026-07-18",
       "read": "~9 min",
       "thumb": "",
-      "stat": "",
+      "stat": "600",
       "statUnit": "",
-      "statLabel": "",
+      "statLabel": "peak, 2022",
       "mask": ""
     },
     {

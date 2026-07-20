@@ -1,8 +1,8 @@
 {
-  "built": "2026-07-20T15:00:03.473Z",
+  "built": "2026-07-20T20:04:53.486Z",
   "today": "2026-07-20",
   "timezone": "Europe/London",
-  "count": 45,
+  "count": 46,
   "items": [
     {
       "path": "reports/2026-07-20-council-bankruptcy-pause.html",
@@ -87,6 +87,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "........................."
+    },
+    {
+      "path": "reports/digi-path-0002.html",
+      "kind": "puzzle",
+      "topic": "Logic",
+      "headline": "Path 0002",
+      "standfirst": "Thirty-six cells, one thread. Place 1 through 36 so every consecutive pair sits next door.",
+      "date": "2026-07-20",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-19-atmospheric-water-generation-scale.html",

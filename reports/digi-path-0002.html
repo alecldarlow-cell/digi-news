@@ -154,6 +154,18 @@ const N = 6, TOTAL = 36;
 // ---------- Puzzle data (generated, dual-prover verified — see chat answer key) ----------
 const PUZZLE = {
   type:"path", id:"DP·PATH·0002", band:"medium", size:6,
+  // Feed-tile literal — plain array, shape only, no digits (a card can't spoil its own puzzle).
+  // Path never blacks out a cell, so every square is "." ; locked squares are marked
+  // the same way LexiDoku's are, via the `locked` field below (puzzleMask() reads
+  // [row,col] off the front of each entry, so the trailing value is harmless to it).
+  grid:[
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."]
+  ],
   solution:[
     [12,11,10,9,8,7],
     [13,14,15,16,5,6],

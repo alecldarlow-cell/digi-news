@@ -130,6 +130,7 @@
   .pgrid{width:100%;height:100%;display:grid;gap:1.5px;background:var(--ink);
     grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);
     outline:1.5px solid var(--ink)}
+  .pgrid.six{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr)}
   .pgrid i{background:var(--paper);display:block}
   .pgrid i.b{background:var(--ink)}
   .pgrid i.l{background:var(--accent-soft)}
@@ -340,16 +341,19 @@
          + '</div>';
   }
 
-  // mask is 25 chars from feed.json: # block, L pre-locked, . to fill. The first
-  // fillable cell takes the marigold — the same "you're here" mark the player
-  // uses, so the tile is a still of the game rather than a picture of one.
+  // mask is 25 chars (5x5 Mini/Doku/Sweep) or 36 chars (6x6 Path) from feed.json:
+  // # block, L pre-locked, . to fill. The first fillable cell takes the marigold —
+  // the same "you're here" mark the player uses, so the tile is a still of the
+  // game rather than a picture of one.
   function puzzleTile(mask){
+    var n = mask.length===36 ? 36 : 25;
+    var six = n===36 ? ' six' : '';
     var act = mask.indexOf('.'), cells = '';
-    for(var i=0;i<25;i++){
+    for(var i=0;i<n;i++){
       var cls = mask[i]==='#' ? 'b' : mask[i]==='L' ? 'l' : (i===act ? 'a' : '');
       cells += cls ? '<i class="'+cls+'"></i>' : '<i></i>';
     }
-    return '<div class="thumb puzzle" aria-hidden="true"><div class="pgrid">'+cells+'</div></div>';
+    return '<div class="thumb puzzle" aria-hidden="true"><div class="pgrid'+six+'">'+cells+'</div></div>';
   }
 
   function card(it){
@@ -357,7 +361,7 @@
     var thumb;
     if(it.thumb){
       thumb = '<img class="thumb" src="'+esc(it.thumb)+'" alt="" loading="lazy">';
-    } else if(it.kind==='puzzle' && typeof it.mask==='string' && it.mask.length===25){
+    } else if(it.kind==='puzzle' && typeof it.mask==='string' && (it.mask.length===25 || it.mask.length===36)){
       thumb = puzzleTile(it.mask);
     } else if(it.stat){
       thumb = statTile(it);

@@ -182,27 +182,30 @@ function heroStat(html) {
 // puzzle file's puzzle object — never hand-drawn, and never a spoiler: only the
 // SHAPE travels (blocks and pre-locked cells), never a letter.
 //   #  black square      L  pre-locked cell (LexiDoku)      .  to be filled
-// Returns a 25-char string, or '' if the object can't be read — in which case
+// Returns a 25- or 36-char string (5x5 or 6x6), or '' if the object can't be
 // the card falls back to the Play glyph rather than inventing a grid.
 function puzzleMask(html, rel, warnings) {
   const g = html.match(/\bgrid\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
   if (!g) { warnings.push(`${rel} — no grid found in the puzzle object; card falls back to the Play tile`); return ''; }
 
   const cells = g[1].match(/"[^"]*"|'[^']*'/g) || [];
-  if (cells.length !== 25) {
-    warnings.push(`${rel} — grid parsed as ${cells.length} cells, expected 25; card falls back to the Play tile`);
+  const dim = Math.round(Math.sqrt(cells.length));
+  if (dim * dim !== cells.length || (dim !== 5 && dim !== 6)) {
+    warnings.push(`${rel} — grid parsed as ${cells.length} cells, expected a 5x5 (25) or 6x6 (36) square; card falls back to the Play tile`);
     return '';
   }
   const mask = cells.map(c => c.slice(1, -1).trim() === '#' ? '#' : '.');
 
-  // LexiDoku: locked is [[row,col],…], 1-indexed, per the type spec.
+  // Pre-locked cells: LexiDoku uses [row,col]; Path uses [row,col,value].
+  // Both are 1-indexed and we only read the first two numbers (row, col).
   const lk = html.match(/\blocked\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
   if (lk) {
-    const pairs = lk[1].match(/\[\s*\d+\s*,\s*\d+\s*\]/g) || [];
-    for (const p of pairs) {
-      const [r, c] = p.match(/\d+/g).map(Number);
-      const i = (r - 1) * 5 + (c - 1);
-      if (i < 0 || i > 24) { warnings.push(`${rel} — locked cell [${r},${c}] is off the grid; ignored`); continue; }
+    const entries = lk[1].match(/\[\s*\d+\s*(?:,\s*\d+\s*)+\]/g) || [];
+    for (const p of entries) {
+      const nums = p.match(/\d+/g).map(Number);
+      const [r, c] = nums;
+      const i = (r - 1) * dim + (c - 1);
+      if (i < 0 || i >= cells.length) { warnings.push(`${rel} — locked cell [${r},${c}] is off the grid; ignored`); continue; }
       if (mask[i] === '#') { warnings.push(`${rel} — locked cell [${r},${c}] is a black square; ignored`); continue; }
       mask[i] = 'L';
     }

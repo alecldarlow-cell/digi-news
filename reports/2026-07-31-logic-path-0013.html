@@ -1,0 +1,578 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dn:headline"   content="Path 0013">
+<meta name="dn:standfirst" content="Thirty-six cells, one thread. Place 1 through 36 so every consecutive pair sits next door.">
+<meta name="dn:topic"      content="Logic">
+<meta name="dn:date"       content="2026-07-31">
+<meta name="dn:kind"       content="puzzle">
+<meta name="dn:read"       content="~3 min">
+<meta name="theme-color" content="#2E5BFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Digi Path">
+<title>Digi Puzzles — The Digi Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEEF2; --card:#FFFFFF; --ink:#141726; --ink-soft:#5A5F73;
+  --line:#141726; --brand:#2E5BFF; --brand-deep:#1B3B9E;
+  --active:#FFD54A; --active-word:#FFF0B8; --good:#1F9E6B; --bad:#E4483B;
+  --radius:14px;
+  --mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
+  --sans:"Space Grotesk",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.45;
+  -webkit-font-smoothing:antialiased;padding:18px;display:flex;justify-content:center}
+.app{width:100%;max-width:560px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;border-bottom:2px solid var(--ink);padding-bottom:11px}
+.masthead{display:flex;align-items:center;gap:10px}
+.mono-mark{flex:0 0 auto;width:32px;height:32px;border-radius:7px;background:var(--brand);color:#fff;
+  font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.04em;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.18),0 1.5px 0 var(--brand-deep)}
+.mh-text{display:flex;flex-direction:column;line-height:1.05}
+.mh-name{font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.mh-name .accent{color:var(--brand)}
+.mh-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px}
+.streakbox{font-family:var(--mono);font-size:13px;color:var(--ink-soft);background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:4px 12px}
+.streakbox b{color:var(--ink)}
+.meta{font-family:var(--mono);font-size:12px;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:14px;display:flex;gap:10px;align-items:center}
+.tag{background:var(--brand);color:#fff;border-radius:5px;padding:1px 7px;text-transform:uppercase;font-weight:700;font-size:11px}
+#timer{margin-left:auto;color:var(--ink);font-weight:700}
+main{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px}
+.gridouter{position:relative;width:min(100%,340px);aspect-ratio:1}
+.grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:0;
+  border:3px solid var(--line);background:var(--line);border-radius:10px;overflow:hidden}
+svg.pathlines{position:absolute;inset:0;pointer-events:none;z-index:5}
+.cell{position:relative;min-width:0;min-height:0;background:var(--card);border:1px solid #cfd3dc;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none}
+.cell .num{font-family:var(--mono);font-weight:700;font-size:min(5.6vw,22px)}
+.cell.locked{background:#e3e6ee}
+.cell.locked .num{color:var(--ink-soft)}
+.cell.active{background:var(--active)}
+.cell.good .num{color:var(--good)}
+.cell.bad .num{color:var(--bad)}
+.cell.bad::after{content:"";position:absolute;top:3px;right:3px;width:6px;height:6px;background:var(--bad);border-radius:50%}
+.hiddeninput{position:absolute;top:0;left:50%;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0;margin:0;font-size:16px}
+.msg{min-height:22px;margin:2px 0 0;font-size:14px;color:var(--brand-deep);text-align:center}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-bottom:4px}
+button,select{font-family:var(--sans);font-size:13px;font-weight:500;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);border-radius:9px;padding:8px 12px;cursor:pointer}
+button:hover{background:#e3e6ee}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+button.primary:hover{background:var(--brand-deep)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.kb{display:flex;flex-direction:column;gap:6px;margin-top:2px;width:min(100%,340px)}
+.kbrow{display:flex;gap:5px;justify-content:center}
+.key{flex:1;max-width:38px;height:44px;padding:0;font-family:var(--mono);font-weight:700;font-size:15px;border-radius:8px}
+.key.wide{max-width:70px;font-size:12px}
+.grid.celebrate .cell:not(.locked){animation:cellwin .6s ease both}
+@keyframes cellwin{0%{transform:scale(1)}35%{transform:scale(1.14);background:var(--active)}70%{background:var(--active-word)}100%{transform:scale(1)}}
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60;display:none}
+.confetti.on{display:block}
+.modal{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:20px;
+  background:rgba(20,23,38,.42);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.modal.on{display:flex}
+.modalcard{width:100%;max-width:340px;background:var(--card);border:2px solid var(--ink);border-radius:16px;
+  padding:22px 20px 18px;text-align:center;box-shadow:0 10px 0 var(--brand-deep),0 26px 44px rgba(20,23,38,.30);
+  animation:rise .48s cubic-bezier(.2,.9,.25,1.12)}
+@keyframes rise{from{transform:translateY(20px) scale(.95);opacity:0}to{transform:none;opacity:1}}
+.modalcard .check{width:54px;height:54px;border-radius:50%;background:var(--good);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:30px;line-height:1;box-shadow:0 4px 0 #157a52}
+.modalcard h2{font-family:var(--sans);font-size:25px;margin:0 0 3px;color:var(--ink);letter-spacing:-.01em}
+.modalcard .sub{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:15px}
+.statrow{display:flex;gap:10px;justify-content:center;margin-bottom:16px}
+.stat{flex:1;max-width:100px;background:var(--paper);border:1.5px solid var(--ink);border-radius:11px;padding:9px 6px}
+.stat b{display:block;font-family:var(--mono);font-size:21px;color:var(--ink);line-height:1.15}
+.stat span{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.modalbtns{display:flex;gap:8px}
+.modalbtns button{flex:1;margin:0}
+@media(prefers-reduced-motion:reduce){.grid.celebrate .cell:not(.locked){animation:none}.modalcard{animation:none}}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.05em;margin-top:6px;text-align:center}
+.gate-fail{max-width:560px;margin:40px auto;font-family:var(--mono);background:#fff;border:2px solid var(--bad);border-radius:12px;padding:20px}
+</style></head>
+<body>
+<div class="app" id="app">
+<header>
+  <div class="masthead">
+    <div class="mono-mark">DP</div>
+    <div class="mh-text">
+      <div class="mh-name">Digi<span class="accent">Puzzles</span></div>
+      <div class="mh-eyebrow">The Digi Path</div>
+    </div>
+  </div>
+  <div class="streakbox">🔥 <b id="streakn">0</b></div>
+</header>
+<div class="meta">
+  <span class="tag">Path</span>
+  <span id="pid">DP·PATH·0013</span>
+  <span>·</span>
+  <span id="pband">medium</span>
+  <span id="timer">0:00</span>
+</div>
+<main>
+  <div class="gridouter">
+    <svg class="pathlines" id="lines" viewBox="0 0 600 600" preserveAspectRatio="none"></svg>
+    <div class="grid" id="grid"></div>
+  </div>
+  <input class="hiddeninput" id="hidden" inputmode="numeric" autocomplete="off">
+  <div class="msg" id="msg">Tap a cell, then enter its number. 1 and 36 are fixed — everything between must sit next door to its neighbour.</div>
+  <div class="kb" id="kb"></div>
+  <div class="controls">
+    <button id="hintBtn">Hint</button>
+    <button id="resetBtn">Reset</button>
+    <div class="spacer"></div>
+    <button id="linesBtn" class="primary">Lines: On</button>
+  </div>
+</main>
+<footer>SHELL — Path v1 · DP·PATH·0013 · verified in code, not by eye</footer>
+</div>
+
+<canvas class="confetti" id="confetti"></canvas>
+<div class="modal" id="modal"><div class="modalcard">
+  <div class="check">✓</div>
+  <h2>Thread complete</h2>
+  <div class="sub" id="modalsub">DP·PATH·0013 · MEDIUM</div>
+  <div class="statrow">
+    <div class="stat"><b id="statTime">0:00</b><span>Time</span></div>
+    <div class="stat"><b id="statStreak">0</b><span>Streak</span></div>
+    <div class="stat"><b id="statTurns">20</b><span>Turns</span></div>
+  </div>
+  <div class="modalbtns">
+    <button id="shareBtn">Share result</button>
+    <button class="primary" id="closeBtn">Nice</button>
+  </div>
+</div></div>
+
+<script>
+(function(){
+"use strict";
+const N = 6, TOTAL = 36;
+
+// ---------- Puzzle data (generated, dual-prover verified — see chat answer key) ----------
+const PUZZLE = {
+  type:"path", id:"DP·PATH·0013", band:"medium", size:6,
+  grid:[
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."],
+    [".",".",".",".",".","."]
+  ],
+  solution:[
+    [13,14,23,24,25,26],
+    [12,15,22,31,30,27],
+    [11,16,21,32,29,28],
+    [10,17,20,33,34,1],
+    [9,18,19,36,35,2],
+    [8,7,6,5,4,3]
+  ],
+  // locked givens — 1-indexed [row,col,value]
+  locked:[
+    [4,6,1],[5,4,36],[5,3,19],[4,1,10],[3,6,28],
+    [6,3,6],[2,2,15],[1,4,24],[3,4,32]
+  ],
+  turns:15
+};
+
+// ---------- Engine (shared shape with the shell's gate: validatePath / countSolutions / solveNoGuess / deduceStep) ----------
+function neighbors(r,c){
+  const out=[];
+  if(r>0) out.push([r-1,c]);
+  if(r<N-1) out.push([r+1,c]);
+  if(c>0) out.push([r,c-1]);
+  if(c<N-1) out.push([r,c+1]);
+  return out;
+}
+function manhattan(a,b){ return Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1]); }
+
+function pathFromSolution(sol){
+  const cells = new Array(TOTAL+1);
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++) cells[sol[r][c]] = [r,c];
+  return cells.slice(1);
+}
+function turnCount(cells){
+  let turns=0, prevDir=null;
+  for(let i=1;i<cells.length;i++){
+    const dr=cells[i][0]-cells[i-1][0], dc=cells[i][1]-cells[i-1][1];
+    const dir=dr+","+dc;
+    if(prevDir!==null && dir!==prevDir) turns++;
+    prevDir=dir;
+  }
+  return turns;
+}
+function candidatesFor(v, valCell, cellUsed){
+  let prevA=null,nextA=null;
+  for(let a=v-1;a>=1;a--) if(valCell[a]){ prevA=a; break; }
+  for(let a=v+1;a<=TOTAL;a++) if(valCell[a]){ nextA=a; break; }
+  let cands=[];
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    if(cellUsed[r][c]) continue;
+    let okPrev=true, okNext=true;
+    if(prevA!==null){ const d=manhattan(valCell[prevA],[r,c]); const need=v-prevA; okPrev = d<=need && ((need-d)%2===0); }
+    if(nextA!==null){ const d=manhattan(valCell[nextA],[r,c]); const need=nextA-v; okNext = d<=need && ((need-d)%2===0); }
+    if(okPrev && okNext) cands.push([r,c]);
+  }
+  if(valCell[v-1]){
+    const set=new Set(neighbors(...valCell[v-1]).filter(([r,c])=>!cellUsed[r][c]).map(([r,c])=>r+","+c));
+    cands=cands.filter(([r,c])=>set.has(r+","+c));
+  }
+  if(valCell[v+1]){
+    const set=new Set(neighbors(...valCell[v+1]).filter(([r,c])=>!cellUsed[r][c]).map(([r,c])=>r+","+c));
+    cands=cands.filter(([r,c])=>set.has(r+","+c));
+  }
+  return cands;
+}
+function solveNoGuess(lockedList){
+  const valCell=new Array(TOTAL+1).fill(null);
+  const cellUsed=Array.from({length:N},()=>Array(N).fill(false));
+  for(const [r,c,v] of lockedList){ const rr=r-1,cc=c-1; valCell[v]=[rr,cc]; cellUsed[rr][cc]=true; }
+  let changed=true;
+  while(changed){
+    changed=false;
+    for(let v=1; v<=TOTAL; v++){
+      if(valCell[v]) continue;
+      const cands=candidatesFor(v, valCell, cellUsed);
+      if(cands.length===1){
+        const [r,c]=cands[0];
+        valCell[v]=[r,c]; cellUsed[r][c]=true; changed=true;
+      }
+    }
+  }
+  return { valCell, solved: valCell.slice(1).every(x=>x!==null) };
+}
+function countSolutions(lockedList, cap){
+  const lockedByValue=new Map(lockedList.map(([r,c,v])=>[v,[r-1,c-1]]));
+  const cellVal=Array.from({length:N},()=>Array(N).fill(0));
+  let count=0;
+  function bt(v,r,c){
+    if(count>=cap) return;
+    if(v>TOTAL){ count++; return; }
+    const forced=lockedByValue.get(v);
+    if(v===1){
+      if(forced){ const [fr,fc]=forced; cellVal[fr][fc]=1; bt(2,fr,fc); cellVal[fr][fc]=0; }
+      else{
+        for(let rr=0;rr<N;rr++) for(let cc=0;cc<N;cc++){
+          if(cellVal[rr][cc]===0){ cellVal[rr][cc]=1; bt(2,rr,cc); cellVal[rr][cc]=0; if(count>=cap) return; }
+        }
+      }
+      return;
+    }
+    if(forced){
+      const [fr,fc]=forced;
+      if(Math.abs(fr-r)+Math.abs(fc-c)!==1) return;
+      if(cellVal[fr][fc]!==0) return;
+      cellVal[fr][fc]=v; bt(v+1,fr,fc); cellVal[fr][fc]=0;
+      return;
+    }
+    for(const [nr,nc] of neighbors(r,c)){
+      if(cellVal[nr][nc]===0){ cellVal[nr][nc]=v; bt(v+1,nr,nc); cellVal[nr][nc]=0; if(count>=cap) return; }
+    }
+  }
+  bt(1,-1,-1);
+  return count;
+}
+function validatePath(p){
+  const checks = {};
+  // locked matches solution
+  checks.locks_match_solution = p.locked.every(([r,c,v]) => p.solution[r-1][c-1]===v);
+  // 1 and 36 both locked
+  const lockedVals = new Set(p.locked.map(l=>l[2]));
+  checks.endpoints_locked = lockedVals.has(1) && lockedVals.has(TOTAL);
+  // solution is a genuine 1..36 orthogonal Hamiltonian path
+  const cells = pathFromSolution(p.solution);
+  let connOk = true;
+  for(let i=1;i<cells.length;i++){
+    if(manhattan(cells[i-1],cells[i])!==1){ connOk=false; break; }
+  }
+  const seen = new Set(cells.map(c=>c[0]+","+c[1]));
+  checks.valid_hamiltonian_path = connOk && seen.size===TOTAL;
+  // sufficiently varied
+  const turns = turnCount(cells);
+  checks.sufficiently_varied = turns >= 14;
+  // no-guess solvable from locks alone
+  checks.solve_no_guess = solveNoGuess(p.locked).solved;
+  // exactly one completion
+  checks.unique_solution = countSolutions(p.locked, 2) === 1;
+  const pass = Object.values(checks).every(Boolean);
+  return { pass, checks, turns };
+}
+
+// ---------- Run the gate at load — a tampered/invalid Path must not render ----------
+const gate = validatePath(PUZZLE);
+if(!gate.pass){
+  document.body.innerHTML = '<div class="gate-fail"><b>Ship-gate check failed — this Path will not render.</b><br><br>'+
+    Object.entries(gate.checks).map(([k,v])=>k+": "+(v?"pass":"FAIL")).join("<br>")+'</div>';
+  throw new Error("Path failed ship gate");
+}
+
+// ---------- Player state ----------
+const state = {
+  grid: Array.from({length:N},()=>Array(N).fill(0)), // 0 = empty
+  active: null,
+  entry: "",
+  solved: false,
+  startTime: Date.now(),
+  timerHandle: null,
+  showLines: true,
+  streak: 0
+};
+for(const [r,c,v] of PUZZLE.locked) state.grid[r-1][c-1] = v;
+
+const gridEl = document.getElementById("grid");
+const linesEl = document.getElementById("lines");
+const hiddenInput = document.getElementById("hidden");
+const msgEl = document.getElementById("msg");
+const timerEl = document.getElementById("timer");
+const kbEl = document.getElementById("kb");
+document.getElementById("pid").textContent = PUZZLE.id;
+document.getElementById("pband").textContent = PUZZLE.band;
+document.getElementById("modalsub").textContent = PUZZLE.id + " · " + PUZZLE.band.toUpperCase();
+document.getElementById("statTurns").textContent = gate.turns;
+
+const lockedSet = new Set(PUZZLE.locked.map(([r,c])=>`${r-1},${c-1}`));
+
+function buildGrid(){
+  gridEl.innerHTML="";
+  for(let r=0;r<N;r++){
+    for(let c=0;c<N;c++){
+      const cell=document.createElement("div");
+      cell.className="cell"+(lockedSet.has(r+","+c)?" locked":"");
+      cell.dataset.r=r; cell.dataset.c=c;
+      const num=document.createElement("span");
+      num.className="num";
+      cell.appendChild(num);
+      cell.addEventListener("click",()=>selectCell(r,c));
+      gridEl.appendChild(cell);
+    }
+  }
+  renderGrid();
+}
+function selectCell(r,c){
+  if(state.solved) return;
+  if(lockedSet.has(r+","+c)) return;
+  state.active=[r,c];
+  state.entry="";
+  renderGrid();
+  hiddenInput.value="";
+  hiddenInput.focus();
+}
+function commitEntry(){
+  if(!state.active) return;
+  const [r,c]=state.active;
+  const n = parseInt(state.entry,10);
+  if(!isNaN(n) && n>=1 && n<=36){
+    state.grid[r][c] = n;
+    checkCell(r,c);
+    checkWin();
+  }
+  state.entry="";
+  renderGrid();
+  renderLines();
+}
+hiddenInput.addEventListener("input",()=>{
+  let v = hiddenInput.value.replace(/[^0-9]/g,"").slice(0,2);
+  hiddenInput.value=v;
+  state.entry=v;
+  renderGrid();
+  if(v.length===2 || (v.length===1 && parseInt(v,10)>3)) {
+    // enough digits to be unambiguous for two-digit values, or clearly single-digit-only max
+  }
+});
+hiddenInput.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"){ commitEntry(); }
+});
+hiddenInput.addEventListener("blur",()=>{ commitEntry(); });
+
+function checkCell(r,c){
+  const cellEl = gridEl.children[r*N+c];
+  const v = state.grid[r][c];
+  cellEl.classList.remove("good","bad");
+  if(v===0) return;
+  if(v===PUZZLE.solution[r][c]) cellEl.classList.add("good");
+  else cellEl.classList.add("bad");
+}
+function renderGrid(){
+  for(let r=0;r<N;r++){
+    for(let c=0;c<N;c++){
+      const cellEl = gridEl.children[r*N+c];
+      const numEl = cellEl.querySelector(".num");
+      cellEl.classList.toggle("active", !!state.active && state.active[0]===r && state.active[1]===c);
+      if(state.active && state.active[0]===r && state.active[1]===c && state.entry){
+        numEl.textContent = state.entry;
+      } else {
+        numEl.textContent = state.grid[r][c] || "";
+      }
+    }
+  }
+}
+
+// ---------- Live path lines (adjacency read-back, not a solve-for-you hint) ----------
+function cellCenter(r,c){
+  const size=600/N;
+  return [c*size+size/2, r*size+size/2];
+}
+function renderLines(){
+  linesEl.innerHTML="";
+  if(!state.showLines) return;
+  const valPos = new Array(TOTAL+1).fill(null);
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    const v=state.grid[r][c];
+    if(v>0) valPos[v]=[r,c];
+  }
+  const ns = "http://www.w3.org/2000/svg";
+  for(let v=1;v<TOTAL;v++){
+    if(!valPos[v] || !valPos[v+1]) continue;
+    const [r1,c1]=valPos[v], [r2,c2]=valPos[v+1];
+    const adjacent = manhattan([r1,c1],[r2,c2])===1;
+    const [x1,y1]=cellCenter(r1,c1), [x2,y2]=cellCenter(r2,c2);
+    const line=document.createElementNS(ns,"line");
+    line.setAttribute("x1",x1); line.setAttribute("y1",y1);
+    line.setAttribute("x2",x2); line.setAttribute("y2",y2);
+    line.setAttribute("stroke", adjacent ? "#2E5BFF" : "#E4483B");
+    line.setAttribute("stroke-width", adjacent ? "5" : "4");
+    line.setAttribute("stroke-linecap","round");
+    if(!adjacent) line.setAttribute("stroke-dasharray","6 5");
+    linesEl.appendChild(line);
+  }
+}
+
+// ---------- Hint: reuses the same deduction prover, places exactly one forced cell ----------
+document.getElementById("hintBtn").addEventListener("click",()=>{
+  const lockedNow = [];
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    if(state.grid[r][c]>0) lockedNow.push([r+1,c+1,state.grid[r][c]]);
+  }
+  const res = solveNoGuess(lockedNow);
+  // find a value that's newly resolved beyond what's already on the board
+  for(let v=1; v<=TOTAL; v++){
+    if(res.valCell[v]){
+      const [r,c]=res.valCell[v];
+      if(state.grid[r][c]===0){
+        state.grid[r][c]=v;
+        checkCell(r,c);
+        renderGrid(); renderLines();
+        msgEl.textContent = "Hint: "+v+" is forced there — it's the only cell that keeps the thread valid.";
+        checkWin();
+        return;
+      }
+    }
+  }
+  msgEl.textContent = "No further cell is forced yet from the current board — place a bit more first.";
+});
+
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  state.grid = Array.from({length:N},()=>Array(N).fill(0));
+  for(const [r,c,v] of PUZZLE.locked) state.grid[r-1][c-1]=v;
+  state.active=null; state.entry=""; state.solved=false;
+  state.startTime=Date.now();
+  msgEl.textContent="Reset. Tap a cell, then enter its number.";
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++) checkCell(r,c);
+  renderGrid(); renderLines();
+});
+
+document.getElementById("linesBtn").addEventListener("click",(e)=>{
+  state.showLines = !state.showLines;
+  e.target.textContent = "Lines: " + (state.showLines?"On":"Off");
+  renderLines();
+});
+
+function checkWin(){
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+    if(state.grid[r][c] !== PUZZLE.solution[r][c]) return;
+  }
+  state.solved=true;
+  clearInterval(state.timerHandle);
+  gridEl.classList.add("celebrate");
+  fireConfetti();
+  state.streak += 1;
+  document.getElementById("streakn").textContent = state.streak;
+  document.getElementById("statStreak").textContent = state.streak;
+  document.getElementById("statTime").textContent = timerEl.textContent;
+  setTimeout(()=>{ document.getElementById("modal").classList.add("on"); }, 900);
+}
+
+// ---------- Timer ----------
+function tick(){
+  if(state.solved) return;
+  const s = Math.floor((Date.now()-state.startTime)/1000);
+  const m = Math.floor(s/60), ss = String(s%60).padStart(2,"0");
+  timerEl.textContent = m+":"+ss;
+}
+state.timerHandle = setInterval(tick, 1000);
+
+// ---------- Confetti (simple canvas burst) ----------
+function fireConfetti(){
+  const canvas=document.getElementById("confetti");
+  canvas.classList.add("on");
+  const ctx=canvas.getContext("2d");
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const colors=["#2E5BFF","#FFD54A","#1F9E6B","#1B3B9E"];
+  const parts=Array.from({length:80},()=>({
+    x:canvas.width/2, y:canvas.height/2,
+    vx:(Math.random()-0.5)*14, vy:(Math.random()-1.4)*14,
+    g:0.4+Math.random()*0.3, size:4+Math.random()*4,
+    color:colors[Math.floor(Math.random()*colors.length)], life:60+Math.random()*30
+  }));
+  let frame=0;
+  function step(){
+    frame++;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    let alive=false;
+    for(const p of parts){
+      if(p.life<=0) continue;
+      alive=true;
+      p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.life--;
+      ctx.fillStyle=p.color;
+      ctx.fillRect(p.x,p.y,p.size,p.size);
+    }
+    if(alive && frame<140) requestAnimationFrame(step);
+    else { canvas.classList.remove("on"); ctx.clearRect(0,0,canvas.width,canvas.height); }
+  }
+  requestAnimationFrame(step);
+}
+
+document.getElementById("closeBtn").addEventListener("click",()=>{
+  document.getElementById("modal").classList.remove("on");
+});
+document.getElementById("shareBtn").addEventListener("click",()=>{
+  const text = PUZZLE.id+" — solved in "+timerEl.textContent+" 🧵";
+  if(navigator.share){ navigator.share({text}).catch(()=>{}); }
+  else { msgEl.textContent = text; document.getElementById("modal").classList.remove("on"); }
+});
+
+// ---------- Numeral pad (touch) ----------
+function buildKeypad(){
+  kbEl.innerHTML="";
+  const rows=[["1","2","3","4","5"],["6","7","8","9","0"],["⌫","Enter"]];
+  for(const row of rows){
+    const rowEl=document.createElement("div");
+    rowEl.className="kbrow";
+    for(const k of row){
+      const btn=document.createElement("button");
+      btn.className="key"+(k.length>1?" wide":"");
+      btn.textContent=k;
+      btn.addEventListener("click",()=>{
+        if(k==="⌫"){ state.entry=state.entry.slice(0,-1); hiddenInput.value=state.entry; }
+        else if(k==="Enter"){ commitEntry(); }
+        else{
+          if(state.entry.length<2){ state.entry+=k; hiddenInput.value=state.entry; }
+        }
+        renderGrid();
+      });
+      rowEl.appendChild(btn);
+    }
+    kbEl.appendChild(rowEl);
+  }
+}
+
+buildGrid();
+buildKeypad();
+renderLines();
+for(let r=0;r<N;r++) for(let c=0;c<N;c++) checkCell(r,c);
+})();
+</script>
+</body></html>

@@ -363,8 +363,8 @@
         <li id="s4"><span class="tier t2">T2</span>LSHTM, "Expert Comment &ndash; UK falls behind Europe in life expectancy improvements," 19 Feb 2025, summarising the above Lancet Public Health study; and Hiam, Minton &amp; McKee (2021) on Canada and US trends, retrieved 19 July 2026.</li>
       </ol>
     </div>
-    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
-    <div><b>Figures to 22 Jul 2026.</b> <span class="ver">Digi News &middot; v1.0 &middot; uk-life-expectancy-stall.</span></div>
+    <div class="fm"><b>Corrections.</b> 22 Jul 2026 &mdash; Exhibit 01 rendered with a broken axis (all data points collapsed to an invalid position) because the period labels were passed to the chart engine as text instead of numbers. Rebuilt using year numbers under the hood with the original labels restored for display; no figures changed.</div>
+    <div><b>Figures to 22 Jul 2026.</b> <span class="ver">Digi News &middot; v1.1 &middot; uk-life-expectancy-stall.</span></div>
   </div>
 
 </div>
@@ -1220,10 +1220,14 @@ window.DN = (function () {
 
 /* Exhibit 01 — line: UK period life expectancy at birth, 1980–82 to 2022–24
    Source: ONS national life tables, UK (T1). Measured throughout — no projection. */
+/* x is the start-year of each three-year rolling period (numeric — DN.line's
+   scale, sort, and path math require numeric x); x.fmt maps each start-year
+   back to its "YYYY\u2013YY" period label for axis ticks and the data table. */
+var EX1_PERIOD = { 1980: "1980\u201382", 2010: "2010\u201312", 2017: "2017\u201319", 2019: "2019\u201321", 2020: "2020\u201322", 2022: "2022\u201324" };
 DN.line("#ex1", {
   title: "UK life expectancy at birth, 1980\u201382 to 2022\u201324",
   summary: "Male and female period life expectancy at birth for the UK, three-year rolling periods. Both series rise steadily to around 2011, then flatten, dip through the pandemic, and partially recover.",
-  x: { fmt: function (v) { return v; } },
+  x: { fmt: function (v) { return EX1_PERIOD[v] || String(v); }, ticks: [1980, 2010, 2017, 2019, 2020, 2022] },
   y: { suffix: "y", zero: false, min: 68, max: 85 },
   endLabels: true,
   series: [
@@ -1231,29 +1235,29 @@ DN.line("#ex1", {
       name: "Female",
       color: "#1C46C2",
       points: [
-        { x: "1980\u201382", y: 77.0 },
-        { x: "2010\u201312", y: 82.6 },
-        { x: "2017\u201319", y: 83.2 },
-        { x: "2019\u201321", y: 82.7 },
-        { x: "2020\u201322", y: 82.6 },
-        { x: "2022\u201324", y: 83.0 }
+        { x: 1980, y: 77.0 },
+        { x: 2010, y: 82.6 },
+        { x: 2017, y: 83.2 },
+        { x: 2019, y: 82.7 },
+        { x: 2020, y: 82.6 },
+        { x: 2022, y: 83.0 }
       ]
     },
     {
       name: "Male",
       color: "#E69F00",
       points: [
-        { x: "1980\u201382", y: 71.1 },
-        { x: "2010\u201312", y: 78.7 },
-        { x: "2017\u201319", y: 79.3 },
-        { x: "2019\u201321", y: 78.7 },
-        { x: "2020\u201322", y: 78.6 },
-        { x: "2022\u201324", y: 79.1 }
+        { x: 1980, y: 71.1 },
+        { x: 2010, y: 78.7 },
+        { x: 2017, y: 79.3 },
+        { x: 2019, y: 78.7 },
+        { x: 2020, y: 78.6 },
+        { x: 2022, y: 79.1 }
       ]
     }
   ],
   notes: [
-    { x: "2010\u201312", y: 78.7, text: "Rise stalls here", sub: "flat to 2019\u201321", dy: -16 }
+    { x: 2010, y: 78.7, text: "Rise stalls here", sub: "flat to 2019\u201321", dy: -16 }
   ]
 });
 

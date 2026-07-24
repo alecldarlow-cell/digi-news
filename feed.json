@@ -1,8 +1,8 @@
 {
-  "built": "2026-07-24T04:59:42.304Z",
+  "built": "2026-07-24T19:49:59.128Z",
   "today": "2026-07-24",
   "timezone": "Europe/London",
-  "count": 73,
+  "count": 74,
   "items": [
     {
       "path": "reports/2026-07-24-antarctic-sea-ice-regime.html",
@@ -87,6 +87,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "........................."
+    },
+    {
+      "path": "reports/2026-07-24-return-to-office-evidence.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "Return-to-office mandates have not been shown to improve business performance",
+      "standfirst": "Randomised trials find that two days a week at home costs nothing in measured output and cuts quitting by about a third. The largest study of corporate mandates found no gain in profit or firm value. But the evidence does show one real c…",
+      "date": "2026-07-24",
+      "read": "~11 min",
+      "thumb": "",
+      "stat": "33",
+      "statUnit": "%",
+      "statLabel": "fewer quits",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-24-uk-productivity-revisions.html",

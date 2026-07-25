@@ -1,9 +1,23 @@
 {
-  "built": "2026-07-25T04:55:09.288Z",
+  "built": "2026-07-25T09:33:43.250Z",
   "today": "2026-07-25",
   "timezone": "Europe/London",
-  "count": 80,
+  "count": 81,
   "items": [
+    {
+      "path": "reports/2026-07-25-aviva-benchmark-window.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "Aviva beat the market by 11 points. It did not beat its own sector.",
+      "standfirst": "Between its 5 June low and 24 July the insurer returned 14.6% against a FTSE 100 up 3.6%. Over the five weeks in which its sector index can be measured alongside it, Aviva lagged that index. The gap is a benchmark artefact, not company n…",
+      "date": "2026-07-25",
+      "read": "~13 min",
+      "thumb": "",
+      "stat": "+14.6",
+      "statUnit": "%",
+      "statLabel": "price return",
+      "mask": ""
+    },
     {
       "path": "reports/2026-07-25-cash-2022-rebound.html",
       "kind": "report",

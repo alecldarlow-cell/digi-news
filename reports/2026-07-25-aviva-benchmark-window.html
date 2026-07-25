@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ==== DN FEED META ==== -->
+<meta name="dn:headline"   content="Aviva beat the market by 11 points. It did not beat its own sector.">
+<meta name="dn:standfirst" content="Between its 5 June low and 24 July the insurer returned 14.6% against a FTSE 100 up 3.6%. Over the five weeks in which its sector index can be measured alongside it, Aviva lagged that index. The gap is a benchmark artefact, not company news.">
+<meta name="dn:topic"      content="Economy">
+<meta name="dn:date"       content="2026-07-25">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~13 min">
+<meta name="dn:statlabel"  content="price return">
+<!-- ====================== -->
+
+<title>Aviva beat the market by 11 points. It did not beat its own sector. — Digi News</title>
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- headline ---------- */
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  /* ---------- hero stats ---------- */
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  /* ---------- sections ---------- */
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  /* ---------- exhibit ---------- */
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  /* ---------- DN chart library styling (real-px responsive SVG) ---------- */
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* sankey: labels keep a paper halo so they stay legible over flow ribbons */
+  .dn-nodelabel{paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+  .dn-flow{transition:fill-opacity .15s ease}
+  .dn-flow:hover{fill-opacity:.72}
+  @media(prefers-reduced-motion:reduce){.dn-flow{transition:none}}
+
+  /* ---------- callout ---------- */
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  /* ---------- inline citation + source tiers ---------- */
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  /* ---------- "what we don't know" ---------- */
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- positions (contested only) ---------- */
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  /* ---------- stat band ---------- */
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  /* ---------- caveat card ---------- */
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  /* ---------- appendix table ---------- */
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair)}
+  table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  table.tbl tr:last-child td{border-bottom:none}
+
+  /* ---------- go deeper ---------- */
+  .more{margin-top:18px;list-style:none;border-top:1px solid var(--hair)}
+  .more li{padding:13px 0;border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--muted)}
+  .more li::before{content:"\2192";color:var(--accent);font-weight:700}
+  .more li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>25 JUL 2026</div>
+  </header>
+
+  <div class="head">
+    <div class="topic">Economy &middot; equity markets</div>
+    <h1>Aviva beat the market by 11 points. It did not beat its own sector.</h1>
+    <p class="standfirst">Between its 5 June low and 24 July the insurer returned 14.6% against a FTSE 100 up 3.6%. Over the five weeks in which its sector index can be measured alongside it, Aviva lagged that index. The gap is a benchmark artefact, not company news.</p>
+    <div class="dateline">Digi News data desk &middot; reading time ~13 min</div>
+  </div>
+
+  <div class="herostats">
+    <div class="hs"><div class="n">+14.6<small>%</small></div><div class="l">Aviva, 5 June close to 24 July close</div></div>
+    <div class="hs"><div class="n">+3.55<small>%</small></div><div class="l">FTSE 100 over the identical 35 sessions</div></div>
+    <div class="hs"><div class="n">&minus;0.15<small>pp</small></div><div class="l">Aviva against the FTSE 350 Life Insurance index, 25 June to 24 July</div></div>
+  </div>
+
+  <!-- ===================== EXECUTIVE SUMMARY ===================== -->
+  <section class="section">
+    <div class="eyebrow">Executive summary</div>
+    <h2>A large gap against the market, and a benchmark that explains it</h2>
+    <p>Aviva's ordinary shares closed at 691.00p on Friday 24 July, up 87.8p &mdash; 14.56% &mdash; from 603.20p on 5 June, the lowest close of that month.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s21">21</a></sup> Over the same 35 sessions the FTSE 100 rose 3.55%.<sup class="cite"><a href="#s5">5</a></sup> The gap is roughly 11 percentage points. On Aviva's share count that is about &pound;1.96bn of market value, and it is large enough to demand an explanation.</p>
+    <p>Almost all of that gap is accounted for by the choice of comparator, and none of it by anything Aviva did. The FTSE 100 is not what Aviva competes with. Measured against the FTSE 350 Life Insurance index &mdash; the sector classification Aviva sits in &mdash; over the five weeks in which this desk could obtain both series, Aviva returned 6.93% against the index's 7.08%.<sup class="cite"><a href="#s4">4</a></sup> It lagged.</p>
+    <p>Swapping one benchmark for another is doing heavy work in that sentence, so this piece interrogates the substitute rather than resting on it. The result survives moving the start date. The index itself is a looser fit than its name suggests.</p>
+    <div class="callout"><b>Key finding.</b> Against the FTSE 100 from 5 June, Aviva's excess return is +11.01 percentage points. Against its own sector index over the longest window in which both series are observable, it is &minus;0.15 percentage points. Changing the comparator, not the company, removes the anomaly.</div>
+  </section>
+
+  <!-- ===================== EXHIBIT 01 — THE DELTA ===================== -->
+  <section class="section">
+    <div class="eyebrow">Establishing the delta</div>
+    <h2>Eleven points against the market, and what they are worth</h2>
+    <p>The arithmetic is straightforward. Applying the FTSE 100's 3.55% return to Aviva's 5 June close of 603.20p gives an index-matched price of 624.62p on 24 July. Aviva printed 691.00p. The difference is 66.38p a share.<sup class="cite"><a href="#s3">3</a></sup></p>
+    <p>Aviva's market capitalisation was reported at &pound;20.45bn at the 24 July close, implying roughly 2.96bn shares in issue.<sup class="cite"><a href="#s6">6</a></sup> On that basis the seven-week rise added about &pound;2.60bn of market value in total, of which some &pound;1.96bn is in excess of what the broad index delivered. That is the quantity the rest of this piece tries to account for.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">Aviva's closing price through the window, against an index-matched counterfactual</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Aviva (AV.) daily closing prices, 5 June &ndash; 24 July 2026, in pence.<sup class="cite"><a href="#s3">3</a></sup> The reference line is the 5 June close carried forward by the FTSE 100's return over the identical window, at a beta of 1.0.<sup class="cite"><a href="#s5">5</a></sup> The 21 July close is taken from a second provider.<sup class="cite"><a href="#s23">23</a></sup> Value axis is not zero-based, so it shows the path rather than the proportion.</figcaption>
+    </figure>
+    <p>Carrying the index forward at a beta of 1.0 is a deliberate simplification: no beta was estimated. A beta above 1.0 would shrink the residual, below 1.0 would widen it. Read it as an index-matched comparison, not a risk-adjusted one.</p>
+  </section>
+
+  <!-- ===================== EXHIBIT 02 — THE BENCHMARK ===================== -->
+  <section class="section">
+    <div class="eyebrow">Explaining the delta &middot; 1</div>
+    <h2>Against its own sector index, the gap is gone</h2>
+    <p>UK life insurers re-rated hard through July. The FTSE 350 Life Insurance index rose 7.08% between 25 June and 24 July and set a 52-week high of 8,554.46 intraday on 22 July.<sup class="cite"><a href="#s4">4</a></sup> Over a near-identical month the FTSE 100 rose 2.98%.<sup class="cite"><a href="#s5">5</a></sup> The sector ran at more than twice the market.</p>
+    <p>Aviva went with it, and slightly behind it. Rebasing both series to 100 at the 25 June close, Aviva ends the window at 106.93 and the index at 107.08. The two lines are close enough throughout that no eye would separate them without the numbers.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">Aviva and its sector index, rebased to 100 at the 25 June close</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Aviva (AV.) daily closes and FTSE 350 Life Insurance (FTNMX303010) daily closes, 25 June &ndash; 24 July 2026, each rebased to 100 at the 25 June close.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s4">4</a></sup> The 21 July Aviva close is taken from a second provider.<sup class="cite"><a href="#s23">23</a></sup> Value axis is not zero-based.</figcaption>
+    </figure>
+    <p>This is the single most consequential substitution in the piece. An 11-point divergence from the FTSE 100 becomes a 0.15-point shortfall against the life insurance sector. The move was real; it was not Aviva's.</p>
+    <p>It is worth being precise about what that benchmark is, because the name promises more than the construction delivers. The index has seven constituents: Aviva, Legal &amp; General, Phoenix, Prudential, Aberdeen, St. James's Place and Old Mutual.<sup class="cite"><a href="#s22">22</a></sup> Three of those are UK bulk annuity writers. Prudential is a predominantly Asian life insurer, Aberdeen is an asset manager, St. James's Place is a wealth manager, and Old Mutual is listed in Johannesburg as well as London.</p>
+    <p>So the comparison is directionally right and technically loose at the same time. It is the classification Aviva sits in, and it is much closer to Aviva's business than the FTSE 100 is. It is not a clean portfolio of annuity competitors, and the rates-and-annuities explanation set out below applies cleanly to three of its seven members. Readers should treat the &minus;0.15 point figure as evidence that Aviva moved with a broadly similar group, not as a precise measurement against its competitive set.</p>
+  </section>
+
+  <!-- ===================== EXHIBIT 03 — SIGNATURE: THE START DATE ===================== -->
+  <section class="section">
+    <div class="eyebrow">Robustness</div>
+    <h2>The finding holds from every start date available</h2>
+    <p>A single window can flatter a result, so the sector comparison was re-run from every date on which both series can be observed. It survives. Aviva is behind the index from 25 June, 26 June and 2 July, and ahead by five hundredths of a percentage point from 10 July.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s4">4</a></sup> Its largest shortfall, 1.09 points from 2 July, is more than twenty times its largest lead.</p>
+    <p>The 5 June anchor is this desk's choice, and worth stating plainly rather than defending: it is the lowest close of that month, 2.13% above the 52-week low of 590.60p.<sup class="cite"><a href="#s6">6</a></sup> It was not a one-session dip &mdash; Aviva closed between 612p and 631p through May and slid steadily into it &mdash; but any window anchored on an observed minimum will flatter the measured excess return. That is a reason to check the result against other start dates, which is what the exhibit below does, rather than a second explanation standing alongside the benchmark.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 03</div><div class="ex-title">Four start dates, one endpoint: Aviva against its sector index</div></div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Percentage price returns to the 24 July 2026 close from each stated start date, computed from daily closes; both series measured over identical windows in every pair.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s4">4</a></sup> Dividends excluded. The equivalent comparison from 5 June cannot be run at all, because the sector index series obtained does not reach that date.</figcaption>
+    </figure>
+    <div class="callout"><b>Set this against the market comparison.</b> From 5 June, measured against the FTSE 100, Aviva's excess return is +11.01 percentage points.<sup class="cite"><a href="#s5">5</a></sup> Measured against its sector index, on every start date available, it sits between &minus;1.09 and +0.05. The anomaly lives in the choice of comparator, not in the company.</div>
+  </section>
+
+  <!-- ===================== EXHIBIT 04 — WHAT CANNOT BE BENCHMARKED ===================== -->
+  <section class="section">
+    <div class="eyebrow">The limit of the evidence</div>
+    <h2>Half the rise happened before the benchmark series begins</h2>
+    <p>There is a real hole in this analysis and it should be stated plainly rather than papered over. The FTSE 350 Life Insurance daily series held by this desk begins on 25 June.<sup class="cite"><a href="#s4">4</a></sup> Aviva rose 7.13% between 5 June and 25 June and 6.93% between 25 June and 24 July: 49% of the 87.8p gain falls in the leg that has not been compared with the sector.</p>
+    <p>That is also, by construction, the leg immediately following a near-52-week low, and therefore the leg where a recovery bounce would be expected to be largest. Both a sector explanation and a company-specific one are consistent with the data in hand for that period. This desk cannot separate them and does not claim to.</p>
+  </section>
+
+  <!-- ===================== WHAT MOVED THE SECTOR ===================== -->
+  <section class="section">
+    <div class="eyebrow">Why the sector moved</div>
+    <h2>Rates, a change of government, and a structural demand story</h2>
+    <p>Three things were happening to UK life insurers over these seven weeks. They operate on different timescales, and only the first is tied to the window itself.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 04</div><div class="ex-title">What happened, and when, across the 5 June to 24 July window</div></div>
+      <div class="ex-chart"><div id="ex4"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Buyback completion from the company announcement as reported.<sup class="cite"><a href="#s11">11</a></sup> Change of prime minister and the gilt sell-off from news reporting on the day.<sup class="cite"><a href="#s9">9</a></sup><sup class="cite"><a href="#s10">10</a></sup> Sector index high from the index record.<sup class="cite"><a href="#s4">4</a></sup> Composite PMI from the flash release.<sup class="cite"><a href="#s2">2</a></sup> Single-session events are drawn as one-day spans so they remain visible; the strip shows timing, not price levels.</figcaption>
+    </figure>
+
+    <h3>1. Gilt yields, and a change of prime minister</h3>
+    <p>Andy Burnham became prime minister on 20 July and said he would seek flexibility within the existing fiscal rules. Gilts sold off the same day, the 30-year yield rising 9 basis points to 5.75%, a two-month high.<sup class="cite"><a href="#s9">9</a></sup> The 10-year yield passed 5% late on 20 July and stayed above it all week &mdash; the longest such stretch since July 2008 &mdash; with oil near $100 a barrel compounding the pressure.<sup class="cite"><a href="#s10">10</a></sup> The sector index set its 52-week high two days later.<sup class="cite"><a href="#s4">4</a></sup></p>
+    <p>Higher long-dated yields are conventionally read as helpful to annuity writers: better reinvestment yields, and better scheme funding levels, which brings more buy-in business to market. This desk reports that reading rather than endorsing it. No source consulted here isolates the transmission from gilt yields to UK life insurance equity prices over this specific window, and the relationship has not been stable in recent years. The timing is suggestive; it is not a demonstrated cause.</p>
+    <h3>2. The bulk annuity market</h3>
+    <p>Underneath the rates move sits the sector's main earnings engine. Moody's has estimated that annuities accounted for 71% of the combined operating earnings of the six largest UK bulk annuity providers between 2022 and 2024.<sup class="cite"><a href="#s19">19</a></sup> The Prudential Regulation Authority describes the life sector as showing rapid growth in bulk purchase annuities, and has made that market &mdash; alongside insurers' growing use of funded reinsurance &mdash; a supervisory priority for 2026.<sup class="cite"><a href="#s14">14</a></sup></p>
+    <p>How much business that market will actually produce this year is disputed, and the dispute matters for whether a re-rating is justified. It is set out below.</p>
+    <h3>3. Regulation, pulling the other way</h3>
+    <p>On 29 April the PRA opened consultation CP8/26, proposing to recalibrate the capital treatment of funded reinsurance under Solvency UK, more closely aligning counterparty default risk with how insurers treat comparable investments.<sup class="cite"><a href="#s15">15</a></sup> Law firm analysis of the proposal suggests it could double or triple the capital required for an average funded reinsurance transaction.<sup class="cite"><a href="#s16">16</a></sup> Funded reinsurance is one of the tools that has let annuity writers grow balance sheets quickly, so this is a headwind, not a tailwind &mdash; and it was already public before the window began.</p>
+    <p>Two macro data points also landed on the window's final session. On 24 July the S&amp;P Global flash UK composite PMI returned to growth at 52.1, from 49.3 in June,<sup class="cite"><a href="#s2">2</a></sup> and June retail sales rose 1% against an expected fall.<sup class="cite"><a href="#s13">13</a></sup> Both are supportive of domestically exposed financials, and both landed on the day the FTSE 100 rose 0.91% to 10,736.23.<sup class="cite"><a href="#s7">7</a></sup></p>
+    <p>What none of this explains is anything specific to Aviva &mdash; which is consistent with the finding that there is nothing specific to Aviva in the measurable data.</p>
+  </section>
+
+  <!-- ===================== POSITIONS (genuinely contested) ===================== -->
+  <section class="section">
+    <div class="eyebrow">Where it's contested</div>
+    <h2>How big is the 2026 annuity market?</h2>
+    <p>The sector re-rated on a view about future business volumes. Credible forecasters who work inside that market disagree about those volumes by a wide margin. Both figures below are <b>forecasts, not measured data</b>, and both come from firms with a commercial interest in the market they are forecasting.</p>
+    <div class="positions">
+      <div class="pos case"><div class="tag">Demand is exceptional</div><p>WTW forecasts total UK pension risk transferred to insurers and reinsurers reaching around &pound;70bn in 2026, roughly 15% above 2025, with the bulk annuity market alone exceeding &pound;50bn on larger deal sizes and attractive pricing.<sup class="cite"><a href="#s17">17</a></sup> The PRA's own supervisory language describes rapid growth in bulk purchase annuities.<sup class="cite"><a href="#s14">14</a></sup></p><div class="kind">Empirical dispute &middot; forecast</div></div>
+      <div class="pos counter"><div class="tag">Demand is narrower</div><p>Standard Life forecasts total bulk annuity volumes of only &pound;35bn to &pound;40bn for 2026, noting that the first half was dominated by a large number of smaller schemes: transaction counts up substantially year on year, but total deal volume slightly down.<sup class="cite"><a href="#s18">18</a></sup> On that reading the market is busier but not bigger.<sup class="cite"><a href="#s18">18</a></sup></p><div class="kind">Empirical dispute &middot; forecast</div></div>
+    </div>
+    <p>This desk takes no view on which forecast is closer. The relevant point for this piece is narrower: a sector-wide argument about sector-wide volumes is not a reason for one constituent to diverge from the others, and in the measurable data Aviva did not.</p>
+  </section>
+
+  <!-- ===================== EXHIBIT 05 — ACCUMULATION ===================== -->
+  <section class="section">
+    <div class="eyebrow">Testing an alternative</div>
+    <h2>Could undisclosed stake-building explain it? The turnover makes it unlikely</h2>
+    <p>A common explanation for an unexplained rise is a buyer accumulating below the disclosure threshold. Under the FCA's Disclosure Guidance and Transparency Rules, a holder of shares in a UK issuer must notify at 3% of voting rights.<sup class="cite"><a href="#s1">1</a></sup> On roughly 2.96bn shares, 3% is about 88.8m shares.</p>
+    <p>Aviva traded 239.9m shares across the 35 sessions of the window, an average of 6.85m a day.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s23">23</a></sup> A build to just under that threshold would therefore be about 37% of everything that changed hands. A buyer taking a realistic slice of daily volume &mdash; 15% to 20% is a common assumption for accumulation intended to avoid moving the price &mdash; would need between 65 and 86 sessions. The window contains 35.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 05</div><div class="ex-title">Sessions needed to build a 3% stake, by share of daily volume taken</div></div>
+      <div class="ex-chart"><div id="ex5"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Computed from Aviva daily volumes, 5 June &ndash; 24 July 2026 (35 sessions, 239.9m shares), and a 3% threshold on approximately 2.96bn shares in issue.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s6">6</a></sup> Participation rates are illustrative bands, not observed values; the dashed line is the number of sessions the window actually contains.</figcaption>
+    </figure>
+    <p>The test rests on an assumed participation rate that a conspicuous buyer could exceed, and it cannot exclude a single block crossed off-book, which would leave no signature in daily turnover. This desk also did not audit Aviva's regulatory news record and makes no claim about what has or has not been filed.</p>
+    <p>What can be said is narrower and firmer: the price data offers no support for the hypothesis, because there is no company-specific outperformance in the measurable window for accumulation to explain. Aviva's shortfall against its sector over those five weeks, 0.15 percentage points, is about 1.0p a share &mdash; smaller than the stock's 6.4p trading range on 24 July alone.<sup class="cite"><a href="#s6">6</a></sup></p>
+  </section>
+
+  <!-- ===================== WHAT WE DON'T KNOW ===================== -->
+  <div class="unknowns">
+    <div class="h">What we don't know</div>
+    <p><b>The first three weeks.</b> The sector index series held here starts on 25 June, and 49% of Aviva's gain came before it. Whether Aviva outperformed, matched or lagged its sector between 5 and 25 June is not established by anything in this piece.</p>
+    <p><b>Why it starts there, which is not a good reason.</b> This is a retrieval limit, not a publication limit. The provider's historical page renders a rolling one-month window by default, and on a 25 July retrieval that window opens on 25 June.<sup class="cite"><a href="#s4">4</a></sup> The date range is adjustable, and was adjusted for the Aviva series, which runs from 26 May.<sup class="cite"><a href="#s3">3</a></sup> It was not adjusted for the index. The earlier data exists and is obtainable; this piece simply does not have it, and a re-pull would close the gap outright. That is the single most useful thing a reader could hold against this analysis.</p>
+    <p><b>One partial check, which is not a finding.</b> Legal &amp; General, the sector's second-largest constituent by market value, can be observed from 12 June. Over the ten sessions from 12 to 25 June, Aviva returned 2.93% and Legal &amp; General 2.32% &mdash; Aviva ahead by 0.61 percentage points.<sup class="cite"><a href="#s20">20</a></sup> That is one stock standing in for a seven-company index over part of the missing leg, which is precisely the kind of proxy this desk declined to build a conclusion on. It is recorded because it exists, not because it settles anything.</p>
+    <p><b>Risk adjustment.</b> No beta, volatility or correlation estimate was computed, because the daily series required were not obtained in full. Every comparison here is a raw return difference. Readers should not treat the residuals as statistically significant or insignificant &mdash; this piece makes no significance claim in either direction.</p>
+    <p><b>Causation in the sector move.</b> The gilt-yield explanation for the life sector's re-rating is a widely held reading, not a finding. No source consulted isolates cause over this window.</p>
+    <p><b>Provenance of the price data.</b> Closing prices and index levels were taken from commercial market-data redistributors rather than direct from the exchange or index provider. Aviva's full daily series has been replicated against a second independent provider: 34 of the 35 closes agree exactly, and the exception is 20 July, printed at 672.00p by one and 671.80p by the other.<sup class="cite"><a href="#s3">3</a></sup><sup class="cite"><a href="#s23">23</a></sup> The 0.20p difference does not move any figure in this piece. The sector index series has not been replicated, because no second provider carrying its daily history was found.</p>
+  </div>
+
+  <!-- ===================== STAT BAND + CAVEAT ===================== -->
+  <section class="section">
+    <div class="eyebrow">By the numbers</div>
+    <p>The move shows up in the income as well as the price. On a trailing 2025 dividend of 39.3p a share,<sup class="cite"><a href="#s12">12</a></sup> Aviva's yield fell from 6.52% at the 5 June close to 5.69% at 691p &mdash; 83 basis points in seven weeks. One reading is that this is what a sector-wide fall in required return looks like from inside a single stock. It is not, on its own, evidence of anything Aviva did.</p>
+    <div class="statband">
+      <div class="c"><div class="n">87.8<small>p</small></div><div class="l">added per share, 5 June to 24 July</div></div>
+      <div class="c"><div class="n">49<small>%</small></div><div class="l">of that gain fell before the sector index series begins</div></div>
+      <div class="c"><div class="n">214<small>m</small></div><div class="l">Aviva shares traded across the window</div></div>
+      <div class="c"><div class="n">5.69<small>%</small></div><div class="l">trailing dividend yield at 691p, down from 6.52% at 603p</div></div>
+    </div>
+    <div class="caveat"><b>Caveat.</b> The strongest objection to this reading is that it rests on the half of the window that can be benchmarked. Aviva rose 7.13% in the three weeks before the sector series becomes available, and that is precisely the leg in which a company-specific effect, had there been one, would most plausibly sit. The conclusion that this was a sector move is firm for 25 June onwards and an extrapolation before it. A full index history back through May would settle the question outright.</div>
+  </section>
+
+  <!-- ===================== REFERENCE APPENDIX ===================== -->
+  <section class="section">
+    <div class="eyebrow">Reference &middot; the full record</div>
+    <h2>The underlying data, in full</h2>
+    <p>Every figure in this piece derives from the table below. Aviva closes and volumes are as published by the data provider;<sup class="cite"><a href="#s3">3</a></sup> the closes for 22 and 23 July are corroborated by a second, independent provider.<sup class="cite"><a href="#s8">8</a></sup> The sector index column is blank where the series obtained does not reach back. Readers can reproduce every return quoted in this piece from these columns alone.</p>
+    <div class="appx">
+      <table class="tbl">
+        <thead><tr><th>Session</th><th class="num">Aviva close (p)</th><th class="num">Volume (m)</th><th class="num">Life index</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>5 Jun</td><td class="num">603.20</td><td class="num">5.18</td><td class="num">&mdash;</td><td>Lowest close of June; window start</td></tr>
+          <tr><td>8 Jun</td><td class="num">610.60</td><td class="num">10.34</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>9 Jun</td><td class="num">607.20</td><td class="num">12.05</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>10 Jun</td><td class="num">613.00</td><td class="num">6.48</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>11 Jun</td><td class="num">619.00</td><td class="num">6.89</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>12 Jun</td><td class="num">627.80</td><td class="num">5.54</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>15 Jun</td><td class="num">631.00</td><td class="num">9.00</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>16 Jun</td><td class="num">638.60</td><td class="num">7.91</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>17 Jun</td><td class="num">642.80</td><td class="num">5.66</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>18 Jun</td><td class="num">634.00</td><td class="num">5.02</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>19 Jun</td><td class="num">634.80</td><td class="num">15.61</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>22 Jun</td><td class="num">644.60</td><td class="num">6.86</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>23 Jun</td><td class="num">643.60</td><td class="num">13.49</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>24 Jun</td><td class="num">642.40</td><td class="num">8.51</td><td class="num">&mdash;</td><td>&mdash;</td></tr>
+          <tr><td>25 Jun</td><td class="num">646.20</td><td class="num">9.32</td><td class="num">7,904.43</td><td>Sector index series obtained from here</td></tr>
+          <tr><td>26 Jun</td><td class="num">647.00</td><td class="num">2.93</td><td class="num">7,894.28</td><td>&mdash;</td></tr>
+          <tr><td>29 Jun</td><td class="num">643.20</td><td class="num">3.19</td><td class="num">7,826.49</td><td>&mdash;</td></tr>
+          <tr><td>30 Jun</td><td class="num">650.20</td><td class="num">6.37</td><td class="num">7,884.88</td><td>&mdash;</td></tr>
+          <tr><td>1 Jul</td><td class="num">651.60</td><td class="num">5.62</td><td class="num">8,002.55</td><td>&mdash;</td></tr>
+          <tr><td>2 Jul</td><td class="num">664.40</td><td class="num">7.27</td><td class="num">8,053.69</td><td>&mdash;</td></tr>
+          <tr><td>3 Jul</td><td class="num">668.40</td><td class="num">4.62</td><td class="num">8,076.21</td><td>&mdash;</td></tr>
+          <tr><td>6 Jul</td><td class="num">675.80</td><td class="num">5.08</td><td class="num">8,153.98</td><td>&mdash;</td></tr>
+          <tr><td>7 Jul</td><td class="num">676.00</td><td class="num">10.13</td><td class="num">8,129.59</td><td>&pound;350m buyback completes</td></tr>
+          <tr><td>8 Jul</td><td class="num">659.00</td><td class="num">5.15</td><td class="num">7,958.28</td><td>&mdash;</td></tr>
+          <tr><td>9 Jul</td><td class="num">658.40</td><td class="num">5.74</td><td class="num">8,045.96</td><td>&mdash;</td></tr>
+          <tr><td>10 Jul</td><td class="num">661.40</td><td class="num">4.18</td><td class="num">8,105.36</td><td>&mdash;</td></tr>
+          <tr><td>13 Jul</td><td class="num">655.20</td><td class="num">5.11</td><td class="num">8,109.65</td><td>&mdash;</td></tr>
+          <tr><td>14 Jul</td><td class="num">661.80</td><td class="num">3.98</td><td class="num">8,205.06</td><td>&mdash;</td></tr>
+          <tr><td>15 Jul</td><td class="num">657.00</td><td class="num">6.03</td><td class="num">8,222.23</td><td>&mdash;</td></tr>
+          <tr><td>16 Jul</td><td class="num">659.20</td><td class="num">4.21</td><td class="num">8,187.90</td><td>&mdash;</td></tr>
+          <tr><td>17 Jul</td><td class="num">672.60</td><td class="num">5.24</td><td class="num">8,224.56</td><td>&mdash;</td></tr>
+          <tr><td>20 Jul</td><td class="num">672.00</td><td class="num">1.72</td><td class="num">8,217.45</td><td>Burnham takes office; 10-yr gilt passes 5%</td></tr>
+          <tr><td>21 Jul</td><td class="num">675.80</td><td class="num">6.95</td><td class="num">8,294.28</td><td>Close from second provider</td></tr>
+          <tr><td>22 Jul</td><td class="num">688.00</td><td class="num">8.62</td><td class="num">8,455.49</td><td>Sector index 52-week high, 8,554.46 intraday</td></tr>
+          <tr><td>23 Jul</td><td class="num">683.60</td><td class="num">5.50</td><td class="num">8,372.51</td><td>&mdash;</td></tr>
+          <tr><td>24 Jul</td><td class="num">691.00</td><td class="num">4.43</td><td class="num">8,464.10</td><td>Window close</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== GO DEEPER ===================== -->
+  <section class="section">
+    <div class="eyebrow">Go deeper</div>
+    <h2>Read more</h2>
+    <p>Four strands were deliberately left out to hold the piece to its evidence.</p>
+    <ul class="more">
+      <li><div><b>Reconstructing the June sector leg.</b> The 5&ndash;25 June gap can be bridged using a single large constituent as a proxy. This desk judged a one-stock proxy for a seven-company index too weak to carry a headline finding and dropped it rather than caveat it.</div></li>
+      <li><div><b>Risk-adjusted attribution.</b> A beta-and-residual decomposition would put a significance figure on each comparison. It requires full daily series for all three instruments, which were not obtained.</div></li>
+      <li><div><b>Constituent-level attribution.</b> Comparing Aviva against each sector member individually, rather than against the index, would show whether the sector move was broad or concentrated.</div></li>
+      <li><div><b>Valuation.</b> The implied change in cost of equity across the window, and the analyst consensus target of 693.46p against the 691.00p close, are noted but not developed here.<sup class="cite"><a href="#s6">6</a></sup></div></li>
+    </ul>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> The window runs from Aviva's 5 June 2026 close to its 24 July 2026 close: 35 trading sessions. All returns are simple price returns from closing prices, dividends excluded; no ex-dividend date for Aviva falls inside the window. The index-matched counterfactual in Exhibit 01 applies the FTSE 100's window return to Aviva's opening price at a beta of 1.0, stated as such because no beta was estimated. Sector comparisons use the FTSE 350 Life Insurance index (FTNMX303010), a price index, and are run only over dates on which both series were obtained &mdash; 25 June onwards. Share count is derived from a reported market capitalisation of &pound;20.45bn at 691.00p, giving approximately 2.96bn shares. Every derived figure was computed in Node from the closing prices in the reference appendix and re-checked against the printed value before publication. The index constituent list was taken from the index provider's published components table and is used only to characterise what the benchmark contains, not to compute any figure. Aviva's complete daily series was cross-checked against a second independent provider, agreeing on 34 of 35 closes; the FTSE 100's 23 and 24 July closes were cross-checked separately. No projection, scenario or modelled figure appears anywhere in this piece, so no assumption firewall was required; the two illustrative participation bands in Exhibit 05 are labelled as illustrative in the caption. Where a claim about cause could not be sourced, it is marked as a reading rather than a finding.</div>
+    <div class="fm"><b>Sources.</b> Numbered, highest tier first; each inline citation points here. Market data was retrieved on 25 July 2026.
+      <ol>
+        <li id="s1"><span class="tier t1">T1</span>Financial Conduct Authority, Handbook, Disclosure Guidance and Transparency Rules, DTR 5.1.2 &mdash; notification threshold for major shareholdings in UK issuers.</li>
+        <li id="s2"><span class="tier t2">T2</span>S&amp;P Global, Flash UK PMI, July 2026 &mdash; composite output index 52.1, from 49.3 in June; reported via Alliance News, 24 July 2026.</li>
+        <li id="s3"><span class="tier t3">T3</span>Investing.com, Aviva plc (AV) historical share price data &mdash; daily closes, highs, lows and volumes, 26 May to 24 July 2026. <a href="https://uk.investing.com/equities/aviva-historical-data">uk.investing.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s4"><span class="tier t3">T3</span>Investing.com, FTSE 350 Life Insurance (FTNMX303010) historical index data &mdash; daily closes, 25 June to 24 July 2026, and 52-week range. <a href="https://uk.investing.com/indices/life-assurance-historical-data">uk.investing.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s5"><span class="tier t3">T3</span>Investing.com, FTSE 100 historical index data &mdash; daily closes including 5 June and 24 July 2026, and the 24 June to 24 July period return. <a href="https://www.investing.com/indices/uk-100-historical-data">investing.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s6"><span class="tier t3">T3</span>Investing.com, Aviva plc (AV) overview &mdash; 24 July 2026 close, day range, 52-week range, market capitalisation and analyst consensus target. <a href="https://uk.investing.com/equities/aviva">uk.investing.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s7"><span class="tier t3">T3</span>Yahoo Finance, FTSE 100 closing level, 24 July 2026 &mdash; 10,736.23, +0.91%. Retrieved 25 July 2026.</li>
+        <li id="s8"><span class="tier t3">T3</span>StockInvest.us, Aviva plc (AV.L) daily record &mdash; closes of 688.00p on 22 July and 683.60p on 23 July 2026. Retrieved 25 July 2026.</li>
+        <li id="s9"><span class="tier t3">T3</span>Reuters, "British gilt yields rise, sterling dips as Burnham becomes UK prime minister", 20 July 2026, via Euronext Live.</li>
+        <li id="s10"><span class="tier t3">T3</span>Bloomberg, "Gilts Caught Between Twin Risks From Burnham Debut and Oil Shock", 24 July 2026.</li>
+        <li id="s11"><span class="tier t3">T3</span>Alliance News, Aviva completes &pound;350m share buyback &mdash; 56.7m shares at an average 617.05p, reported 8 July 2026.</li>
+        <li id="s12"><span class="tier t3">T3</span>Hargreaves Lansdown, Aviva plc share research &mdash; 2025 total dividend of 39.3p per share and the launch of the &pound;350m buyback programme.</li>
+        <li id="s14"><span class="tier t1">T1</span>Bank of England / Prudential Regulation Authority, Business Plan 2026/27 &mdash; insurance supervision priorities, including rapid growth in bulk purchase annuities, funded reinsurance, and Solvency UK implementation. <a href="https://www.bankofengland.co.uk/prudential-regulation/publication/2026/april/pra-business-plan-2026-27">bankofengland.co.uk</a>. Retrieved 25 July 2026.</li>
+        <li id="s15"><span class="tier t1">T1</span>Bank of England / Prudential Regulation Authority, proposals on funded reinsurance and life insurer resilience, 29 April 2026 (CP8/26). <a href="https://www.bankofengland.co.uk/news/2026/april/pra-publishes-plans-to-support-resilience-in-the-life-insurance-industry">bankofengland.co.uk</a>. Retrieved 25 July 2026.</li>
+        <li id="s16"><span class="tier t2">T2</span>Skadden, Arps, Slate, Meagher &amp; Flom, analysis of PRA Consultation Paper CP8/26, 30 April 2026 &mdash; estimated capital impact on funded reinsurance transactions.</li>
+        <li id="s17"><span class="tier t2">T2</span>WTW, annual De-risking report, February 2026 &mdash; forecast of around &pound;70bn total UK pension risk transfer in 2026 and a bulk annuity market exceeding &pound;50bn. Forecast, not measured data.</li>
+        <li id="s18"><span class="tier t3">T3</span>Standard Life, bulk annuity volume forecast of &pound;35bn&ndash;&pound;40bn for 2026 and commentary on first-half scheme sizes, reported by Pensions Expert, July 2026. Interested party; forecast, not measured data.</li>
+        <li id="s19"><span class="tier t3">T3</span>Moody's estimate that annuities accounted for 71% of combined operating earnings of the six largest UK bulk annuity providers, 2022&ndash;2024, reported by Pensions Expert, February 2026.</li>
+        <li id="s20"><span class="tier t3">T3</span>Investing.com, Legal &amp; General Group (LGEN) historical share price data &mdash; daily closes, 12 June to 10 July 2026. <a href="https://www.investing.com/equities/legal---general-historical-data">investing.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s21"><span class="tier t3">T3</span>StockAnalysis.com, Aviva plc (LON:AV) historical price data &mdash; 5 June 2026 close of 603.20p, shown as a 4.80p fall on a 608.00p previous close, corroborating the opening price of the window. <a href="https://stockanalysis.com/quote/lon/AV/history/">stockanalysis.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s22"><span class="tier t3">T3</span>Investing.com, FTSE 350 Life Insurance constituents list &mdash; the seven index members as at July 2026. <a href="https://uk.investing.com/indices/life-assurance-components">uk.investing.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s23"><span class="tier t3">T3</span>Yahoo Finance, Aviva plc (AV.L) historical prices &mdash; daily opens, highs, lows, closes and volumes, 27 April to 24 July 2026, used to corroborate the full Aviva series and to supply the 21 July close and the 21&ndash;24 July volumes. <a href="https://uk.finance.yahoo.com/quote/AV.L/history/">uk.finance.yahoo.com</a>. Retrieved 25 July 2026.</li>
+        <li id="s13"><span class="tier t3">T3</span>Trading Economics, United Kingdom market and economic indicators &mdash; June 2026 retail sales +1% against an expected decline, reported 24 July 2026.</li>
+      </ol>
+    </div>
+    <div class="fm"><b>A note on source tiers.</b> This piece is unusually dependent on Tier 3 sources. Closing prices and index levels originate with the London Stock Exchange and FTSE Russell but were obtained here through a commercial redistributor, and are tiered accordingly rather than claimed as primary. Readers who need audit-grade prices should take them from the exchange or index provider directly.</div>
+    <div class="fm"><b>Not investment advice.</b> This is a data analysis of past price movements, published for information. It is not a recommendation to buy, sell or hold any security, and Digi News is not authorised to give investment advice. Aviva reports half-year results on 14 August 2026.<sup class="cite"><a href="#s6">6</a></sup></div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 25 Jul 2026.</b> <span class="ver">Digi News &middot; v1.2 &middot; aviva-benchmark-window.</span></div>
+  </div>
+
+</div>
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ----------------------------------------------------------------------------
+   Newsroom-idiom SVG charts: honest scales, real-px responsive rendering,
+   colourblind-safe palette, annotation layer, and an accessible data table
+   emitted alongside every chart. Mobile-first: charts re-render at 1 SVG unit
+   = 1 CSS pixel via ResizeObserver, so label type never shrinks below legible.
+
+   PUBLIC API  (every chart: DN.<type>(targetSelectorOrEl, spec))
+     DN.line(t, spec)        multi-series time line; projection split; bands; refs; notes
+     DN.bars(t, spec)        horizontal ranked bars; highlight; reference line
+     DN.columns(t, spec)     vertical columns; grouped or stacked; legend
+     DN.slope(t, spec)       slope / dumbbell before-after comparison
+     DN.scatter(t, spec)     x/y points; optional groups; quadrant guides
+     DN.rangeStrip(t, spec)  time spans (barcode timeline / Gantt); projection hatch
+     DN.sankey(t, spec)      flows; ribbon width ∝ volume; gradient links; flow table
+
+     DN.fmt(value, opts)     number formatter (decimals, compact, prefix/suffix, plus, pct)
+     DN.colors, DN.palette   semantic tokens + categorical (Okabe-Ito) scale
+
+   COMMON spec fields: title (required, drives a11y), summary, height,
+     x:{min,max,fmt,ticks,title,label}, y:{min,max,zero,fmt,title,label,decimals,suffix,prefix,compact}
+   Projection rule: pass projectFrom on a series/event; the segment beyond it
+     renders dashed/hatched. Projections must never be the headline figure.
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  /* ---- palette: semantic tokens + Okabe-Ito categorical (CVD-safe) ---- */
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  /* ---- tiny DOM/SVG helpers ---- */
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  /* ---- number formatter ---- */
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  /* ---- nice scale (Heckbert) ---- */
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  /* ---- label geometry: single source of truth, shared with dn-harness ----
+     The width model (per-char advance = font-size * LABEL_EM) is identical to
+     the harness geometry probe, so a label the toolkit judges to "fit" is the
+     same label the pre-publish gate judges to be on-canvas. Font sizes here
+     mirror the .dn-* label classes in the template CSS.               */
+  var LABEL_EM = 0.52;
+  var LABEL_PX = { ax: 11, axlabel: 11, clabel: 12, vlabel: 12.5, endlab: 12, anno: 11.5, annosub: 10.5, strip: 11 };
+  function estW(str, px) { str = (str == null ? "" : String(str)); return str.length * (px || 12) * LABEL_EM; }
+  // Shorten one string to fit maxPx, appending an ellipsis. Never returns
+  // something wider than maxPx (down to a single glyph).
+  function ellip(str, maxPx, px) {
+    str = (str == null ? "" : String(str));
+    if (estW(str, px) <= maxPx) return str;
+    var s = str;
+    while (s.length > 1 && estW(s + "\u2026", px) > maxPx) s = s.slice(0, -1);
+    return s.replace(/[\s,.;:\u2013\u2014-]+$/, "") + "\u2026";
+  }
+  // Word-wrap str to at most maxLines lines, each <= maxPx. The final allowed
+  // line absorbs any remainder and is ellipsised. Returns {lines, truncated}.
+  function wrapFit(str, maxPx, px, maxLines) {
+    str = (str == null ? "" : String(str)).trim(); maxLines = maxLines || 2;
+    if (estW(str, px) <= maxPx) return { lines: [str], truncated: false };
+    var words = str.split(/\s+/), lines = [], cur = "";
+    for (var i = 0; i < words.length; i++) {
+      var cand = cur ? cur + " " + words[i] : words[i];
+      if (cur && estW(cand, px) > maxPx) {
+        if (lines.length === maxLines - 1) {                 // last line: take the rest
+          lines.push(ellip(words.slice(i).join(" "), maxPx, px));
+          return { lines: lines, truncated: true };
+        }
+        lines.push(cur); cur = words[i];
+      } else cur = cand;
+    }
+    if (cur) lines.push(cur);
+    var truncated = false;
+    lines = lines.map(function (ln) { if (estW(ln, px) > maxPx) { truncated = true; return ellip(ln, maxPx, px); } return ln; });
+    return { lines: lines, truncated: truncated };
+  }
+  // Widest label width (px) across a set of values, given a formatter.
+  function widestW(vals, labelOf, px) {
+    var w = 0; for (var i = 0; i < vals.length; i++) { var lw = estW(labelOf(vals[i]), px); if (lw > w) w = lw; } return w;
+  }
+  // Drop interior ticks whose labels would collide; endpoints always kept.
+  function thinTicks(ticks, xOf, labelOf, px, minGap) {
+    if (!ticks || ticks.length <= 2) return (ticks || []).slice();
+    minGap = (minGap == null) ? 6 : minGap;
+    var keep = [ticks[0]], lastR = xOf(ticks[0]) + estW(labelOf(ticks[0]), px) / 2;
+    for (var i = 1; i < ticks.length - 1; i++) {
+      var c = xOf(ticks[i]), half = estW(labelOf(ticks[i]), px) / 2;
+      if (c - half >= lastR + minGap) { keep.push(ticks[i]); lastR = c + half; }
+    }
+    var lastT = ticks[ticks.length - 1], lL = xOf(lastT) - estW(labelOf(lastT), px) / 2;
+    while (keep.length > 1 && (xOf(keep[keep.length - 1]) + estW(labelOf(keep[keep.length - 1]), px) / 2 + minGap) > lL) keep.pop();
+    keep.push(lastT);
+    return keep;
+  }
+  // Clamp a middle-anchored tick label's x so its box stays within [0,W].
+  function clampMid(x, str, px, W) { var h = estW(str, px) / 2; return Math.min(Math.max(x, h + 1), W - h - 1); }
+  // Clamp any anchored free annotation so its box stays on-canvas (backstop —
+  // only moves when the author's placement would otherwise clip off the edge).
+  function clampInside(x, str, px, W, anchor) {
+    var w = estW(str, px);
+    if (anchor === 'end') return Math.min(Math.max(x, w + 1), W - 1);
+    if (anchor === 'middle') return clampMid(x, str, px, W);
+    return Math.min(Math.max(x, 1), W - w - 1);
+  }
+  // Nudge desired y-centres so no two are within minGap, kept within [lo,hi].
+  // Returns adjusted y for each input index (order preserved).
+  function separateY(ys, minGap, lo, hi) {
+    var idx = ys.map(function (y, i) { return { y: y, i: i }; }).sort(function (a, b) { return a.y - b.y; });
+    for (var k = 1; k < idx.length; k++) { if (idx[k].y < idx[k - 1].y + minGap) idx[k].y = idx[k - 1].y + minGap; }
+    if (idx.length && idx[idx.length - 1].y > hi) { idx[idx.length - 1].y = hi; for (var a = idx.length - 2; a >= 0; a--) { if (idx[a].y > idx[a + 1].y - minGap) idx[a].y = idx[a + 1].y - minGap; } }
+    if (idx.length && idx[0].y < lo) { idx[0].y = lo; for (var b = 1; b < idx.length; b++) { if (idx[b].y < idx[b - 1].y + minGap) idx[b].y = idx[b - 1].y + minGap; } }
+    var out = new Array(ys.length); idx.forEach(function (o) { out[o.i] = o.y; }); return out;
+  }
+  // Append a right-anchored label as one line, or as wrapped tspans, so it
+  // never overflows the left gutter. Marks truncation for the gate to see.
+  function drawGutter(svg, str, xRight, cy, cls, px, maxPx, fillCol) {
+    var fit = wrapFit(str, maxPx, px, 2);
+    var lab = svgEl("text", { x: xRight, "text-anchor": "end", "class": cls });
+    if (fillCol) lab.setAttribute("fill", fillCol);
+    if (fit.lines.length === 1) { lab.setAttribute("y", cy + 4); lab.textContent = fit.lines[0]; }
+    else {
+      var lineH = px + 3, startY = cy - (fit.lines.length - 1) * lineH / 2 + 4;
+      fit.lines.forEach(function (ln, li) { var ts = svgEl("tspan", { x: xRight, y: startY + li * lineH }); ts.textContent = ln; lab.appendChild(ts); });
+    }
+    if (fit.truncated) { lab.setAttribute("data-dn-fit", "trunc"); var ti = svgEl("title"); ti.textContent = str; lab.appendChild(ti); }
+    svg.appendChild(lab); return fit;
+  }
+
+  /* ---- relative luminance → ideal overlaid text colour ---- */
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  /* ---- responsive mount + lifecycle ---- */
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* ====================================================================== */
+  /* LINE                                                                    */
+  /* ====================================================================== */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      // Left margin fits the widest y-tick label (thousands, currency, log ticks
+      // all handled) instead of a fixed 34/44 that clipped wide numbers.
+      var yLabW = widestW(ns.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax);
+      var mL = Math.min(Math.max(Math.round(yLabW) + 12, small ? 34 : 44), Math.round(W * 0.34));
+      // Right margin fits end labels; if that would eat the plot, cap it and
+      // truncate the labels to the reserved width when drawn.
+      var endTexts = series.map(function (s, si) { return s.endLabel || s.name || fmt(s.points[s.points.length - 1].y, spec.y || {}); });
+      var mR;
+      if (spec.endLabels) { mR = Math.min(Math.max(Math.round(widestW(endTexts, function (t) { return t; }, LABEL_PX.endlab)) + 12, small ? 44 : 60), Math.round(W * 0.40)); }
+      else mR = 18;
+      var endBudget = mR - 10;
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      var xfmt = function (xv) { return (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv); };
+      thinTicks(xt, X, xfmt, LABEL_PX.ax, 8).forEach(function (xv) {
+        var lx = clampMid(X(xv), xfmt(xv), LABEL_PX.ax, W);
+        var t = svgEl("text", { x: lx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = xfmt(xv); svg.appendChild(t);
+      });
+
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) {
+          var etxt = endTexts[si], efit = ellip(etxt, endBudget, LABEL_PX.endlab);
+          var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col);
+          el.textContent = efit;
+          if (efit !== etxt) { el.setAttribute("data-dn-fit", "trunc"); var eti = svgEl("title"); eti.textContent = etxt; el.appendChild(eti); }
+          svg.appendChild(el);
+        }
+      });
+
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var rlx = clampInside(mL + 6, r.label, LABEL_PX.anno, W, "start"); var t = svgEl("text", { x: rlx, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy, na = nt.anchor || "middle";
+        var t = svgEl("text", { x: clampInside(nx + (nt.dx || 0), nt.text, LABEL_PX.anno, W, na), y: ny + dy, "text-anchor": na, "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: clampInside(nx + (nt.dx || 0), nt.sub, LABEL_PX.annosub, W, na), y: ny + dy + 13, "text-anchor": na, "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* BARS (horizontal, ranked)                                               */
+  /* ====================================================================== */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = (spec.refValue != null) ? 22 : 8, mB = 8;
+      // --- gutter sized to the measured labels, capped so bars stay readable;
+      //     labels that exceed the budget wrap to two lines then ellipsise. ---
+      var clP = LABEL_PX.clabel;
+      var gutterCap = Math.round(W * (small ? 0.46 : 0.42));
+      var want = widestW(data.map(function (d) { return d.label; }), function (s) { return s; }, clP) + 16;
+      var mL = Math.min(Math.max(want, 64), gutterCap);
+      var labelBudget = mL - 14;
+      var fits = data.map(function (d) { return wrapFit(d.label, labelBudget, clP, 2); });
+      var maxLines = Math.max.apply(null, fits.map(function (f) { return f.lines.length; }));
+      var lineH = clP + 3;
+      if (maxLines > 1) rowH = Math.max(rowH, lineH * maxLines + 8);
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      // reference-line label shares the top row with x-ticks; give it priority
+      var refLX = null, refHalf = 0;
+      if (spec.refValue != null && spec.refLabel) { refLX = clampMid(Xv(spec.refValue), spec.refLabel, LABEL_PX.anno, W); refHalf = estW(spec.refLabel, LABEL_PX.anno) / 2; }
+      var xticksB = thinTicks(ns.ticks, Xv, function (tv) { return fmt(tv, spec.x || {}); }, LABEL_PX.ax, 7);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        if (xticksB.indexOf(tv) < 0) return;
+        var tstr = fmt(tv, spec.x || {}), lx = clampMid(gx, tstr, LABEL_PX.ax, W);
+        if (refLX != null && Math.abs(lx - refLX) < refHalf + estW(tstr, LABEL_PX.ax) / 2 + 4) return;  // yields to refLabel
+        var t = svgEl("text", { x: lx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = tstr; svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        drawGutter(svg, d.label, mL - 10, y + rowH / 2, "dn-clabel", clP, labelBudget, d.highlight ? C.subject : null);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var vtext = fmt(d.value, spec.x || {}), vw = estW(vtext, LABEL_PX.vlabel);
+        var v;
+        if (mL + w + 8 + vw > W - 2 && w > vw + 12) {           // no room outside → label inside the bar
+          v = svgEl("text", { x: mL + w - 6, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-vlabel" });
+          v.setAttribute("fill", idealText(col));
+        } else {
+          v = svgEl("text", { x: Math.min(mL + w + 8, W - vw - 2), y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" });
+          if (d.highlight) v.setAttribute("fill", C.subject);
+        }
+        v.textContent = vtext; svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: refLX != null ? refLX : gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* COLUMNS (vertical, grouped or stacked)                                  */
+  /* ====================================================================== */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5);
+      var mL = Math.min(Math.max(Math.round(widestW(ns.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax)) + 12, small ? 34 : 44), Math.round(W * 0.34));
+      var iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var glab = ellip(g.label, gw - 4, LABEL_PX.ax), glx = clampMid(mL + gi * gw + gw / 2, glab, LABEL_PX.ax, W);
+        var xl = svgEl("text", { x: glx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = glab;
+        if (glab !== String(g.label)) { xl.setAttribute("data-dn-fit", "trunc"); var gti = svgEl("title"); gti.textContent = String(g.label); xl.appendChild(gti); }
+        svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+          });
+        }
+      });
+      drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SLOPE / DUMBBELL                                                        */
+  /* ====================================================================== */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: clampMid(xL, spec.left || "", LABEL_PX.clabel, W), y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = ellip(spec.left || "", 2 * xL - 8, LABEL_PX.clabel); svg.appendChild(hl);
+      var hr = svgEl("text", { x: clampMid(xR, spec.right || "", LABEL_PX.clabel, W), y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = ellip(spec.right || "", 2 * (W - xR) - 8, LABEL_PX.clabel); svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      var y0s = items.map(function (it) { return Y(it.from); });
+      var y1s = items.map(function (it) { return Y(it.to); });
+      var llY = separateY(y0s.slice(), LABEL_PX.clabel + 2, mT + 4, H - mB);
+      var rvY = separateY(y1s.slice(), LABEL_PX.vlabel + 2, mT + 4, H - mB);
+      items.forEach(function (it, i) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = y0s[i], y1 = y1s[i];
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var llTxt = ellip(it.label, xL - 14, LABEL_PX.clabel);
+        var ll = svgEl("text", { x: xL - 10, y: llY[i] + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = llTxt;
+        if (llTxt !== String(it.label)) { ll.setAttribute("data-dn-fit", "trunc"); var lti = svgEl("title"); lti.textContent = String(it.label); ll.appendChild(lti); }
+        svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: rvY[i] + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = ellip(fmt(it.to, spec.y || {}), (W - xR) - 12, LABEL_PX.vlabel); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SCATTER                                                                 */
+  /* ====================================================================== */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var mL = Math.min(Math.max(Math.round(widestW(nyv.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax)) + 12, small ? 38 : 48), Math.round(W * 0.34));
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      var xfmtS = function (tv) { return fmt(tv, spec.x || {}); };
+      thinTicks(nx.ticks, X, xfmtS, LABEL_PX.ax, 8).forEach(function (tv) { var lx = clampMid(X(tv), xfmtS(tv), LABEL_PX.ax, W); var t = svgEl("text", { x: lx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = xfmtS(tv); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) {
+          var plw = estW(p.label, LABEL_PX.annosub), px0 = X(p.x) + (p.r || 4.5) + 4, pl;
+          if (px0 + plw > W - 2) pl = svgEl("text", { x: X(p.x) - (p.r || 4.5) - 4, y: Y(p.y) + 4, "text-anchor": "end", "class": "dn-annosub" });
+          else pl = svgEl("text", { x: px0, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" });
+          pl.textContent = p.label; svg.appendChild(pl);
+        }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* RANGE STRIP (barcode timeline / Gantt rows)                             */
+  /* ====================================================================== */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        var allXb = xticks(x0, x1, small ? 4 : 7), bfmt = function (xv) { return String(fx(xv)); };
+        var keepXb = thinTicks(allXb, X, bfmt, LABEL_PX.ax, 8);
+        allXb.forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          if (keepXb.indexOf(xv) < 0) return;
+          var t = svgEl("text", { x: clampMid(xx, bfmt(xv), LABEL_PX.ax, W), y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", (e.projectFrom != null && (e.start + e.end) / 2 >= e.projectFrom) ? C.ink : idealText(col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: clampMid((bx0 + bx1) / 2, b.label, LABEL_PX.anno, W), y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: clampMid(nx, nt.text, LABEL_PX.anno, W), y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: clampMid(nx, nt.sub, LABEL_PX.annosub, W), y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30, clP = LABEL_PX.clabel;
+        var mL = Math.min(Math.max(Math.round(widestW(events.map(function (e) { return e.label; }), function (s) { return s; }, clP)) + 16, 70), Math.round(W * 0.42));
+        var rBudget = mL - 14;
+        var rFits = events.map(function (e) { return wrapFit(e.label, rBudget, clP, 2); });
+        var rMaxLines = Math.max.apply(null, rFits.map(function (f) { return f.lines.length; }));
+        if (rMaxLines > 1) rowH = Math.max(rowH, (clP + 3) * rMaxLines + 6);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        var allXr = xticks(x0, x1, small ? 4 : 7), rfmt = function (xv) { return String(fx(xv)); };
+        var keepXr = thinTicks(allXr, X, rfmt, LABEL_PX.ax, 8);
+        allXr.forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          if (keepXr.indexOf(xv) < 0) return;
+          var t = svgEl("text", { x: clampMid(xx, rfmt(xv), LABEL_PX.ax, W), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          drawGutter(svg, e.label, mL - 10, y + rowH / 2, "dn-clabel", clP, rBudget, null);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SANKEY (flows — ribbon width proportional to volume)                    */
+  /* ---------------------------------------------------------------------- */
+  /* Honest encoding: a flow's height (at both ends) and a node's height are  */
+  /* proportional to value on one shared px-per-unit scale. Colour only marks */
+  /* provenance (gradient source -> target); every node carries a text label  */
+  /* and value, so colour is never the sole carrier. Layout: longest-path     */
+  /* layering + barycentre relaxation to reduce crossings. Assumes a DAG.     */
+  /* ====================================================================== */
+  function sankey(target, spec) {
+    var m = mount(target);
+    var rawLinks = (spec.links || []).filter(function (l) { return l && l.value > 0; });
+    var nodeMap = {}, nodes = [];
+    function getNode(id) {
+      var key = "$" + id;
+      if (!Object.prototype.hasOwnProperty.call(nodeMap, key)) {
+        nodeMap[key] = { id: id, label: String(id), ins: [], outs: [], idx: nodes.length };
+        nodes.push(nodeMap[key]);
+      }
+      return nodeMap[key];
+    }
+    (spec.nodes || []).forEach(function (nd) {
+      var n = getNode(nd.id);
+      if (nd.label != null) n.label = String(nd.label);
+      if (nd.color) n.color = nd.color;
+    });
+    var links = rawLinks.map(function (l) {
+      var s = getNode(l.source), t = getNode(l.target);
+      var link = { source: s, target: t, value: +l.value, color: l.color };
+      s.outs.push(link); t.ins.push(link);
+      return link;
+    });
+    nodes.forEach(function (n, i) { if (!n.color) n.color = cat(i); });
+
+    /* longest-path layering (assumes a DAG) */
+    nodes.forEach(function (n) { n.depth = 0; });
+    for (var pass = 0; pass < nodes.length + 1; pass++) {
+      var changed = false;
+      links.forEach(function (l) {
+        if (l.target.depth < l.source.depth + 1) { l.target.depth = l.source.depth + 1; changed = true; }
+      });
+      if (!changed) break;
+    }
+    var maxDepth = 0; nodes.forEach(function (n) { if (n.depth > maxDepth) maxDepth = n.depth; });
+    if (spec.align !== "left") nodes.forEach(function (n) { if (n.outs.length === 0 && n.ins.length) n.depth = maxDepth; });
+    var columns = [];
+    nodes.forEach(function (n) { (columns[n.depth] = columns[n.depth] || []).push(n); });
+    for (var qi = 0; qi < columns.length; qi++) if (!columns[qi]) columns[qi] = [];
+
+    function nodeVal(n) {
+      var i = n.ins.reduce(function (s, l) { return s + l.value; }, 0);
+      var o = n.outs.reduce(function (s, l) { return s + l.value; }, 0);
+      return Math.max(i, o);
+    }
+    function center(n) { return n.y + n.h / 2; }
+    function truncate(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "\u2026" : s; }
+
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.62, 250), 460));
+      var nodeW = spec.nodeWidth || (small ? 11 : 15);
+      var pad = spec.nodePad || (small ? 11 : 16);
+      var labCap = small ? 12 : 22;
+      var first = columns[0] || [], lastCol = columns[columns.length - 1] || [];
+      var lc = Math.max.apply(null, [4].concat(first.map(function (n) { return truncate(n.label, labCap).length; })));
+      var rc = Math.max.apply(null, [4].concat(lastCol.map(function (n) { return truncate(n.label, labCap).length; })));
+      var chpx = small ? 5.7 : 6.7;
+      var mL = Math.min(Math.max(lc * chpx + 12, 38), W * 0.34);
+      var mR = Math.min(Math.max(rc * chpx + 12, 38), W * 0.34);
+      var mT = 16, mB = 12;
+      var innerW = Math.max(W - mL - mR, 60), innerH = Math.max(H - mT - mB, 80);
+      var cols = columns.length;
+      var colStep = cols > 1 ? (innerW - nodeW) / (cols - 1) : 0;
+      function nodeX(d) { return mL + d * colStep; }
+
+      /* one shared value->px scale across every column (honest) */
+      var k = Infinity;
+      columns.forEach(function (col) {
+        var sum = col.reduce(function (s, n) { return s + nodeVal(n); }, 0);
+        var avail = innerH - (col.length - 1) * pad;
+        if (sum > 0) k = Math.min(k, avail / sum);
+      });
+      if (!isFinite(k) || k <= 0) k = 1;
+      nodes.forEach(function (n) { n.h = Math.max(nodeVal(n) * k, 1.5); });
+
+      columns.forEach(function (col) {
+        var totalH = col.reduce(function (s, n) { return s + n.h; }, 0) + (col.length - 1) * pad;
+        var y = mT + (innerH - totalH) / 2;
+        col.forEach(function (n) { n.y = y; y += n.h + pad; });
+      });
+      function collide(col) {
+        col.sort(function (a, b) { return a.y - b.y; });
+        var y = mT, i, n;
+        for (i = 0; i < col.length; i++) { n = col[i]; if (n.y < y) n.y = y; y = n.y + n.h + pad; }
+        y = mT + innerH;
+        for (i = col.length - 1; i >= 0; i--) { n = col[i]; if (n.y + n.h > y) n.y = y - n.h; y = n.y - pad; }
+      }
+      var ITER = 7;
+      for (var it = 0; it < ITER; it++) {
+        var alpha = 0.9 * (1 - it / ITER);
+        for (var c = 1; c < columns.length; c++) {
+          columns[c].forEach(function (n) {
+            if (n.ins.length) { var w = 0, sy = 0; n.ins.forEach(function (l) { sy += center(l.source) * l.value; w += l.value; }); if (w) n.y += (sy / w - center(n)) * alpha; }
+          });
+          collide(columns[c]);
+        }
+        for (var c2 = columns.length - 2; c2 >= 0; c2--) {
+          columns[c2].forEach(function (n) {
+            if (n.outs.length) { var w2 = 0, sy2 = 0; n.outs.forEach(function (l) { sy2 += center(l.target) * l.value; w2 += l.value; }); if (w2) n.y += (sy2 / w2 - center(n)) * alpha; }
+          });
+          collide(columns[c2]);
+        }
+      }
+
+      /* order each node's links by partner position, then stack the bands */
+      nodes.forEach(function (n) {
+        n.outs.sort(function (a, b) { return center(a.target) - center(b.target); });
+        n.ins.sort(function (a, b) { return center(a.source) - center(b.source); });
+        var so = 0; n.outs.forEach(function (l) { l.sy0 = n.y + so; so += l.value * k; l.sy1 = n.y + so; });
+        var ti = 0; n.ins.forEach(function (l) { l.ty0 = n.y + ti; ti += l.value * k; l.ty1 = n.y + ti; });
+      });
+
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var defs = svgEl("defs"); svg.appendChild(defs);
+
+      var gFlows = svgEl("g");
+      links.forEach(function (l) {
+        var x0 = nodeX(l.source.depth) + nodeW, x1 = nodeX(l.target.depth), xm = (x0 + x1) / 2;
+        var fill;
+        if (l.color) { fill = l.color; }
+        else {
+          var gid = "dnsk" + (++UID);
+          var lg = svgEl("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: x0, y1: 0, x2: x1, y2: 0 });
+          lg.appendChild(svgEl("stop", { offset: "0%", "stop-color": l.source.color }));
+          lg.appendChild(svgEl("stop", { offset: "100%", "stop-color": l.target.color }));
+          defs.appendChild(lg); fill = "url(#" + gid + ")";
+        }
+        var d = "M" + x0 + "," + l.sy0 +
+          "C" + xm + "," + l.sy0 + " " + xm + "," + l.ty0 + " " + x1 + "," + l.ty0 +
+          "L" + x1 + "," + l.ty1 +
+          "C" + xm + "," + l.ty1 + " " + xm + "," + l.sy1 + " " + x0 + "," + l.sy1 + "Z";
+        var p = svgEl("path", { d: d, fill: fill, "fill-opacity": (spec.linkOpacity != null ? spec.linkOpacity : 0.44), "class": "dn-flow" });
+        var tt = svgEl("title"); tt.textContent = l.source.label + " \u2192 " + l.target.label + ": " + fmt(l.value, spec.value || {}); p.appendChild(tt);
+        gFlows.appendChild(p);
+      });
+      svg.appendChild(gFlows);
+      if (!REDUCE) {
+        gFlows.style.opacity = 0; gFlows.style.transition = "opacity .7s ease-out";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { gFlows.style.opacity = 1; }); });
+      }
+
+      nodes.forEach(function (n) {
+        var x = nodeX(n.depth), tall = n.h > 26;
+        svg.appendChild(svgEl("rect", { x: x, y: n.y, width: nodeW, height: n.h, fill: n.color, rx: 2 }));
+        var isLast = (n.depth === columns.length - 1);
+        var lx = isLast ? x - 8 : x + nodeW + 8, anchor = isLast ? "end" : "start", cy = n.y + n.h / 2;
+        var lab = svgEl("text", { x: lx, y: cy + (tall ? -1 : 3.5), "text-anchor": anchor, "class": "dn-clabel dn-nodelabel" });
+        lab.textContent = truncate(n.label, labCap); svg.appendChild(lab);
+        if (tall) {
+          var val = svgEl("text", { x: lx, y: cy + 13, "text-anchor": anchor, "class": "dn-annosub dn-nodelabel" });
+          val.textContent = fmt(nodeVal(n), spec.value || {}); svg.appendChild(val);
+        }
+      });
+
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Flow data",
+        [spec.fromTitle || "From", spec.toTitle || "To", spec.valueTitle || "Value"],
+        links.map(function (l) { return [l.source.label, l.target.label, fmt(l.value, spec.value || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip, sankey: sankey,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+<script>
+(function () {
+/* ------------------------------------------------------------------ *
+ * Digi News — Aviva benchmark piece. Every value below is a published  *
+ * closing price or a figure computed from one; see reference appendix. *
+ * Day index: 1 = 1 June 2026, 54 = 24 July 2026.                       *
+ * ------------------------------------------------------------------ */
+var d = function (v) { v = Math.round(v); return v <= 30 ? v + " Jun" : (v - 30) + " Jul"; };
+
+/* Exhibit 01 — Aviva's closing path against an index-matched reference */
+var avX = [5,8,9,10,11,12,15,16,17,18,19,22,23,24,25,26,29,30,31,32,33,36,37,38,39,40,43,44,45,46,47,50,51,52,53,54];
+var avY = [603.2,610.6,607.2,613,619,627.8,631,638.6,642.8,634,634.8,644.6,643.6,642.4,646.2,647,643.2,650.2,651.6,664.4,668.4,675.8,676,659,658.4,661.4,655.2,661.8,657,659.2,672.6,672,675.8,688,683.6,691];
+DN.line("#ex1", {
+  title: "Aviva closing price, 5 June to 24 July 2026",
+  summary: "Aviva's daily closing price in pence rises from 603.20p on 5 June to 691.00p on 24 July. A reference line marks 624.62p, the 5 June close carried forward by the FTSE 100's return over the same window.",
+  x: { fmt: d },
+  y: { suffix: "p", decimals: 0, zero: false },
+  series: [{
+    name: "Aviva",
+    color: "#1C46C2",
+    points: avX.map(function (x, i) { return { x: x, y: avY[i] }; })
+  }],
+  refsY: [{ value: 624.62, label: "FTSE 100-matched" }]
+});
+
+/* Exhibit 02 — Aviva and the sector index, rebased to 100 at 25 June */
+var reX = [25,26,29,30,31,32,33,36,37,38,39,40,43,44,45,46,47,50,51,52,53,54];
+var reAV = [100,100.12,99.54,100.62,100.84,102.82,103.44,104.58,104.61,101.98,101.89,102.35,101.39,102.41,101.67,102.01,104.09,103.99,104.58,106.47,105.79,106.93];
+var reSEC = [100,99.87,99.01,99.75,101.24,101.89,102.17,103.16,102.85,100.68,101.79,102.54,102.6,103.8,104.02,103.59,104.05,103.96,104.93,106.97,105.92,107.08];
+DN.line("#ex2", {
+  title: "Aviva and the FTSE 350 Life Insurance index, rebased to 100 at 25 June 2026",
+  summary: "Both series track closely across the five weeks. Aviva finishes at 106.93 and the sector index at 107.08, so Aviva ends slightly below its sector.",
+  x: { fmt: d },
+  y: { decimals: 0, zero: false },
+  endLabels: false,
+  series: [
+    { name: "Aviva", color: "#1C46C2", points: reX.map(function (x, i) { return { x: x, y: reAV[i] }; }) },
+    { name: "Life insurance index", color: "#E69F00", points: reX.map(function (x, i) { return { x: x, y: reSEC[i] }; }) }
+  ]
+});
+
+/* Exhibit 03 — SIGNATURE: same endpoint, four start dates, benchmark alongside */
+DN.columns("#ex3", {
+  title: "Aviva against the FTSE 350 Life Insurance index, four start dates, same 24 July 2026 endpoint",
+  summary: "From 25 June Aviva returns 6.93% against the index's 7.08%; from 26 June, 6.80% against 7.22%; from 2 July, 4.00% against 5.10%; from 10 July, 4.48% against 4.43%. Aviva is behind on three of the four start dates.",
+  mode: "grouped",
+  series: [{ name: "Aviva", color: "#1C46C2" }, { name: "Life insurance index", color: "#E69F00" }],
+  groups: [
+    { label: "25 Jun", values: { "Aviva": 6.93, "Life insurance index": 7.08 } },
+    { label: "26 Jun", values: { "Aviva": 6.80, "Life insurance index": 7.22 } },
+    { label: "2 Jul", values: { "Aviva": 4.00, "Life insurance index": 5.10 } },
+    { label: "10 Jul", values: { "Aviva": 4.48, "Life insurance index": 4.43 } }
+  ],
+  y: { zero: true, suffix: "%", decimals: 0 }
+});
+
+/* Exhibit 04 — SIGNATURE: what happened, and when, across the window */
+DN.rangeStrip("#ex4", {
+  title: "Company, political, sector and macroeconomic events, 5 June to 24 July 2026",
+  summary: "Aviva's 350m buyback runs from before the window opens until it completes on 7 July. Andy Burnham becomes prime minister on 20 July and the 10-year gilt yield holds above 5% from that day to the close of the window. The sector index sets a 52-week high on 22 July. The composite PMI returns to growth on 24 July. Every event that plausibly moved the sector falls in the final week.",
+  mode: "rows",
+  x: { min: 1, max: 56, fmt: d },
+  categories: [
+    { name: "Aviva", color: "#1C46C2" },
+    { name: "Politics", color: "#CC79A7" },
+    { name: "Rates", color: "#E69F00" },
+    { name: "Sector", color: "#0072B2" },
+    { name: "Macro", color: "#009E73" }
+  ],
+  events: [
+    { label: "Buyback running", start: 5, end: 37, category: "Aviva" },
+    { label: "Burnham takes office", start: 50, end: 51, category: "Politics" },
+    { label: "Gilt 10-yr above 5%", start: 50, end: 54, category: "Rates" },
+    { label: "Sector 52-week high", start: 52, end: 53, category: "Sector" },
+    { label: "PMI back to growth", start: 54, end: 55, category: "Macro" }
+  ],
+  brackets: [{ x0: 50, x1: 54, label: "Final week" }]
+});
+
+/* Exhibit 05 — sessions needed to build a 3% stake at various participation rates */
+DN.bars("#ex5", {
+  title: "Trading sessions needed to accumulate 3% of Aviva, by share of daily volume taken",
+  summary: "At 10% of daily volume a 3% stake needs 130 sessions, at 15% it needs 86, at 20% it needs 65 and at 30% it needs 43. The window contains 35 sessions.",
+  sort: "none",
+  data: [
+    { label: "10% of daily volume", value: 130, color: "#0072B2" },
+    { label: "15% of daily volume", value: 86, color: "#0072B2" },
+    { label: "20% of daily volume", value: 65, color: "#0072B2" },
+    { label: "30% of daily volume", value: 43, color: "#0072B2" }
+  ],
+  refValue: 35, refLabel: "Window: 35 sessions",
+  labelTitle: "Participation rate", valueTitle: "Sessions required",
+  x: { decimals: 0 }
+});
+})();
+</script>
+</body>
+</html>

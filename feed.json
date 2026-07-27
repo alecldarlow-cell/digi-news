@@ -1,8 +1,8 @@
 {
-  "built": "2026-07-27T05:33:10.232Z",
+  "built": "2026-07-27T05:35:14.211Z",
   "today": "2026-07-27",
   "timezone": "Europe/London",
-  "count": 94,
+  "count": 96,
   "items": [
     {
       "path": "reports/2026-07-27-ai-instead-of-gp.html",
@@ -86,6 +86,34 @@
       "stat": "42",
       "statUnit": "%",
       "statLabel": "of adults",
+      "mask": ""
+    },
+    {
+      "path": "reports/2026-07-27-uk-inflation-middle-east-gas-shock.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "UK inflation has fallen back below its pre-conflict level, despite the Middle East fuel shock",
+      "standfirst": "The war between Israel, the US and Iran added three tenths of a point to UK inflation in a single month as pump prices spiked. Four months on, headline CPI is lower than before the conflict began, even though the Bank of England's own fo…",
+      "date": "2026-07-27",
+      "read": "~6 min",
+      "thumb": "",
+      "stat": "2.6",
+      "statUnit": "%",
+      "statLabel": "inflation rate",
+      "mask": ""
+    },
+    {
+      "path": "reports/2026-07-27-us-tariffs-60-countries.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "US tariffs on 60 economies take effect under a law with no expiry date",
+      "standfirst": "A 10-12.5% tariff on imports from 60 countries and the EU, including a 10% rate for the UK, took effect on 24 July under a statute with no legislated end - succeeding an emergency levy that expired, by law, the same day.",
+      "date": "2026-07-27",
+      "read": "~5 min",
+      "thumb": "",
+      "stat": "99.4",
+      "statUnit": "%",
+      "statLabel": "of us imports",
       "mask": ""
     },
     {

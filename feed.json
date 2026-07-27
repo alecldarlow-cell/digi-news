@@ -1,9 +1,23 @@
 {
-  "built": "2026-07-27T05:28:10.644Z",
+  "built": "2026-07-27T05:33:10.232Z",
   "today": "2026-07-27",
   "timezone": "Europe/London",
-  "count": 92,
+  "count": 94,
   "items": [
+    {
+      "path": "reports/2026-07-27-ai-instead-of-gp.html",
+      "kind": "report",
+      "topic": "Medicine",
+      "headline": "One in seven adults have used AI instead of seeing a GP",
+      "standfirst": "Polling for King's College London finds convenience and curiosity outrank NHS waiting times as the reason people turn to a chatbot over a doctor, and one in five of those who have say it talked them out of seeing a professional.",
+      "date": "2026-07-27",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "15",
+      "statUnit": "%",
+      "statLabel": "of public",
+      "mask": ""
+    },
     {
       "path": "reports/2026-07-27-crossword-mini-0016.html",
       "kind": "puzzle",
@@ -59,6 +73,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "........................."
+    },
+    {
+      "path": "reports/2026-07-27-uk-ai-avoidance.html",
+      "kind": "report",
+      "topic": "AI",
+      "headline": "42% of UK adults are deliberately limiting their use of AI",
+      "standfirst": "The top reason is privacy and security, not confusion. Just 6% of those cutting back say they feel unprepared to use the technology.",
+      "date": "2026-07-27",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "42",
+      "statUnit": "%",
+      "statLabel": "of adults",
+      "mask": ""
     },
     {
       "path": "reports/2026-07-26-britains-pub-names-barely-move.html",

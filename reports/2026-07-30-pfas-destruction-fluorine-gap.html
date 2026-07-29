@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ==== DN FEED META — DN feed meta — the site front page reads these. ====
+     Plain text only (no HTML tags). Entities like &amp; and &mdash; are fine.
+     If any of these are missing the feed builder falls back to reading the
+     <title>/<h1>/.topic/.standfirst, so a piece never drops off the index —
+     but the fallback is dumber than you, so fill these in.
+
+     dn:topic drives the front-page filter chips, so it is a CONTROLLED
+     VOCABULARY: UK politics | Economy | Immigration | AI | Science |
+     Medicine | Society | World. One beat, one label — "Economy" and
+     "Economics" would split the filter forever. A genuinely new beat may be
+     added to the list, but it is a deliberate act, not a typo.
+
+     The card's tile shows the piece's FIRST HERO STAT, lifted automatically.
+     Hero stats are measured figures by rule (§3), so nothing projected can
+     reach the front page.
+
+     CRITICAL — the first hero stat's .n div must be <=8 characters AFTER tags
+     are stripped. The feed builder concatenates everything inside .n, so a word
+     unit in <small> (e.g. 2.25<small>births</small> -> "2.25births" = 10 chars)
+     BLOWS THE LIMIT and the card silently falls back to a generic tile. Put a
+     word unit in dn:statlabel below, NOT in the first .n. Only a symbol unit
+     (%, x, £, $) is safe inside the first .n. The pre-publish linter now gates
+     on this, but the template shows the safe shape so you don't hit it.
+
+     dn:statlabel is the tile's KICKER: <=14 characters, lower case, a noun
+     naming what the figure counts ("births/woman", "of patients"). It overrides
+     the on-page caption (which otherwise arrives with a stray citation digit).
+     Omit it only if the figure already carries its own noun. -->
+<meta name="dn:headline"   content="A new method removes 99.99% of PFOS from water. It releases 35% of the fluorine.">
+<meta name="dn:standfirst" content="Two German studies report genuine breakdown of a “forever chemical”, not just capture. But the measure that shows carbon–fluorine bonds actually breaking lags far behind the removal figure — and in the best-performing runs, most of the fluorine could not be traced at all.">
+<meta name="dn:topic"      content="Science">
+<meta name="dn:date"       content="2026-07-30">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~6 min">
+<meta name="dn:statlabel"  content="of fluorine">
+<!-- ======================================================================= -->
+
+<title>A new method removes 99.99% of PFOS from water. It releases 35% of the fluorine. — Digi News</title>
+<!--
+  ============================================================================
+  DIGI NEWS — HOUSE TEMPLATE v3.3.1 (reuse this chrome for every piece)
+  ============================================================================
+  WHAT'S NEW IN v3.3.1 (vs v3.3)  — FRONT-PAGE TILE SAFETY
+  - The first hero stat feeds the front-page card tile, and the feed builder
+    rejects it (falling back to a generic tile) if its .n div exceeds 8 chars
+    once tags are stripped. A word unit in <small> (2.25<small>births</small>
+    = "2.25births", 10 chars) trips this silently. The template now models the
+    safe shape (symbol unit only in the first .n; word units in the caption and
+    in dn:statlabel), the head block carries dn:statlabel with guidance, and the
+    pre-publish linter gates on it so it can't ship unnoticed again.
+
+  WHAT'S NEW IN v3.3 (vs v3.2)  — LABEL SAFETY
+  - Every chart now MEASURES its labels before it draws them, using one shared
+    geometry module (estW / wrapFit / ellip / thinTicks / clampMid / drawGutter).
+    The width model is identical to the one in dn-harness.js, so a label the
+    toolkit fits is the same label the pre-publish gate certifies as on-canvas.
+  - Left gutters (bars, columns, scatter, line y-axis, rangeStrip rows) are now
+    SIZED to the widest label instead of a fixed/naively-capped width. Wide
+    y-tick values (thousands, currency, log decades) no longer clip left.
+  - Category / row labels that still exceed the (capped) gutter WRAP to two
+    lines, then ELLIPSISE. They never overflow the SVG's left edge. The full
+    label is preserved in the a11y data table and as an SVG <title> tooltip, and
+    the element carries data-dn-fit="trunc" so the gate can report truncation.
+  - line end-labels are sized into an adaptive right margin and truncated to fit
+    rather than spilling off the right edge.
+  - Axis tick labels THIN when they would collide (log axes especially) and the
+    first/last tick is CLAMPED so it can't bleed past the plot edge.
+  - bars value-labels move inside the bar when there is no room to the right.
+  - Known limit: rangeStrip/slope/columns can still stack labels VERTICALLY when
+    rows share a value; the harness geometry gate flags these for author action.
+  - Author budget (guidance, not enforced by code): keep bar/row/slope labels to
+    ~22 chars at 360px to avoid triggering the wrap/ellipsis backstop.
+
+  WHAT'S NEW IN v3.2 (vs v3.1)
+  - DN FEED META block in the head (dn:headline / dn:standfirst / dn:topic /
+    dn:date / dn:kind / dn:read). The published site's front page builds its
+    card list from these, so every piece must carry them filled in. They are
+    metadata about the piece, not new editorial surface — dn:headline is the
+    h1 verbatim, dn:date is the same day as "Figures to".
+
+  WHAT'S NEW IN v3 (vs v2)
+  - DN.sankey: flow diagram — ribbon width is proportional to volume (honest
+    length encoding), CVD-safe gradient links (colour marks source->target,
+    paired with a text label + value, so colour is never the sole carrier),
+    automatic layering + crossing-reduction, a hidden flow data <table>, and
+    real-pixel responsive rendering like every other DN chart.
+  - Fix: rangeStrip projected-span labels now use ink over the hatch (legible).
+
+  WHAT'S NEW IN v2 (vs v1)
+  - Embedded DN visualization library (self-contained, no external deps):
+      DN.line · DN.bars · DN.columns · DN.slope · DN.scatter · DN.rangeStrip · DN.sankey
+    Newsroom-idiom SVG: honest scales, annotation layer, colourblind-safe
+    palette, a number formatter, and — critically — REAL-PIXEL RESPONSIVE
+    rendering (1 SVG unit = 1 CSS px via ResizeObserver) so chart type never
+    shrinks below legible on a phone. Every chart also emits a visually-hidden
+    data <table> for screen readers and auditing.
+  - Inline numbered citations with source-tier badges (T1/T2/T3) so evidentiary
+    strength is visible at the point of each claim.
+  - Structural slots for honesty: a "What we don't know" box and a caveat card.
+  - Promoted from the field: signature strip exhibit, reference appendix table.
+  - Footer now carries Corrections + a version line alongside Method + Sources.
+
+  HOW TO USE
+  - Keep the chrome, footer, and the <style> tokens. Swap the per-piece copy
+    and the exhibit data in the init script block at the foot of the file.
+  - Build each exhibit by calling a DN.* helper on a <figure>'s chart <div>.
+  - Number exhibits in order. Every exhibit needs a title + a sourced caption.
+  - .positions only when a topic is genuinely contested (steelman both sides).
+  - "What we don't know" whenever data is thin/lagged/modelled or cause unproven.
+  - "Go deeper" only when material was deliberately omitted to hold length.
+  - NEVER let a projection/scenario be the headline or a hero stat. Label it,
+    cordon it (dashed/hatched), and lead with the measured figure.
+
+  DN QUICK REFERENCE  (full notes in the library header below)
+    DN.line(sel,{series:[{name,points:[{x,y}],projectFrom?,band?:[{x,lo,hi}],color?}],
+                 x:{fmt,ticks,min,max,title}, y:{suffix,prefix,decimals,compact,zero},
+                 refsY:[{value,label}], bands:[{x0,x1,label}], notes:[{x,y,text,sub}],
+                 endLabels?, title, summary})
+    DN.bars(sel,{data:[{label,value,highlight?,color?}], sort?, refValue?, refLabel?,
+                 x:{compact,suffix}, title})
+    DN.columns(sel,{mode:'grouped'|'stacked', series:[{name,color?}],
+                 groups:[{label,values:{<seriesName>:n}}], y:{}, title})
+    DN.slope(sel,{left,right, items:[{label,from,to,highlight?}], y:{}, title})
+    DN.scatter(sel,{points:[{x,y,r?,label?,group?}], x:{label}, y:{label},
+                 quadrant:{x?,y?}, title})
+    DN.rangeStrip(sel,{mode:'barcode'|'rows', events:[{label,start,end,category?,projectFrom?}],
+                 categories:[{name,color}], brackets:[{x0,x1,label}], notes:[{x,text,sub}],
+                 x:{fmt}, title})
+    DN.sankey(sel,{nodes?:[{id,label?,color?}], links:[{source,target,value,color?}],
+                 align?:'justify'|'left', nodeWidth?, nodePad?, value:{compact,prefix,suffix,decimals}, title})
+    DN.fmt(v,{decimals,compact,prefix,suffix,plus,pct})
+  PALETTE: ink #15171C · cobalt subject #1C46C2 · contrast-red #E0312A (charts only)
+  Categorical scale is Okabe-Ito (CVD-safe); accent stays reserved for the subject.
+  ============================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- headline ---------- */
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  /* ---------- hero stats ---------- */
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  /* ---------- sections ---------- */
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  /* ---------- exhibit ---------- */
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  /* ---------- DN chart library styling (real-px responsive SVG) ---------- */
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* sankey: labels keep a paper halo so they stay legible over flow ribbons */
+  .dn-nodelabel{paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+  .dn-flow{transition:fill-opacity .15s ease}
+  .dn-flow:hover{fill-opacity:.72}
+  @media(prefers-reduced-motion:reduce){.dn-flow{transition:none}}
+
+  /* ---------- callout ---------- */
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  /* ---------- inline citation + source tiers ---------- */
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  /* ---------- "what we don't know" ---------- */
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- positions (contested only) ---------- */
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  /* ---------- stat band ---------- */
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  /* ---------- caveat card ---------- */
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  /* ---------- appendix table ---------- */
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair)}
+  table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  table.tbl tr:last-child td{border-bottom:none}
+
+  /* ---------- go deeper ---------- */
+  .more{margin-top:18px;list-style:none;border-top:1px solid var(--hair)}
+  .more li{padding:13px 0;border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--muted)}
+  .more li::before{content:"\2192";color:var(--accent);font-weight:700}
+  .more li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===================== MASTHEAD (fixed) ===================== -->
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>30 JUL 2026</div>
+  </header>
+
+  <!-- ===================== HEADLINE ===================== -->
+  <div class="head">
+    <div class="topic">Science &middot; water treatment</div>
+    <h1>A new method removes 99.99% of PFOS from water. It releases 35% of the fluorine.</h1>
+    <p class="standfirst">Two German studies report genuine breakdown of a “forever chemical”, not just capture. But the measure that shows carbon–fluorine bonds actually breaking lags far behind the removal figure — and in the best-performing runs, most of the fluorine could not be traced at all.</p>
+    <div class="dateline">Digi News data desk &middot; reading time ~6 min</div>
+  </div>
+
+  <!-- ===================== HERO STATS (measured figures only, never a projection) =====================
+       The FIRST hero stat feeds the front-page card tile. Its .n div must be
+       <=8 chars once tags are stripped, so keep any unit to a SYMBOL (%, x, £)
+       — a word unit belongs in the .l caption and in dn:statlabel, never in .n.
+       Stats 2 and 3 are page-only and may carry a <small> word unit freely. -->
+  <div class="herostats">
+    <div class="hs"><div class="n">35<small>%</small></div><div class="l">of the fluorine in the treated PFOS was recovered as fluoride — the direct evidence of bonds breaking</div></div>
+    <div class="hs"><div class="n">99.99<small>%</small></div><div class="l">of the PFOS was cleared from the water in that same run</div></div>
+    <div class="hs"><div class="n">50<small>%</small></div><div class="l">of the starting fluorine could be accounted for, at best, in the gas-dispersed runs</div></div>
+  </div>
+
+  <!-- ===================== SECTION 1 ===================== -->
+  <section class="section">
+    <div class="eyebrow">What the data shows</div>
+    <h2>Two measures, and only one of them made the headlines</h2>
+    <p>Researchers at the Helmholtz-Zentrum Dresden-Rossendorf published two papers this year on breaking down perfluorooctane sulfonate, or PFOS — among the most studied of the &ldquo;forever chemicals&rdquo;, and one used for decades in firefighting foams, textiles and non-stick coatings.<sup class="cite"><a href="#s1">1</a></sup> One uses cold atmospheric plasma with air bubbled through the water.<sup class="cite"><a href="#s1">1</a></sup> The other forces water through a narrow orifice at 48 bar until vapour bubbles form and collapse.<sup class="cite"><a href="#s2">2</a></sup> Both work. Neither is a filter.</p>
+    <p>The nickname is earned by a single feature of the chemistry. PFOS is a chain of eight carbon atoms sheathed in fluorine, and the bond between carbon and fluorine is the strongest in organic chemistry — strong enough that neither weathering, nor bacteria, nor conventional water treatment can break it.<sup class="cite"><a href="#s1">1</a></sup> That is why the compounds accumulate: not because they are produced in vast quantities, but because almost nothing takes them apart again.</p>
+    <p>That distinction is the point. Activated carbon, ion-exchange resin and high-pressure membranes — the established options — strip more than 99% of PFOS out of drinking water.<sup class="cite"><a href="#s3">3</a></sup> They do it by moving the molecule onto a solid, intact. The carbon then becomes contaminated waste, usually bound for an incinerator.<sup class="cite"><a href="#s1">1</a></sup> Nothing is destroyed; the problem is relocated.</p>
+    <p>So the papers report two different numbers, and the distance between them is the story. <em>Degradation</em> is how much PFOS is left: the instrument searches for that one molecule and reports what it can no longer find. <em>Defluorination</em> is how much fluorine has come away as fluoride — a simple inorganic ion that is no longer part of any fluorinated molecule at all. Only the second is direct evidence that a carbon&ndash;fluorine bond actually broke.</p>
+    <p>A rough analogy: measuring plastic pollution by counting intact bottles. Smash the bottles and the count falls to zero, but the plastic is all still present as fragments. Degradation is the bottle count. Defluorination is the measure that tells you material genuinely left the system — and in these experiments the two numbers are a long way apart.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">Clearing PFOS from water is not the same as breaking it apart</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Best reported result for each approach. Plasma and cavitation figures as printed in the two 2026 papers, both for PFOS in tap water, both expressed as a share of the initial PFOS.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s2">2</a></sup> Filtration removal is the US EPA&rsquo;s reported maximum for granular activated carbon; its defluorination is zero by mechanism, since adsorption does not cleave bonds.<sup class="cite"><a href="#s3">3</a></sup> Read each pair together: the grey bar is how much PFOS left the water, the blue bar how much of its fluorine was actually freed. Not a controlled head-to-head — the three use different reactors and durations.</figcaption>
+    </figure>
+    <div class="callout"><b>Key finding.</b> In its best run, the plasma method cleared 99.99% of the PFOS from the water and recovered 35% of that PFOS&rsquo;s fluorine as fluoride.<sup class="cite"><a href="#s1">1</a></sup> Both are measured figures from the same experiment.</div>
+  </section>
+
+  <!-- ===================== SECTION 2 ===================== -->
+  <section class="section">
+    <div class="eyebrow">Inside one run</div>
+    <h2>The removal curve races ahead; the fluorine curve does not follow</h2>
+    <p>A single 20-minute plasma run makes the divergence plain. PFOS collapses — 92% gone in five minutes, 99% in ten — a half-life of 1.6 minutes, meaning half of whatever is present clears every minute and a half.<sup class="cite"><a href="#s1">1</a></sup> Fluoride release does not track it: 33% at five minutes, 27% at ten, 35% at twenty.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">Gas-dispersed plasma, PFOS at 5 mg per litre in tap water</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Kumar et al., <em>Scientific Reports</em> (2026), 10 mL sample, 12 W input, air at 0.1 L/min. Both series are measured, as percentages of the initial PFOS. The dip in fluoride at ten minutes is in the published data, not smoothing — the authors attribute such fluctuations to fluoride adsorbing onto reactor surfaces and to fluorinated intermediates escaping into gas or foam.<sup class="cite"><a href="#s1">1</a></sup></figcaption>
+    </figure>
+    <p>The authors are explicit that the parent molecule is not simply vanishing. They detect a chain of shorter perfluorinated acids forming as PFOS breaks down — PFOA first, then progressively shorter.<sup class="cite"><a href="#s1">1</a></sup> Those are still PFAS, and the shorter ones adsorb less readily than the compound they came from.<sup class="cite"><a href="#s4">4</a></sup></p>
+  </section>
+
+  <!-- ===================== SECTION 3 ===================== -->
+  <section class="section">
+    <div class="eyebrow">The counterintuitive part</div>
+    <h2>The weaker method converts more of what it breaks</h2>
+    <p>Cavitation looks far worse on the headline measure: 37% degradation against the plasma&rsquo;s 99.99%.<sup class="cite"><a href="#s2">2</a></sup> But ask a different question — of the PFOS each method did break down, how much was taken apart all the way? — and the ranking inverts. Cavitation&rsquo;s 20% defluorination against 37% degradation works out at 54%. The plasma&rsquo;s 35 against 99.99 works out at 35%. Per unit of PFOS destroyed, the slower method freed roughly one and a half times as much fluorine.</p>
+    <p>A second pattern in the plasma paper runs the same way. Bubbling air through the water is what lifts degradation from 76% to 99.99%. It also makes the fluorine accounting markedly worse: without gas dispersion the authors recover 68&ndash;106% of the fluorine they started with, and with it, 31&ndash;50%.<sup class="cite"><a href="#s1">1</a></sup> The configuration that produces the impressive removal figure is the one that loses track of most of the fluorine.</p>
+    <p>One reading — interpretation, not a finding either paper states — is that this is the same effect twice: fast removal of the parent compound outruns the slower work of cleaving C&ndash;F bonds, leaving more material in intermediate states nobody has measured. A peer-reviewed review of the wider field this year, unconnected to the Dresden group, names incomplete defluorination as the central unsolved bottleneck.<sup class="cite"><a href="#s6">6</a></sup> Consistent with the pattern — not proof of it.</p>
+    <p>The Dresden group&rsquo;s own stated next step is to combine the two processes, on the expectation that plasma&rsquo;s reactive species and cavitation&rsquo;s collapsing bubbles will do together what neither manages alone.<sup class="cite"><a href="#s7">7</a></sup> That work has not been published.</p>
+  </section>
+
+  <!-- ===================== WHAT WE DON'T KNOW ===================== -->
+  <div class="unknowns">
+    <div class="h">What we don&rsquo;t know</div>
+    <p><b>Where most of the fluorine went.</b> In the gas-dispersed runs, between 50% and 69% of the fluorine present at the start could not be found at the end — not as fluoride, not as any of the intermediates the team screened for. The authors list unidentified fluorinated products, escape into the gas or foam phase, and adsorption onto reactor walls as possibilities, and state that the fate is unresolved.<sup class="cite"><a href="#s1">1</a></sup> This is disclosed in the paper, not uncovered here.</p>
+    <p><b>Whether either method scales.</b> Both were run on laboratory volumes — 10 to 40 millilitres in the plasma work — and at PFOS concentrations of 1 to 5 milligrams per litre. UK drinking water is regulated against a guideline of 0.1 micrograms per litre for the sum of 48 PFAS.<sup class="cite"><a href="#s5">5</a></sup> The experiments ran at 1 to 5 milligrams per litre — ten thousand to fifty thousand times more concentrated than that guideline. Dilute solutions are harder to treat, not easier, because the reactive species have to find far fewer target molecules.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p><b>What the intermediates do.</b> The shorter-chain acids that form during treatment are quantified, but their toxicity and persistence are not addressed by either study. Ultra-short-chain products such as trifluoroacetic acid were looked for and not detected — which the authors note may mean they were absent, or below the detection threshold.<sup class="cite"><a href="#s1">1</a></sup></p>
+  </div>
+
+  <!-- ===================== STAT BAND ===================== -->
+  <section class="section">
+    <div class="eyebrow">By the numbers</div>
+    <div class="statband">
+      <div class="c"><div class="n">40<small>%</small></div><div class="l">Highest defluorination in any run in either paper — and it came from the plasma <em>without</em> gas dispersion<sup class="cite"><a href="#s1">1</a></sup></div></div>
+      <div class="c"><div class="n">1.6<small>min</small></div><div class="l">PFOS half-life under gas-dispersed plasma<sup class="cite"><a href="#s1">1</a></sup></div></div>
+      <div class="c"><div class="n">39</div><div class="l">kWh per cubic metre to cut PFOS tenfold by plasma — against roughly 1,312 kWh/m&sup3; to incinerate the same water<sup class="cite"><a href="#s1">1</a></sup></div></div>
+      <div class="c"><div class="n">0.1<small>&micro;g/L</small></div><div class="l">UK guideline for the sum of 48 PFAS in drinking water<sup class="cite"><a href="#s5">5</a></sup></div></div>
+    </div>
+    <div class="caveat"><b>Caveat.</b> The strongest objection to reading these results as a breakthrough is that a low fluorine recovery does not prove fluorine is missing — it may simply be unmeasured. The plasma team screened for a defined list of transformation products by LC&ndash;MS; anything outside that list is invisible to the method, so the 31&ndash;50% recovery is a floor on what was destroyed, not a ceiling. Equally, the reverse objection holds: nothing in these papers rules out that the unrecovered fraction is intact fluorinated material that simply moved somewhere else. Both readings are open, and neither study can settle it.</div>
+  </section>
+
+
+  <!-- ===================== FOOTER (mandatory) ===================== -->
+  <div class="foot">
+    <div class="fm"><b>Method.</b> Both new figures are as printed in the two primary papers; no figure here is re-derived from a chart. <em>Degradation</em> is the fall in measured parent-compound concentration (PFOS) by LC&ndash;MS. <em>Defluorination</em> is fluoride ion released, measured photometrically by the SPADNS method and expressed by both papers as a percentage of the fluorine in the <em>initial</em> PFOS — so the two measures share a base and are directly comparable.<sup class="cite"><a href="#s1">1</a></sup><sup class="cite"><a href="#s2">2</a></sup> Ratios of defluorination to degradation (35% and 54%) were computed in Node from those printed values and re-checked. The filtration comparator is the US EPA&rsquo;s reported maximum removal efficiency for PFOA and PFOS by granular activated carbon; its zero defluorination is a mechanical fact of adsorption, not a measurement.<sup class="cite"><a href="#s3">3</a></sup> Plasma and cavitation runs used different reactors, volumes and durations, so Exhibit 01 compares each method&rsquo;s own best reported result, not a controlled head-to-head. No projection or model is used anywhere in this piece.</div>
+    <div class="fm"><b>Sources.</b> Numbered, highest tier first; each inline citation points here.
+      <ol>
+        <li id="s1"><span class="tier t1">T1</span>Kumar, A., Huaccallo-Aguilar, Y., Kryk, H., Hampel, U. &amp; Reinecke, S. F. &ldquo;Enhanced degradation and defluorination of perfluorooctane sulfonate (PFOS) in tap water using gas-dispersed cold atmospheric plasma.&rdquo; <em>Scientific Reports</em> 16, 18363 (13 June 2026). Peer-reviewed, open access. <a href="https://www.nature.com/articles/s41598-026-57490-6">doi:10.1038/s41598-026-57490-6</a>. Retrieved 29 July 2026.</li>
+        <li id="s2"><span class="tier t1">T1</span>Kumar, A., Georgi, A., Huaccallo-Aguilar, Y., Meier, M., Kryk, H., Reinecke, S. F. &amp; Hampel, U. &ldquo;Degradation and defluorination of perfluorooctane sulfonate (PFOS) forever chemical in water using hydrodynamic cavitation treatment.&rdquo; <em>Chemical Engineering Journal Advances</em> 25, 101046 (2026). Peer-reviewed. doi:10.1016/j.ceja.2026.101046. Figures taken from the published abstract and highlights; full text not retrieved. Retrieved 29 July 2026.</li>
+        <li id="s3"><span class="tier t1">T1</span>US Environmental Protection Agency. <em>Best Available Technologies and Small System Compliance Technologies for PFAS in Drinking Water</em> (April 2024) — maximum GAC and membrane removal efficiencies for PFOA and PFOS above 99%. <a href="https://www.epa.gov/system/files/documents/2024-04/2024-final-pfas-bat-ssct_final-508.pdf">epa.gov</a>. Retrieved 29 July 2026.</li>
+        <li id="s4"><span class="tier t1">T1</span>US Environmental Protection Agency, Science Matters. &ldquo;Reducing PFAS in Drinking Water with Treatment Technologies&rdquo; — activated carbon, ion exchange and high-pressure membranes as the established options; short-chain PFAS adsorb less readily. <a href="https://www.epa.gov/sciencematters/reducing-pfas-drinking-water-treatment-technologies">epa.gov</a>. Retrieved 29 July 2026.</li>
+        <li id="s5"><span class="tier t1">T1</span>UK Parliament, written question 49285 (answered 2025) — Drinking Water Inspectorate guideline value of 0.1 &micro;g/L, with water companies monitoring 48 individual PFAS and reporting exceedances as a water quality event. <a href="https://questions-statements.parliament.uk/written-questions/detail/2025-04-29/49285/">questions-statements.parliament.uk</a>. Retrieved 29 July 2026.</li>
+        <li id="s6"><span class="tier t1">T1</span>&ldquo;Advances in electrochemical technologies for PFAS destruction.&rdquo; <em>Chemical Science</em> (2026), doi:10.1039/D5SC09459C — peer-reviewed review identifying incomplete defluorination and mass-transfer limits as the field-wide bottleneck, independent of the Dresden work. <a href="https://pubs.rsc.org/en/content/articlelanding/2026/sc/d5sc09459c">rsc.org</a>. Retrieved 29 July 2026.</li>
+        <li id="s7"><span class="tier t2">T2</span>Helmholtz-Zentrum Dresden-Rossendorf, press statement via EurekAlert, July 2026 — the group&rsquo;s stated intention to combine the two processes; analyses supporting fluoride release run with the Helmholtz Centre for Environmental Research. <a href="https://www.eurekalert.org/news-releases/1136577">eurekalert.org</a>. Retrieved 29 July 2026.</li>
+      </ol>
+    </div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 30 Jul 2026.</b> <span class="ver">Digi News &middot; v1.1 &middot; pfas-destruction-fluorine-gap.</span></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ----------------------------------------------------------------------------
+   Newsroom-idiom SVG charts: honest scales, real-px responsive rendering,
+   colourblind-safe palette, annotation layer, and an accessible data table
+   emitted alongside every chart. Mobile-first: charts re-render at 1 SVG unit
+   = 1 CSS pixel via ResizeObserver, so label type never shrinks below legible.
+
+   PUBLIC API  (every chart: DN.<type>(targetSelectorOrEl, spec))
+     DN.line(t, spec)        multi-series time line; projection split; bands; refs; notes
+     DN.bars(t, spec)        horizontal ranked bars; highlight; reference line
+     DN.columns(t, spec)     vertical columns; grouped or stacked; legend
+     DN.slope(t, spec)       slope / dumbbell before-after comparison
+     DN.scatter(t, spec)     x/y points; optional groups; quadrant guides
+     DN.rangeStrip(t, spec)  time spans (barcode timeline / Gantt); projection hatch
+     DN.sankey(t, spec)      flows; ribbon width ∝ volume; gradient links; flow table
+
+     DN.fmt(value, opts)     number formatter (decimals, compact, prefix/suffix, plus, pct)
+     DN.colors, DN.palette   semantic tokens + categorical (Okabe-Ito) scale
+
+   COMMON spec fields: title (required, drives a11y), summary, height,
+     x:{min,max,fmt,ticks,title,label}, y:{min,max,zero,fmt,title,label,decimals,suffix,prefix,compact}
+   Projection rule: pass projectFrom on a series/event; the segment beyond it
+     renders dashed/hatched. Projections must never be the headline figure.
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  /* ---- palette: semantic tokens + Okabe-Ito categorical (CVD-safe) ---- */
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  /* ---- tiny DOM/SVG helpers ---- */
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  /* ---- number formatter ---- */
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  /* ---- nice scale (Heckbert) ---- */
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  /* ---- label geometry: single source of truth, shared with dn-harness ----
+     The width model (per-char advance = font-size * LABEL_EM) is identical to
+     the harness geometry probe, so a label the toolkit judges to "fit" is the
+     same label the pre-publish gate judges to be on-canvas. Font sizes here
+     mirror the .dn-* label classes in the template CSS.               */
+  var LABEL_EM = 0.52;
+  var LABEL_PX = { ax: 11, axlabel: 11, clabel: 12, vlabel: 12.5, endlab: 12, anno: 11.5, annosub: 10.5, strip: 11 };
+  function estW(str, px) { str = (str == null ? "" : String(str)); return str.length * (px || 12) * LABEL_EM; }
+  // Shorten one string to fit maxPx, appending an ellipsis. Never returns
+  // something wider than maxPx (down to a single glyph).
+  function ellip(str, maxPx, px) {
+    str = (str == null ? "" : String(str));
+    if (estW(str, px) <= maxPx) return str;
+    var s = str;
+    while (s.length > 1 && estW(s + "\u2026", px) > maxPx) s = s.slice(0, -1);
+    return s.replace(/[\s,.;:\u2013\u2014-]+$/, "") + "\u2026";
+  }
+  // Word-wrap str to at most maxLines lines, each <= maxPx. The final allowed
+  // line absorbs any remainder and is ellipsised. Returns {lines, truncated}.
+  function wrapFit(str, maxPx, px, maxLines) {
+    str = (str == null ? "" : String(str)).trim(); maxLines = maxLines || 2;
+    if (estW(str, px) <= maxPx) return { lines: [str], truncated: false };
+    var words = str.split(/\s+/), lines = [], cur = "";
+    for (var i = 0; i < words.length; i++) {
+      var cand = cur ? cur + " " + words[i] : words[i];
+      if (cur && estW(cand, px) > maxPx) {
+        if (lines.length === maxLines - 1) {                 // last line: take the rest
+          lines.push(ellip(words.slice(i).join(" "), maxPx, px));
+          return { lines: lines, truncated: true };
+        }
+        lines.push(cur); cur = words[i];
+      } else cur = cand;
+    }
+    if (cur) lines.push(cur);
+    var truncated = false;
+    lines = lines.map(function (ln) { if (estW(ln, px) > maxPx) { truncated = true; return ellip(ln, maxPx, px); } return ln; });
+    return { lines: lines, truncated: truncated };
+  }
+  // Widest label width (px) across a set of values, given a formatter.
+  function widestW(vals, labelOf, px) {
+    var w = 0; for (var i = 0; i < vals.length; i++) { var lw = estW(labelOf(vals[i]), px); if (lw > w) w = lw; } return w;
+  }
+  // Drop interior ticks whose labels would collide; endpoints always kept.
+  function thinTicks(ticks, xOf, labelOf, px, minGap) {
+    if (!ticks || ticks.length <= 2) return (ticks || []).slice();
+    minGap = (minGap == null) ? 6 : minGap;
+    var keep = [ticks[0]], lastR = xOf(ticks[0]) + estW(labelOf(ticks[0]), px) / 2;
+    for (var i = 1; i < ticks.length - 1; i++) {
+      var c = xOf(ticks[i]), half = estW(labelOf(ticks[i]), px) / 2;
+      if (c - half >= lastR + minGap) { keep.push(ticks[i]); lastR = c + half; }
+    }
+    var lastT = ticks[ticks.length - 1], lL = xOf(lastT) - estW(labelOf(lastT), px) / 2;
+    while (keep.length > 1 && (xOf(keep[keep.length - 1]) + estW(labelOf(keep[keep.length - 1]), px) / 2 + minGap) > lL) keep.pop();
+    keep.push(lastT);
+    return keep;
+  }
+  // Clamp a middle-anchored tick label's x so its box stays within [0,W].
+  function clampMid(x, str, px, W) { var h = estW(str, px) / 2; return Math.min(Math.max(x, h + 1), W - h - 1); }
+  // Clamp any anchored free annotation so its box stays on-canvas (backstop —
+  // only moves when the author's placement would otherwise clip off the edge).
+  function clampInside(x, str, px, W, anchor) {
+    var w = estW(str, px);
+    if (anchor === 'end') return Math.min(Math.max(x, w + 1), W - 1);
+    if (anchor === 'middle') return clampMid(x, str, px, W);
+    return Math.min(Math.max(x, 1), W - w - 1);
+  }
+  // Nudge desired y-centres so no two are within minGap, kept within [lo,hi].
+  // Returns adjusted y for each input index (order preserved).
+  function separateY(ys, minGap, lo, hi) {
+    var idx = ys.map(function (y, i) { return { y: y, i: i }; }).sort(function (a, b) { return a.y - b.y; });
+    for (var k = 1; k < idx.length; k++) { if (idx[k].y < idx[k - 1].y + minGap) idx[k].y = idx[k - 1].y + minGap; }
+    if (idx.length && idx[idx.length - 1].y > hi) { idx[idx.length - 1].y = hi; for (var a = idx.length - 2; a >= 0; a--) { if (idx[a].y > idx[a + 1].y - minGap) idx[a].y = idx[a + 1].y - minGap; } }
+    if (idx.length && idx[0].y < lo) { idx[0].y = lo; for (var b = 1; b < idx.length; b++) { if (idx[b].y < idx[b - 1].y + minGap) idx[b].y = idx[b - 1].y + minGap; } }
+    var out = new Array(ys.length); idx.forEach(function (o) { out[o.i] = o.y; }); return out;
+  }
+  // Append a right-anchored label as one line, or as wrapped tspans, so it
+  // never overflows the left gutter. Marks truncation for the gate to see.
+  function drawGutter(svg, str, xRight, cy, cls, px, maxPx, fillCol) {
+    var fit = wrapFit(str, maxPx, px, 2);
+    var lab = svgEl("text", { x: xRight, "text-anchor": "end", "class": cls });
+    if (fillCol) lab.setAttribute("fill", fillCol);
+    if (fit.lines.length === 1) { lab.setAttribute("y", cy + 4); lab.textContent = fit.lines[0]; }
+    else {
+      var lineH = px + 3, startY = cy - (fit.lines.length - 1) * lineH / 2 + 4;
+      fit.lines.forEach(function (ln, li) { var ts = svgEl("tspan", { x: xRight, y: startY + li * lineH }); ts.textContent = ln; lab.appendChild(ts); });
+    }
+    if (fit.truncated) { lab.setAttribute("data-dn-fit", "trunc"); var ti = svgEl("title"); ti.textContent = str; lab.appendChild(ti); }
+    svg.appendChild(lab); return fit;
+  }
+
+  /* ---- relative luminance → ideal overlaid text colour ---- */
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  /* ---- responsive mount + lifecycle ---- */
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* ====================================================================== */
+  /* LINE                                                                    */
+  /* ====================================================================== */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      // Left margin fits the widest y-tick label (thousands, currency, log ticks
+      // all handled) instead of a fixed 34/44 that clipped wide numbers.
+      var yLabW = widestW(ns.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax);
+      var mL = Math.min(Math.max(Math.round(yLabW) + 12, small ? 34 : 44), Math.round(W * 0.34));
+      // Right margin fits end labels; if that would eat the plot, cap it and
+      // truncate the labels to the reserved width when drawn.
+      var endTexts = series.map(function (s, si) { return s.endLabel || s.name || fmt(s.points[s.points.length - 1].y, spec.y || {}); });
+      var mR;
+      if (spec.endLabels) { mR = Math.min(Math.max(Math.round(widestW(endTexts, function (t) { return t; }, LABEL_PX.endlab)) + 12, small ? 44 : 60), Math.round(W * 0.40)); }
+      else mR = 18;
+      var endBudget = mR - 10;
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      var xfmt = function (xv) { return (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv); };
+      thinTicks(xt, X, xfmt, LABEL_PX.ax, 8).forEach(function (xv) {
+        var lx = clampMid(X(xv), xfmt(xv), LABEL_PX.ax, W);
+        var t = svgEl("text", { x: lx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = xfmt(xv); svg.appendChild(t);
+      });
+
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) {
+          var etxt = endTexts[si], efit = ellip(etxt, endBudget, LABEL_PX.endlab);
+          var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col);
+          el.textContent = efit;
+          if (efit !== etxt) { el.setAttribute("data-dn-fit", "trunc"); var eti = svgEl("title"); eti.textContent = etxt; el.appendChild(eti); }
+          svg.appendChild(el);
+        }
+      });
+
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var rlx = clampInside(mL + 6, r.label, LABEL_PX.anno, W, "start"); var t = svgEl("text", { x: rlx, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy, na = nt.anchor || "middle";
+        var t = svgEl("text", { x: clampInside(nx + (nt.dx || 0), nt.text, LABEL_PX.anno, W, na), y: ny + dy, "text-anchor": na, "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: clampInside(nx + (nt.dx || 0), nt.sub, LABEL_PX.annosub, W, na), y: ny + dy + 13, "text-anchor": na, "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* BARS (horizontal, ranked)                                               */
+  /* ====================================================================== */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = (spec.refValue != null) ? 22 : 8, mB = 8;
+      // --- gutter sized to the measured labels, capped so bars stay readable;
+      //     labels that exceed the budget wrap to two lines then ellipsise. ---
+      var clP = LABEL_PX.clabel;
+      var gutterCap = Math.round(W * (small ? 0.46 : 0.42));
+      var want = widestW(data.map(function (d) { return d.label; }), function (s) { return s; }, clP) + 16;
+      var mL = Math.min(Math.max(want, 64), gutterCap);
+      var labelBudget = mL - 14;
+      var fits = data.map(function (d) { return wrapFit(d.label, labelBudget, clP, 2); });
+      var maxLines = Math.max.apply(null, fits.map(function (f) { return f.lines.length; }));
+      var lineH = clP + 3;
+      if (maxLines > 1) rowH = Math.max(rowH, lineH * maxLines + 8);
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      // reference-line label shares the top row with x-ticks; give it priority
+      var refLX = null, refHalf = 0;
+      if (spec.refValue != null && spec.refLabel) { refLX = clampMid(Xv(spec.refValue), spec.refLabel, LABEL_PX.anno, W); refHalf = estW(spec.refLabel, LABEL_PX.anno) / 2; }
+      var xticksB = thinTicks(ns.ticks, Xv, function (tv) { return fmt(tv, spec.x || {}); }, LABEL_PX.ax, 7);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        if (xticksB.indexOf(tv) < 0) return;
+        var tstr = fmt(tv, spec.x || {}), lx = clampMid(gx, tstr, LABEL_PX.ax, W);
+        if (refLX != null && Math.abs(lx - refLX) < refHalf + estW(tstr, LABEL_PX.ax) / 2 + 4) return;  // yields to refLabel
+        var t = svgEl("text", { x: lx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = tstr; svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        drawGutter(svg, d.label, mL - 10, y + rowH / 2, "dn-clabel", clP, labelBudget, d.highlight ? C.subject : null);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var vtext = fmt(d.value, spec.x || {}), vw = estW(vtext, LABEL_PX.vlabel);
+        var v;
+        if (mL + w + 8 + vw > W - 2 && w > vw + 12) {           // no room outside → label inside the bar
+          v = svgEl("text", { x: mL + w - 6, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-vlabel" });
+          v.setAttribute("fill", idealText(col));
+        } else {
+          v = svgEl("text", { x: Math.min(mL + w + 8, W - vw - 2), y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" });
+          if (d.highlight) v.setAttribute("fill", C.subject);
+        }
+        v.textContent = vtext; svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: refLX != null ? refLX : gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* COLUMNS (vertical, grouped or stacked)                                  */
+  /* ====================================================================== */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5);
+      var mL = Math.min(Math.max(Math.round(widestW(ns.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax)) + 12, small ? 34 : 44), Math.round(W * 0.34));
+      var iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var glab = ellip(g.label, gw - 4, LABEL_PX.ax), glx = clampMid(mL + gi * gw + gw / 2, glab, LABEL_PX.ax, W);
+        var xl = svgEl("text", { x: glx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = glab;
+        if (glab !== String(g.label)) { xl.setAttribute("data-dn-fit", "trunc"); var gti = svgEl("title"); gti.textContent = String(g.label); xl.appendChild(gti); }
+        svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+          });
+        }
+      });
+      drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SLOPE / DUMBBELL                                                        */
+  /* ====================================================================== */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: clampMid(xL, spec.left || "", LABEL_PX.clabel, W), y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = ellip(spec.left || "", 2 * xL - 8, LABEL_PX.clabel); svg.appendChild(hl);
+      var hr = svgEl("text", { x: clampMid(xR, spec.right || "", LABEL_PX.clabel, W), y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = ellip(spec.right || "", 2 * (W - xR) - 8, LABEL_PX.clabel); svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      var y0s = items.map(function (it) { return Y(it.from); });
+      var y1s = items.map(function (it) { return Y(it.to); });
+      var llY = separateY(y0s.slice(), LABEL_PX.clabel + 2, mT + 4, H - mB);
+      var rvY = separateY(y1s.slice(), LABEL_PX.vlabel + 2, mT + 4, H - mB);
+      items.forEach(function (it, i) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = y0s[i], y1 = y1s[i];
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var llTxt = ellip(it.label, xL - 14, LABEL_PX.clabel);
+        var ll = svgEl("text", { x: xL - 10, y: llY[i] + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = llTxt;
+        if (llTxt !== String(it.label)) { ll.setAttribute("data-dn-fit", "trunc"); var lti = svgEl("title"); lti.textContent = String(it.label); ll.appendChild(lti); }
+        svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: rvY[i] + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = ellip(fmt(it.to, spec.y || {}), (W - xR) - 12, LABEL_PX.vlabel); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SCATTER                                                                 */
+  /* ====================================================================== */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var mL = Math.min(Math.max(Math.round(widestW(nyv.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax)) + 12, small ? 38 : 48), Math.round(W * 0.34));
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      var xfmtS = function (tv) { return fmt(tv, spec.x || {}); };
+      thinTicks(nx.ticks, X, xfmtS, LABEL_PX.ax, 8).forEach(function (tv) { var lx = clampMid(X(tv), xfmtS(tv), LABEL_PX.ax, W); var t = svgEl("text", { x: lx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = xfmtS(tv); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) {
+          var plw = estW(p.label, LABEL_PX.annosub), px0 = X(p.x) + (p.r || 4.5) + 4, pl;
+          if (px0 + plw > W - 2) pl = svgEl("text", { x: X(p.x) - (p.r || 4.5) - 4, y: Y(p.y) + 4, "text-anchor": "end", "class": "dn-annosub" });
+          else pl = svgEl("text", { x: px0, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" });
+          pl.textContent = p.label; svg.appendChild(pl);
+        }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* RANGE STRIP (barcode timeline / Gantt rows)                             */
+  /* ====================================================================== */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        var allXb = xticks(x0, x1, small ? 4 : 7), bfmt = function (xv) { return String(fx(xv)); };
+        var keepXb = thinTicks(allXb, X, bfmt, LABEL_PX.ax, 8);
+        allXb.forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          if (keepXb.indexOf(xv) < 0) return;
+          var t = svgEl("text", { x: clampMid(xx, bfmt(xv), LABEL_PX.ax, W), y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", (e.projectFrom != null && (e.start + e.end) / 2 >= e.projectFrom) ? C.ink : idealText(col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: clampMid((bx0 + bx1) / 2, b.label, LABEL_PX.anno, W), y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: clampMid(nx, nt.text, LABEL_PX.anno, W), y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: clampMid(nx, nt.sub, LABEL_PX.annosub, W), y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30, clP = LABEL_PX.clabel;
+        var mL = Math.min(Math.max(Math.round(widestW(events.map(function (e) { return e.label; }), function (s) { return s; }, clP)) + 16, 70), Math.round(W * 0.42));
+        var rBudget = mL - 14;
+        var rFits = events.map(function (e) { return wrapFit(e.label, rBudget, clP, 2); });
+        var rMaxLines = Math.max.apply(null, rFits.map(function (f) { return f.lines.length; }));
+        if (rMaxLines > 1) rowH = Math.max(rowH, (clP + 3) * rMaxLines + 6);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        var allXr = xticks(x0, x1, small ? 4 : 7), rfmt = function (xv) { return String(fx(xv)); };
+        var keepXr = thinTicks(allXr, X, rfmt, LABEL_PX.ax, 8);
+        allXr.forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          if (keepXr.indexOf(xv) < 0) return;
+          var t = svgEl("text", { x: clampMid(xx, rfmt(xv), LABEL_PX.ax, W), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          drawGutter(svg, e.label, mL - 10, y + rowH / 2, "dn-clabel", clP, rBudget, null);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SANKEY (flows — ribbon width proportional to volume)                    */
+  /* ---------------------------------------------------------------------- */
+  /* Honest encoding: a flow's height (at both ends) and a node's height are  */
+  /* proportional to value on one shared px-per-unit scale. Colour only marks */
+  /* provenance (gradient source -> target); every node carries a text label  */
+  /* and value, so colour is never the sole carrier. Layout: longest-path     */
+  /* layering + barycentre relaxation to reduce crossings. Assumes a DAG.     */
+  /* ====================================================================== */
+  function sankey(target, spec) {
+    var m = mount(target);
+    var rawLinks = (spec.links || []).filter(function (l) { return l && l.value > 0; });
+    var nodeMap = {}, nodes = [];
+    function getNode(id) {
+      var key = "$" + id;
+      if (!Object.prototype.hasOwnProperty.call(nodeMap, key)) {
+        nodeMap[key] = { id: id, label: String(id), ins: [], outs: [], idx: nodes.length };
+        nodes.push(nodeMap[key]);
+      }
+      return nodeMap[key];
+    }
+    (spec.nodes || []).forEach(function (nd) {
+      var n = getNode(nd.id);
+      if (nd.label != null) n.label = String(nd.label);
+      if (nd.color) n.color = nd.color;
+    });
+    var links = rawLinks.map(function (l) {
+      var s = getNode(l.source), t = getNode(l.target);
+      var link = { source: s, target: t, value: +l.value, color: l.color };
+      s.outs.push(link); t.ins.push(link);
+      return link;
+    });
+    nodes.forEach(function (n, i) { if (!n.color) n.color = cat(i); });
+
+    /* longest-path layering (assumes a DAG) */
+    nodes.forEach(function (n) { n.depth = 0; });
+    for (var pass = 0; pass < nodes.length + 1; pass++) {
+      var changed = false;
+      links.forEach(function (l) {
+        if (l.target.depth < l.source.depth + 1) { l.target.depth = l.source.depth + 1; changed = true; }
+      });
+      if (!changed) break;
+    }
+    var maxDepth = 0; nodes.forEach(function (n) { if (n.depth > maxDepth) maxDepth = n.depth; });
+    if (spec.align !== "left") nodes.forEach(function (n) { if (n.outs.length === 0 && n.ins.length) n.depth = maxDepth; });
+    var columns = [];
+    nodes.forEach(function (n) { (columns[n.depth] = columns[n.depth] || []).push(n); });
+    for (var qi = 0; qi < columns.length; qi++) if (!columns[qi]) columns[qi] = [];
+
+    function nodeVal(n) {
+      var i = n.ins.reduce(function (s, l) { return s + l.value; }, 0);
+      var o = n.outs.reduce(function (s, l) { return s + l.value; }, 0);
+      return Math.max(i, o);
+    }
+    function center(n) { return n.y + n.h / 2; }
+    function truncate(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "\u2026" : s; }
+
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.62, 250), 460));
+      var nodeW = spec.nodeWidth || (small ? 11 : 15);
+      var pad = spec.nodePad || (small ? 11 : 16);
+      var labCap = small ? 12 : 22;
+      var first = columns[0] || [], lastCol = columns[columns.length - 1] || [];
+      var lc = Math.max.apply(null, [4].concat(first.map(function (n) { return truncate(n.label, labCap).length; })));
+      var rc = Math.max.apply(null, [4].concat(lastCol.map(function (n) { return truncate(n.label, labCap).length; })));
+      var chpx = small ? 5.7 : 6.7;
+      var mL = Math.min(Math.max(lc * chpx + 12, 38), W * 0.34);
+      var mR = Math.min(Math.max(rc * chpx + 12, 38), W * 0.34);
+      var mT = 16, mB = 12;
+      var innerW = Math.max(W - mL - mR, 60), innerH = Math.max(H - mT - mB, 80);
+      var cols = columns.length;
+      var colStep = cols > 1 ? (innerW - nodeW) / (cols - 1) : 0;
+      function nodeX(d) { return mL + d * colStep; }
+
+      /* one shared value->px scale across every column (honest) */
+      var k = Infinity;
+      columns.forEach(function (col) {
+        var sum = col.reduce(function (s, n) { return s + nodeVal(n); }, 0);
+        var avail = innerH - (col.length - 1) * pad;
+        if (sum > 0) k = Math.min(k, avail / sum);
+      });
+      if (!isFinite(k) || k <= 0) k = 1;
+      nodes.forEach(function (n) { n.h = Math.max(nodeVal(n) * k, 1.5); });
+
+      columns.forEach(function (col) {
+        var totalH = col.reduce(function (s, n) { return s + n.h; }, 0) + (col.length - 1) * pad;
+        var y = mT + (innerH - totalH) / 2;
+        col.forEach(function (n) { n.y = y; y += n.h + pad; });
+      });
+      function collide(col) {
+        col.sort(function (a, b) { return a.y - b.y; });
+        var y = mT, i, n;
+        for (i = 0; i < col.length; i++) { n = col[i]; if (n.y < y) n.y = y; y = n.y + n.h + pad; }
+        y = mT + innerH;
+        for (i = col.length - 1; i >= 0; i--) { n = col[i]; if (n.y + n.h > y) n.y = y - n.h; y = n.y - pad; }
+      }
+      var ITER = 7;
+      for (var it = 0; it < ITER; it++) {
+        var alpha = 0.9 * (1 - it / ITER);
+        for (var c = 1; c < columns.length; c++) {
+          columns[c].forEach(function (n) {
+            if (n.ins.length) { var w = 0, sy = 0; n.ins.forEach(function (l) { sy += center(l.source) * l.value; w += l.value; }); if (w) n.y += (sy / w - center(n)) * alpha; }
+          });
+          collide(columns[c]);
+        }
+        for (var c2 = columns.length - 2; c2 >= 0; c2--) {
+          columns[c2].forEach(function (n) {
+            if (n.outs.length) { var w2 = 0, sy2 = 0; n.outs.forEach(function (l) { sy2 += center(l.target) * l.value; w2 += l.value; }); if (w2) n.y += (sy2 / w2 - center(n)) * alpha; }
+          });
+          collide(columns[c2]);
+        }
+      }
+
+      /* order each node's links by partner position, then stack the bands */
+      nodes.forEach(function (n) {
+        n.outs.sort(function (a, b) { return center(a.target) - center(b.target); });
+        n.ins.sort(function (a, b) { return center(a.source) - center(b.source); });
+        var so = 0; n.outs.forEach(function (l) { l.sy0 = n.y + so; so += l.value * k; l.sy1 = n.y + so; });
+        var ti = 0; n.ins.forEach(function (l) { l.ty0 = n.y + ti; ti += l.value * k; l.ty1 = n.y + ti; });
+      });
+
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var defs = svgEl("defs"); svg.appendChild(defs);
+
+      var gFlows = svgEl("g");
+      links.forEach(function (l) {
+        var x0 = nodeX(l.source.depth) + nodeW, x1 = nodeX(l.target.depth), xm = (x0 + x1) / 2;
+        var fill;
+        if (l.color) { fill = l.color; }
+        else {
+          var gid = "dnsk" + (++UID);
+          var lg = svgEl("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: x0, y1: 0, x2: x1, y2: 0 });
+          lg.appendChild(svgEl("stop", { offset: "0%", "stop-color": l.source.color }));
+          lg.appendChild(svgEl("stop", { offset: "100%", "stop-color": l.target.color }));
+          defs.appendChild(lg); fill = "url(#" + gid + ")";
+        }
+        var d = "M" + x0 + "," + l.sy0 +
+          "C" + xm + "," + l.sy0 + " " + xm + "," + l.ty0 + " " + x1 + "," + l.ty0 +
+          "L" + x1 + "," + l.ty1 +
+          "C" + xm + "," + l.ty1 + " " + xm + "," + l.sy1 + " " + x0 + "," + l.sy1 + "Z";
+        var p = svgEl("path", { d: d, fill: fill, "fill-opacity": (spec.linkOpacity != null ? spec.linkOpacity : 0.44), "class": "dn-flow" });
+        var tt = svgEl("title"); tt.textContent = l.source.label + " \u2192 " + l.target.label + ": " + fmt(l.value, spec.value || {}); p.appendChild(tt);
+        gFlows.appendChild(p);
+      });
+      svg.appendChild(gFlows);
+      if (!REDUCE) {
+        gFlows.style.opacity = 0; gFlows.style.transition = "opacity .7s ease-out";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { gFlows.style.opacity = 1; }); });
+      }
+
+      nodes.forEach(function (n) {
+        var x = nodeX(n.depth), tall = n.h > 26;
+        svg.appendChild(svgEl("rect", { x: x, y: n.y, width: nodeW, height: n.h, fill: n.color, rx: 2 }));
+        var isLast = (n.depth === columns.length - 1);
+        var lx = isLast ? x - 8 : x + nodeW + 8, anchor = isLast ? "end" : "start", cy = n.y + n.h / 2;
+        var lab = svgEl("text", { x: lx, y: cy + (tall ? -1 : 3.5), "text-anchor": anchor, "class": "dn-clabel dn-nodelabel" });
+        lab.textContent = truncate(n.label, labCap); svg.appendChild(lab);
+        if (tall) {
+          var val = svgEl("text", { x: lx, y: cy + 13, "text-anchor": anchor, "class": "dn-annosub dn-nodelabel" });
+          val.textContent = fmt(nodeVal(n), spec.value || {}); svg.appendChild(val);
+        }
+      });
+
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Flow data",
+        [spec.fromTitle || "From", spec.toTitle || "To", spec.valueTitle || "Value"],
+        links.map(function (l) { return [l.source.label, l.target.label, fmt(l.value, spec.value || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip, sankey: sankey,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+<script>
+(function(){
+/* ------------------------------------------------------------------ *
+ * EXHIBIT INIT — all values as printed in the two primary papers.       *
+ * Derived ratios computed and checked in Node before embedding.        *
+ * ------------------------------------------------------------------ */
+var mins = function (v) { return v + " min"; };
+
+/* Exhibit 01 — signature: removal from water vs fluorine actually released.
+   Filtration defluorination is 0 by mechanism: adsorption moves the molecule
+   to a solid phase, it does not cleave C–F bonds. */
+DN.columns("#ex1", {
+  title: "Removed from water vs fluorine released, best reported run",
+  summary: "For each approach, the share of PFOS cleared from the water and the share of its fluorine recovered as fluoride ion. Filtration removes over 99% and releases none.",
+  mode: "grouped",
+  series: [
+    { name: "PFOS removed", color: "#9AA0A6" },
+    { name: "Fluorine freed", color: "#1C46C2" }
+  ],
+  groups: [
+    { label: "Filtration", values: { "PFOS removed": 99, "Fluorine freed": 0 } },
+    { label: "Cavitation", values: { "PFOS removed": 37, "Fluorine freed": 20 } },
+    { label: "Plasma", values: { "PFOS removed": 99.99, "Fluorine freed": 35 } }
+  ],
+  y: { zero: true, suffix: "%", max: 100 }
+});
+
+/* Exhibit 02 — the divergence over a single 20-minute plasma run.
+   Note defluorination is NOT monotonic (33 → 27 → 35); the paper attributes
+   the dip to fluoride adsorption and unquantified volatile intermediates. */
+DN.line("#ex2", {
+  title: "One plasma run: PFOS cleared against fluorine freed",
+  summary: "Gas-dispersed cold atmospheric plasma, PFOS at 5 mg per litre in tap water. Degradation reaches 99.99% in 20 minutes; defluorination moves between 27% and 35%.",
+  x: { fmt: mins, ticks: [0, 5, 10, 20], title: "Treatment time" },
+  y: { suffix: "%", zero: true, max: 100 },
+  endLabels: true,
+  series: [
+    {
+      name: "PFOS removed",
+      color: "#9AA0A6",
+      points: [{ x: 0, y: 0 }, { x: 5, y: 92 }, { x: 10, y: 99 }, { x: 20, y: 99.99 }]
+    },
+    {
+      name: "Fluorine freed",
+      color: "#1C46C2",
+      points: [{ x: 0, y: 0 }, { x: 5, y: 33 }, { x: 10, y: 27 }, { x: 20, y: 35 }]
+    }
+  ]
+});
+})();
+</script>
+</body>
+</html>

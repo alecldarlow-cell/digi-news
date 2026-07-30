@@ -1,8 +1,8 @@
 {
-  "built": "2026-07-30T04:46:40.539Z",
+  "built": "2026-07-30T17:58:45.143Z",
   "today": "2026-07-30",
   "timezone": "Europe/London",
-  "count": 119,
+  "count": 120,
   "items": [
     {
       "path": "reports/2026-07-30-crossword-mini-0019.html",
@@ -100,6 +100,20 @@
       "stat": "37",
       "statUnit": "%",
       "statLabel": "interested",
+      "mask": ""
+    },
+    {
+      "path": "reports/2026-07-30-state-cyber-frequency-consequence.html",
+      "kind": "report",
+      "topic": "World",
+      "headline": "Three in four of the NCSC’s critical-infrastructure cases are now believed to be state-linked",
+      "standfirst": "The agency’s total caseload has been flat across two reporting years while the tier it rates nationally significant more than tripled. Officials describe the capability that matters as patience — years of quiet access through known, unpa…",
+      "date": "2026-07-30",
+      "read": "medium",
+      "thumb": "",
+      "stat": "75",
+      "statUnit": "%",
+      "statLabel": "of cni cases",
       "mask": ""
     },
     {

@@ -183,6 +183,7 @@ function heroStat(html) {
 // SHAPE travels (blocks and pre-locked cells), never a letter.
 //   #  black square      L  pre-locked cell (LexiDoku)      .  to be filled
 // Returns a 25- or 36-char string (5x5 or 6x6), or '' if the object can't be
+// read. Mask alphabet: '#' block, 'L' pre-locked, 'o' free opening, '.' fillable.
 // the card falls back to the Play glyph rather than inventing a grid.
 function puzzleMask(html, rel, warnings) {
   const g = html.match(/\bgrid\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
@@ -194,7 +195,13 @@ function puzzleMask(html, rel, warnings) {
     warnings.push(`${rel} — grid parsed as ${cells.length} cells, expected a 5x5 (25) or 6x6 (36) square; card falls back to the Play tile`);
     return '';
   }
-  const mask = cells.map(c => c.slice(1, -1).trim() === '#' ? '#' : '.');
+  // '#' block (Mini), 'o' the free opening (Sweep), everything else fillable.
+  // 'o' was specified with the type and never implemented: the old line folded
+  // it into '.', so every Sweep tile rendered as an identical blank grid.
+  const mask = cells.map(c => {
+    const v = c.slice(1, -1).trim();
+    return v === '#' ? '#' : v === 'o' ? 'o' : '.';
+  });
 
   // Pre-locked cells: LexiDoku uses [row,col]; Path uses [row,col,value].
   // Both are 1-indexed and we only read the first two numbers (row, col).

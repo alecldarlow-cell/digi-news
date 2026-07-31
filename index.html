@@ -341,14 +341,16 @@
          + '</div>';
   }
 
-  // mask is 25 chars (5x5 Mini/Doku/Sweep) or 36 chars (6x6 Path) from feed.json:
-  // # block, L pre-locked, . to fill. The first fillable cell takes the marigold —
-  // the same "you're here" mark the player uses, so the tile is a still of the
-  // game rather than a picture of one.
+  // mask is 25 chars (5x5 Mini/Doku) or 36 chars (6x6 Sweep/Path) from feed.json:
+  // # block, L pre-locked, o the free opening (Sweep), . to fill. The marigold
+  // marks where play starts — the free opening if the type has one, otherwise
+  // the first fillable cell — so the tile is a still of the game rather than a
+  // picture of one. Sweep tiles were all identical until 'o' was carried through.
   function puzzleTile(mask){
     var n = mask.length===36 ? 36 : 25;
     var six = n===36 ? ' six' : '';
-    var act = mask.indexOf('.'), cells = '';
+    var op = mask.indexOf('o');
+    var act = op >= 0 ? op : mask.indexOf('.'), cells = '';
     for(var i=0;i<n;i++){
       var cls = mask[i]==='#' ? 'b' : mask[i]==='L' ? 'l' : (i===act ? 'a' : '');
       cells += cls ? '<i class="'+cls+'"></i>' : '<i></i>';

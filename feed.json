@@ -1,5 +1,5 @@
 {
-  "built": "2026-07-31T07:09:18.274Z",
+  "built": "2026-07-31T15:05:37.064Z",
   "today": "2026-07-31",
   "timezone": "Europe/London",
   "count": 125,
@@ -72,7 +72,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "......o.................."
     },
     {
       "path": "reports/2026-07-30-crossword-mini-0019.html",
@@ -142,7 +142,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "..............o.........."
     },
     {
       "path": "reports/2026-07-30-pfas-destruction-fluorine-gap.html",
@@ -268,7 +268,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "..............o.........."
     },
     {
       "path": "reports/2026-07-29-stanford-appetite-peptide.html",
@@ -366,7 +366,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "..........o.............."
     },
     {
       "path": "reports/2026-07-28-streetlight-isopod-mills.html",
@@ -478,7 +478,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "..................o......"
     },
     {
       "path": "reports/2026-07-27-uk-ai-avoidance.html",
@@ -590,7 +590,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": ".................o......."
     },
     {
       "path": "reports/2026-07-26-uk-box-office-sequel-share.html",
@@ -702,7 +702,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "...........o............."
     },
     {
       "path": "reports/2026-07-25-profiling-works-uk.html",
@@ -800,7 +800,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "...............o........."
     },
     {
       "path": "reports/2026-07-24-return-to-office-evidence.html",
@@ -884,7 +884,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "...........o............."
     },
     {
       "path": "reports/2026-07-23-nhs-waiting-lists-decade.html",
@@ -996,7 +996,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "...................o....."
     },
     {
       "path": "reports/2026-07-22-renewables-coal-crossover.html",
@@ -1108,7 +1108,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": ".....o..................."
     },
     {
       "path": "reports/2026-07-20-council-bankruptcy-pause.html",
@@ -1192,7 +1192,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "..............o.........."
     },
     {
       "path": "reports/digi-path-0002.html",
@@ -1262,7 +1262,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "..o......................"
     },
     {
       "path": "reports/2026-07-19-space-economy-reality-check.html",
@@ -1346,7 +1346,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "...............o........."
     },
     {
       "path": "reports/2026-07-18-london-exodus-reversal.html",
@@ -1402,7 +1402,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": "........................."
+      "mask": "..o......................"
     },
     {
       "path": "reports/2026-07-16-crossword-mini-0005.html",

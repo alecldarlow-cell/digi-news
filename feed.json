@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-01T17:38:47.599Z",
+  "built": "2026-08-01T20:32:04.227Z",
   "today": "2026-08-01",
   "timezone": "Europe/London",
-  "count": 129,
+  "count": 131,
   "items": [
     {
       "path": "reports/2026-08-01-crossword-mini-0021.html",
@@ -17,6 +17,34 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "....#...............#...."
+    },
+    {
+      "path": "reports/2026-08-01-data-centres-electricity-prices.html",
+      "kind": "report",
+      "topic": "World",
+      "headline": "States building the most data centres have had the smallest electricity price rises",
+      "standfirst": "A causal study finds data-centre growth pushed the average U.S. residential electricity rate down between 2019 and 2024. But in the grid serving Virginia's \"Data Center Alley,\" the effect runs the other way — and researchers warn the nat…",
+      "date": "2026-08-01",
+      "read": "6 min",
+      "thumb": "",
+      "stat": "50",
+      "statUnit": "%",
+      "statLabel": "of pjm rise",
+      "mask": ""
+    },
+    {
+      "path": "reports/2026-08-01-eu-wildfire-season-count-gap.html",
+      "kind": "report",
+      "topic": "World",
+      "headline": "EU wildfires: burnt area is running at two and a half times the 20-year average",
+      "standfirst": "Fires have burnt 434,976 hectares across the EU by 29 July, more than during the same point in 2025 — itself the worst full season on record. But how bad the picture looks depends on whose count is used: national tallies run lower than E…",
+      "date": "2026-08-01",
+      "read": "~6 min",
+      "thumb": "",
+      "stat": "2.5",
+      "statUnit": "×",
+      "statLabel": "of average",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-01-logic-doku-0019.html",

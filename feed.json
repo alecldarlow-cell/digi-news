@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-02T05:16:04.101Z",
+  "built": "2026-08-02T07:28:52.656Z",
   "today": "2026-08-02",
   "timezone": "Europe/London",
-  "count": 136,
+  "count": 137,
   "items": [
     {
       "path": "reports/2026-08-02-crossword-mini-0022.html",
@@ -17,6 +17,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "#...#...............#...#"
+    },
+    {
+      "path": "reports/2026-08-02-fish-and-chips-inflation.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "Fish and chips has risen more than twice as fast as inflation since 2019",
+      "standfirst": "A portion of fish and chips now costs 72% more than in July 2019 — more than double the rise in overall prices, and in the cost of fish itself, official figures show.",
+      "date": "2026-08-02",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "+72",
+      "statUnit": "%",
+      "statLabel": "since 2019",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-02-logic-doku-0020.html",

@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-04T04:53:32.577Z",
+  "built": "2026-08-04T08:13:37.868Z",
   "today": "2026-08-04",
   "timezone": "Europe/London",
-  "count": 146,
+  "count": 147,
   "items": [
     {
       "path": "reports/2026-08-04-crossword-mini-0024.html",
@@ -17,6 +17,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "#.......................#"
+    },
+    {
+      "path": "reports/2026-08-04-eu-ai-act-enforcement-delay.html",
+      "kind": "report",
+      "topic": "AI",
+      "headline": "EU AI Act enforcement begins — but its toughest rules are delayed 16 months",
+      "standfirst": "Fines for general-purpose AI models and new transparency duties became enforceable across the EU this week. The high-risk system rules meant to be the Act's centrepiece won't apply until December 2027.",
+      "date": "2026-08-04",
+      "read": "~5 min",
+      "thumb": "",
+      "stat": "16",
+      "statUnit": "",
+      "statLabel": "months delayed",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-04-logic-doku-0022.html",

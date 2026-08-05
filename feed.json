@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-05T09:50:38.078Z",
+  "built": "2026-08-05T15:01:49.819Z",
   "today": "2026-08-05",
   "timezone": "Europe/London",
-  "count": 152,
+  "count": 153,
   "items": [
     {
       "path": "reports/2026-08-05-crossword-mini-0025.html",
@@ -59,6 +59,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": ".....o..................."
+    },
+    {
+      "path": "reports/2026-08-05-ocean-oxygen-planetary-boundary.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Scientists propose ocean oxygen loss as a new planetary boundary",
+      "standfirst": "A peer-reviewed review argues aquatic deoxygenation belongs alongside climate change and biodiversity loss on the list of processes that keep Earth liveable. The open ocean has already lost more than 2% of its oxygen since 1960, mostly o…",
+      "date": "2026-08-05",
+      "read": "medium",
+      "thumb": "",
+      "stat": ">2",
+      "statUnit": "%",
+      "statLabel": "oxygen lost",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-04-crossword-mini-0024.html",

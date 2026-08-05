@@ -1,9 +1,23 @@
 {
-  "built": "2026-08-05T15:01:49.819Z",
+  "built": "2026-08-05T20:55:50.971Z",
   "today": "2026-08-05",
   "timezone": "Europe/London",
-  "count": 153,
+  "count": 154,
   "items": [
+    {
+      "path": "reports/2026-08-05-cme-arrival-forecast-error.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Ten years of solar-storm forecasts have moved the arrival-time error by 1.2 hours",
+      "standfirst": "Across 1,702 logged predictions of when a coronal mass ejection would reach Earth, the average miss is 13.2 hours. The scoreboard's first five years averaged 14.0; the five and a half years since, 12.8.",
+      "date": "2026-08-05",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "13.2",
+      "statUnit": "h",
+      "statLabel": "mean error",
+      "mask": ""
+    },
     {
       "path": "reports/2026-08-05-crossword-mini-0025.html",
       "kind": "puzzle",

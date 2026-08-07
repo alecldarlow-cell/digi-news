@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-07T04:18:06.741Z",
+  "built": "2026-08-07T06:04:59.026Z",
   "today": "2026-08-07",
   "timezone": "Europe/London",
-  "count": 162,
+  "count": 165,
   "items": [
     {
       "path": "reports/2026-08-07-crossword-mini-0027.html",
@@ -61,6 +61,34 @@
       "mask": "..o......................"
     },
     {
+      "path": "reports/2026-08-07-trace-ghost-ancestors.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Four episodes of interbreeding — and two partners no one has ever sequenced",
+      "standfirst": "A new method reads ancient interbreeding out of the DNA of living people alone, with no archaic genome to compare against. It recovers the known Neanderthal and Denisovan signals, and finds two more — from lineages that have no fossil, n…",
+      "date": "2026-08-07",
+      "read": "5 min",
+      "thumb": "",
+      "stat": "2",
+      "statUnit": "%",
+      "statLabel": "of the genome",
+      "mask": ""
+    },
+    {
+      "path": "reports/2026-08-06-amazon-lidar-population-estimate.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "How 235 earthworks become three million people",
+      "standfirst": "A laser survey of 4,497 square kilometres of Amazonian rainforest documented 432 earthworks, 396 of them previously unknown. Turning that into a peak population of 1.25 to 3 million takes five multiplications — and the last one can move…",
+      "date": "2026-08-06",
+      "read": "long",
+      "thumb": "",
+      "stat": "396",
+      "statUnit": "",
+      "statLabel": "new earthworks",
+      "mask": ""
+    },
+    {
       "path": "reports/2026-08-06-crossword-mini-0026.html",
       "kind": "puzzle",
       "topic": "Crossword",
@@ -115,6 +143,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": ".....................o..."
+    },
+    {
+      "path": "reports/2026-08-06-taiwan-heaven-sword-lidar-funnel.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Taiwan screened 57,065 laser leads to find one tree. The laser still read it low.",
+      "standfirst": "Airborne LiDAR flagged tens of thousands of possible giants across Taiwan, most of them ordinary trees perched on cliffs. Volunteers discarded nine in ten. On the giants that survived the filter, the model's remaining error mostly ran th…",
+      "date": "2026-08-06",
+      "read": "short",
+      "thumb": "",
+      "stat": "84.1",
+      "statUnit": "m",
+      "statLabel": "tallest tree",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-05-cme-arrival-forecast-error.html",

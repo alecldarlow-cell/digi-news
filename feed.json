@@ -1,9 +1,23 @@
 {
-  "built": "2026-08-08T03:15:42.379Z",
+  "built": "2026-08-08T05:58:11.449Z",
   "today": "2026-08-08",
   "timezone": "Europe/London",
-  "count": 170,
+  "count": 172,
   "items": [
+    {
+      "path": "reports/2026-08-08-clacton-binface-odds.html",
+      "kind": "report",
+      "topic": "UK politics",
+      "headline": "Bookmakers price Count Binface near 10/1 in Clacton. Polymarket prices him at 1%.",
+      "standfirst": "Fixed-odds firms and the largest prediction market differ by close to a factor of ten on Nigel Farage's satirical challenger, while agreeing almost exactly on Farage. The only poll of Clacton voters puts Binface 53 points behind.",
+      "date": "2026-08-08",
+      "read": "~5 min",
+      "thumb": "",
+      "stat": "0.6",
+      "statUnit": "%",
+      "statLabel": "best share",
+      "mask": ""
+    },
     {
       "path": "reports/2026-08-08-crossword-mini-0028.html",
       "kind": "puzzle",
@@ -17,6 +31,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "#.......................#"
+    },
+    {
+      "path": "reports/2026-08-08-eclipse-path-population-totality.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Totality lasts longest where almost nobody lives",
+      "standfirst": "An estimated 15.2 million residents lie inside the path of the 12 August total solar eclipse. Nearly all of them are in Spain, at the end of the track, where the eclipsed Sun sits low over the horizon and no place gets two full minutes.",
+      "date": "2026-08-08",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "15.2",
+      "statUnit": "M",
+      "statLabel": "residents",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-08-llm-emergent-hiring-bias.html",

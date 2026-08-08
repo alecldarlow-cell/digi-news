@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-08T05:58:11.449Z",
+  "built": "2026-08-08T19:19:09.290Z",
   "today": "2026-08-08",
   "timezone": "Europe/London",
-  "count": 172,
+  "count": 173,
   "items": [
     {
       "path": "reports/2026-08-08-clacton-binface-odds.html",
@@ -101,6 +101,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": ".................o......."
+    },
+    {
+      "path": "reports/2026-08-08-uk-party-fragmentation.html",
+      "kind": "report",
+      "topic": "UK politics",
+      "headline": "Current polls imply a more fragmented party system than any postwar election",
+      "standfirst": "The effective number of parties implied by early-August voting-intention polls is between 5.2 and 5.6. At the 2024 general election, the postwar record, it was 4.70; in 1951 it was 2.14. Polls measure stated intention, not votes cast.",
+      "date": "2026-08-08",
+      "read": "medium",
+      "thumb": "",
+      "stat": "5.41",
+      "statUnit": "",
+      "statLabel": "parties",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-07-crossword-mini-0027.html",

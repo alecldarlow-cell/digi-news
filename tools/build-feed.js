@@ -116,7 +116,7 @@ function mtimeDate(p) {
 // The front-page chips are only useful if one beat has exactly one label.
 // Canonical list; anything not in it is kept verbatim and reported, so a
 // genuinely new beat is never silently mangled into the wrong bucket.
-const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword'];
+const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword', 'Word'];
 const TOPIC_ALIASES = {
   'politics': 'UK politics', 'westminster': 'UK politics', 'uk politics': 'UK politics',
   'economics': 'Economy', 'economy': 'Economy', 'money': 'Economy', 'business': 'Economy',
@@ -126,11 +126,12 @@ const TOPIC_ALIASES = {
   'science': 'Science', 'physics': 'Science', 'energy': 'Science',
   'medicine': 'Medicine', 'health': 'Medicine',
   'society': 'Society', 'world': 'World',
-  // The two puzzle beats. They're real chips, not strays — without them every
+  // The three puzzle beats. They're real chips, not strays — without them every
   // puzzle logs a vocabulary warning on every build, which buries the notes
   // that actually need reading.
   'logic': 'Logic', 'lexidoku': 'Logic', 'doku': 'Logic',
-  'crossword': 'Crossword', 'mini': 'Crossword'
+  'crossword': 'Crossword', 'mini': 'Crossword',
+  'word': 'Word', 'link': 'Word'
 };
 
 function canonTopic(raw, rel, warnings) {
@@ -182,10 +183,25 @@ function heroStat(html) {
 // puzzle file's puzzle object — never hand-drawn, and never a spoiler: only the
 // SHAPE travels (blocks and pre-locked cells), never a letter.
 //   #  black square      L  pre-locked cell (LexiDoku)      .  to be filled
-// Returns a 25- or 36-char string (5x5 or 6x6), or '' if the object can't be
-// read. Mask alphabet: '#' block, 'L' pre-locked, 'o' free opening, '.' fillable.
+// Returns a 16-, 25- or 36-char string (4x4 Link, 5x5, 6x6), or '' if the
+// object can't be read. Mask alphabet: '#' block, 'L' pre-locked, 'o' free opening, '.' fillable.
 // the card falls back to the Play glyph rather than inventing a grid.
 function puzzleMask(html, rel, warnings) {
+  // Link is the one type with no grid: sixteen loose chips, four groups of four.
+  // It gets a 16-char all-fillable mask so the card draws a 4x4 of chips — a
+  // shape no other type has, which is the whole job of the tile. Nothing about
+  // the grouping travels: a Link has no per-puzzle shape to leak, so every Link
+  // tile is deliberately identical and identifies the TYPE, not the puzzle.
+  // Checked before the grid probe so a Link never trips the no-grid warning.
+  const lg = html.match(/\bgroups\s*:\s*\[[\s\S]*?\n\s*\],/);
+  if (lg) {
+    const members = lg[0].match(/\bmembers\s*:\s*\[[^\]]*\]/g) || [];
+    const count = members.reduce((n, m) => n + (m.match(/"[^"]*"|'[^']*'/g) || []).length, 0);
+    if (members.length === 4 && count === 16) return '.'.repeat(16);
+    warnings.push(`${rel} — groups parsed as ${members.length} group(s) / ${count} tile(s), expected 4 and 16; card falls back to the Play tile`);
+    return '';
+  }
+
   const g = html.match(/\bgrid\s*:\s*(\[\s*\[[\s\S]*?\]\s*\])/);
   if (!g) { warnings.push(`${rel} — no grid found in the puzzle object; card falls back to the Play tile`); return ''; }
 

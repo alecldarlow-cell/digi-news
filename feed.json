@@ -1,5 +1,5 @@
 {
-  "built": "2026-08-09T07:03:00.709Z",
+  "built": "2026-08-09T07:03:18.584Z",
   "today": "2026-08-09",
   "timezone": "Europe/London",
   "count": 191,
@@ -72,7 +72,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0003.html",
@@ -86,7 +86,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0004.html",
@@ -100,7 +100,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0005.html",
@@ -114,7 +114,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0006.html",
@@ -128,7 +128,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0007.html",
@@ -142,7 +142,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0008.html",
@@ -156,7 +156,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0009.html",
@@ -170,7 +170,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0010.html",
@@ -184,7 +184,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0011.html",
@@ -198,7 +198,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0012.html",
@@ -212,7 +212,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0013.html",
@@ -226,7 +226,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0014.html",
@@ -240,7 +240,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/digi-link-0015.html",
@@ -254,7 +254,7 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
-      "mask": ""
+      "mask": "................"
     },
     {
       "path": "reports/2026-08-08-clacton-binface-odds.html",

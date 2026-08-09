@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-09T07:15:18.963Z",
+  "built": "2026-08-09T07:25:17.513Z",
   "today": "2026-08-09",
   "timezone": "Europe/London",
-  "count": 177,
+  "count": 178,
   "items": [
     {
       "path": "reports/2026-08-09-crossword-mini-0029.html",
@@ -59,6 +59,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "..........o.............."
+    },
+    {
+      "path": "reports/2026-08-09-word-link-0000.html",
+      "kind": "puzzle",
+      "topic": "Word",
+      "headline": "Link 0000",
+      "standfirst": "Sixteen tiles, four hidden groups, four mistakes. Three of them are lying to you about which group they're in.",
+      "date": "2026-08-09",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "................"
     },
     {
       "path": "reports/2026-08-08-clacton-binface-odds.html",

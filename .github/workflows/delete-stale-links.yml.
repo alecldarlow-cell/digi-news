@@ -1,0 +1,90 @@
+name: Delete stale Link files
+
+# ---------------------------------------------------------------------------
+# ONE-SHOT. Delete this workflow file once it has run.
+#
+# The fourteen on-demand Link files (reports/digi-link-0002.html …
+# digi-link-0015.html) were superseded by dated ones
+# (reports/YYYY-MM-DD-word-link-####.html). Because the filenames changed, an
+# upload cannot overwrite them — they have to be deleted, and they sort at
+# positions ~1667-1680 of reports/, past GitHub's 1,000-entry web tree limit,
+# so there is no way to reach them in the browser.
+#
+# Defaults to a DRY RUN. Tick "apply" to actually commit the deletions.
+# The deletion push triggers build-feed.yml, which rebuilds feed.json.
+# ---------------------------------------------------------------------------
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Apply the deletions (leave unticked for a dry run)'
+        type: boolean
+        default: false
+      include_strays:
+        description: 'Also delete the three other undated strays (digi-doku-0004, digi-path-0002, DP-SWEEP-2026-07-17)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: delete-stale-links
+  cancel-in-progress: false
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Work out what would go
+        id: plan
+        run: |
+          set -euo pipefail
+          : > to-delete.txt
+          for n in 0002 0003 0004 0005 0006 0007 0008 0009 0010 0011 0012 0013 0014 0015; do
+            echo "reports/digi-link-$n.html" >> to-delete.txt
+          done
+          if [ "${{ inputs.include_strays }}" = "true" ]; then
+            echo "reports/digi-doku-0004.html"        >> to-delete.txt
+            echo "reports/digi-path-0002.html"        >> to-delete.txt
+            echo "reports/DP-SWEEP-2026-07-17.html"   >> to-delete.txt
+          fi
+
+          echo "--- planned deletions ---"
+          missing=0
+          while read -r f; do
+            if [ -f "$f" ]; then echo "  present  $f"; else echo "  ABSENT   $f"; missing=$((missing+1)); fi
+          done < to-delete.txt
+          echo "--- $(wc -l < to-delete.txt) listed, $missing already absent ---"
+
+          # A replacement must exist for every Link removed, or this deletes content.
+          have=$(ls reports/ | grep -c -- '-word-link-' || true)
+          echo "dated replacements present: $have"
+          if [ "$have" -ne 14 ]; then
+            echo "::error::expected 14 dated word-link files in reports/, found $have — upload the new batch first"
+            exit 1
+          fi
+
+      - name: Delete and commit
+        if: ${{ inputs.apply }}
+        run: |
+          set -euo pipefail
+          git config user.name  "digi-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          while read -r f; do
+            [ -f "$f" ] && git rm --quiet "$f" || true
+          done < to-delete.txt
+          rm -f to-delete.txt
+          if git diff --staged --quiet; then
+            echo "nothing to delete — already clean"
+          else
+            git commit -m "chore: remove undated Link files superseded by the dated batch"
+            git push
+          fi
+
+      - name: Dry run notice
+        if: ${{ !inputs.apply }}
+        run: echo "DRY RUN — nothing deleted. Re-run with 'apply' ticked to commit."

@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-10T03:42:41.984Z",
+  "built": "2026-08-10T08:12:54.743Z",
   "today": "2026-08-10",
   "timezone": "Europe/London",
-  "count": 183,
+  "count": 186,
   "items": [
     {
       "path": "reports/2026-08-10-crossword-mini-0030.html",
@@ -61,6 +61,20 @@
       "mask": ".......o................."
     },
     {
+      "path": "reports/2026-08-10-never-married-cohabitation-ons-2025.html",
+      "kind": "report",
+      "topic": "Society",
+      "headline": "More adults have never married, and most of them do not live with a partner either",
+      "standfirst": "New ONS figures for England and Wales show 34.9% of adults have never married or formed a civil partnership, up from 32.6% ten years ago. The usual assumption is that they are living together instead. Most are not.",
+      "date": "2026-08-10",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "34.9",
+      "statUnit": "%",
+      "statLabel": "never married",
+      "mask": ""
+    },
+    {
       "path": "reports/2026-08-10-word-link-0002.html",
       "kind": "puzzle",
       "topic": "Word",
@@ -87,6 +101,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "....#...............#...."
+    },
+    {
+      "path": "reports/2026-08-09-el-nino-oni-roni-index-switch.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "NOAA changed how it measures El Niño — at this stage, that moves 2026 from first place to fourth",
+      "standfirst": "Measured against a fixed 30-year average, the central Pacific has just had its warmest May–July since 1950. Measured against the rest of the tropical ocean — NOAA's official method since February — three past El Niños were warmer at the…",
+      "date": "2026-08-09",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "+0.98",
+      "statUnit": "°C",
+      "statLabel": "official index",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-09-logic-doku-0027.html",
@@ -129,6 +157,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "..........o.............."
+    },
+    {
+      "path": "reports/2026-08-09-prenatal-paracetamol-null-line.html",
+      "kind": "report",
+      "topic": "Medicine",
+      "headline": "Paracetamol showed no effect during pregnancy — and an impossible one before it",
+      "standfirst": "Children exposed in the womb were no more likely to be diagnosed with autism or ADHD than their own brothers and sisters. But the same records showed a raised risk among mothers who took paracetamol before they conceived — pills that nev…",
+      "date": "2026-08-09",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "43.3",
+      "statUnit": "%",
+      "statLabel": "of pregnancies",
+      "mask": ""
     },
     {
       "path": "reports/2026-08-09-word-link-0000.html",

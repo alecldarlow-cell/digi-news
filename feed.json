@@ -1,8 +1,8 @@
 {
-  "built": "2026-08-26T02:55:41.527Z",
+  "built": "2026-08-26T07:25:47.736Z",
   "today": "2026-08-26",
   "timezone": "Europe/London",
-  "count": 263,
+  "count": 266,
   "items": [
     {
       "path": "reports/2026-08-26-crossword-mini-0046.html",
@@ -61,6 +61,20 @@
       "mask": "...................o................"
     },
     {
+      "path": "reports/2026-08-26-word-link-0018.html",
+      "kind": "puzzle",
+      "topic": "Word",
+      "headline": "Link 0018",
+      "standfirst": "Sixteen tiles, four hidden groups, four mistakes. Three of them are lying to you about which group they're in.",
+      "date": "2026-08-26",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "................"
+    },
+    {
       "path": "reports/2026-08-25-crossword-mini-0045.html",
       "kind": "puzzle",
       "topic": "Crossword",
@@ -117,6 +131,20 @@
       "mask": "..............o....................."
     },
     {
+      "path": "reports/2026-08-25-word-link-0017.html",
+      "kind": "puzzle",
+      "topic": "Word",
+      "headline": "Link 0017",
+      "standfirst": "Sixteen tiles, four hidden groups, four mistakes. One of them is lying to you about which group it's in.",
+      "date": "2026-08-25",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "................"
+    },
+    {
       "path": "reports/2026-08-24-crossword-mini-0044.html",
       "kind": "puzzle",
       "topic": "Crossword",
@@ -171,6 +199,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "....................o..............."
+    },
+    {
+      "path": "reports/2026-08-24-word-link-0016.html",
+      "kind": "puzzle",
+      "topic": "Word",
+      "headline": "Link 0016",
+      "standfirst": "Sixteen tiles, four hidden groups, four mistakes. Three of them are lying to you about which group they're in.",
+      "date": "2026-08-24",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": "................"
     },
     {
       "path": "reports/2026-08-23-crossword-mini-0043.html",

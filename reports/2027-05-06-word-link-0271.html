@@ -1,0 +1,744 @@
+<!doctype html><html lang="en-GB"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="dn:headline"   content="Link 0271">
+<meta name="dn:standfirst" content="Sixteen tiles, four hidden groups, four mistakes. Two of them are lying to you about which group they're in.">
+<meta name="dn:topic"      content="Word">
+<meta name="dn:date"       content="2027-05-06">
+<meta name="dn:kind"       content="puzzle">
+<meta name="dn:read"       content="~4 min">
+<meta name="theme-color" content="#2E5BFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Digi Link">
+<title>Digi Puzzles — The Digi Link</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Digi Puzzles house style (shared chrome, unchanged) ---------- */
+:root{
+  --paper:#EDEEF2; --card:#FFFFFF; --ink:#141726; --ink-soft:#5A5F73;
+  --line:#141726; --brand:#2E5BFF; --brand-deep:#1B3B9E;
+  --active:#FFD54A; --active-word:#FFF0B8; --good:#1F9E6B; --bad:#E4483B;
+  --radius:14px; --r:11px;
+  /* one shadow language: a resting chip barely leaves the paper, a hovered one
+     lifts. Nothing on this page is outlined in ink except the header rule and
+     the four mistake pips. */
+  --sh-rest:0 1px 2px rgba(20,23,38,.07),0 0 0 1px rgba(20,23,38,.055);
+  --sh-hover:0 4px 12px rgba(20,23,38,.11),0 0 0 1px rgba(20,23,38,.07);
+  --mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
+  --sans:"Space Grotesk",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  /* the four group colours, easiest → hardest */
+  --g1:#1F9E6B; --g2:#2E5BFF; --g3:#FFD54A; --g4:#141726;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+  line-height:1.45;-webkit-font-smoothing:antialiased;padding:18px;display:flex;justify-content:center}
+.app{width:100%;max-width:560px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:11px;border-bottom:1.5px solid var(--ink);padding-bottom:10px}
+.masthead{display:flex;align-items:center;gap:10px}
+.mono-mark{flex:0 0 auto;width:32px;height:32px;border-radius:7px;background:var(--brand);color:#fff;
+  font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.04em;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.20),0 2px 6px rgba(46,91,255,.30)}
+.mh-text{display:flex;flex-direction:column;line-height:1.05}
+.mh-name{font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.mh-name .accent{color:var(--brand)}
+.mh-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px}
+/* the streak is reference, not a badge — it reads, it doesn't announce */
+.streakbox{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);text-align:right;line-height:1.7;white-space:nowrap}
+.streakbox b{color:var(--ink);font-size:12.5px}
+.meta{font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.08em;margin-bottom:16px;display:flex;gap:9px;align-items:center}
+/* solid cobalt is reserved for the DP mark and the Submit button — the band
+   label is a tint, so the eye isn't asked to rank three equal blues */
+.tag{background:rgba(46,91,255,.11);color:var(--brand);border-radius:999px;padding:2.5px 9px;text-transform:uppercase;font-weight:700;font-size:9.5px;letter-spacing:.12em}
+#timer{margin-left:auto;color:var(--ink);font-weight:700}
+#rank{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bad);font-weight:700}
+main{position:relative;display:flex;flex-direction:column;align-items:center;gap:0}
+
+/* ---------- the board ---------- */
+/* --tf is the ONE tile font size, set once in JS from the longest tile in the
+   set. Every tile shares it — ragged per-word sizing reads as a bug, not a
+   design. */
+.board{width:min(100%,420px);display:flex;flex-direction:column;gap:7px;--tf:14px}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{position:relative;min-width:0;aspect-ratio:1/.74;border:0;border-radius:var(--r);
+  background:var(--card);color:var(--ink);font-family:var(--sans);font-weight:700;
+  font-size:var(--tf);line-height:1.05;letter-spacing:.025em;
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:2px 5px;
+  overflow:hidden;
+  cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+  box-shadow:var(--sh-rest);
+  transition:background .2s ease,color .2s ease,box-shadow .16s ease,transform .16s cubic-bezier(.2,.9,.25,1.1)}
+@media(hover:hover){.tile:hover{box-shadow:var(--sh-hover);transform:translateY(-1.5px)}}
+/* the house signature: marigold marks the live choice, as in the Mini and the
+   Doku. A chosen chip is HELD — it draws in and gives up its lift, so a
+   selection reads as picked up rather than merely tinted. */
+/* Solid marigold is the rank-3 GROUP colour, so a selection must not also be
+   solid marigold — one hue, two meanings, sitting inches apart on the board.
+   A held chip is the pale companion with a marigold ring: unmistakably the
+   marigold move, never mistakable for a solved group. */
+.tile.sel{background:var(--active-word);box-shadow:inset 0 0 0 2.5px var(--active);transform:scale(.955)}
+@media(hover:hover){.tile.sel:hover{background:var(--active-word);box-shadow:inset 0 0 0 2.5px var(--active);transform:scale(.955)}}
+.tile .tt{flex:0 0 auto;white-space:nowrap;display:inline-block}
+/* A wrong guess used to be a small shake and one pip quietly hollowing out —
+   easy to miss entirely on a phone. It now answers on three channels at once:
+   the four chips go red and wobble, the pip you just spent flashes as it goes,
+   and the device taps back. Redundant on purpose: any one of them can be
+   missed, all three together cannot. */
+.tile.miss{background:#FBE3E0;color:var(--bad);box-shadow:inset 0 0 0 2.5px var(--bad);
+  animation:wobble .52s cubic-bezier(.36,.07,.19,.97)}
+@keyframes wobble{
+  0%,100%{transform:scale(.955) rotate(0)}
+  15%{transform:scale(.955) translateX(-7px) rotate(-1.6deg)}
+  30%{transform:scale(.955) translateX(7px) rotate(1.6deg)}
+  45%{transform:scale(.955) translateX(-5px) rotate(-1.1deg)}
+  60%{transform:scale(.955) translateX(5px) rotate(1.1deg)}
+  78%{transform:scale(.955) translateX(-2px) rotate(-.4deg)}}
+/* THE SETTLE — this type's signature beat. A correct four turns its group's
+   colour in sequence, left to right, and only then collapses into the band.
+   The flip is what teaches the colour ladder: it names the group before the
+   label does, so the ranks stop being decoration. */
+.tile.hit{color:#fff;transform:scale(1);box-shadow:var(--sh-rest)}
+.tile.hit.g1{background:var(--g1)} .tile.hit.g2{background:var(--g2)}
+.tile.hit.g3{background:var(--g3);color:var(--ink)} .tile.hit.g4{background:var(--g4)}
+
+/* a solved group: one settled band. Bands stack in the order you found them —
+   the board is a record of your solve, not a tidy difficulty ladder. */
+/* CONSERVATION OF SPACE: a band is exactly as tall as the row of four chips it
+   replaced (--bh, set from the measured chip height). So the board never
+   collapses as you solve — the play area holds still, the four chips become one
+   band in the same footprint, and the flight only has to squash horizontally. */
+.band{min-height:var(--bh,0);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border-radius:var(--r);padding:10px 12px;text-align:center;color:#fff;box-shadow:var(--sh-rest)}
+.band .bname{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;opacity:.78}
+.band .bmem{font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:.015em;margin-top:6px;
+  line-height:1.2;white-space:nowrap;overflow:hidden;max-width:100%}
+.band .bmem span{display:inline-block;white-space:nowrap}
+.band.r1{background:var(--g1)} .band.r2{background:var(--g2)}
+.band.r3{background:var(--g3);color:var(--ink)} .band.r4{background:var(--g4)}
+.band.r3 .bname{opacity:.58}   /* ink at 78% on marigold read olive, not quiet */
+/* only the band just solved animates; a re-render must not replay the others */
+.band.new{animation:bandIn .42s cubic-bezier(.2,.9,.25,1.06);transform-origin:top center}
+@keyframes bandIn{from{transform:scaleY(.66);opacity:0}to{transform:none;opacity:1}}
+.band.new .bname,.band.new .bmem{animation:bandText .32s ease .12s both}
+@keyframes bandText{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* ---------- lives + controls ---------- */
+/* The four pips are the only countdown on the page, so they get the page's
+   only hard ink and sit centred under the board where the eye lands after a
+   wrong guess. */
+.lives{display:flex;align-items:center;justify-content:center;gap:9px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:16px}
+.pips{display:flex;gap:6px}
+.pip{width:9px;height:9px;border-radius:50%;background:var(--ink);transition:background .25s ease,transform .25s cubic-bezier(.2,.9,.25,1.1)}
+.pip.gone{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(20,23,38,.18);transform:scale(.8)}
+.pip.lost{animation:piplost .62s ease both}
+@keyframes piplost{
+  0%{background:var(--bad);box-shadow:none;transform:scale(1.65)}
+  45%{background:var(--bad);box-shadow:none;transform:scale(.7)}
+  100%{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(20,23,38,.18);transform:scale(.8)}}
+.msg{min-height:18px;margin:14px 0 0;font-size:14px;color:var(--ink-soft);text-align:center;
+  font-family:var(--mono);letter-spacing:.04em;transition:color .15s}
+.msg.bad{color:var(--bad);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.controls{display:flex;gap:8px;align-items:center;justify-content:center;margin:10px 0 0;width:min(100%,420px)}
+button{font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:.01em;
+  border:1px solid rgba(20,23,38,.16);background:var(--card);color:var(--ink);
+  border-radius:999px;padding:11px 18px;cursor:pointer;
+  transition:background .15s,border-color .15s,color .15s,opacity .15s}
+button:hover{border-color:rgba(20,23,38,.34)}
+button.primary{background:var(--brand);color:#fff;border-color:var(--brand);padding:11px 26px}
+button.primary:hover{background:var(--brand-deep);border-color:var(--brand-deep)}
+/* Submit only turns cobalt when there is something to submit — a washed-out
+   filled button reads as broken, an outline reads as waiting. */
+button[disabled]{color:rgba(20,23,38,.42);cursor:not-allowed}
+button.primary[disabled],button.primary[disabled]:hover{background:var(--card);border-color:rgba(20,23,38,.16);color:rgba(20,23,38,.42)}
+button[disabled]:hover{border-color:rgba(20,23,38,.16);background:var(--card)}
+:focus-visible{outline:2.5px solid var(--brand);outline-offset:2px}
+/* How to play stays folded away: the board is the page, and the rules are
+   there for the first visit, not every visit. */
+.how{width:min(100%,420px);margin-top:26px;border-top:1px solid rgba(20,23,38,.10);padding-top:12px}
+.how summary{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);cursor:pointer;list-style:none;display:flex;align-items:center;gap:7px}
+.how summary::-webkit-details-marker{display:none}
+.how summary::after{content:"+";font-size:13px;line-height:1}
+.how[open] summary::after{content:"\2212"}
+.how summary:hover{color:var(--ink)}
+.how p{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin:10px 0 0}
+.how b{color:var(--ink);font-weight:600}
+/* the flight: four fixed-position stand-ins for the correct chips, which
+   converge on the band's footprint and fuse into it */
+.ghost{position:fixed;z-index:50;border-radius:var(--r);pointer-events:none;
+  box-shadow:var(--sh-rest);transform-origin:center center;will-change:transform,opacity}
+.ghost.r1{background:var(--g1)} .ghost.r2{background:var(--g2)}
+.ghost.r3{background:var(--g3)} .ghost.r4{background:var(--g4)}
+.band.arriving{opacity:0}
+/* the fusion needs a full stop — one short swell as the four become one */
+.band.landed{animation:landpulse .34s cubic-bezier(.2,.9,.25,1.2)}
+@keyframes landpulse{0%{transform:scale(1)}40%{transform:scale(1.025)}100%{transform:scale(1)}}
+.gate-fail{font-family:var(--mono);font-size:13px;color:var(--bad);padding:24px;line-height:1.7}
+
+/* ---------- win celebration (shared, unchanged) ---------- */
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60;display:none}
+.confetti.on{display:block}
+.modal{position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:20px;
+  background:rgba(20,23,38,.42);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.modal.on{display:flex}
+/* the results card was still speaking the old hard-shadow dialect — it now uses
+   the same one shadow language as the chips and bands */
+.modalcard{width:100%;max-width:344px;background:var(--card);border:0;border-radius:18px;
+  padding:24px 22px 20px;text-align:center;
+  box-shadow:0 24px 64px rgba(20,23,38,.32),0 0 0 1px rgba(20,23,38,.06);
+  animation:rise .44s cubic-bezier(.2,.9,.25,1.1)}
+@keyframes rise{from{transform:translateY(22px) scale(.94);opacity:0}to{transform:none;opacity:1}}
+.modalcard .check{width:48px;height:48px;margin:0 auto 12px;border-radius:50%;background:var(--good);color:#fff;
+  font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.modalcard .check.miss{background:var(--bad)}
+.modalcard h2{margin:0 0 3px;font-size:25px;letter-spacing:-.015em}
+.modalcard .sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px}
+.statrow{display:flex;gap:8px;margin-bottom:16px}
+.stat{flex:1;border:0;border-radius:10px;padding:10px 4px;background:var(--paper)}
+.stat b{display:block;font-family:var(--mono);font-size:21px;color:var(--ink);line-height:1.15}
+.stat span{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.modalbtns{display:flex;gap:8px}
+.modalbtns button{flex:1;margin:0}
+@media(prefers-reduced-motion:reduce){
+  .band.new,.modalcard{animation:none}
+  .band.new .bname,.band.new .bmem{animation:none}
+  .tile.miss,.band.landed{animation:none}
+  .pip.lost{animation:none}
+  .tile,.pip,button{transition:none}
+}
+footer{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(20,23,38,.30);margin-top:18px;text-align:center}
+
+/* ---------- APP MODE — no keyboard to fit, so the board takes the room ---------- */
+html.app-mode,html.app-mode body{height:100%;overflow:hidden;overscroll-behavior:none}
+html.app-mode body{padding:0;display:block}
+html.app-mode .app{height:100vh;height:100dvh;height:100svh;max-width:520px;margin:0 auto;
+  display:flex;flex-direction:column;padding:calc(14px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom))}
+html.app-mode header{margin-bottom:11px;padding-bottom:11px}
+html.app-mode .mono-mark{width:28px;height:28px;font-size:12px}
+html.app-mode .mh-name{font-size:17px}
+html.app-mode .streakbox{font-size:12px;padding:3px 10px}
+html.app-mode .meta{margin-bottom:18px;font-size:11px}
+/* On a phone, main gets all the leftover height. Centring its contents left a
+   void above the board and another below the buttons — the board floated in the
+   middle of the screen instead of owning it. The board now takes the slack and
+   the tiles grow into it. */
+html.app-mode main{flex:1 1 auto;min-height:0;width:100%;gap:0;justify-content:flex-start}
+html.app-mode .board{flex:1 1 auto;min-height:0;justify-content:flex-start}
+html.app-mode .row{flex:0 0 auto}
+html.app-mode .tile{aspect-ratio:auto;height:var(--th,74px)}
+/* board pinned to the top of the play area, controls pinned to the bottom, and
+   the slack lives in ONE deliberate gap between them rather than floating the
+   board in the middle of two */
+html.app-mode .lives{margin-top:auto;padding-top:16px}
+html.app-mode .controls{margin:12px 0 2px}
+html.app-mode .how,html.app-mode footer{display:none}
+html.app-mode .msg{min-height:18px;margin:12px 0 0;font-size:12.5px}
+html.app-mode .controls{margin:10px 0 0}
+html.app-mode button{padding:12px 18px}
+html.app-mode button.primary{padding:12px 28px}
+@media (max-height:660px){
+  html.app-mode .app{padding-top:calc(8px + env(safe-area-inset-top))}
+  html.app-mode header{margin-bottom:7px;padding-bottom:7px}
+  html.app-mode .mh-eyebrow{display:none}
+  html.app-mode .meta{margin-bottom:10px}
+}
+</style></head><body><div class="app">
+<header>
+  <div class="masthead">
+    <span class="mono-mark" aria-hidden="true">DP</span>
+    <span class="mh-text">
+      <span class="mh-name"><b>Digi</b><span class="accent">Puzzles</span></span>
+      <span class="mh-eyebrow">The Digi Link</span>
+    </span>
+  </div>
+  <div class="streakbox">streak <b id="streak">0</b> · best <b id="best">0</b></div>
+</header>
+<div class="meta"><span id="pid">DP·LINK·0271</span><span>·</span><span class="tag" id="pband">medium</span><span id="rank"></span><span id="timer">00:00</span></div>
+<main>
+  <div id="board" class="board" aria-label="Link board"></div>
+  <div class="lives">mistakes left <span id="pips" class="pips"></span></div>
+  <div id="msg" class="msg"></div>
+  <div class="controls">
+    <button id="shuffle">Shuffle</button>
+    <button id="clear">Deselect</button>
+    <button id="submit" class="primary" disabled>Submit</button>
+  </div>
+  <details class="how">
+    <summary>How to play</summary>
+    <p><b>Find the four groups of four.</b> Every tile belongs to exactly one group,
+    but several are dressed as members of another — that's the whole puzzle. Pick four,
+    then Submit. Get three right and you'll be told you're one away. Four mistakes ends it,
+    and guessing the same four twice costs nothing. Groups run easiest to hardest:
+    <b>green</b>, <b>cobalt</b>, <b>marigold</b>, <b>ink</b>.</p>
+  </details>
+</main>
+<footer>The Digi Link · gated at build, and again on load</footer>
+<canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+<div id="winModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+  <div class="modalcard">
+    <div class="check" id="endIcon" aria-hidden="true">✓</div>
+    <h2 id="winTitle">Linked!</h2>
+    <div class="sub" id="winSub">The Digi Link</div>
+    <div class="statrow">
+      <div class="stat"><b id="winTime">00:00</b><span>time</span></div>
+      <div class="stat"><b id="winStreak">0</b><span>streak</span></div>
+      <div class="stat"><b id="winBest">0</b><span>best</span></div>
+    </div>
+    <div class="modalbtns">
+      <button id="winShare">Share result</button>
+      <button id="winNew" class="primary">Done</button>
+    </div>
+  </div>
+</div>
+<script>
+/* ================= THE PUZZLE =================
+   Authored object. Groups are ranked 1 (easiest) → 4 (hardest); the rank drives
+   the band colour. The board is dealt shuffled, so member order here is source
+   order only. */
+const SAMPLE = {
+  type:"link", id:"DP·LINK·0271", band:"medium",
+  groups:[
+    {rank:1, name:"Gemstones",       members:["DIAMOND","PEARL","AMBER","ONYX"]},
+    {rank:2, name:"Shades of white", members:["IVORY","CHALK","BONE","OYSTER"]},
+    {rank:3, name:"Ways to sparkle", members:["GLITTER","TWINKLE","SHIMMER","GLISTEN"]},
+    {rank:4, name:"___ CRAFT",       members:["AIR","MINE","SPACE","WITCH"]}
+  ],
+  /* The trap ledger: every tile the author knows reads as a member of another
+     group, and the group it must NOT land in. Gated, so a trap can't silently
+     rot into a genuine ambiguity. The rule the ledger enforces: a trap is only
+     fair if the group it's tempting you away from is full of members at least
+     as well known as the trap itself. */
+  traps:[
+    {tile:"MINE",  not:"Gemstones"},
+    {tile:"WITCH", not:"Ways to sparkle"}
+  ]
+};
+
+/* ================= THE SHIP GATE =================
+   Same rule as every Digi type: the puzzle is checked in code, at build and
+   again here at load. A tampered or malformed Link must not render. */
+const BLOCKED=["anal","anus","arse","bastard","bitch","boob","bugger","bollock","clit","cock","crap","cunt","dick","dyke","fag","fuck","hooker","incest","jizz","kike","nazi","nigg","paki","penis","piss","poop","porn","prick","pube","pussy","queer","rape","retard","screw","shit","slag","slut","spunk","turd","twat","vagina","wank","whore"];
+const SENSITIVE=["ass","bra","coke","crack","damn","hell","kill","nude","sex","shag","tit","wee","willy"];
+function byGroupOf(gs,tile){return gs.find(g=>(g.members||[]).some(m=>String(m).toUpperCase()===tile));}
+function validateLink(P){
+  const c={};
+  const gs=Array.isArray(P.groups)?P.groups:[];
+  c.four_groups        = gs.length===4;
+  c.four_per_group     = gs.every(g=>Array.isArray(g.members)&&g.members.length===4);
+  const tiles=gs.flatMap(g=>g.members||[]).map(t=>String(t).trim().toUpperCase());
+  c.sixteen_tiles      = tiles.length===16;
+  c.no_duplicate_tiles = new Set(tiles).size===16;
+  c.tiles_render       = tiles.every(t=>t.length>=1&&t.length<=10&&/^[A-Z][A-Z '\-]*$/.test(t));
+  c.ranks_are_1_to_4   = JSON.stringify(gs.map(g=>g.rank).sort())==="[1,2,3,4]";
+  c.names_distinct     = new Set(gs.map(g=>String(g.name||"").toLowerCase())).size===4;
+  /* a tile printed inside its own category name would hand the group over */
+  c.no_giveaway        = gs.every(g=>(g.members||[]).every(m=>!String(g.name||"").toLowerCase().includes(String(m).toLowerCase())));
+  const clean=s=>{const x=String(s).toLowerCase();
+    if(BLOCKED.includes(x)||SENSITIVE.includes(x))return false;
+    return !BLOCKED.some(b=>x.includes(b));};
+  c.family_friendly    = tiles.every(clean)&&gs.every(g=>clean(g.name));
+  /* every declared trap must be a real tile, must not sit in the group it is
+     declared to be tempting you away from, and must name a group that exists */
+  const traps=Array.isArray(P.traps)?P.traps:[];
+  c.traps_resolve      = traps.every(t=>{
+    const tile=String(t.tile).toUpperCase(), home=byGroupOf(gs,tile);
+    return tiles.includes(tile) && home && home.name!==t.not && gs.some(g=>g.name===t.not);
+  });
+  const pass=Object.values(c).every(Boolean);
+  return {pass,checks:c};
+}
+const gate=validateLink(SAMPLE);
+if(!gate.pass){
+  document.body.innerHTML='<div class="gate-fail"><b>Ship-gate check failed — this Link will not render.</b><br><br>'+
+    Object.entries(gate.checks).map(([k,v])=>k+": "+(v?"pass":"FAIL")).join("<br>")+'</div>';
+  throw new Error("Link failed ship gate");
+}
+
+/* ================= PLAYER ================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const P=SAMPLE;
+const MAX_MISTAKES=4;
+/* ---- app mode (shared) ---- */
+const APPMODE=!!(window.matchMedia&&window.matchMedia("(pointer:coarse) and (hover:none)").matches);
+if(APPMODE)document.documentElement.classList.add("app-mode");
+const byName=new Map(); P.groups.forEach(g=>g.members.forEach(m=>byName.set(m.toUpperCase(),g)));
+
+let live=[], sel=new Set(), solved=[], mistakes=0, over=false, won=false, ranked=true, t0=0, tick=0, guesses=[], tried=new Set(), busy=false, newBand=null, bandArriving=false, bandLanded=null, justLost=false;
+
+const comboKey=ws=>[...ws].map(w=>w.toUpperCase()).sort().join("|");
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function render(){
+  const b=$("#board"); b.innerHTML="";
+  for(const g of solved){
+    const band=document.createElement("div");
+    band.className="band r"+g.rank+(g===newBand?(bandArriving?" arriving":" new"):"")+(g===bandLanded?" landed":"");
+    band.innerHTML='<div class="bname">'+g.name+'</div><div class="bmem"><span>'+g.members.join(" · ")+'</span></div>';
+    b.appendChild(band);
+  }
+  for(let r=0;r<live.length/4;r++){
+    const row=document.createElement("div"); row.className="row";
+    for(const w of live.slice(r*4,r*4+4)){
+      const t=document.createElement("button");
+      t.className="tile"+(sel.has(w)?" sel":""); t.type="button";
+      t.dataset.w=w;
+      const sp=document.createElement("span"); sp.className="tt"; sp.textContent=w;
+      t.appendChild(sp);
+      t.setAttribute("aria-pressed",String(sel.has(w)));
+      t.onclick=()=>toggle(w);
+      row.appendChild(t);
+    }
+    b.appendChild(row);
+  }
+  $("#pips").innerHTML=Array.from({length:MAX_MISTAKES},(_,i)=>{
+    const spent=i<mistakes, just=justLost&&i===mistakes-1;
+    return '<span class="pip'+(spent?" gone":"")+(just?" lost":"")+'"></span>';
+  }).join("");
+  justLost=false;
+  $("#submit").disabled=over||busy||sel.size!==4;
+  $("#clear").disabled=over||busy||sel.size===0;
+  $("#shuffle").disabled=over||busy;
+  fitBoard(); fitFont();
+}
+/* One size for the whole board, MEASURED rather than estimated. The old
+   version guessed from character count and a per-character coefficient, which
+   overflowed the moment a fallback face loaded wider than Space Grotesk. This
+   shrinks until the widest word actually fits, then stops. Memoised on tile
+   width + longest word, so tapping doesn't retrigger the search. */
+/* One unit height governs both a chip row and a band, so solving a group never
+   changes the board's height. On a phone the board is allocated the leftover
+   space and the unit is sized to fill it; on a wide screen the unit is simply
+   the chip's own height and the bands follow it. */
+let _unitW=0,_unitH=0;
+function fitBoard(){
+  const b=$("#board"); if(!b)return;
+  const rows=Math.ceil(live.length/4);
+  const bands=b.querySelectorAll(".band").length;
+  const t=b.querySelector(".tile");
+  if(t&&t.clientWidth)_unitW=t.clientWidth;
+  if(APPMODE){
+    const avail=b.clientHeight, units=rows+bands;
+    if(avail&&units){
+      /* a chip that goes portrait stops reading as a chip, so the unit is
+         capped against the chip's own width; the leftover becomes one steady
+         gap rather than a board that shrinks under you */
+      const cap=(_unitW||80)*1.22;
+      _unitH=Math.max(50,Math.min(cap,Math.floor((avail-7*(units-1))/units)));
+    }
+  }else if(t&&t.offsetHeight){
+    _unitH=t.offsetHeight;
+  }
+  if(_unitH){b.style.setProperty("--th",_unitH+"px");b.style.setProperty("--bh",_unitH+"px");}
+  fitBands(b);
+}
+/* A band's members are one line or they are nothing — a four-name list that
+   wraps reads as an accident next to three that don't. Measured per band, so a
+   long group shrinks only itself. */
+function fitBands(b){
+  b.querySelectorAll(".band").forEach(band=>{
+    const box=band.querySelector(".bmem"), sp=box&&box.firstElementChild;
+    if(!sp)return;
+    const room=band.clientWidth-26; if(room<=0)return;
+    let lo=11,hi=19,best=lo;
+    for(let i=0;i<6;i++){
+      const mid=(lo+hi)/2; box.style.fontSize=mid+"px";
+      if(sp.offsetWidth<=room){best=mid;lo=mid;}else hi=mid;
+    }
+    box.style.fontSize=best.toFixed(2)+"px";
+  });
+}
+let _fitKey="";
+function fitFont(force){
+  const b=$("#board"), tiles=$$(".tile");
+  if(!tiles.length){_fitKey="";return;}
+  const avail=tiles[0].clientWidth;
+  if(!avail)return;                                    // no layout yet
+  const maxLen=Math.max(...live.map(w=>w.length));
+  const key=avail+"|"+maxLen;
+  if(key===_fitKey&&!force)return;
+  const room=avail-12;
+  let lo=9, hi=18, best=lo;
+  for(let i=0;i<7;i++){                                // binary search to 0.07px
+    const mid=(lo+hi)/2;
+    b.style.setProperty("--tf",mid+"px");
+    const fits=tiles.every(t=>{const sp=t.querySelector(".tt");return !sp||sp.offsetWidth<=room;});
+    if(fits){best=mid;lo=mid;}else{hi=mid;}
+  }
+  b.style.setProperty("--tf",best.toFixed(2)+"px");
+  _fitKey=key;
+}
+addEventListener("resize",()=>{fitBoard();fitFont(true);});
+function toggle(w){
+  if(over||busy)return;
+  if(sel.has(w))sel.delete(w);
+  else{ if(sel.size>=4){setMsg("Four at a time");return;} sel.add(w); }
+  setMsg(""); render();
+}
+function setMsg(t,tone){const m=$("#msg"); m.className="msg"+(tone?" "+tone:""); m.textContent=t||"";}
+/* haptics, where the device offers them — silent no-op everywhere else */
+function buzz(pattern){try{if(navigator.vibrate)navigator.vibrate(pattern);}catch(e){}}
+
+function submit(){
+  if(over||busy||sel.size!==4)return;
+  /* Board order, not tap order — the share grid should read the way the board
+     read when you pressed Submit. */
+  const els=$$(".tile.sel");
+  const picked=els.map(e=>e.dataset.w);
+  /* A guess you have already made tells you nothing new, so it costs nothing.
+     Mistakes are for wrong ideas, not for mis-taps. */
+  const key=comboKey(picked);
+  if(tried.has(key)){
+    setMsg("Already tried that one");
+    els.forEach(e=>{e.classList.remove("miss");void e.offsetWidth;e.classList.add("miss");});
+    buzz(12);
+    const seen=new Set(picked);
+    setTimeout(()=>{$$(".tile").forEach(e=>{if(seen.has(e.dataset.w))e.classList.remove("miss");});},760);
+    return;
+  }
+  tried.add(key);
+  guesses.push(picked.map(w=>byName.get(w).rank));
+  const counts=new Map();
+  for(const w of picked){const g=byName.get(w); counts.set(g,(counts.get(g)||0)+1);}
+  const best=Math.max(...counts.values());
+
+  if(best===4){
+    const g=[...counts.keys()][0];
+    const commit=arriving=>{
+      solved.push(g);                       // in the order found, not by rank
+      live=live.filter(w=>!sel.has(w)); sel.clear();
+      newBand=g; bandArriving=!!arriving;
+      if(!arriving)buzz([10,40,18]);        // no flight, so the tick lands here
+      setMsg("");
+      render(); newBand=null; bandArriving=false;
+    };
+    const checkWin=()=>{ if(solved.length===4){won=true;over=true;stopTimer();finish(true);} };
+    if(reduceMotion){busy=false;commit(false);render();checkWin();return;}
+    busy=true;
+    /* THE SETTLE, beat one: the four turn their group's colour left to right,
+       and hold, so the group is legible as a group before it moves. */
+    els.forEach((e,i)=>{
+      e.style.transitionDelay=(i*80)+"ms";
+      e.classList.remove("sel"); e.classList.add("hit","g"+g.rank);
+    });
+    $("#shuffle").disabled=true; $("#clear").disabled=true; $("#submit").disabled=true;
+    setTimeout(()=>{
+      const first=els.map(e=>e.getBoundingClientRect());
+      commit(true);                          // band takes its place, still invisible
+      flyIntoBand(first,g,checkWin);
+    },80*3+300);
+    return;
+  }
+  if(best===3)setMsg("One away",  "bad");
+  else        setMsg("Not a group","bad");
+  mistakes++; justLost=true;
+  render();                       // rebuilds the tiles — so paint the miss AFTER it
+  /* three channels at once: colour, motion, touch. Redundant on purpose — any
+     one can be missed on a phone, all three together cannot. */
+  const held=new Set(picked);
+  $$(".tile").forEach(e=>{if(held.has(e.dataset.w))e.classList.add("miss");});
+  buzz(best===3?[16,80,16]:[26,60,26,60,26]);
+  setTimeout(()=>{$$(".tile").forEach(e=>e.classList.remove("miss"));},780);
+  if(mistakes>=MAX_MISTAKES){
+    over=true;stopTimer();
+    setTimeout(revealRest,420);
+  }
+}
+function revealRest(){
+  sel.clear();
+  const rest=P.groups.filter(g=>!solved.includes(g)).sort((a,b)=>a.rank-b.rank);
+  let i=0;
+  const step=()=>{
+    if(i>=rest.length){setMsg("Out of mistakes — here's the rest");finish(false);return;}
+    const g=rest[i++]; solved.push(g); newBand=g;
+    live=live.filter(w=>!g.members.includes(w)); render(); newBand=null;
+    setTimeout(step,reduceMotion?0:420);
+  };
+  step();
+}
+
+/* THE SETTLE, beat two: the four chips leave the grid and converge on the
+   band's footprint, each taking a quarter of it, then fuse as the band comes
+   up underneath. A real FLIP — first rects are measured before the commit, the
+   band's rect after it, so the flight lands exactly where the band is rather
+   than somewhere that merely looks close. Falls back to a plain reveal wherever
+   the Web Animations API or layout metrics are unavailable. */
+function flyIntoBand(first,g,done){
+  const band=$("#board .band.arriving");
+  /* the tick belongs to the landing, not the launch */
+  const finishUp=landed=>{ busy=false; bandLanded=landed?g:null; buzz([10,40,18]);
+    render(); bandLanded=null; done(); };
+  if(!band||first.length!==4||!first[0].width||typeof band.animate!=="function"){
+    if(band)band.classList.remove("arriving");
+    return finishUp(false);
+  }
+  const b=band.getBoundingClientRect();
+  if(!b.width) { band.classList.remove("arriving"); return finishUp(false); }
+  const slot=b.width/4;
+  const flights=first.map((r,i)=>{
+    const el=document.createElement("div");
+    el.className="ghost r"+g.rank;
+    el.style.left=r.left+"px"; el.style.top=r.top+"px";
+    el.style.width=r.width+"px"; el.style.height=r.height+"px";
+    document.body.appendChild(el);
+    const dx=(b.left+i*slot+slot/2)-(r.left+r.width/2);
+    const dy=(b.top+b.height/2)-(r.top+r.height/2);
+    const land="translate("+dx+"px,"+dy+"px) scale("+(slot/r.width)+","+(b.height/r.height)+")";
+    return el.animate([
+      {transform:"translate(0,0) scale(1)",opacity:1,borderRadius:"11px"},
+      {transform:land,opacity:1,borderRadius:"3px",offset:.8},
+      {transform:land,opacity:0,borderRadius:"3px"}
+    ],{duration:540,easing:"cubic-bezier(.55,0,.2,1)",fill:"forwards"});
+  });
+  band.animate([{opacity:0},{opacity:0,offset:.66},{opacity:1}],
+    {duration:540,easing:"ease-out",fill:"forwards"});
+  Promise.all(flights.map(a=>a.finished.catch(()=>{}))).then(()=>{
+    $$(".ghost").forEach(e=>e.remove());
+    band.classList.remove("arriving"); band.style.opacity="";
+    finishUp(true);
+  });
+}
+
+/* ---- timer ---- */
+function stamp(){const s=Math.floor((Date.now()-t0)/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function startTimer(){t0=Date.now();tick=setInterval(()=>{$("#timer").textContent=stamp();},250);}
+function stopTimer(){clearInterval(tick);$("#timer").textContent=stamp();}
+
+/* ---- streak (shared: advances once per calendar day on any solve) ---- */
+const KEY="digi-link-streak";
+async function store(){
+  try{if(window.storage){const r=await window.storage.get(KEY);return r?JSON.parse(r.value):null;}}catch(e){}
+  try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}
+}
+async function saveStreak(o){
+  try{if(window.storage){await window.storage.set(KEY,JSON.stringify(o));return;}}catch(e){}
+  try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}
+}
+function today(){return new Date().toISOString().slice(0,10);}
+async function recordResult(win){
+  let s=await store()||{last:null,streak:0,best:0,dates:[]};
+  const t=today();
+  if((s.dates||[]).includes(t)){refreshStreakUI(s);return;}
+  const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+  if(win){s.streak=(s.last===y)?s.streak+1:1; s.best=Math.max(s.best||0,s.streak);}
+  else s.streak=0;
+  s.last=t; s.dates=[...new Set([...(s.dates||[]),t])].slice(-90);
+  await saveStreak(s); refreshStreakUI(s); ranked=false;
+}
+async function initRanked(){
+  const s=await store();
+  ranked=!(s&&s.dates&&s.dates.includes(today()));
+  $("#rank").textContent=ranked?"":"· replay";
+  if(!ranked)setMsg("Today's result is already in — this is a replay, and nothing is recorded.");
+  refreshStreakUI(s);
+}
+async function refreshStreakUI(s){
+  s=s||await store()||{streak:0,best:0};
+  $("#streak").textContent=s.streak||0; $("#best").textContent=s.best||0;
+}
+
+/* ---- celebration (shared) ---- */
+const reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+async function finish(win){
+  if(ranked)await recordResult(win);
+  if(win)buzz([12,50,12,50,28]);
+  if(win&&!reduceMotion){
+    setTimeout(()=>confettiBurst(200),200);
+    setTimeout(()=>{confettiBurst(80);showEnd(true);},1200);
+  }else setTimeout(()=>showEnd(win),reduceMotion?0:500);
+}
+function showEnd(win){
+  $("#endIcon").className="check"+(win?"":" miss");
+  $("#endIcon").textContent=win?"✓":"✕";
+  $("#winTitle").textContent=win?"Linked!":"So close.";
+  $("#winSub").textContent=P.id+(ranked?"":" · replay");
+  $("#winTime").textContent=$("#timer").textContent;
+  $("#winStreak").textContent=$("#streak").textContent;
+  $("#winBest").textContent=$("#best").textContent;
+  $("#winNew").textContent=win?"Done":"Play again";
+  $("#winModal").classList.add("on");
+}
+let _cf={cv:null,ctx:null,parts:[],raf:0,W:0,H:0,dpr:1};
+function confettiBurst(n){
+  if(reduceMotion)return;
+  const cv=$("#confetti"); if(!cv||!cv.getContext)return;
+  const ctx=cv.getContext("2d"); if(!ctx)return;
+  const dpr=Math.min(2,window.devicePixelRatio||1);
+  if(!_cf.raf){
+    cv.classList.add("on");
+    _cf.dpr=dpr; _cf.W=cv.width=innerWidth*dpr; _cf.H=cv.height=innerHeight*dpr;
+    cv.style.width=innerWidth+"px"; cv.style.height=innerHeight+"px";
+    _cf.cv=cv; _cf.ctx=ctx; _cf.parts.length=0;
+  }
+  const d=_cf.dpr, cols=["#2E5BFF","#FFD54A","#1F9E6B","#1B3B9E","#ffffff"];
+  const rect=$("#board").getBoundingClientRect();
+  const ox=(rect.left+rect.width/2)*d, oy=(rect.top+rect.height*0.42)*d;
+  for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2, sp=(4+Math.random()*9)*d;
+    _cf.parts.push({x:ox,y:oy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-8*d,g:.16*d,
+      w:(5+Math.random()*6)*d,rot:Math.random()*6.28,vr:(-.35+Math.random()*.7),
+      col:cols[i%cols.length],life:0,max:110+Math.random()*70});}
+  if(!_cf.raf)confettiLoop();
+}
+function confettiLoop(){
+  const {ctx,W,H}=_cf; ctx.clearRect(0,0,W,H); let alive=false;
+  for(const p of _cf.parts){ if(p.life>p.max)continue; alive=true;
+    p.life++; p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+    ctx.save(); ctx.globalAlpha=Math.max(0,1-p.life/p.max);
+    ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.col;
+    ctx.fillRect(-p.w/2,-p.w/2,p.w,p.w*0.6); ctx.restore(); }
+  if(alive){_cf.raf=requestAnimationFrame(confettiLoop);}
+  else{_cf.raf=0; _cf.parts.length=0; ctx.clearRect(0,0,W,H); _cf.cv.classList.remove("on");}
+}
+const GLYPH={1:"🟩",2:"🟦",3:"🟨",4:"⬛"};
+function shareText(){
+  const grid=guesses.map(g=>g.map(r=>GLYPH[r]).join("")).join("\n");
+  const line=won
+    ? "Linked in "+$("#timer").textContent+(mistakes?" · "+mistakes+" mistake"+(mistakes>1?"s":""):" · perfect")
+    : "Ran out of mistakes";
+  return ["The Digi Link · "+P.id, grid, line+" · streak "+$("#streak").textContent, "made with Digi Puzzles"]
+    .filter(Boolean).join("\n");
+}
+$("#winShare").onclick=async()=>{
+  const b=$("#winShare"), txt=shareText();
+  try{await navigator.clipboard.writeText(txt);b.textContent="Copied ✓";}
+  catch(_){
+    /* clipboard blocked (insecure context, iOS webview) — fall back to a
+       selectable prompt rather than telling the person it can't be done */
+    try{
+      const ta=document.createElement("textarea");
+      ta.value=txt; ta.style.cssText="position:fixed;top:0;left:0;opacity:0";
+      document.body.appendChild(ta); ta.select();
+      const ok=document.execCommand&&document.execCommand("copy");
+      document.body.removeChild(ta);
+      b.textContent=ok?"Copied ✓":"Copy unavailable";
+    }catch(e){b.textContent="Copy unavailable";}
+  }
+  setTimeout(()=>b.textContent="Share result",1600);
+};
+$("#winNew").onclick=()=>{$("#winModal").classList.remove("on"); if(!won)start();};
+$("#winModal").addEventListener("click",e=>{if(e.target===$("#winModal"))$("#winModal").classList.remove("on");});
+
+/* ---- controls ---- */
+$("#shuffle").onclick=()=>{shuffle(live);render();};
+$("#clear").onclick=()=>{sel.clear();setMsg("");render();};
+$("#submit").onclick=submit;
+addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&!$("#submit").disabled){e.preventDefault();submit();}
+  if(e.key==="Escape"){sel.clear();render();}
+});
+
+/* ---- start ---- */
+function start(){
+  live=shuffle(P.groups.flatMap(g=>g.members.map(m=>m.toUpperCase())));
+  _fitKey="";_unitW=0;_unitH=0;
+  sel.clear(); solved=[]; mistakes=0; over=false; won=false; guesses=[]; tried=new Set(); busy=false; newBand=null;
+  $("#pid").textContent=P.id; $("#pband").textContent=P.band;
+  setMsg(""); render(); stopTimer(); startTimer();
+}
+start();
+initRanked();
+</script></div></body></html>

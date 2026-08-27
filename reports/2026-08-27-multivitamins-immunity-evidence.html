@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ==== DN FEED META (the site front page reads these) ==== -->
+<meta name="dn:headline"   content="Multivitamins and immunity: the biggest trials find no effect, in healthy and immunosuppressed people alike">
+<meta name="dn:standfirst" content="Randomised evidence covering more than 64,000 people finds little sign that broad-spectrum supplements prevent coughs, colds or infections. Where supplementation clearly works, it is a single nutrient correcting a documented shortfall — and in the UK, that mostly means vitamin D.">
+<meta name="dn:topic"      content="Medicine">
+<meta name="dn:date"       content="2026-08-27">
+<meta name="dn:kind"       content="report">
+<meta name="dn:read"       content="~12 min">
+<meta name="dn:statlabel"  content="people">
+
+<title>Multivitamins and immunity: the biggest trials find no effect, in healthy and immunosuppressed people alike — Digi News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B;
+    --faint:#9AA0A6; --hair:#E6E6E2; --accent:#1C46C2; --accent-soft:#ECF0FC;
+    --contrast:#E0312A;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);line-height:1.6;
+    -webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 72px}
+  a{color:inherit}
+
+  /* ---------- masthead ---------- */
+  .mast{display:flex;align-items:center;gap:11px;padding:22px 0 14px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--accent);color:#fff;font-family:var(--display);
+    font-weight:800;font-size:17px;display:grid;place-content:center;border-radius:4px;letter-spacing:-1px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--accent)}
+  .mast .kick{margin-left:auto;font-family:var(--body);font-weight:600;font-size:11px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right;line-height:1.5}
+
+  /* ---------- headline ---------- */
+  .head{padding:30px 0 8px}
+  .topic{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(31px,7vw,46px);line-height:1.05;letter-spacing:-.02em}
+  .standfirst{font-size:clamp(17px,2.6vw,20px);color:var(--muted);margin-top:16px;line-height:1.45}
+  .dateline{margin-top:18px;font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--faint);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:11px 0}
+
+  /* ---------- hero stats ---------- */
+  .herostats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);
+    border:1px solid var(--hair);margin:26px 0 8px}
+  .hs{background:var(--canvas);padding:18px 14px}
+  .hs .n{font-family:var(--display);font-weight:800;font-size:clamp(28px,7vw,40px);line-height:.95;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .hs .n small{font-size:.36em;font-weight:600;color:var(--muted);letter-spacing:0}
+  .hs .l{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.4}
+  @media(max-width:540px){.herostats{grid-template-columns:1fr 1fr}.hs:last-child{grid-column:1/-1}}
+
+  /* ---------- sections ---------- */
+  .section{margin-top:40px}
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(22px,4.4vw,28px);line-height:1.12;letter-spacing:-.01em}
+  .section p{margin-top:14px}
+  .section p + p{margin-top:12px}
+
+  /* ---------- exhibit ---------- */
+  .exhibit{margin:26px 0;border:1px solid var(--hair);background:var(--paper);border-radius:6px;overflow:hidden}
+  .ex-head{padding:16px 18px 4px}
+  .ex-num{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .ex-title{font-family:var(--display);font-weight:700;font-size:17px;margin-top:4px;line-height:1.25}
+  .ex-chart{padding:10px 14px 4px}
+  .ex-cap{padding:4px 18px 16px;font-size:12.5px;color:var(--muted);line-height:1.5;
+    border-top:1px solid var(--hair);margin-top:6px;padding-top:12px}
+  .ex-cap b{color:var(--ink);font-weight:600}
+
+  /* ---------- DN chart library styling (real-px responsive SVG) ---------- */
+  .dn-fig{margin:0}
+  .dn-svg{display:block;width:100%;height:auto;overflow:visible}
+  .dn-ax{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:11px}
+  .dn-axlabel{font-family:var(--body);font-weight:600;fill:var(--muted);font-size:11px;letter-spacing:.02em}
+  .dn-clabel{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:12px}
+  .dn-vlabel{font-family:var(--display);font-weight:700;fill:var(--ink);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .dn-endlab{font-family:var(--display);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+  .dn-anno{font-family:var(--body);font-weight:600;fill:var(--ink);font-size:11.5px}
+  .dn-annosub{font-family:var(--body);font-weight:500;fill:var(--faint);font-size:10.5px;letter-spacing:.02em}
+  .dn-strip-name{font-family:var(--body);font-weight:600}
+  .dn-legend{display:flex;flex-wrap:wrap;gap:7px 16px;padding:10px 4px 2px;
+    font-family:var(--body);font-size:12px;color:var(--muted)}
+  .dn-key{display:inline-flex;align-items:center;gap:7px}
+  .dn-key i{width:12px;height:12px;border-radius:2px;display:inline-block;flex:0 0 auto}
+  .dn-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* sankey: labels keep a paper halo so they stay legible over flow ribbons */
+  .dn-nodelabel{paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+  .dn-flow{transition:fill-opacity .15s ease}
+  .dn-flow:hover{fill-opacity:.72}
+  @media(prefers-reduced-motion:reduce){.dn-flow{transition:none}}
+
+  /* ---------- callout ---------- */
+  .callout{margin:24px 0;background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:16px 18px;border-radius:0 6px 6px 0;font-size:16px}
+  .callout b{font-weight:700}
+
+  /* ---------- inline citation + source tiers ---------- */
+  sup.cite{font-family:var(--body);font-weight:700;font-size:.64em;line-height:0;margin-left:1px}
+  sup.cite a{color:var(--accent);text-decoration:none;padding:0 1px}
+  sup.cite a:hover{text-decoration:underline}
+  .tier{display:inline-block;font-family:var(--body);font-weight:700;font-size:10px;letter-spacing:.04em;
+    padding:1px 5px;border-radius:3px;vertical-align:middle;margin-right:7px}
+  .tier.t1{background:#E6EDFB;color:#1740A6}
+  .tier.t2{background:#EAF3EC;color:#1C6B3A}
+  .tier.t3{background:#F1EEE6;color:#7A6A36}
+
+  /* ---------- "what we don't know" ---------- */
+  .unknowns{margin:24px 0;border:1px dashed var(--faint);border-radius:6px;padding:15px 18px;background:#fff}
+  .unknowns .h{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .unknowns p{font-size:14.5px;color:var(--muted);margin:0}
+
+  /* ---------- positions (contested only) ---------- */
+  .positions{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  @media(max-width:560px){.positions{grid-template-columns:1fr}}
+  .pos{border:1px solid var(--hair);border-radius:6px;padding:16px;background:var(--paper)}
+  .pos .tag{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .pos.case .tag{color:var(--accent)} .pos.counter .tag{color:var(--contrast)}
+  .pos p{font-size:14.5px;color:var(--ink)}
+  .pos .kind{font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:10px}
+
+  /* ---------- stat band ---------- */
+  .statband{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:24px}
+  .statband .c{background:var(--paper);padding:16px 14px}
+  .statband .c .n{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,30px);line-height:.95;font-variant-numeric:tabular-nums}
+  .statband .c .l{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35}
+  @media(max-width:560px){.statband{grid-template-columns:1fr 1fr}}
+
+  /* ---------- caveat card ---------- */
+  .caveat{margin-top:18px;border:1px solid var(--hair);border-left:3px solid var(--faint);
+    border-radius:0 6px 6px 0;padding:14px 16px;background:#fff;font-size:14px;color:var(--muted)}
+  .caveat b{color:var(--ink);font-weight:600}
+
+  /* ---------- appendix table ---------- */
+  .appx{margin-top:18px;border:1px solid var(--hair);border-radius:6px;overflow-x:auto}
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:460px}
+  table.tbl th{text-align:left;font-family:var(--body);font-weight:700;font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);padding:11px 12px;border-bottom:1px solid var(--hair);background:#fbfbfa}
+  table.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair)}
+  table.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+  table.tbl tr:last-child td{border-bottom:none}
+
+  /* ---------- go deeper ---------- */
+  .more{margin-top:18px;list-style:none;border-top:1px solid var(--hair)}
+  .more li{padding:13px 0;border-bottom:1px solid var(--hair);display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--muted)}
+  .more li::before{content:"\2192";color:var(--accent);font-weight:700}
+  .more li b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:46px;border-top:2px solid var(--ink);padding-top:16px;font-size:12px;line-height:1.7;color:var(--muted)}
+  .foot b{color:var(--ink);font-weight:700}
+  .foot .fm{margin-bottom:9px}
+  .foot ol{margin:4px 0 9px 0;padding-left:20px}
+  .foot ol li{margin-bottom:4px}
+  .foot .ver{font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono">DN</div>
+    <div class="word">Digi<b>News</b></div>
+    <div class="kick">ANALYSIS<br>27 AUG 2026</div>
+  </header>
+
+  <div class="head">
+    <div class="topic">Medicine &middot; supplements</div>
+    <h1>Multivitamins and immunity: the biggest trials find no effect, in healthy and immunosuppressed people alike</h1>
+    <p class="standfirst">Randomised evidence covering more than 64,000 people finds little sign that broad-spectrum supplements prevent coughs, colds or infections. Where supplementation clearly works, it is a single nutrient correcting a documented shortfall &mdash; and in the UK, that mostly means vitamin D.</p>
+    <div class="dateline">Digi News data desk &middot; reading time ~10 min</div>
+  </div>
+
+  <div class="herostats">
+    <div class="hs"><div class="n">64,086</div><div class="l">people randomised across 46 vitamin D trials, with no statistically significant fall in respiratory infection</div></div>
+    <div class="hs"><div class="n">8<small>%</small></div><div class="l">shorter colds in adults taking vitamin C every day &mdash; about half a day off a week-long cold</div></div>
+    <div class="hs"><div class="n">18<small>%</small></div><div class="l">of UK adults aged 19 to 64 below the clinical vitamin D deficiency threshold</div></div>
+  </div>
+
+  <section class="section">
+    <div class="eyebrow">The claim</div>
+    <h2>What "supports your immune system" is actually claiming</h2>
+    <p>Supplement packaging rarely says a multivitamin will stop you catching a cold. It says the product "supports immune function", a phrase with no agreed clinical meaning. The testable version of the claim is narrower and much easier to check: does taking the pill change how often you get ill, or how long it lasts?</p>
+    <p>That question has been put to randomised controlled trials &mdash; studies in which participants are assigned by chance to the supplement or to a dummy pill, so that the two groups differ only in what they swallow. Dozens of such trials now exist, and their results have been pooled in meta-analyses, which combine trials statistically to produce a single estimate.</p>
+    <p>Those pooled estimates come with a <b>95&nbsp;per&nbsp;cent confidence interval</b>: the range of values compatible with the data. Because these results are expressed as ratios comparing the supplement group with the dummy group, a value of 1.00 means no difference at all. If the interval spans 1.00, the trials have not ruled out "no effect". That single test is what Exhibit 01 shows.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 01</div><div class="ex-title">Preventing respiratory infection &mdash; where the confidence intervals fall</div></div>
+      <div class="ex-chart"><div id="ex1"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Pooled randomised trials &mdash; vitamin D from a 2025 analysis of 46 trials,<sup class="cite"><a href="#s1">1</a></sup> vitamin C and zinc from Cochrane reviews.<sup class="cite"><a href="#s2">2</a></sup><sup class="cite"><a href="#s3">3</a></sup> Bars span the 95 per cent confidence interval. The vitamin D rows are odds ratios; the vitamin C and zinc rows are risk ratios. These are different estimators and their sizes are not directly comparable &mdash; the chart compares only whether each interval clears 1.00. "Deficient" means a starting blood level below 25 nanomoles per litre.</figcaption>
+    </figure>
+    <p>Six of the eight intervals cross the no-effect line. The two that do not are highly specific. Vitamin C halves the risk of a cold in people undergoing short bursts of extreme physical stress &mdash; the trials were in marathon runners, skiers and soldiers on subarctic exercises, a total of 598 people.<sup class="cite"><a href="#s2">2</a></sup> In the general population, across 10,708 participants, regular vitamin C makes no difference to how often you catch a cold.<sup class="cite"><a href="#s2">2</a></sup></p>
+    <p>It does shorten colds, modestly and consistently: by 8 per cent in adults and 14 per cent in children.<sup class="cite"><a href="#s2">2</a></sup> On a cold lasting a week &mdash; an illustrative figure, not a measured average &mdash; 8 per cent is roughly half a day. Taken only once symptoms start, rather than every day beforehand, vitamin C showed no consistent effect at all.<sup class="cite"><a href="#s2">2</a></sup></p>
+    <div class="callout"><b>Key finding.</b> Across the pooled randomised evidence, only two interventions clear the no-effect line for preventing respiratory infection, and both are tightly conditional &mdash; vitamin C under extreme exertion, and vitamin D at a specific daily dose.</div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">The moving target</div>
+    <h2>Vitamin D lost its statistical significance in 2025</h2>
+    <p>Vitamin D has the strongest theoretical case of any micronutrient: laboratory work shows its metabolites support the innate immune response to respiratory viruses, and people with low blood levels get more infections.<sup class="cite"><a href="#s1">1</a></sup> In 2021 a meta-analysis of 37 trials found a modest protective effect, with an odds ratio of 0.92 and an interval of 0.86 to 0.99 &mdash; just clear of 1.00.<sup class="cite"><a href="#s1">1</a></sup></p>
+    <p>Six further trials were completed after that, including one enrolling 15,804 people. The 2025 update pooled 46 trials and 64,086 participants. The point estimate barely moved, to 0.94, but the interval now runs to 1.00 exactly, with a p-value of 0.057.<sup class="cite"><a href="#s1">1</a></sup> The authors' own conclusion is that there is no statistically significant protection.</p>
+    <p>The intuitive escape route &mdash; that supplements only help people who are actually short of the nutrient &mdash; does not survive the data. Among participants who began the trials profoundly deficient, with blood levels below 25 nanomoles per litre, the odds ratio was 0.98 with an interval of 0.80 to 1.20.<sup class="cite"><a href="#s1">1</a></sup> The 3,806 people in that subgroup show no benefit.</p>
+    <p>One subgroup did: trials giving 400 to 1,000 international units daily. Exhibit 02 shows the underlying percentages rather than the ratios, because the ratios hide something important.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 02</div><div class="ex-title">Vitamin D by daily dose &mdash; share of participants catching at least one infection</div></div>
+      <div class="ex-chart"><div id="ex2"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Pooled trial data by daily-equivalent dose band, 2025 analysis.<sup class="cite"><a href="#s1">1</a></sup> Percentages are the published per-arm proportions reporting one or more acute respiratory infection. Baseline risk differs sharply between bands &mdash; from 42 per cent to 66 per cent in the placebo arms &mdash; because the bands contain different trials in different populations. Bands are not comparable with one another.</figcaption>
+    </figure>
+    <p>In the 400 to 1,000 unit band, 53.1 per cent of the vitamin D group reported an infection against 58.7 per cent on placebo: a gap of 5.6 percentage points across 2,305 people in ten trials. In the other three bands the gap is under one percentage point, and above 2,000 units a day the vitamin D group did marginally worse.</p>
+    <p>A dose window with nothing either side of it is a pattern that should invite suspicion, and the researchers treated it that way. They ran a meta-regression &mdash; a test of whether the differences between subgroups are larger than chance would produce &mdash; and found no statistically significant interaction for dose size, dosing frequency, trial length or age.<sup class="cite"><a href="#s1">1</a></sup> Their funnel plot also showed asymmetry consistent with small negative trials never being published, which led them to downgrade their own confidence in the evidence.<sup class="cite"><a href="#s1">1</a></sup></p>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">Energy</div>
+    <h2>Vitamins contain no calories, and the trials reflect that</h2>
+    <p>"Energy support" is the second big claim on the label. Mechanically it cannot work the way the packaging implies: vitamins supply no energy. Several B vitamins are cofactors in the reactions that release energy from food, but adding more of a cofactor to a system that already has enough does nothing.</p>
+    <p>The trial evidence matches. A randomised trial in 228 adults over 70 found no effect of a multivitamin-mineral supplement on its primary wellbeing outcome, with scattered secondary findings that the authors themselves treated cautiously.<sup class="cite"><a href="#s15">15</a></sup> Larger reviews of supplementation in healthy adults have not produced a reliable effect on fatigue.</p>
+    <p>Where fatigue does respond, a specific deficiency is being corrected. In a Swiss trial of 136 women aged 18 to 55 with unexplained tiredness but no anaemia, four weeks of iron reduced fatigue scores by 29 per cent against 13 per cent on placebo, a difference of 0.95 points on a ten-point scale.<sup class="cite"><a href="#s16">16</a></sup> The benefit was confined to women whose ferritin &mdash; the blood marker of iron stores &mdash; was at or below 50 micrograms per litre.<sup class="cite"><a href="#s16">16</a></sup> Iron did nothing for the women who were not short of iron.</p>
+    <p>That is the shape of the whole field. Persistent fatigue is a reason to have blood taken, not a reason to buy a pill: iron, vitamin B12, folate and thyroid function are all testable, and guessing wrong costs months.</p>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">Who actually has a gap</div>
+    <h2>In the UK, the shortfall is real but narrow</h2>
+    <p>None of this means UK diets are adequate. The National Diet and Nutrition Survey takes blood samples from a nationally representative sample; its 2019 to 2023 round found that 4 per cent of adults meet the fibre recommendation and 17 per cent manage five portions of fruit and vegetables a day.<sup class="cite"><a href="#s4">4</a></sup></p>
+    <p>But dietary shortfall and clinical deficiency are different things, and only the second is measured in blood.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 03</div><div class="ex-title">UK blood samples below the clinical deficiency threshold, 2019 to 2023</div></div>
+      <div class="ex-chart"><div id="ex3"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> National Diet and Nutrition Survey, fieldwork years 12 to 15.<sup class="cite"><a href="#s4">4</a></sup> Vitamin D is 25-hydroxyvitamin D below 25 nanomoles per litre; folate is serum folate below 7 nanomoles per litre. Blood samples were collected across the full calendar year, so the vitamin D figures average summer and winter. A change to blood transport methods means these figures cannot be compared with earlier survey rounds.</figcaption>
+    </figure>
+    <p>Vitamin D is the standout, and it is seasonal. Between January and March the share below the deficiency threshold ran from 21 to 38 per cent across age and sex groups aged 11 and over, falling to between zero and 10 per cent in July to September.<sup class="cite"><a href="#s4">4</a></sup> It is also unequal: in the most deprived fifth of England, 34 per cent of adults aged 19 to 64 were below the threshold.<sup class="cite"><a href="#s4">4</a></sup></p>
+    <p>This is why UK government advice singles out one nutrient rather than recommending a multivitamin: everyone should consider 10 micrograms &mdash; 400 international units &mdash; of vitamin D daily from October to March, and year-round for people with darker skin, those who cover up and those rarely outdoors.<sup class="cite"><a href="#s5">5</a></sup> That advice rests on bone and muscle health, not on infection.<sup class="cite"><a href="#s5">5</a></sup></p>
+    <p>One more figure deserves separating out because it uses a different threshold. Among women of childbearing age, 83 per cent had red blood cell folate below 748 nanomoles per litre &mdash; the level below which risk of a neural tube defect in pregnancy rises.<sup class="cite"><a href="#s4">4</a></sup> That is not a deficiency measure: only 7 per cent of the same group were below the clinical deficiency threshold.<sup class="cite"><a href="#s4">4</a></sup> It is the reason folic acid is advised before and during early pregnancy, and it is another single nutrient aimed at a single documented risk.</p>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">Weakened immune systems</div>
+    <h2>The groups with most to gain show the least benefit</h2>
+    <p>If a multivitamin helps anyone fight infection, the strongest candidates are people whose immune systems are suppressed &mdash; by HIV, by transplant medication, by drugs for autoimmune disease, or simply by age. These groups also have higher rates of genuine micronutrient deficiency. The reasoning is sound. The trial results are not encouraging.</p>
+    <figure class="exhibit">
+      <div class="ex-head"><div class="ex-num">Exhibit 04</div><div class="ex-title">Broad-spectrum supplement against targeted single nutrient</div></div>
+      <div class="ex-chart"><div id="ex4"></div></div>
+      <figcaption class="ex-cap"><b>Source:</b> Cochrane reviews of micronutrients in adults with HIV<sup class="cite"><a href="#s7">7</a></sup> and of folic acid alongside methotrexate,<sup class="cite"><a href="#s8">8</a></sup> and the MAVIS trial in UK over-65s.<sup class="cite"><a href="#s6">6</a></sup> Bars span the 95 per cent confidence interval. <b>The outcomes differ between rows</b> &mdash; deaths, GP contacts, self-reported days of illness, liver injury, treatment discontinuation &mdash; so the sizes of these effects are not comparable. The only comparison the chart makes is whether each interval clears 1.00.</figcaption>
+    </figure>
+    <p>In adults living with HIV, a Cochrane review of seven trials and 2,897 participants found routine multiple-micronutrient supplementation had little or no effect on death, with a risk ratio of 0.91 and an interval of 0.72 to 1.15, rated low-certainty.<sup class="cite"><a href="#s7">7</a></sup> A trial of 3,418 Tanzanian adults starting antiretroviral therapy tested high-dose against standard-dose multivitamins; it was stopped early because liver enzymes rose in the high-dose group, and it showed no benefit on disease progression or death.<sup class="cite"><a href="#s13">13</a></sup></p>
+    <p>In older adults, the MAVIS trial randomised 910 people aged 65 or over in Grampian to a year of multivitamin and multimineral supplementation or placebo. It found no effect on GP contacts for infection, self-reported days of infection, or quality of life.<sup class="cite"><a href="#s6">6</a></sup> An earlier Dutch trial of 15 months found the same for infection rates, and reported that its vitamin E arm had longer illnesses and worse symptoms than placebo.<sup class="cite"><a href="#s14">14</a></sup></p>
+    <p>Now the contrast. People taking methotrexate &mdash; an immunosuppressant used for rheumatoid arthritis and other conditions &mdash; are routinely co-prescribed folic acid, because methotrexate works partly by blocking folate. A Cochrane review of six trials found folic acid cut abnormal liver enzyme elevation by 77 per cent in relative terms, with a risk ratio of 0.23 and an interval of 0.15 to 0.34, and cut discontinuation of methotrexate for any reason by 61 per cent, risk ratio 0.39.<sup class="cite"><a href="#s8">8</a></sup> It did not blunt the drug's effect.<sup class="cite"><a href="#s8">8</a></sup> UK practice reflects this: the BNF and NICE guidance recommend 5&nbsp;mg of folic acid weekly, on a different day to the methotrexate.<sup class="cite"><a href="#s19">19</a></sup></p>
+    <p>The same pattern appears in the one place where broad supplementation in HIV did work. In African children living with HIV, vitamin A roughly halved all-cause mortality across three trials &mdash; populations where vitamin A deficiency was widespread and the supplement corrected a specific, measurable, dangerous shortfall.<sup class="cite"><a href="#s10">10</a></sup></p>
+    <p>There is also a hazard here that does not apply to the general population. Immunosuppressants such as tacrolimus and ciclosporin have a narrow therapeutic window and are metabolised through the CYP3A4 enzyme pathway, which several supplements and herbal products influence in both directions &mdash; too much drug means toxicity, too little means rejection.<sup class="cite"><a href="#s20">20</a></sup> Anyone on these medicines should tell their transplant team or specialist about every supplement they take.</p>
+    <div class="callout"><b>Key finding.</b> Across immunosuppressed and older cohorts, broad-spectrum multivitamins have not reduced infection or death. The interventions that work are single nutrients aimed at a documented deficiency or a known drug mechanism.</div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">How the belief was built</div>
+    <h2>The foundational trial was retracted</h2>
+    <p>The idea that multivitamins strengthen immunity in older people has a traceable origin. In 1992 The Lancet published a trial by Ranjit Kumar Chandra reporting that a micronutrient supplement improved immune measures and roughly halved infection time in elderly subjects. It was cited hundreds of times.</p>
+    <p>A 2001 companion paper in the journal <i>Nutrition</i>, using the same subjects, was retracted in 2005. Memorial University investigated; The Lancet reopened its own inquiry in 2015 and retracted the 1992 paper in January 2016, stating that its reliability could no longer be assured.<sup class="cite"><a href="#s11">11</a></sup></p>
+    <p>In the meantime a 2005 meta-analysis in the BMJ, pooling three trials including Chandra's, had reported that multivitamins and minerals cut days spent with infection by around 17.5 days a year.<sup class="cite"><a href="#s17">17</a></sup> That figure circulated widely. The MAVIS trial, published in the same journal three months later, was larger than all three pooled trials combined and found nothing.<sup class="cite"><a href="#s6">6</a></sup></p>
+    <p>This is not a story about one dishonest researcher. It is a demonstration of how a field's headline number can outlive its evidence, and why the current estimates &mdash; built on tens of thousands of participants across dozens of independent trials &mdash; deserve more weight than a striking result from a single study.</p>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">Hard outcomes</div>
+    <h2>What the guideline bodies conclude</h2>
+    <p>Beyond infection, the broader question of whether multivitamins improve health has clearer answers. The US Preventive Services Task Force reviewed the evidence in 2022 and issued an "I statement" for multivitamins &mdash; the evidence is insufficient to weigh benefits against harms &mdash; while recommending <i>against</i> beta-carotene and vitamin E supplements for preventing cardiovascular disease or cancer, with beta-carotene judged to increase lung cancer risk in people already at high risk.<sup class="cite"><a href="#s9">9</a></sup></p>
+    <p>On mortality, a 2024 analysis of 390,124 US adults with no history of chronic disease, followed for over twenty years and recording 164,762 deaths, found no lower risk of death among daily multivitamin users. In the early years of follow-up their mortality was 4 per cent higher, a hazard ratio of 1.04.<sup class="cite"><a href="#s12">12</a></sup> That is an observational finding and the authors are careful about it: people who start taking supplements when they feel unwell can generate exactly this pattern without the pills causing anything.</p>
+  </section>
+
+  <div class="unknowns">
+    <div class="h">What we don't know</div>
+    <p>Almost no trial in this field was designed around <b>measured</b> nutrient status: participants were recruited by age or diagnosis, not by a blood test showing a deficiency, so the trials answer "does supplementing a general population help?" rather than "does correcting a documented shortfall help?" The vitamin D analysis is the exception and found nothing even in its deficient subgroup &mdash; but that subgroup was defined by a single baseline reading and was not the trials' recruitment criterion. The 2025 vitamin D funnel plot shows asymmetry consistent with publication bias, meaning the true effect could be smaller than reported, not larger. Formulations differ enormously between trials and few compared one against another, so nothing here ranks specific products. The multivitamin mortality data are observational and cannot establish cause. Almost no trial has tested a supermarket multivitamin in a UK immunosuppressed population; the HIV evidence comes largely from low-income settings with much higher background deficiency, and may not transfer. And no trial has adequately tested whether a supplement helps someone with a diagnosed deficiency <i>and</i> a suppressed immune system, which is the group most people asking this question actually want to know about.</p>
+  </div>
+
+  <section class="section">
+    <div class="eyebrow">Where it's contested</div>
+    <h2>Zinc for treating a cold: a live methodological dispute</h2>
+    <p>One area is genuinely unsettled among competent researchers, and the disagreement is about how to measure the effect rather than about the underlying trials.</p>
+    <div class="positions">
+      <div class="pos case"><div class="tag">The Cochrane position</div><p>The 2024 review pooled eight treatment trials and found a mean reduction of 2.37 days, with an interval running from 4.21 days to 0.53 days and near-total heterogeneity between studies. It rates the evidence low to very low certainty and concludes that it is insufficient to recommend zinc. It also found more non-serious side effects &mdash; taste disturbance and stomach upset &mdash; with a risk ratio of 1.34.<sup class="cite"><a href="#s3">3</a></sup></p><div class="kind">Empirical dispute</div></div>
+      <div class="pos counter"><div class="tag">The Hemil&auml; and Chalker position</div><p>Averaging in days is the wrong scale, because a one-day cold cannot be shortened by 2.37 days; effects on illness duration should be measured proportionally. On a relative scale, seven trials of zinc acetate or gluconate lozenges delivering more than 75&nbsp;mg a day shortened colds by 33 per cent, with an interval of 21 to 45 per cent. They argue the wide Cochrane interval is an artefact of the chosen scale.<sup class="cite"><a href="#s18">18</a></sup></p><div class="kind">Empirical dispute</div></div>
+    </div>
+    <p>Both sides are working from largely the same trials. Note that Hemil&auml; and Chalker are also the authors of the Cochrane vitamin C review cited throughout this piece, and are long-standing critics of how supplement trials are analysed &mdash; an interested party in a methodological argument, not a commercial one. On prevention the two camps agree: zinc does not stop you catching colds.<sup class="cite"><a href="#s3">3</a></sup></p>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">By the numbers</div>
+    <div class="statband">
+      <div class="c"><div class="n">0.94</div><div class="l">Pooled odds ratio, vitamin D against placebo for respiratory infection</div></div>
+      <div class="c"><div class="n">83%</div><div class="l">UK women aged 16 to 49 below the folate threshold for neural tube defect risk</div></div>
+      <div class="c"><div class="n">1.04</div><div class="l">Hazard ratio for death among daily multivitamin users, early follow-up</div></div>
+      <div class="c"><div class="n">0.39</div><div class="l">Risk ratio for stopping methotrexate when folic acid is co-prescribed</div></div>
+    </div>
+    <div class="caveat"><b>Caveat.</b> The strongest objection to reading this as "supplements don't work" is that these trials mostly test the wrong question. Recruiting unselected populations and finding no average effect is compatible with a real benefit concentrated in a deficient minority too small to move the pooled estimate. The vitamin D deficient-subgroup result argues against that, but rests on one baseline blood reading in trials not designed to test it. A properly powered trial recruiting only people with measured deficiency has not been done for most of these nutrients.</div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">Reference &middot; the full record</div>
+    <h2>The underlying data, in full</h2>
+    <p>Every ratio plotted in Exhibits 01 and 04, with its outcome, population and source. A ratio of 1.00 means no difference from placebo.</p>
+    <div class="appx">
+      <table class="tbl">
+        <thead><tr><th>Intervention</th><th>Population</th><th>Outcome</th><th class="num">Estimate (95% CI)</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Vitamin C, regular</td><td>Extreme exertion, 598</td><td>Catching a cold</td><td class="num">0.48 (0.35&ndash;0.64)</td><td>Cochrane 2013</td></tr>
+          <tr><td>Vitamin C, regular</td><td>General public, 10,708</td><td>Catching a cold</td><td class="num">0.97 (0.94&ndash;1.00)</td><td>Cochrane 2013</td></tr>
+          <tr><td>Vitamin D, 400&ndash;1,000 IU</td><td>10 trials, 2,305</td><td>Any respiratory infection</td><td class="num">0.70 (0.55&ndash;0.89)</td><td>Lancet D&amp;E 2025</td></tr>
+          <tr><td>Vitamin D, under 400 IU</td><td>2 trials, 2,133</td><td>Any respiratory infection</td><td class="num">0.76 (0.41&ndash;1.41)</td><td>Lancet D&amp;E 2025</td></tr>
+          <tr><td>Vitamin D, over 2,000 IU</td><td>7 trials, 6,906</td><td>Any respiratory infection</td><td class="num">1.05 (0.84&ndash;1.31)</td><td>Lancet D&amp;E 2025</td></tr>
+          <tr><td>Vitamin D, any dose</td><td>Deficient at baseline, 3,806</td><td>Any respiratory infection</td><td class="num">0.98 (0.80&ndash;1.20)</td><td>Lancet D&amp;E 2025</td></tr>
+          <tr><td>Vitamin D, any dose</td><td>40 trials, 61,589</td><td>Any respiratory infection</td><td class="num">0.94 (0.88&ndash;1.00)</td><td>Lancet D&amp;E 2025</td></tr>
+          <tr><td>Zinc, preventive</td><td>9 trials, 1,449</td><td>Catching a cold</td><td class="num">0.93 (0.85&ndash;1.01)</td><td>Cochrane 2024</td></tr>
+          <tr><td>Multivitamin</td><td>HIV adults, 2,897</td><td>Death</td><td class="num">0.91 (0.72&ndash;1.15)</td><td>Cochrane 2017</td></tr>
+          <tr><td>Multivitamin + mineral</td><td>UK over-65s, 910</td><td>GP contacts for infection</td><td class="num">0.96 (0.78&ndash;1.19)</td><td>MAVIS, BMJ 2005</td></tr>
+          <tr><td>Multivitamin + mineral</td><td>UK over-65s, 910</td><td>Days of infection</td><td class="num">1.07 (0.90&ndash;1.27)</td><td>MAVIS, BMJ 2005</td></tr>
+          <tr><td>Folic acid</td><td>On methotrexate, 624</td><td>Liver enzyme elevation</td><td class="num">0.23 (0.15&ndash;0.34)</td><td>Cochrane 2013</td></tr>
+          <tr><td>Folic acid</td><td>On methotrexate, 624</td><td>Stopping treatment</td><td class="num">0.39 (0.28&ndash;0.53)</td><td>Cochrane 2013</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow">Go deeper</div>
+    <h2>Left out to hold length</h2>
+    <ul class="more">
+      <li><div><b>Iodine.</b> UK urinary iodine has fallen 25 per cent in adults over a decade and girls aged 11 to 18 are now below the adequacy threshold &mdash; a shortfall with no public campaign behind it.<sup class="cite"><a href="#s4">4</a></sup></div></li>
+      <li><div><b>Cancer and cardiovascular endpoints.</b> The USPSTF review covers a large trial literature on single nutrients that this piece touches only at its conclusion.<sup class="cite"><a href="#s9">9</a></sup></div></li>
+      <li><div><b>Deficiency-recruited trials.</b> The obvious missing study &mdash; supplement only those with a measured shortfall &mdash; is expensive and largely unfunded. Who would pay for it is its own story.</div></li>
+    </ul>
+    <p><b>This is not medical advice.</b> It summarises published trial evidence at population level. Decisions about supplements, particularly for anyone taking immunosuppressant medication or being treated for a diagnosed deficiency, belong with a GP, pharmacist or specialist team.</p>
+  </section>
+
+  <div class="foot">
+  <div class="fm"><b>Method.</b> This piece contains no projections, scenarios or modelled figures &mdash; every number is a published measured or pooled estimate. Exhibits 01 and 04 plot 95 per cent confidence intervals exactly as reported by the source reviews; bar length is the interval width and carries no other meaning. Those two exhibits mix odds ratios, risk ratios and incidence rate ratios across different outcomes, which are different estimators and are not comparable in magnitude; the only comparison made is whether an interval excludes 1.00, and each row states its outcome. Exhibit 02 plots the published per-arm percentages rather than pooled ratios, because recomputing an odds ratio from collapsed arm counts gives a different answer to the random-effects pooled estimate (0.97 against the published 0.94 overall) &mdash; the two are not interchangeable and only the published pooled figures are quoted as ratios. Exhibit 03 uses two different clinical thresholds, stated in its caption; the 83 per cent folate figure discussed in the text uses a third, higher, risk-of-harm threshold and is deliberately kept out of that exhibit. The conversion of "8 per cent shorter" into "about half a day" assumes a seven-day cold and is labelled in the text as an illustration, not a measured average. All derived figures were computed in code and checked against the source tables before any prose was written. Source tiers follow the Digi News scale: T1 primary or official, T2 established institution, T3 quality press.</div>
+  <div class="fm"><b>Sources.</b> Numbered, highest tier first; each inline citation points here. Retrieved 27 August 2026.
+    <ol>
+      <li id="s1"><span class="tier t1">T1</span>Jolliffe DA, Camargo CA, Sluyter JD, et al. <i>Vitamin D supplementation to prevent acute respiratory infections: systematic review and meta-analysis of stratified aggregate data.</i> Lancet Diabetes &amp; Endocrinology, 2025;13(4):307&ndash;320. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12056739/">pmc.ncbi.nlm.nih.gov</a></li>
+      <li id="s2"><span class="tier t1">T1</span>Hemil&auml; H, Chalker E. <i>Vitamin C for preventing and treating the common cold.</i> Cochrane Database of Systematic Reviews, 2013, CD000980. <a href="https://www.cochrane.org/evidence/CD000980_vitamin-c-preventing-and-treating-common-cold">cochrane.org</a></li>
+      <li id="s3"><span class="tier t1">T1</span>Nault D, Machingo TA, Shipper AG, et al. <i>Zinc for prevention and treatment of the common cold.</i> Cochrane Database of Systematic Reviews, May 2024, CD014914. <a href="https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD014914.pub2/full">cochranelibrary.com</a></li>
+      <li id="s4"><span class="tier t1">T1</span>Office for Health Improvement and Disparities and Food Standards Agency. <i>National Diet and Nutrition Survey 2019 to 2023: report.</i> Published 11 June 2025. <a href="https://www.gov.uk/government/statistics/national-diet-and-nutrition-survey-2019-to-2023/national-diet-and-nutrition-survey-2019-to-2023-report">gov.uk</a></li>
+      <li id="s5"><span class="tier t1">T1</span>NHS. <i>Vitamins and minerals: vitamin D.</i> <a href="https://www.nhs.uk/conditions/vitamins-and-minerals/vitamin-d/">nhs.uk</a></li>
+      <li id="s6"><span class="tier t1">T1</span>Avenell A, Campbell MK, Cook JA, et al. <i>Effect of multivitamin and multimineral supplements on morbidity from infections in older people (MAVIS trial).</i> BMJ, 2005;331(7512):324&ndash;329. <a href="https://pubmed.ncbi.nlm.nih.gov/16081445/">pubmed.ncbi.nlm.nih.gov</a></li>
+      <li id="s7"><span class="tier t1">T1</span>Visser ME, Durao S, Sinclair D, Irlam JH, Siegfried N. <i>Micronutrient supplementation for non-pregnant adults with HIV infection.</i> Cochrane Database of Systematic Reviews, 2017, CD003650. <a href="https://www.cochrane.org/evidence/CD003650_micronutrient-supplements-non-pregnant-adults-hiv-infection">cochrane.org</a></li>
+      <li id="s8"><span class="tier t1">T1</span>Shea B, Swinden MV, Tanjong Ghogomu E, et al. <i>Folic acid and folinic acid for reducing side effects in patients receiving methotrexate for rheumatoid arthritis.</i> Cochrane Database of Systematic Reviews, 2013, CD000951. <a href="https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.ED000063/full">cochranelibrary.com</a></li>
+      <li id="s9"><span class="tier t1">T1</span>US Preventive Services Task Force. <i>Vitamin, mineral, and multivitamin supplementation to prevent cardiovascular disease and cancer: recommendation statement.</i> JAMA, 21 June 2022. <a href="https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/vitamin-supplementation-to-prevent-cvd-and-cancer-preventive-medication">uspreventiveservicestaskforce.org</a></li>
+      <li id="s10"><span class="tier t1">T1</span>Irlam JH, Siegfried N, Visser ME, Rollins NC. <i>Micronutrient supplementation for children with HIV infection.</i> Cochrane Database of Systematic Reviews, CD010666. <a href="https://www.cochrane.org/CD010666">cochrane.org</a></li>
+      <li id="s11"><span class="tier t1">T1</span>The Lancet. <i>Retraction &mdash; Effect of vitamin and trace-element supplementation on immune responses and infection in elderly subjects.</i> 30 January 2016. <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(16)00166-5/abstract">thelancet.com</a></li>
+      <li id="s12"><span class="tier t2">T2</span>Loftfield E, O'Connell CP, Abnet CC, et al. <i>Multivitamin use and mortality risk in 3 prospective US cohorts.</i> JAMA Network Open, 26 June 2024;7(6):e2418729. <a href="https://pubmed.ncbi.nlm.nih.gov/38922615/">pubmed.ncbi.nlm.nih.gov</a></li>
+      <li id="s13"><span class="tier t2">T2</span>Isanaka S, Mugusi F, Hawkins C, et al. <i>Effect of high-dose vs standard-dose multivitamin supplementation at the initiation of HAART on HIV disease progression and mortality in Tanzania.</i> JAMA, 2012;308(15):1535&ndash;1544. <a href="https://pubmed.ncbi.nlm.nih.gov/23073950/">pubmed.ncbi.nlm.nih.gov</a></li>
+      <li id="s14"><span class="tier t2">T2</span>Graat JM, Schouten EG, Kok FJ. <i>Effect of daily vitamin E and multivitamin-mineral supplementation on acute respiratory tract infections in elderly persons.</i> JAMA, 2002;288(6):715&ndash;721. <a href="https://jamanetwork.com/journals/jama/fullarticle/195186">jamanetwork.com</a></li>
+      <li id="s15"><span class="tier t2">T2</span>Docherty S, Wetherell MA, McInnes L, Haskell-Ramsay CF. <i>Improvements to mood, stress and loneliness following 12-week multivitamin supplementation in older adults.</i> European Journal of Clinical Nutrition, 3 October 2024. <a href="https://www.nature.com/articles/s41430-024-01517-6">nature.com</a></li>
+      <li id="s16"><span class="tier t2">T2</span>Verdon F, Burnand B, Fallab Stubi CL, et al. <i>Iron supplementation for unexplained fatigue in non-anaemic women: double blind randomised placebo controlled trial.</i> BMJ, 2003;326(7399):1124. <a href="https://pubmed.ncbi.nlm.nih.gov/12763985/">pubmed.ncbi.nlm.nih.gov</a></li>
+      <li id="s17"><span class="tier t2">T2</span>El-Kadiki A, Sutton AJ. <i>Role of multivitamins and mineral supplements in preventing infections in elderly people: systematic review and meta-analysis of randomised controlled trials.</i> BMJ, 2005;330:871&ndash;876. <a href="https://pubmed.ncbi.nlm.nih.gov/15805125/">pubmed.ncbi.nlm.nih.gov</a></li>
+      <li id="s18"><span class="tier t2">T2</span>Hemil&auml; H, Chalker E. <i>Shortcomings in the Cochrane review on zinc for the common cold (2024).</i> Frontiers in Medicine, 16 October 2024;11:1470004. Interested party in a methodological dispute &mdash; see Positions block. <a href="https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2024.1470004/full">frontiersin.org</a></li>
+      <li id="s19"><span class="tier t2">T2</span>NHS Specialist Pharmacy Service. <i>Using folic acid with methotrexate in rheumatoid arthritis.</i> <a href="https://sps.nhs.uk/articles/using-folic-acid-with-methotrexate-in-rheumatoid-arthritis/">sps.nhs.uk</a></li>
+      <li id="s20"><span class="tier t2">T2</span>Miedziaszczyk M, Bajon A, Jakielska E, et al. <i>Controversial interactions of tacrolimus with dietary supplements, herbs and food.</i> Pharmaceutics, 2022. <a href="https://pubmed.ncbi.nlm.nih.gov/36297591/">pubmed.ncbi.nlm.nih.gov</a></li>
+    </ol>
+  </div>
+    <div class="fm"><b>Corrections.</b> None. Material corrections will be logged here with date.</div>
+    <div><b>Figures to 27 Aug 2026.</b> <span class="ver">Digi News &middot; v1.0 &middot; multivitamins-immunity-evidence.</span></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================================
+   DN — Digi News visualization library  (self-contained, no dependencies)
+   ----------------------------------------------------------------------------
+   Newsroom-idiom SVG charts: honest scales, real-px responsive rendering,
+   colourblind-safe palette, annotation layer, and an accessible data table
+   emitted alongside every chart. Mobile-first: charts re-render at 1 SVG unit
+   = 1 CSS pixel via ResizeObserver, so label type never shrinks below legible.
+
+   PUBLIC API  (every chart: DN.<type>(targetSelectorOrEl, spec))
+     DN.line(t, spec)        multi-series time line; projection split; bands; refs; notes
+     DN.bars(t, spec)        horizontal ranked bars; highlight; reference line
+     DN.columns(t, spec)     vertical columns; grouped or stacked; legend
+     DN.slope(t, spec)       slope / dumbbell before-after comparison
+     DN.scatter(t, spec)     x/y points; optional groups; quadrant guides
+     DN.rangeStrip(t, spec)  time spans (barcode timeline / Gantt); projection hatch
+     DN.sankey(t, spec)      flows; ribbon width ∝ volume; gradient links; flow table
+
+     DN.fmt(value, opts)     number formatter (decimals, compact, prefix/suffix, plus, pct)
+     DN.colors, DN.palette   semantic tokens + categorical (Okabe-Ito) scale
+
+   COMMON spec fields: title (required, drives a11y), summary, height,
+     x:{min,max,fmt,ticks,title,label}, y:{min,max,zero,fmt,title,label,decimals,suffix,prefix,compact}
+   Projection rule: pass projectFrom on a series/event; the segment beyond it
+     renders dashed/hatched. Projections must never be the headline figure.
+   ========================================================================== */
+window.DN = (function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var UID = 0;
+
+  /* ---- palette: semantic tokens + Okabe-Ito categorical (CVD-safe) ---- */
+  var PAL = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#9B870C", "#666666"];
+  var C = {
+    ink: "#15171C", axis: "#15171C", hair: "#E6E6E2", faint: "#9AA0A6",
+    paper: "#FFFFFF", subject: "#1C46C2", muted: "#C9CCD1",
+    pos: "#1C46C2", neg: "#E0312A", proj: "#9AA0A6", band: "#ECF0FC"
+  };
+  function cat(i) { return PAL[i % PAL.length]; }
+  function hashIdx(s) { var h = 0, i; s = String(s); for (i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h % PAL.length; }
+
+  /* ---- tiny DOM/SVG helpers ---- */
+  function svgEl(n, a) { var e = document.createElementNS(NS, n), k; if (a) for (k in a) e.setAttribute(k, a[k]); return e; }
+  function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function resolve(t) { var h = (typeof t === "string") ? document.querySelector(t) : t; if (!h) throw new Error("DN: target not found: " + t); return h; }
+
+  /* ---- number formatter ---- */
+  function fmt(v, o) {
+    o = o || {};
+    if (v == null || (typeof v === "number" && isNaN(v))) return "";
+    if (typeof o.fmt === "function") return o.fmt(v);
+    var n = v, dec = o.decimals;
+    if (o.pct) n = n * 100;
+    var out;
+    if (o.compact) {
+      out = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: dec == null ? 1 : dec }).format(n);
+    } else {
+      var mn = dec == null ? 0 : dec;
+      var mx = dec == null ? (Number.isInteger(n) ? 0 : 2) : dec;
+      out = new Intl.NumberFormat("en", { minimumFractionDigits: mn, maximumFractionDigits: mx }).format(n);
+    }
+    if (o.plus && n > 0) out = "+" + out;
+    var suff = o.suffix || (o.pct ? "%" : "");
+    return (o.prefix || "") + out + suff;
+  }
+
+  /* ---- nice scale (Heckbert) ---- */
+  function niceNum(range, round) {
+    var exp = Math.floor(Math.log(range) / Math.LN10), frac = range / Math.pow(10, exp), nf;
+    if (round) nf = frac < 1.5 ? 1 : frac < 3 ? 2 : frac < 7 ? 5 : 10;
+    else nf = frac <= 1 ? 1 : frac <= 2 ? 2 : frac <= 5 ? 5 : 10;
+    return nf * Math.pow(10, exp);
+  }
+  function niceScale(min, max, maxTicks) {
+    maxTicks = maxTicks || 5;
+    if (min === max) { max = min + 1; }
+    if (max < min) { var t = min; min = max; max = t; }
+    var range = niceNum(max - min || 1, false);
+    var step = niceNum(range / (maxTicks - 1), true);
+    var nmin = Math.floor(min / step) * step, nmax = Math.ceil(max / step) * step, ticks = [], v;
+    for (v = nmin; v <= nmax + step * 0.5; v += step) ticks.push(+v.toFixed(10));
+    return { min: nmin, max: nmax, step: step, ticks: ticks };
+  }
+  function lin(dom, ran) { var d0 = dom[0], d1 = dom[1], r0 = ran[0], r1 = ran[1], m = (d1 === d0) ? 0 : (r1 - r0) / (d1 - d0); return function (v) { return r0 + (v - d0) * m; }; }
+  function xticks(x0, x1, n) {
+    var ns = niceScale(x0, x1, n), ts = ns.ticks.filter(function (t) { return t >= x0 - 1e-9 && t <= x1 + 1e-9; });
+    if (!ts.length) ts = [x0, x1];
+    if (Math.abs(ts[0] - x0) > 1e-9) ts.unshift(x0);
+    if (Math.abs(ts[ts.length - 1] - x1) > 1e-9) ts.push(x1);
+    return ts.filter(function (v, i) { return i === 0 || Math.abs(v - ts[i - 1]) > 1e-9; });
+  }
+
+  /* ---- label geometry: single source of truth, shared with dn-harness ----
+     The width model (per-char advance = font-size * LABEL_EM) is identical to
+     the harness geometry probe, so a label the toolkit judges to "fit" is the
+     same label the pre-publish gate judges to be on-canvas. Font sizes here
+     mirror the .dn-* label classes in the template CSS.               */
+  var LABEL_EM = 0.52;
+  var LABEL_PX = { ax: 11, axlabel: 11, clabel: 12, vlabel: 12.5, endlab: 12, anno: 11.5, annosub: 10.5, strip: 11 };
+  function estW(str, px) { str = (str == null ? "" : String(str)); return str.length * (px || 12) * LABEL_EM; }
+  // Shorten one string to fit maxPx, appending an ellipsis. Never returns
+  // something wider than maxPx (down to a single glyph).
+  function ellip(str, maxPx, px) {
+    str = (str == null ? "" : String(str));
+    if (estW(str, px) <= maxPx) return str;
+    var s = str;
+    while (s.length > 1 && estW(s + "\u2026", px) > maxPx) s = s.slice(0, -1);
+    return s.replace(/[\s,.;:\u2013\u2014-]+$/, "") + "\u2026";
+  }
+  // Word-wrap str to at most maxLines lines, each <= maxPx. The final allowed
+  // line absorbs any remainder and is ellipsised. Returns {lines, truncated}.
+  function wrapFit(str, maxPx, px, maxLines) {
+    str = (str == null ? "" : String(str)).trim(); maxLines = maxLines || 2;
+    if (estW(str, px) <= maxPx) return { lines: [str], truncated: false };
+    var words = str.split(/\s+/), lines = [], cur = "";
+    for (var i = 0; i < words.length; i++) {
+      var cand = cur ? cur + " " + words[i] : words[i];
+      if (cur && estW(cand, px) > maxPx) {
+        if (lines.length === maxLines - 1) {                 // last line: take the rest
+          lines.push(ellip(words.slice(i).join(" "), maxPx, px));
+          return { lines: lines, truncated: true };
+        }
+        lines.push(cur); cur = words[i];
+      } else cur = cand;
+    }
+    if (cur) lines.push(cur);
+    var truncated = false;
+    lines = lines.map(function (ln) { if (estW(ln, px) > maxPx) { truncated = true; return ellip(ln, maxPx, px); } return ln; });
+    return { lines: lines, truncated: truncated };
+  }
+  // Widest label width (px) across a set of values, given a formatter.
+  function widestW(vals, labelOf, px) {
+    var w = 0; for (var i = 0; i < vals.length; i++) { var lw = estW(labelOf(vals[i]), px); if (lw > w) w = lw; } return w;
+  }
+  // Drop interior ticks whose labels would collide; endpoints always kept.
+  function thinTicks(ticks, xOf, labelOf, px, minGap) {
+    if (!ticks || ticks.length <= 2) return (ticks || []).slice();
+    minGap = (minGap == null) ? 6 : minGap;
+    var keep = [ticks[0]], lastR = xOf(ticks[0]) + estW(labelOf(ticks[0]), px) / 2;
+    for (var i = 1; i < ticks.length - 1; i++) {
+      var c = xOf(ticks[i]), half = estW(labelOf(ticks[i]), px) / 2;
+      if (c - half >= lastR + minGap) { keep.push(ticks[i]); lastR = c + half; }
+    }
+    var lastT = ticks[ticks.length - 1], lL = xOf(lastT) - estW(labelOf(lastT), px) / 2;
+    while (keep.length > 1 && (xOf(keep[keep.length - 1]) + estW(labelOf(keep[keep.length - 1]), px) / 2 + minGap) > lL) keep.pop();
+    keep.push(lastT);
+    return keep;
+  }
+  // Clamp a middle-anchored tick label's x so its box stays within [0,W].
+  function clampMid(x, str, px, W) { var h = estW(str, px) / 2; return Math.min(Math.max(x, h + 1), W - h - 1); }
+  // Clamp any anchored free annotation so its box stays on-canvas (backstop —
+  // only moves when the author's placement would otherwise clip off the edge).
+  function clampInside(x, str, px, W, anchor) {
+    var w = estW(str, px);
+    if (anchor === 'end') return Math.min(Math.max(x, w + 1), W - 1);
+    if (anchor === 'middle') return clampMid(x, str, px, W);
+    return Math.min(Math.max(x, 1), W - w - 1);
+  }
+  // Nudge desired y-centres so no two are within minGap, kept within [lo,hi].
+  // Returns adjusted y for each input index (order preserved).
+  function separateY(ys, minGap, lo, hi) {
+    var idx = ys.map(function (y, i) { return { y: y, i: i }; }).sort(function (a, b) { return a.y - b.y; });
+    for (var k = 1; k < idx.length; k++) { if (idx[k].y < idx[k - 1].y + minGap) idx[k].y = idx[k - 1].y + minGap; }
+    if (idx.length && idx[idx.length - 1].y > hi) { idx[idx.length - 1].y = hi; for (var a = idx.length - 2; a >= 0; a--) { if (idx[a].y > idx[a + 1].y - minGap) idx[a].y = idx[a + 1].y - minGap; } }
+    if (idx.length && idx[0].y < lo) { idx[0].y = lo; for (var b = 1; b < idx.length; b++) { if (idx[b].y < idx[b - 1].y + minGap) idx[b].y = idx[b - 1].y + minGap; } }
+    var out = new Array(ys.length); idx.forEach(function (o) { out[o.i] = o.y; }); return out;
+  }
+  // Append a right-anchored label as one line, or as wrapped tspans, so it
+  // never overflows the left gutter. Marks truncation for the gate to see.
+  function drawGutter(svg, str, xRight, cy, cls, px, maxPx, fillCol) {
+    var fit = wrapFit(str, maxPx, px, 2);
+    var lab = svgEl("text", { x: xRight, "text-anchor": "end", "class": cls });
+    if (fillCol) lab.setAttribute("fill", fillCol);
+    if (fit.lines.length === 1) { lab.setAttribute("y", cy + 4); lab.textContent = fit.lines[0]; }
+    else {
+      var lineH = px + 3, startY = cy - (fit.lines.length - 1) * lineH / 2 + 4;
+      fit.lines.forEach(function (ln, li) { var ts = svgEl("tspan", { x: xRight, y: startY + li * lineH }); ts.textContent = ln; lab.appendChild(ts); });
+    }
+    if (fit.truncated) { lab.setAttribute("data-dn-fit", "trunc"); var ti = svgEl("title"); ti.textContent = str; lab.appendChild(ti); }
+    svg.appendChild(lab); return fit;
+  }
+
+  /* ---- relative luminance → ideal overlaid text colour ---- */
+  function idealText(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var f = function (x) { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); };
+    var L = 0.2126 * f(parseInt(c.substr(0, 2), 16)) + 0.7152 * f(parseInt(c.substr(2, 2), 16)) + 0.0722 * f(parseInt(c.substr(4, 2), 16));
+    return L > 0.45 ? "#15171C" : "#FFFFFF";
+  }
+
+  /* ---- responsive mount + lifecycle ---- */
+  function mount(target) {
+    var host = resolve(target);
+    host.classList.add("dn-fig");
+    var svg = svgEl("svg", { class: "dn-svg", role: "img" });
+    var legend = document.createElement("div"); legend.className = "dn-legend";
+    var sr = document.createElement("div"); sr.className = "dn-sr-only";
+    clear(host); host.appendChild(svg); host.appendChild(legend); host.appendChild(sr);
+    return { host: host, svg: svg, legend: legend, sr: sr };
+  }
+  function lifecycle(host, render) {
+    var raf;
+    function go() { cancelAnimationFrame(raf); raf = requestAnimationFrame(render); }
+    if (typeof ResizeObserver !== "undefined") { new ResizeObserver(go).observe(host); }
+    else { window.addEventListener("resize", go); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render).catch(function () { });
+    render();
+  }
+  function describe(svg, spec) {
+    var lab = (spec.title || "") + (spec.summary ? ". " + spec.summary : "");
+    svg.setAttribute("aria-label", lab);
+    var t = svgEl("title"); t.textContent = spec.title || ""; svg.appendChild(t);
+    if (spec.summary) { var d = svgEl("desc"); d.textContent = spec.summary; svg.appendChild(d); }
+  }
+  function a11yTable(sr, title, columns, rows) {
+    var h = "<table><caption>" + esc(title) + "</caption><thead><tr>";
+    columns.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    rows.forEach(function (r) { h += "<tr>"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+    sr.innerHTML = h + "</tbody></table>";
+  }
+  function drawLegend(legend, items) {
+    if (!items || items.length < 2) { legend.style.display = "none"; legend.innerHTML = ""; return; }
+    legend.style.display = "";
+    legend.innerHTML = items.map(function (it) {
+      return '<span class="dn-key"><i style="background:' + it.color + '"></i>' + esc(it.name) + "</span>";
+    }).join("");
+  }
+  function animateLine(path) {
+    if (REDUCE) return;
+    try {
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.style.transition = "stroke-dashoffset 1.1s ease-out";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { path.style.strokeDashoffset = 0; }); });
+    } catch (e) { }
+  }
+  function growRect(r, delay) {
+    if (REDUCE) return;
+    var y = +r.getAttribute("y"), h = +r.getAttribute("height"), base = y + h;
+    r.setAttribute("y", base); r.setAttribute("height", 0);
+    var common = { dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" };
+    var a1 = svgEl("animate", { attributeName: "y", values: base + ";" + y }); for (var k in common) a1.setAttribute(k, common[k]); r.appendChild(a1);
+    var a2 = svgEl("animate", { attributeName: "height", values: "0;" + h }); for (var k2 in common) a2.setAttribute(k2, common[k2]); r.appendChild(a2);
+  }
+  function growBar(r, delay) {
+    if (REDUCE) return;
+    var w = +r.getAttribute("width"); r.setAttribute("width", 0);
+    r.appendChild(svgEl("animate", { attributeName: "width", values: "0;" + w, dur: ".6s", begin: delay + "s", fill: "freeze", calcMode: "spline", keySplines: ".2 .8 .2 1", keyTimes: "0;1" }));
+  }
+
+  /* ====================================================================== */
+  /* LINE                                                                    */
+  /* ====================================================================== */
+  function line(target, spec) {
+    var m = mount(target), series = spec.series || [];
+    var yzero = !(spec.y && spec.y.zero === false);
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 420));
+      var mT = 18, mB = 34;
+      var xs = [], ys = [];
+      series.forEach(function (s) { s.points.forEach(function (p) { xs.push(p.x); ys.push(p.y); }); (s.band || []).forEach(function (b) { ys.push(b.lo); ys.push(b.hi); }); });
+      (spec.refsY || []).forEach(function (r) { ys.push(r.value); });
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, xs);
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, xs);
+      var yMax = (spec.y && spec.y.max != null) ? spec.y.max : Math.max.apply(null, ys);
+      var yMinData = Math.min.apply(null, ys);
+      var ns = niceScale(yzero ? 0 : yMinData, yMax, small ? 4 : 5);
+      // Left margin fits the widest y-tick label (thousands, currency, log ticks
+      // all handled) instead of a fixed 34/44 that clipped wide numbers.
+      var yLabW = widestW(ns.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax);
+      var mL = Math.min(Math.max(Math.round(yLabW) + 12, small ? 34 : 44), Math.round(W * 0.34));
+      // Right margin fits end labels; if that would eat the plot, cap it and
+      // truncate the labels to the reserved width when drawn.
+      var endTexts = series.map(function (s, si) { return s.endLabel || s.name || fmt(s.points[s.points.length - 1].y, spec.y || {}); });
+      var mR;
+      if (spec.endLabels) { mR = Math.min(Math.max(Math.round(widestW(endTexts, function (t) { return t; }, LABEL_PX.endlab)) + 12, small ? 44 : 60), Math.round(W * 0.40)); }
+      else mR = 18;
+      var endBudget = mR - 10;
+      var X = lin([x0, x1], [mL, W - mR]), Y = lin([ns.min, ns.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+
+      (spec.bands || []).forEach(function (b) {
+        if (b.x0 == null) return;
+        var bx0 = X(b.x0), bx1 = X(b.x1);
+        svg.appendChild(svgEl("rect", { x: Math.min(bx0, bx1), y: mT, width: Math.abs(bx1 - bx0), height: (H - mB) - mT, fill: C.band }));
+        if (b.label) { var t = svgEl("text", { x: (bx0 + bx1) / 2, y: mT + 12, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = b.label; svg.appendChild(t); }
+      });
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === ns.min ? C.axis : C.hair, "stroke-width": tv === ns.min ? 1.2 : 1 }));
+        var tl = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); tl.textContent = fmt(tv, spec.y || {}); svg.appendChild(tl);
+      });
+      if (spec.y && spec.y.label) { var yl = svgEl("text", { x: mL - 8, y: mT - 7, "text-anchor": "start", "class": "dn-axlabel" }); yl.textContent = spec.y.label; svg.appendChild(yl); }
+      var xt = (spec.x && spec.x.ticks) ? spec.x.ticks : xticks(x0, x1, small ? 3 : 5);
+      var xfmt = function (xv) { return (spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv); };
+      thinTicks(xt, X, xfmt, LABEL_PX.ax, 8).forEach(function (xv) {
+        var lx = clampMid(X(xv), xfmt(xv), LABEL_PX.ax, W);
+        var t = svgEl("text", { x: lx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = xfmt(xv); svg.appendChild(t);
+      });
+
+      series.forEach(function (s, si) {
+        if (s.band && s.band.length > 1) {
+          var col0 = s.color || (series.length === 1 ? C.subject : cat(si));
+          var top = s.band.map(function (b) { return X(b.x) + "," + Y(b.hi); });
+          var bot = s.band.slice().reverse().map(function (b) { return X(b.x) + "," + Y(b.lo); });
+          svg.appendChild(svgEl("path", { d: "M" + top.join(" L") + " L" + bot.join(" L") + " Z", fill: col0, "fill-opacity": 0.12, stroke: "none" }));
+        }
+      });
+
+      var legItems = [];
+      series.forEach(function (s, si) {
+        var col = s.color || (series.length === 1 ? C.subject : cat(si));
+        legItems.push({ name: s.name || ("Series " + (si + 1)), color: col });
+        var pts = s.points.slice().sort(function (a, b) { return a.x - b.x; });
+        var path = function (arr) { return "M" + arr.map(function (p) { return X(p.x) + "," + Y(p.y); }).join(" L"); };
+        if (s.projectFrom != null) {
+          var solid = pts.filter(function (p) { return p.x <= s.projectFrom; });
+          var proj = pts.filter(function (p) { return p.x >= s.projectFrom; });
+          var ln = svgEl("path", { d: path(solid), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln); animateLine(ln);
+          if (proj.length > 1) svg.appendChild(svgEl("path", { d: path(proj), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-dasharray": "2 5", "stroke-linecap": "round" }));
+        } else {
+          var ln2 = svgEl("path", { d: path(pts), fill: "none", stroke: col, "stroke-width": 2.4, "stroke-linecap": "round", "stroke-linejoin": "round" }); svg.appendChild(ln2); animateLine(ln2);
+        }
+        var last = pts[pts.length - 1];
+        svg.appendChild(svgEl("circle", { cx: X(last.x), cy: Y(last.y), r: 3.4, fill: col }));
+        if (spec.endLabels) {
+          var etxt = endTexts[si], efit = ellip(etxt, endBudget, LABEL_PX.endlab);
+          var el = svgEl("text", { x: X(last.x) + 8, y: Y(last.y) + 4, "text-anchor": "start", "class": "dn-endlab" }); el.setAttribute("fill", col);
+          el.textContent = efit;
+          if (efit !== etxt) { el.setAttribute("data-dn-fit", "trunc"); var eti = svgEl("title"); eti.textContent = etxt; el.appendChild(eti); }
+          svg.appendChild(el);
+        }
+      });
+
+      (spec.refsY || []).forEach(function (r) {
+        var gy = Y(r.value);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: r.color || C.subject, "stroke-width": 1, "stroke-dasharray": "3 4", "stroke-opacity": 0.85 }));
+        if (r.label) { var rlx = clampInside(mL + 6, r.label, LABEL_PX.anno, W, "start"); var t = svgEl("text", { x: rlx, y: gy - 6, "class": "dn-anno" }); t.setAttribute("fill", r.color || C.subject); t.textContent = r.label; svg.appendChild(t); }
+      });
+      (spec.notes || []).forEach(function (nt) {
+        var nx = X(nt.x), ny = Y(nt.y), dy = nt.dy == null ? -10 : nt.dy, na = nt.anchor || "middle";
+        var t = svgEl("text", { x: clampInside(nx + (nt.dx || 0), nt.text, LABEL_PX.anno, W, na), y: ny + dy, "text-anchor": na, "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+        if (nt.sub) { var t2 = svgEl("text", { x: clampInside(nx + (nt.dx || 0), nt.sub, LABEL_PX.annosub, W, na), y: ny + dy + 13, "text-anchor": na, "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+      });
+
+      drawLegend(m.legend, legItems);
+      var xset = []; series.forEach(function (s) { s.points.forEach(function (p) { if (xset.indexOf(p.x) < 0) xset.push(p.x); }); }); xset.sort(function (a, b) { return a - b; });
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "x"].concat(series.map(function (s, i) { return s.name || ("Series " + (i + 1)); })),
+        xset.map(function (xv) {
+          return [(spec.x && spec.x.fmt) ? spec.x.fmt(xv) : String(xv)].concat(series.map(function (s) {
+            var p = s.points.filter(function (q) { return q.x === xv; })[0]; return p ? fmt(p.y, spec.y || {}) : "";
+          }));
+        }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* BARS (horizontal, ranked)                                               */
+  /* ====================================================================== */
+  function bars(target, spec) {
+    var m = mount(target), data = spec.data || [];
+    if (spec.sort === "asc") data = data.slice().sort(function (a, b) { return a.value - b.value; });
+    else if (spec.sort !== "none") data = data.slice().sort(function (a, b) { return b.value - a.value; });
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460, n = data.length;
+      var rowH = spec.rowH || (small ? 26 : 30), gap = spec.gap || 10;
+      var mT = 22, mB = 8;   // v3.3.3: always reserve the x-tick row (labels draw at mT-7)
+      // --- gutter sized to the measured labels, capped so bars stay readable;
+      //     labels that exceed the budget wrap to two lines then ellipsise. ---
+      var clP = LABEL_PX.clabel;
+      var gutterCap = Math.round(W * (small ? 0.46 : 0.42));
+      var want = widestW(data.map(function (d) { return d.label; }), function (s) { return s; }, clP) + 16;
+      var mL = Math.min(Math.max(want, 64), gutterCap);
+      var labelBudget = mL - 14;
+      var fits = data.map(function (d) { return wrapFit(d.label, labelBudget, clP, 2); });
+      var maxLines = Math.max.apply(null, fits.map(function (f) { return f.lines.length; }));
+      var lineH = clP + 3;
+      if (maxLines > 1) rowH = Math.max(rowH, lineH * maxLines + 8);
+      var H = mT + mB + n * rowH + (n - 1) * gap;
+      var mR = small ? 46 : 56;
+      var max = (spec.max != null) ? spec.max : Math.max.apply(null, data.map(function (d) { return d.value; }).concat(spec.refValue != null ? [spec.refValue] : []));
+      var ns = niceScale(0, max, small ? 3 : 5), iw = (W - mR) - mL;
+      var Xv = function (v) { return mL + (v / ns.max) * iw; };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      // reference-line label shares the top row with x-ticks; give it priority
+      var refLX = null, refHalf = 0;
+      if (spec.refValue != null && spec.refLabel) { refLX = clampMid(Xv(spec.refValue), spec.refLabel, LABEL_PX.anno, W); refHalf = estW(spec.refLabel, LABEL_PX.anno) / 2; }
+      var xticksB = thinTicks(ns.ticks, Xv, function (tv) { return fmt(tv, spec.x || {}); }, LABEL_PX.ax, 7);
+      ns.ticks.forEach(function (tv) {
+        var gx = Xv(tv);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        if (xticksB.indexOf(tv) < 0) return;
+        var tstr = fmt(tv, spec.x || {}), lx = clampMid(gx, tstr, LABEL_PX.ax, W);
+        if (refLX != null && Math.abs(lx - refLX) < refHalf + estW(tstr, LABEL_PX.ax) / 2 + 4) return;  // yields to refLabel
+        var t = svgEl("text", { x: lx, y: mT - 7, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = tstr; svg.appendChild(t);
+      });
+      data.forEach(function (d, i) {
+        var y = mT + i * (rowH + gap), w = Math.max(Xv(d.value) - mL, 0), col = d.color || (d.highlight ? C.subject : C.muted);
+        drawGutter(svg, d.label, mL - 10, y + rowH / 2, "dn-clabel", clP, labelBudget, d.highlight ? C.subject : null);
+        var r = svgEl("rect", { x: mL, y: y, width: w, height: rowH, fill: col, rx: 2 }); svg.appendChild(r); growBar(r, 0.05 + i * 0.05);
+        var vtext = fmt(d.value, spec.x || {}), vw = estW(vtext, LABEL_PX.vlabel);
+        var v;
+        if (mL + w + 8 + vw > W - 2 && w > vw + 12) {           // no room outside → label inside the bar
+          v = svgEl("text", { x: mL + w - 6, y: y + rowH / 2 + 4, "text-anchor": "end", "class": "dn-vlabel" });
+          v.setAttribute("fill", idealText(col));
+        } else {
+          v = svgEl("text", { x: Math.min(mL + w + 8, W - vw - 2), y: y + rowH / 2 + 4, "text-anchor": "start", "class": "dn-vlabel" });
+          if (d.highlight) v.setAttribute("fill", C.subject);
+        }
+        v.textContent = vtext; svg.appendChild(v);
+      });
+      if (spec.refValue != null) {
+        var gx = Xv(spec.refValue);
+        svg.appendChild(svgEl("line", { x1: gx, y1: mT, x2: gx, y2: H - mB, stroke: spec.refColor || C.neg, "stroke-width": 1, "stroke-dasharray": "3 3" }));
+        if (spec.refLabel) { var t2 = svgEl("text", { x: refLX != null ? refLX : gx, y: mT - 7, "text-anchor": "middle", "class": "dn-anno" }); t2.setAttribute("fill", spec.refColor || C.neg); t2.textContent = spec.refLabel; svg.appendChild(t2); }
+      }
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", [spec.labelTitle || "Item", spec.valueTitle || "Value"], data.map(function (d) { return [String(d.label), fmt(d.value, spec.x || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* COLUMNS (vertical, grouped or stacked)                                  */
+  /* ====================================================================== */
+  function columns(target, spec) {
+    var m = mount(target), groups = spec.groups || [], series = spec.series || [], mode = spec.mode || "grouped";
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.6, 220), 400));
+      var mR = 14, mT = 18, mB = 40;
+      var yMax;
+      if (mode === "stacked") yMax = Math.max.apply(null, groups.map(function (g) { return series.reduce(function (s, se) { return s + (g.values[se.name] || 0); }, 0); }));
+      else yMax = Math.max.apply(null, groups.map(function (g) { return Math.max.apply(null, series.map(function (se) { return g.values[se.name] || 0; })); }));
+      var ns = niceScale(0, yMax, small ? 4 : 5);
+      var mL = Math.min(Math.max(Math.round(widestW(ns.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax)) + 12, small ? 34 : 44), Math.round(W * 0.34));
+      var iw = (W - mR) - mL, ih = (H - mB) - mT;
+      var Y = function (v) { return mT + ih - (v / ns.max) * ih; }, gw = iw / groups.length, gpad = gw * 0.2;
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      ns.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: tv === 0 ? C.axis : C.hair, "stroke-width": tv === 0 ? 1.2 : 1 }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      groups.forEach(function (g, gi) {
+        var gx = mL + gi * gw + gpad / 2, innerW = gw - gpad;
+        var glab = ellip(g.label, gw - 4, LABEL_PX.ax), glx = clampMid(mL + gi * gw + gw / 2, glab, LABEL_PX.ax, W);
+        var xl = svgEl("text", { x: glx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); xl.textContent = glab;
+        if (glab !== String(g.label)) { xl.setAttribute("data-dn-fit", "trunc"); var gti = svgEl("title"); gti.textContent = String(g.label); xl.appendChild(gti); }
+        svg.appendChild(xl);
+        if (mode === "stacked") {
+          var acc = 0;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, y0 = Y(acc), y1 = Y(acc + val);
+            var r = svgEl("rect", { x: gx, y: y1, width: innerW, height: Math.max(y0 - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05); acc += val;
+          });
+        } else {
+          var bw = innerW / series.length;
+          series.forEach(function (se, si) {
+            var val = g.values[se.name] || 0, x = gx + si * bw, y1 = Y(val);
+            var r = svgEl("rect", { x: x + 1, y: y1, width: Math.max(bw - 2, 1), height: Math.max((mT + ih) - y1, 0), fill: se.color || cat(si) }); svg.appendChild(r); growRect(r, 0.05 + gi * 0.05);
+          });
+        }
+      });
+      drawLegend(m.legend, series.map(function (se, si) { return { name: se.name, color: se.color || cat(si) }; }));
+      a11yTable(m.sr, spec.title || "Chart data",
+        [(spec.x && spec.x.title) || "Group"].concat(series.map(function (s) { return s.name; })),
+        groups.map(function (g) { return [g.label].concat(series.map(function (s) { return fmt(g.values[s.name] || 0, spec.y || {}); })); }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SLOPE / DUMBBELL                                                        */
+  /* ====================================================================== */
+  function slope(target, spec) {
+    var m = mount(target), items = spec.items || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.72, 260), 460));
+      var mT = 34, mB = 22, xL = small ? 96 : 140, xR = W - (small ? 60 : 90);
+      var vals = []; items.forEach(function (it) { vals.push(it.from); vals.push(it.to); });
+      var ns = niceScale(Math.min.apply(null, vals), Math.max.apply(null, vals), 5);
+      var Y = function (v) { return mT + (H - mT - mB) - (v - ns.min) / (ns.max - ns.min) * (H - mT - mB); };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var hl = svgEl("text", { x: clampMid(xL, spec.left || "", LABEL_PX.clabel, W), y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hl.textContent = ellip(spec.left || "", 2 * xL - 8, LABEL_PX.clabel); svg.appendChild(hl);
+      var hr = svgEl("text", { x: clampMid(xR, spec.right || "", LABEL_PX.clabel, W), y: mT - 14, "text-anchor": "middle", "class": "dn-clabel" }); hr.textContent = ellip(spec.right || "", 2 * (W - xR) - 8, LABEL_PX.clabel); svg.appendChild(hr);
+      svg.appendChild(svgEl("line", { x1: xL, y1: mT, x2: xL, y2: H - mB, stroke: C.hair }));
+      svg.appendChild(svgEl("line", { x1: xR, y1: mT, x2: xR, y2: H - mB, stroke: C.hair }));
+      var y0s = items.map(function (it) { return Y(it.from); });
+      var y1s = items.map(function (it) { return Y(it.to); });
+      var llY = separateY(y0s.slice(), LABEL_PX.clabel + 2, mT + 4, H - mB);
+      var rvY = separateY(y1s.slice(), LABEL_PX.vlabel + 2, mT + 4, H - mB);
+      items.forEach(function (it, i) {
+        var col = it.color || (it.highlight ? C.subject : C.muted), y0 = y0s[i], y1 = y1s[i];
+        svg.appendChild(svgEl("line", { x1: xL, y1: y0, x2: xR, y2: y1, stroke: col, "stroke-width": it.highlight ? 2.4 : 1.6, "stroke-opacity": it.highlight ? 1 : 0.85 }));
+        svg.appendChild(svgEl("circle", { cx: xL, cy: y0, r: 3.2, fill: col }));
+        svg.appendChild(svgEl("circle", { cx: xR, cy: y1, r: 3.2, fill: col }));
+        var llTxt = ellip(it.label, xL - 14, LABEL_PX.clabel);
+        var ll = svgEl("text", { x: xL - 10, y: llY[i] + 4, "text-anchor": "end", "class": "dn-clabel" }); if (it.highlight) ll.setAttribute("fill", C.subject); ll.textContent = llTxt;
+        if (llTxt !== String(it.label)) { ll.setAttribute("data-dn-fit", "trunc"); var lti = svgEl("title"); lti.textContent = String(it.label); ll.appendChild(lti); }
+        svg.appendChild(ll);
+        var rv = svgEl("text", { x: xR + 10, y: rvY[i] + 4, "text-anchor": "start", "class": "dn-vlabel" }); if (it.highlight) rv.setAttribute("fill", C.subject); rv.textContent = ellip(fmt(it.to, spec.y || {}), (W - xR) - 12, LABEL_PX.vlabel); svg.appendChild(rv);
+      });
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Chart data", ["Item", spec.left || "From", spec.right || "To"], items.map(function (it) { return [it.label, fmt(it.from, spec.y || {}), fmt(it.to, spec.y || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SCATTER                                                                 */
+  /* ====================================================================== */
+  function scatter(target, spec) {
+    var m = mount(target), pts = spec.points || [];
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.66, 240), 420));
+      var mR = 16, mT = 16, mB = 38;
+      var xs = pts.map(function (p) { return p.x; }), ys = pts.map(function (p) { return p.y; });
+      var nx = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs), small ? 4 : 6);
+      var nyv = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys), small ? 4 : 5);
+      var mL = Math.min(Math.max(Math.round(widestW(nyv.ticks, function (tv) { return fmt(tv, spec.y || {}); }, LABEL_PX.ax)) + 12, small ? 38 : 48), Math.round(W * 0.34));
+      var X = lin([nx.min, nx.max], [mL, W - mR]), Y = lin([nyv.min, nyv.max], [H - mB, mT]);
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      nyv.ticks.forEach(function (tv) {
+        var gy = Y(tv);
+        svg.appendChild(svgEl("line", { x1: mL, y1: gy, x2: W - mR, y2: gy, stroke: C.hair }));
+        var t = svgEl("text", { x: mL - 8, y: gy + 4, "text-anchor": "end", "class": "dn-ax" }); t.textContent = fmt(tv, spec.y || {}); svg.appendChild(t);
+      });
+      var xfmtS = function (tv) { return fmt(tv, spec.x || {}); };
+      thinTicks(nx.ticks, X, xfmtS, LABEL_PX.ax, 8).forEach(function (tv) { var lx = clampMid(X(tv), xfmtS(tv), LABEL_PX.ax, W); var t = svgEl("text", { x: lx, y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = xfmtS(tv); svg.appendChild(t); });
+      if (spec.x && spec.x.label) { var xa = svgEl("text", { x: W - mR, y: H - 4, "text-anchor": "end", "class": "dn-axlabel" }); xa.textContent = spec.x.label; svg.appendChild(xa); }
+      if (spec.y && spec.y.label) { var ya = svgEl("text", { x: mL - 8, y: mT - 5, "text-anchor": "start", "class": "dn-axlabel" }); ya.textContent = spec.y.label; svg.appendChild(ya); }
+      if (spec.quadrant) {
+        if (spec.quadrant.x != null) svg.appendChild(svgEl("line", { x1: X(spec.quadrant.x), y1: mT, x2: X(spec.quadrant.x), y2: H - mB, stroke: C.faint, "stroke-dasharray": "3 4" }));
+        if (spec.quadrant.y != null) svg.appendChild(svgEl("line", { x1: mL, y1: Y(spec.quadrant.y), x2: W - mR, y2: Y(spec.quadrant.y), stroke: C.faint, "stroke-dasharray": "3 4" }));
+      }
+      var groups = [];
+      pts.forEach(function (p) {
+        var col = p.color || (p.group ? cat(hashIdx(p.group)) : C.subject);
+        if (p.group && !groups.filter(function (g) { return g.name === p.group; }).length) groups.push({ name: p.group, color: col });
+        svg.appendChild(svgEl("circle", { cx: X(p.x), cy: Y(p.y), r: p.r || 4.5, fill: col, "fill-opacity": 0.82 }));
+        if (p.label) {
+          var plw = estW(p.label, LABEL_PX.annosub), px0 = X(p.x) + (p.r || 4.5) + 4, pl;
+          if (px0 + plw > W - 2) pl = svgEl("text", { x: X(p.x) - (p.r || 4.5) - 4, y: Y(p.y) + 4, "text-anchor": "end", "class": "dn-annosub" });
+          else pl = svgEl("text", { x: px0, y: Y(p.y) + 4, "text-anchor": "start", "class": "dn-annosub" });
+          pl.textContent = p.label; svg.appendChild(pl);
+        }
+      });
+      drawLegend(m.legend, groups);
+      a11yTable(m.sr, spec.title || "Chart data", [(spec.x && spec.x.title) || "x", (spec.y && spec.y.title) || "y", "Label"], pts.map(function (p) { return [fmt(p.x, spec.x || {}), fmt(p.y, spec.y || {}), p.label || ""]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* RANGE STRIP (barcode timeline / Gantt rows)                             */
+  /* ====================================================================== */
+  function rangeStrip(target, spec) {
+    var m = mount(target), events = spec.events || [], mode = spec.mode || "barcode";
+    var patId = "dnhatch" + (++UID);
+    function catColor(c, i) {
+      if (spec.categories) { var f = spec.categories.filter(function (k) { return k.name === c; })[0]; if (f) return f.color; }
+      return c ? cat(hashIdx(c)) : cat(i);
+    }
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var x0 = (spec.x && spec.x.min != null) ? spec.x.min : Math.min.apply(null, events.map(function (e) { return e.start; }));
+      var x1 = (spec.x && spec.x.max != null) ? spec.x.max : Math.max.apply(null, events.map(function (e) { return e.end; }));
+      var fx = function (v) { return (spec.x && spec.x.fmt) ? spec.x.fmt(v) : v; };
+      var H, X;
+      var defs = svgEl("defs");
+      var pat = svgEl("pattern", { id: patId, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+      pat.appendChild(svgEl("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: C.faint, "stroke-width": 2.4 }));
+      defs.appendChild(pat);
+
+      if (mode === "barcode") {
+        var padX = 8, top = small ? 56 : 66, BH = spec.barHeight || (small ? 92 : 140), baseY = top + BH;
+        H = baseY + 74;
+        X = function (v) { return padX + (v - x0) / (x1 - x0) * (W - 2 * padX); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        svg.appendChild(svgEl("line", { x1: padX, y1: baseY, x2: W - padX, y2: baseY, stroke: C.hair }));
+        var allXb = xticks(x0, x1, small ? 4 : 7), bfmt = function (xv) { return String(fx(xv)); };
+        var keepXb = thinTicks(allXb, X, bfmt, LABEL_PX.ax, 8);
+        allXb.forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: baseY, x2: xx, y2: baseY + 6, stroke: C.hair }));
+          if (keepXb.indexOf(xv) < 0) return;
+          var t = svgEl("text", { x: clampMid(xx, bfmt(xv), LABEL_PX.ax, W), y: baseY + 22, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 1.2), col = e.color || catColor(e.category, i);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: Math.max(xn - xa, 1), height: BH, fill: col }));
+            svg.appendChild(svgEl("rect", { x: xn, y: top, width: Math.max(xb - xn, 1), height: BH, fill: "url(#" + patId + ")" }));
+            svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: "none", stroke: col, "stroke-opacity": 0.5 }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: top, width: w, height: BH, fill: col }));
+          svg.appendChild(svgEl("line", { x1: xa, y1: top, x2: xa, y2: baseY, stroke: C.paper, "stroke-width": 1 }));
+          if (w > 24 && e.label) {
+            var nm = svgEl("text", { x: xa + w / 2, y: baseY - 10, "text-anchor": "start", "class": "dn-strip-name", transform: "rotate(-90 " + (xa + w / 2) + " " + (baseY - 10) + ")" });
+            nm.setAttribute("font-size", w > 40 ? "12" : "10.5"); nm.setAttribute("fill", (e.projectFrom != null && (e.start + e.end) / 2 >= e.projectFrom) ? C.ink : idealText(col)); nm.textContent = e.label; svg.appendChild(nm);
+          }
+        });
+        (spec.brackets || []).forEach(function (b) {
+          var bx0 = X(b.x0), bx1 = X(b.x1), by = top - 40;
+          svg.appendChild(svgEl("path", { d: "M" + bx0 + " " + (by + 9) + " V" + by + " H" + bx1 + " V" + (by + 9), fill: "none", stroke: C.subject, "stroke-width": 1.2 }));
+          var t = svgEl("text", { x: clampMid((bx0 + bx1) / 2, b.label, LABEL_PX.anno, W), y: by - 6, "text-anchor": "middle", "class": "dn-anno" }); t.setAttribute("fill", C.subject); t.textContent = b.label; svg.appendChild(t);
+        });
+        (spec.notes || []).forEach(function (nt) {
+          var nx = X(nt.x);
+          var t = svgEl("text", { x: clampMid(nx, nt.text, LABEL_PX.anno, W), y: top - 16, "text-anchor": "middle", "class": "dn-anno" }); t.textContent = nt.text; svg.appendChild(t);
+          if (nt.sub) { var t2 = svgEl("text", { x: clampMid(nx, nt.sub, LABEL_PX.annosub, W), y: top - 3, "text-anchor": "middle", "class": "dn-annosub" }); t2.textContent = nt.sub; svg.appendChild(t2); }
+        });
+      } else {
+        var rowH = small ? 20 : 24, gap = 6, mT = 8, mB = 30, clP = LABEL_PX.clabel;
+        var mL = Math.min(Math.max(Math.round(widestW(events.map(function (e) { return e.label; }), function (s) { return s; }, clP)) + 16, 70), Math.round(W * 0.42));
+        var rBudget = mL - 14;
+        var rFits = events.map(function (e) { return wrapFit(e.label, rBudget, clP, 2); });
+        var rMaxLines = Math.max.apply(null, rFits.map(function (f) { return f.lines.length; }));
+        if (rMaxLines > 1) rowH = Math.max(rowH, (clP + 3) * rMaxLines + 6);
+        H = mT + mB + events.length * (rowH + gap);
+        X = function (v) { return mL + (v - x0) / (x1 - x0) * ((W - 14) - mL); };
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec); svg.appendChild(defs);
+        var allXr = xticks(x0, x1, small ? 4 : 7), rfmt = function (xv) { return String(fx(xv)); };
+        var keepXr = thinTicks(allXr, X, rfmt, LABEL_PX.ax, 8);
+        allXr.forEach(function (xv) {
+          var xx = X(xv);
+          svg.appendChild(svgEl("line", { x1: xx, y1: mT, x2: xx, y2: H - mB, stroke: C.hair }));
+          if (keepXr.indexOf(xv) < 0) return;
+          var t = svgEl("text", { x: clampMid(xx, rfmt(xv), LABEL_PX.ax, W), y: H - mB + 20, "text-anchor": "middle", "class": "dn-ax" }); t.textContent = fx(xv); svg.appendChild(t);
+        });
+        events.forEach(function (e, i) {
+          var y = mT + i * (rowH + gap), xa = X(e.start), xb = X(e.end), w = Math.max(xb - xa, 2), col = e.color || catColor(e.category, i);
+          drawGutter(svg, e.label, mL - 10, y + rowH / 2, "dn-clabel", clP, rBudget, null);
+          if (e.projectFrom != null) {
+            var xn = X(e.projectFrom);
+            svg.appendChild(svgEl("rect", { x: xa, y: y, width: Math.max(xn - xa, 1), height: rowH, fill: col, rx: 2 }));
+            svg.appendChild(svgEl("rect", { x: xn, y: y, width: Math.max(xb - xn, 1), height: rowH, fill: "url(#" + patId + ")" }));
+          } else svg.appendChild(svgEl("rect", { x: xa, y: y, width: w, height: rowH, fill: col, rx: 2 }));
+        });
+      }
+      if (spec.categories) drawLegend(m.legend, spec.categories.map(function (k) { return { name: k.name, color: k.color }; }));
+      else m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Timeline data", ["Item", "Start", "End"], events.map(function (e) { return [e.label, String(fx(e.start)), String(fx(e.end))]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  /* ====================================================================== */
+  /* SANKEY (flows — ribbon width proportional to volume)                    */
+  /* ---------------------------------------------------------------------- */
+  /* Honest encoding: a flow's height (at both ends) and a node's height are  */
+  /* proportional to value on one shared px-per-unit scale. Colour only marks */
+  /* provenance (gradient source -> target); every node carries a text label  */
+  /* and value, so colour is never the sole carrier. Layout: longest-path     */
+  /* layering + barycentre relaxation to reduce crossings. Assumes a DAG.     */
+  /* ====================================================================== */
+  function sankey(target, spec) {
+    var m = mount(target);
+    var rawLinks = (spec.links || []).filter(function (l) { return l && l.value > 0; });
+    var nodeMap = {}, nodes = [];
+    function getNode(id) {
+      var key = "$" + id;
+      if (!Object.prototype.hasOwnProperty.call(nodeMap, key)) {
+        nodeMap[key] = { id: id, label: String(id), ins: [], outs: [], idx: nodes.length };
+        nodes.push(nodeMap[key]);
+      }
+      return nodeMap[key];
+    }
+    (spec.nodes || []).forEach(function (nd) {
+      var n = getNode(nd.id);
+      if (nd.label != null) n.label = String(nd.label);
+      if (nd.color) n.color = nd.color;
+    });
+    var links = rawLinks.map(function (l) {
+      var s = getNode(l.source), t = getNode(l.target);
+      var link = { source: s, target: t, value: +l.value, color: l.color };
+      s.outs.push(link); t.ins.push(link);
+      return link;
+    });
+    nodes.forEach(function (n, i) { if (!n.color) n.color = cat(i); });
+
+    /* longest-path layering (assumes a DAG) */
+    nodes.forEach(function (n) { n.depth = 0; });
+    for (var pass = 0; pass < nodes.length + 1; pass++) {
+      var changed = false;
+      links.forEach(function (l) {
+        if (l.target.depth < l.source.depth + 1) { l.target.depth = l.source.depth + 1; changed = true; }
+      });
+      if (!changed) break;
+    }
+    var maxDepth = 0; nodes.forEach(function (n) { if (n.depth > maxDepth) maxDepth = n.depth; });
+    if (spec.align !== "left") nodes.forEach(function (n) { if (n.outs.length === 0 && n.ins.length) n.depth = maxDepth; });
+    var columns = [];
+    nodes.forEach(function (n) { (columns[n.depth] = columns[n.depth] || []).push(n); });
+    for (var qi = 0; qi < columns.length; qi++) if (!columns[qi]) columns[qi] = [];
+
+    function nodeVal(n) {
+      var i = n.ins.reduce(function (s, l) { return s + l.value; }, 0);
+      var o = n.outs.reduce(function (s, l) { return s + l.value; }, 0);
+      return Math.max(i, o);
+    }
+    function center(n) { return n.y + n.h / 2; }
+    function truncate(s, max) { s = String(s); return s.length > max ? s.slice(0, max - 1) + "\u2026" : s; }
+
+    function render() {
+      var svg = m.svg; clear(svg);
+      var W = Math.max(m.host.clientWidth, 240), small = W < 460;
+      var H = spec.height || Math.round(Math.min(Math.max(W * 0.62, 250), 460));
+      var nodeW = spec.nodeWidth || (small ? 11 : 15);
+      var pad = spec.nodePad || (small ? 11 : 16);
+      var labCap = small ? 12 : 22;
+      var first = columns[0] || [], lastCol = columns[columns.length - 1] || [];
+      var lc = Math.max.apply(null, [4].concat(first.map(function (n) { return truncate(n.label, labCap).length; })));
+      var rc = Math.max.apply(null, [4].concat(lastCol.map(function (n) { return truncate(n.label, labCap).length; })));
+      var chpx = small ? 5.7 : 6.7;
+      var mL = Math.min(Math.max(lc * chpx + 12, 38), W * 0.34);
+      var mR = Math.min(Math.max(rc * chpx + 12, 38), W * 0.34);
+      var mT = 16, mB = 12;
+      var innerW = Math.max(W - mL - mR, 60), innerH = Math.max(H - mT - mB, 80);
+      var cols = columns.length;
+      var colStep = cols > 1 ? (innerW - nodeW) / (cols - 1) : 0;
+      function nodeX(d) { return mL + d * colStep; }
+
+      /* one shared value->px scale across every column (honest) */
+      var k = Infinity;
+      columns.forEach(function (col) {
+        var sum = col.reduce(function (s, n) { return s + nodeVal(n); }, 0);
+        var avail = innerH - (col.length - 1) * pad;
+        if (sum > 0) k = Math.min(k, avail / sum);
+      });
+      if (!isFinite(k) || k <= 0) k = 1;
+      nodes.forEach(function (n) { n.h = Math.max(nodeVal(n) * k, 1.5); });
+
+      columns.forEach(function (col) {
+        var totalH = col.reduce(function (s, n) { return s + n.h; }, 0) + (col.length - 1) * pad;
+        var y = mT + (innerH - totalH) / 2;
+        col.forEach(function (n) { n.y = y; y += n.h + pad; });
+      });
+      function collide(col) {
+        col.sort(function (a, b) { return a.y - b.y; });
+        var y = mT, i, n;
+        for (i = 0; i < col.length; i++) { n = col[i]; if (n.y < y) n.y = y; y = n.y + n.h + pad; }
+        y = mT + innerH;
+        for (i = col.length - 1; i >= 0; i--) { n = col[i]; if (n.y + n.h > y) n.y = y - n.h; y = n.y - pad; }
+      }
+      var ITER = 7;
+      for (var it = 0; it < ITER; it++) {
+        var alpha = 0.9 * (1 - it / ITER);
+        for (var c = 1; c < columns.length; c++) {
+          columns[c].forEach(function (n) {
+            if (n.ins.length) { var w = 0, sy = 0; n.ins.forEach(function (l) { sy += center(l.source) * l.value; w += l.value; }); if (w) n.y += (sy / w - center(n)) * alpha; }
+          });
+          collide(columns[c]);
+        }
+        for (var c2 = columns.length - 2; c2 >= 0; c2--) {
+          columns[c2].forEach(function (n) {
+            if (n.outs.length) { var w2 = 0, sy2 = 0; n.outs.forEach(function (l) { sy2 += center(l.target) * l.value; w2 += l.value; }); if (w2) n.y += (sy2 / w2 - center(n)) * alpha; }
+          });
+          collide(columns[c2]);
+        }
+      }
+
+      /* order each node's links by partner position, then stack the bands */
+      nodes.forEach(function (n) {
+        n.outs.sort(function (a, b) { return center(a.target) - center(b.target); });
+        n.ins.sort(function (a, b) { return center(a.source) - center(b.source); });
+        var so = 0; n.outs.forEach(function (l) { l.sy0 = n.y + so; so += l.value * k; l.sy1 = n.y + so; });
+        var ti = 0; n.ins.forEach(function (l) { l.ty0 = n.y + ti; ti += l.value * k; l.ty1 = n.y + ti; });
+      });
+
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H); describe(svg, spec);
+      var defs = svgEl("defs"); svg.appendChild(defs);
+
+      var gFlows = svgEl("g");
+      links.forEach(function (l) {
+        var x0 = nodeX(l.source.depth) + nodeW, x1 = nodeX(l.target.depth), xm = (x0 + x1) / 2;
+        var fill;
+        if (l.color) { fill = l.color; }
+        else {
+          var gid = "dnsk" + (++UID);
+          var lg = svgEl("linearGradient", { id: gid, gradientUnits: "userSpaceOnUse", x1: x0, y1: 0, x2: x1, y2: 0 });
+          lg.appendChild(svgEl("stop", { offset: "0%", "stop-color": l.source.color }));
+          lg.appendChild(svgEl("stop", { offset: "100%", "stop-color": l.target.color }));
+          defs.appendChild(lg); fill = "url(#" + gid + ")";
+        }
+        var d = "M" + x0 + "," + l.sy0 +
+          "C" + xm + "," + l.sy0 + " " + xm + "," + l.ty0 + " " + x1 + "," + l.ty0 +
+          "L" + x1 + "," + l.ty1 +
+          "C" + xm + "," + l.ty1 + " " + xm + "," + l.sy1 + " " + x0 + "," + l.sy1 + "Z";
+        var p = svgEl("path", { d: d, fill: fill, "fill-opacity": (spec.linkOpacity != null ? spec.linkOpacity : 0.44), "class": "dn-flow" });
+        var tt = svgEl("title"); tt.textContent = l.source.label + " \u2192 " + l.target.label + ": " + fmt(l.value, spec.value || {}); p.appendChild(tt);
+        gFlows.appendChild(p);
+      });
+      svg.appendChild(gFlows);
+      if (!REDUCE) {
+        gFlows.style.opacity = 0; gFlows.style.transition = "opacity .7s ease-out";
+        requestAnimationFrame(function () { requestAnimationFrame(function () { gFlows.style.opacity = 1; }); });
+      }
+
+      nodes.forEach(function (n) {
+        var x = nodeX(n.depth), tall = n.h > 26;
+        svg.appendChild(svgEl("rect", { x: x, y: n.y, width: nodeW, height: n.h, fill: n.color, rx: 2 }));
+        var isLast = (n.depth === columns.length - 1);
+        var lx = isLast ? x - 8 : x + nodeW + 8, anchor = isLast ? "end" : "start", cy = n.y + n.h / 2;
+        var lab = svgEl("text", { x: lx, y: cy + (tall ? -1 : 3.5), "text-anchor": anchor, "class": "dn-clabel dn-nodelabel" });
+        lab.textContent = truncate(n.label, labCap); svg.appendChild(lab);
+        if (tall) {
+          var val = svgEl("text", { x: lx, y: cy + 13, "text-anchor": anchor, "class": "dn-annosub dn-nodelabel" });
+          val.textContent = fmt(nodeVal(n), spec.value || {}); svg.appendChild(val);
+        }
+      });
+
+      m.legend.style.display = "none";
+      a11yTable(m.sr, spec.title || "Flow data",
+        [spec.fromTitle || "From", spec.toTitle || "To", spec.valueTitle || "Value"],
+        links.map(function (l) { return [l.source.label, l.target.label, fmt(l.value, spec.value || {})]; }));
+    }
+    lifecycle(m.host, render); return { render: render };
+  }
+
+  return {
+    line: line, bars: bars, columns: columns, slope: slope, scatter: scatter, rangeStrip: rangeStrip, sankey: sankey,
+    fmt: fmt, colors: C, palette: PAL, niceScale: niceScale
+  };
+})();
+</script>
+
+<script>
+(function(){
+/* Exhibit 1 — signature: 95% confidence intervals for preventing respiratory infection */
+DN.rangeStrip("#ex1", {
+  title: "Does the interval clear the no-effect line?",
+  summary: "Ninety-five per cent confidence intervals from pooled randomised trials of vitamin C, vitamin D and zinc for preventing respiratory infection. A bar spans the interval; 1.00 means no effect. Two of the eight intervals sit entirely below 1.00: vitamin C in people under extreme physical exertion, and vitamin D given daily at 400 to 1,000 international units. The overall vitamin D estimate, and the estimate in people who were profoundly deficient at the start, both cross 1.00.",
+  mode: "rows",
+  categories: [
+    { name: "Excludes 1.00", color: DN.palette[2] },
+    { name: "Includes 1.00", color: DN.palette[7] }
+  ],
+  events: [
+    { label: "Vitamin C, exertion",       start: 0.35, end: 0.64, category: "Excludes 1.00" },
+    { label: "Vitamin D, 400–1,000 IU",   start: 0.55, end: 0.89, category: "Excludes 1.00" },
+    { label: "Vitamin D, under 400 IU",   start: 0.41, end: 1.41, category: "Includes 1.00" },
+    { label: "Vitamin D, deficient",      start: 0.80, end: 1.20, category: "Includes 1.00" },
+    { label: "Zinc, prevention",          start: 0.85, end: 1.01, category: "Includes 1.00" },
+    { label: "Vitamin D, overall",        start: 0.88, end: 1.00, category: "Includes 1.00" },
+    { label: "Vitamin C, general public", start: 0.94, end: 1.00, category: "Includes 1.00" },
+    { label: "Vitamin D, over 2,000 IU",  start: 0.84, end: 1.31, category: "Includes 1.00" }
+  ],
+  x: { min: 0.30, max: 1.45, fmt: v => v.toFixed(2) }
+});
+
+/* Exhibit 2 — where UK blood tests actually show a shortfall */
+DN.bars("#ex3", {
+  title: "Below the clinical deficiency threshold",
+  summary: "Percentage of each UK group with a blood measurement below the clinical deficiency threshold, from the National Diet and Nutrition Survey for 2019 to 2023. Vitamin D is 25-hydroxyvitamin D below 25 nanomoles per litre; folate is serum folate below 7 nanomoles per litre. Teenagers aged 11 to 18 have the highest rates for both nutrients, at 24 per cent for folate and 23 per cent for vitamin D. Over-65s have the lowest folate shortfall at 7 per cent.",
+  data: [
+    { label: "Teens 11–18, folate",      value: 24, color: DN.palette[1] },
+    { label: "Teens 11–18, vitamin D",   value: 23, color: DN.palette[0] },
+    { label: "Adults 19–64, vitamin D",  value: 18, color: DN.palette[0] },
+    { label: "Adults 19–64, folate",     value: 14, color: DN.palette[1] },
+    { label: "Over-65s, vitamin D",      value: 12, color: DN.palette[0] },
+    { label: "Children 4–10, vitamin D", value: 10, color: DN.palette[0] },
+    { label: "Children 4–10, folate",    value:  8, color: DN.palette[1] },
+    { label: "Over-65s, folate",         value:  7, color: DN.palette[1] }
+  ],
+  sort: "none",
+  max: 30,
+  x: { suffix: "%" },
+  labelTitle: "Group and nutrient",
+  valueTitle: "Below threshold"
+});
+
+/* Exhibit 3 — the dose window, in raw percentages rather than pooled ratios */
+DN.columns("#ex2", {
+  title: "Participants catching at least one infection",
+  summary: "Percentage of trial participants who reported at least one acute respiratory infection, split by the daily equivalent dose of vitamin D given, from the 2025 pooled analysis of randomised trials. In the 400 to 1,000 international unit band the vitamin D group did better than placebo by 5.6 percentage points. In the other three bands the gap is under one percentage point, and above 2,000 international units the vitamin D group did slightly worse. Baseline infection rates differ sharply between bands, so the bands are not comparable with one another.",
+  mode: "grouped",
+  series: [
+    { name: "Vitamin D", color: DN.palette[0] },
+    { name: "Placebo",   color: DN.palette[7] }
+  ],
+  groups: [
+    { label: "<400",        values: { "Vitamin D": 42.0, "Placebo": 44.7 } },
+    { label: "400–1,000",   values: { "Vitamin D": 53.1, "Placebo": 58.7 } },
+    { label: "1,001–2,000", values: { "Vitamin D": 46.4, "Placebo": 47.1 } },
+    { label: ">2,000",      values: { "Vitamin D": 66.2, "Placebo": 65.3 } }
+  ],
+  y: { suffix: "%", decimals: 1 },
+  x: { title: "Daily dose (IU)" }
+});
+
+/* Exhibit 4 — broad-spectrum vs targeted, in groups with suppressed or ageing immune systems */
+DN.rangeStrip("#ex4", {
+  title: "Broad pill against targeted nutrient",
+  summary: "Ninety-five per cent confidence intervals from pooled randomised trials in people with HIV, people aged 65 and over, and people taking methotrexate. A bar spans the interval; 1.00 means no effect. The three broad-spectrum multivitamin results all cross 1.00. The two folic acid results, where a single nutrient is given to counter a known drug mechanism, sit far below it. The outcomes measured differ between rows and the sizes of the effects are not comparable with one another.",
+  mode: "rows",
+  categories: [
+    { name: "Targeted nutrient",   color: DN.palette[2] },
+    { name: "Broad-spectrum pill", color: DN.palette[5] }
+  ],
+  events: [
+    { label: "Folic acid: MTX liver injury", start: 0.15, end: 0.34, category: "Targeted nutrient" },
+    { label: "Folic acid: MTX withdrawal",   start: 0.28, end: 0.53, category: "Targeted nutrient" },
+    { label: "Multivitamin: HIV deaths",     start: 0.72, end: 1.15, category: "Broad-spectrum pill" },
+    { label: "Multivitamin: GP visits, 65+", start: 0.78, end: 1.19, category: "Broad-spectrum pill" },
+    { label: "Multivitamin: sick days, 65+", start: 0.90, end: 1.27, category: "Broad-spectrum pill" }
+  ],
+  x: { min: 0.10, max: 1.40, fmt: v => v.toFixed(2) }
+});
+})();
+</script>
+
+</body>
+</html>

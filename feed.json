@@ -1,9 +1,23 @@
 {
-  "built": "2026-09-24T05:25:11.739Z",
+  "built": "2026-09-24T05:45:31.869Z",
   "today": "2026-09-24",
   "timezone": "Europe/London",
-  "count": 414,
+  "count": 416,
   "items": [
+    {
+      "path": "reports/2026-09-24-atlantic-hurricane-season-longest-wait.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "The Atlantic has gone longer without a hurricane than in any season since 1914",
+      "standfirst": "Six named storms, no hurricanes: 2026 has passed the satellite-era record for the latest first hurricane by 13 days, and storm energy is running at 8% of normal for the date.",
+      "date": "2026-09-24",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "115",
+      "statUnit": "",
+      "statLabel": "days",
+      "mask": ""
+    },
     {
       "path": "reports/2026-09-24-crossword-mini-0075.html",
       "kind": "puzzle",
@@ -59,6 +73,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": ".................o.................."
+    },
+    {
+      "path": "reports/2026-09-24-roman-road-network-centrality.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "By land, Rome was not the hub of its empire’s road network",
+      "standfirst": "A network analysis of 299,171 km of Roman roads finds Antioch, Ancyra, Byzantium and Corinth were better-placed overland crossroads than Rome, while 35 of 45 provincial capitals ranked in their province’s top tenth on at least one centra…",
+      "date": "2026-09-24",
+      "read": "3 min",
+      "thumb": "",
+      "stat": "35",
+      "statUnit": "/45",
+      "statLabel": "capitals",
+      "mask": ""
     },
     {
       "path": "reports/2026-09-24-word-link-0047.html",

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en" data-section="admin">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FCFCFB">
+<title>Digi Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  DIGI ADMIN — private reader insights (admin.html)
+  The page itself is public, like every file on GitHub Pages, but it holds no
+  data. Figures come from the `digi` Supabase database through one function,
+  admin_dashboard, which answers only a signed-in email on the admin list
+  (insights.admins). Sign-in is an emailed one-time link.
+  This page deliberately does NOT load dn-track.js: admin visits are not counted.
+-->
+<style>
+  :root{
+    --canvas:#FCFCFB; --paper:#FFFFFF; --ink:#15171C; --muted:#5F636B; --faint:#8C9198;
+    --hair:#E6E6E2; --wash:#F4F4F1;
+    --news:#1C46C2; --news-soft:#ECF0FC;
+    --puzzles:#0E7A4B; --puzzles-soft:#E4F4EB;
+    --games:#6A2BC9; --games-soft:#F1EAFC;
+    --good:#1F7A4D; --warn:#A35C00; --bad:#B42318;
+    --good-soft:#E6F4EC; --warn-soft:#FFF3E0; --bad-soft:#FDECEA;
+    --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+    --body:'Inter','Helvetica Neue',Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 16px 80px}
+  @media(min-width:560px){.wrap{padding:0 24px 80px}}
+  a{color:var(--news)}
+  button{font:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid var(--news);outline-offset:2px;border-radius:4px}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* masthead */
+  .mast{display:flex;align-items:center;gap:11px;padding:14px 0 10px;border-bottom:2px solid var(--ink)}
+  .mono{width:30px;height:30px;background:var(--ink);color:#fff;font-family:var(--display);font-weight:800;
+    font-size:17px;display:grid;place-content:center;border-radius:4px}
+  .word{font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em}
+  .word b{color:var(--muted);font-weight:700}
+  .mast .kick{margin-left:auto;font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:right}
+  .who{font-size:12px;color:var(--muted);text-align:right}
+  .who button{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:2px;font-size:12px;padding:0}
+
+  /* sign in */
+  .signin{max-width:420px;margin:48px auto 0;background:var(--paper);border:1px solid var(--hair);border-radius:10px;padding:24px}
+  .signin h1{font-family:var(--display);font-size:22px;letter-spacing:-.01em}
+  .signin p{color:var(--muted);margin-top:6px}
+  .signin form{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .signin label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .field{font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--hair);border-radius:6px;background:var(--canvas);color:var(--ink)}
+  .primary{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:11px 18px;font-weight:600}
+  .primary:disabled{opacity:.6;cursor:default}
+  .status{font-size:14px;margin-top:12px;padding:10px 12px;border-radius:6px;background:var(--wash);color:var(--muted)}
+  .status.ok{background:var(--good-soft);color:var(--good)}
+  .status.err{background:var(--bad-soft);color:var(--bad)}
+
+  /* toolbar */
+  .toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--canvas);border-bottom:1px solid var(--hair);
+    padding:10px 0;display:flex;flex-direction:column;gap:8px}
+  .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .chip{font-weight:600;font-size:12.5px;padding:6px 12px;border:1px solid var(--hair);background:var(--paper);color:var(--muted);border-radius:999px;white-space:nowrap}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip.sec::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;background:var(--dot,var(--faint));vertical-align:1px}
+  .dates{display:flex;gap:6px;align-items:center;font-size:12.5px;color:var(--muted)}
+  .dates input{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--hair);border-radius:6px;background:var(--paper);color:var(--ink)}
+  .ghost{background:none;border:1px solid var(--hair);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--ink)}
+  .updated{font-size:12px;color:var(--faint);margin-left:auto}
+  .jump{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;font-size:13px;font-weight:600}
+  .jump::-webkit-scrollbar{display:none}
+  .jump a{color:var(--muted);text-decoration:none;white-space:nowrap}
+  .jump a:hover{color:var(--ink)}
+
+  /* sections */
+  section.block{padding-top:28px;scroll-margin-top:120px}
+  .bh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--hair);padding-bottom:8px;margin-bottom:14px}
+  .bh h2{font-family:var(--display);font-size:20px;letter-spacing:-.01em;text-wrap:balance}
+  .bh .dot{width:10px;height:10px;border-radius:50%;background:var(--dot,var(--ink));align-self:center}
+  .bh p{color:var(--muted);font-size:13.5px;flex-basis:100%}
+  .grid{display:grid;gap:12px}
+  .g2{grid-template-columns:1fr}
+  @media(min-width:860px){.g2{grid-template-columns:1fr 1fr}}
+  .panel{background:var(--paper);border:1px solid var(--hair);border-radius:8px;padding:14px;min-width:0}
+  .panel h3{font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:2px}
+  .panel .sub{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+  .chartbox{position:relative;height:240px}
+  .empty{color:var(--faint);font-size:13.5px;padding:18px 0;text-align:center}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(min-width:640px){.kpis{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:960px){.kpis{grid-template-columns:repeat(5,1fr)}}
+  .kpi{background:var(--paper);border:1px solid var(--hair);border-radius:8px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:2px}
+  .kpi .k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+  .kpi .v{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+  .kpi .v small{font-size:14px;color:var(--faint);font-weight:700;margin-left:2px}
+  .kpi .n{font-size:12px;color:var(--faint)}
+  .def{color:var(--faint);text-decoration:none;font-weight:700;border:1px solid var(--hair);border-radius:50%;width:16px;height:16px;
+    display:inline-grid;place-content:center;font-size:10px;flex:none}
+  .def:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* signals */
+  .signals{display:flex;flex-direction:column;gap:6px}
+  .sig{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:9px 11px;border-radius:6px;font-size:13.5px;background:var(--wash)}
+  .sig .tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;white-space:nowrap}
+  .sig.good .tag{background:var(--good-soft);color:var(--good)}
+  .sig.warn .tag{background:var(--warn-soft);color:var(--warn)}
+  .sig.bad .tag{background:var(--bad-soft);color:var(--bad)}
+  .sig.info .tag{background:var(--paper);color:var(--muted);border:1px solid var(--hair)}
+
+  /* tables */
+  .tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  .tools .field{font-size:14px;padding:7px 10px;flex:1;min-width:160px}
+  .tscroll{overflow-x:auto;border:1px solid var(--hair);border-radius:8px;background:var(--paper)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{padding:8px 10px;border-bottom:1px solid var(--hair);text-align:right;white-space:nowrap}
+  th:first-child,td:first-child{text-align:left;white-space:normal;min-width:220px}
+  td.l,th.l{text-align:left}
+  thead th{position:sticky;top:0;background:var(--wash);font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  thead th button{all:unset;cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+  thead th button:focus-visible{outline:2px solid var(--news);outline-offset:2px}
+  thead th[aria-sort="ascending"] button::after{content:"▲";font-size:8px}
+  thead th[aria-sort="descending"] button::after{content:"▼";font-size:8px}
+  tbody tr:hover{background:var(--wash)}
+  tbody tr:last-child td{border-bottom:0}
+  td .hl{font-weight:600;color:var(--ink);text-decoration:none}
+  td .hl:hover{text-decoration:underline}
+  td .meta{display:block;font-size:11.5px;color:var(--faint);margin-top:1px}
+  .bar{display:inline-block;height:6px;border-radius:3px;background:var(--dot,var(--news));vertical-align:middle;margin-right:6px;opacity:.85}
+  .pill{font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px}
+  .pill.good{background:var(--good-soft);color:var(--good)}
+  .pill.warn{background:var(--warn-soft);color:var(--warn)}
+  .pill.bad{background:var(--bad-soft);color:var(--bad)}
+  .dash{color:var(--faint)}
+  .more{margin-top:8px}
+
+  /* definitions */
+  .defs td,.defs th{white-space:normal;text-align:left;vertical-align:top}
+  .defs td:first-child{font-weight:600;min-width:150px}
+  .defs tr:target td{background:var(--warn-soft)}
+  .notes{display:flex;flex-direction:column;gap:8px;max-width:760px;color:var(--ink);font-size:14px}
+  .notes li{margin-left:18px}
+  .foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--hair);font-size:12px;color:var(--faint)}
+
+  [data-sec="news"]{--dot:var(--news)} [data-sec="puzzles"]{--dot:var(--puzzles)} [data-sec="games"]{--dot:var(--games)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono" aria-hidden="true">D</div>
+    <div class="word">Digi<b>Admin</b></div>
+    <div class="kick" id="kick">Reader insights · private</div>
+  </header>
+
+  <!-- ============ SIGN IN ============ -->
+  <main id="signin" class="signin" hidden>
+    <h1>Sign in</h1>
+    <p>Enter your admin email and we'll send a one-time sign-in link. Open it on this device.</p>
+    <form id="signinForm" novalidate>
+      <label for="email">Email</label>
+      <input class="field" id="email" type="email" autocomplete="email" required placeholder="you@example.com">
+      <button class="primary" id="sendLink" type="submit">Send sign-in link</button>
+    </form>
+    <div class="status" id="signinStatus" hidden></div>
+  </main>
+
+  <!-- ============ DASHBOARD ============ -->
+  <div id="app" hidden>
+    <div class="toolbar" role="region" aria-label="Filters">
+      <div class="row" role="group" aria-label="Date range">
+        <button class="chip" data-range="7">7 days</button>
+        <button class="chip" data-range="30">30 days</button>
+        <button class="chip" data-range="90">90 days</button>
+        <button class="chip" data-range="all">All time</button>
+        <span class="dates">
+          <label for="from">From</label><input id="from" type="date">
+          <label for="to">to</label><input id="to" type="date">
+        </span>
+        <button class="ghost" id="refresh" type="button">Refresh</button>
+        <span class="updated" id="updated"></span>
+      </div>
+      <div class="row" role="group" aria-label="Section">
+        <button class="chip sec" data-filter="all">All sections</button>
+        <button class="chip sec" data-filter="news" data-sec="news">News</button>
+        <button class="chip sec" data-filter="puzzles" data-sec="puzzles">Puzzles</button>
+        <button class="chip sec" data-filter="games" data-sec="games">Games</button>
+      </div>
+      <nav class="jump" aria-label="Jump to">
+        <a href="#overview">Overview</a><a href="#news">News</a><a href="#puzzles">Puzzles</a>
+        <a href="#games">Games</a><a href="#audience">Audience</a><a href="#frontpages">Front pages</a>
+        <a href="#basis">Basis of preparation</a>
+      </nav>
+    </div>
+    <div class="status err" id="loadError" hidden></div>
+
+    <!-- OVERVIEW -->
+    <section class="block" id="overview">
+      <div class="bh"><h2>Overview</h2><p id="rangeLabel"></p></div>
+      <div class="kpis" id="kpis"></div>
+      <div class="grid g2" style="margin-top:12px">
+        <div class="panel">
+          <h3>Readers per day</h3>
+          <div class="sub">Unique readers each day, split by the section they used. A reader who used two sections counts in both lines.</div>
+          <div class="chartbox"><canvas id="chDaily" aria-label="Readers per day by section" role="img"></canvas></div>
+        </div>
+        <div class="panel">
+          <h3>Signals</h3>
+          <div class="sub">Automatic flags from the rules in <a href="#def-signals">Basis of preparation</a>. Small numbers are left out.</div>
+          <div class="signals" id="signals"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section class="block" id="news" data-sec="news" data-part="news">
+      <div class="bh"><span class="dot"></span><h2>News</h2><p>Which articles get read, and read properly.</p></div>
+      <div class="grid g2">
+        <div class="panel">
+          <h3>Readers by topic</h3>
+          <div class="sub">Unique readers of each topic's articles in the period.</div>
+          <div class="chartbox"><canvas id="chTopics" role="img" aria-label="Readers by topic"></canvas></div>
+        </div>
+        <div class="panel">
+          <h3>Read-through vs attention</h3>
+          <div class="sub">Each dot is an article: time spent against the share who reach 75% of the page. Top right is best.</div>
+          <div class="chartbox"><canvas id="chScatter" role="img" aria-label="Article read-through against time on page"></canvas></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <div class="tools"><input class="field" id="qNews" type="search" placeholder="Search articles" aria-label="Search articles"></div>
+        <div class="tscroll"><table id="tNews"></table></div>
+      </div>
+    </section>
+
+    <!-- PUZZLES -->
+    <section class="block" id="puzzles" data-sec="puzzles" data-part="puzzles">
+      <div class="bh"><span class="dot"></span><h2>Puzzles</h2><p>Which types get played and finished, and how hard they are.</p></div>
+      <div class="grid g2">
+        <div class="panel">
+          <h3>From opening to solving, by type</h3>
+          <div class="sub">Of the puzzles opened: how many were started, and how they ended.</div>
+          <div class="chartbox"><canvas id="chFunnel" role="img" aria-label="Puzzle outcomes by type"></canvas></div>
+        </div>
+        <div class="panel">
+          <h3>Puzzle types compared</h3>
+          <div class="sub">Rates are shares of puzzles started.</div>
+          <div class="tscroll"><table id="tTypes"></table></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <div class="tools"><input class="field" id="qPuz" type="search" placeholder="Search puzzles (e.g. mini, 0077)" aria-label="Search puzzles"></div>
+        <div class="tscroll"><table id="tPuz"></table></div>
+      </div>
+    </section>
+
+    <!-- GAMES -->
+    <section class="block" id="games" data-sec="games" data-part="games">
+      <div class="bh"><span class="dot"></span><h2>Games</h2><p>Rounds played, results and how far people get.</p></div>
+      <div class="panel"><div class="tscroll"><table id="tGames"></table></div></div>
+    </section>
+
+    <!-- AUDIENCE -->
+    <section class="block" id="audience" data-part="all">
+      <div class="bh"><h2>Audience</h2><p>Who comes, from where, and whether they come back.</p></div>
+      <div class="grid g2">
+        <div class="panel">
+          <h3>Which sections people use</h3>
+          <div class="sub">Each reader counted once, by the combination of sections they used in the period.</div>
+          <div class="chartbox"><canvas id="chMix" role="img" aria-label="Readers by combination of sections"></canvas></div>
+        </div>
+        <div class="panel">
+          <h3>Do new readers come back?</h3>
+          <div class="sub">Readers grouped by the week of their first visit. "Came back" means seen again on a later day, at any time.</div>
+          <div class="tscroll"><table id="tCohorts"></table></div>
+        </div>
+        <div class="panel">
+          <h3>Where readers arrive from</h3>
+          <div class="sub">The site that linked to the first page of a visit. Apps and many social sites send no referrer and show as direct.</div>
+          <div class="tscroll"><table id="tRefs"></table></div>
+        </div>
+        <div class="panel">
+          <h3>Devices</h3>
+          <div class="sub">By screen width when the page opened: phone under 480px, tablet under 1024px, desktop above.</div>
+          <div class="chartbox" style="height:180px"><canvas id="chDevices" role="img" aria-label="Readers by device"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRONT PAGES -->
+    <section class="block" id="frontpages" data-part="all">
+      <div class="bh"><h2>Front pages</h2><p>What gets tapped on the News, Puzzles and Games lists.</p></div>
+      <div class="grid g2">
+        <div class="panel">
+          <h3>Taps by position in the list</h3>
+          <div class="sub">How strongly position drives taps. Position 11 includes everything further down.</div>
+          <div class="chartbox"><canvas id="chPos" role="img" aria-label="Card taps by list position"></canvas></div>
+        </div>
+        <div class="panel">
+          <h3>Most tapped cards</h3>
+          <div class="sub">Average position shows whether a card was found high up or scrolled to.</div>
+          <div class="tscroll"><table id="tCards"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BASIS OF PREPARATION -->
+    <section class="block" id="basis" data-part="all">
+      <div class="bh"><h2>Basis of preparation</h2><p>How every figure on this page is produced, and what it can't tell you.</p></div>
+      <div class="panel">
+        <h3>General basis</h3>
+        <ul class="notes">
+          <li><b>Source.</b> Events recorded by <code>dn-track.js</code> on every Digi page and stored in the <code>digi</code> Supabase database (London). Figures are computed live when this page loads or you press Refresh.</li>
+          <li><b>Reader.</b> One browser on one device, identified by a random code stored in that browser. The same person on a phone and a laptop counts as two readers; clearing browser data or a private window starts a new reader. No names, emails or IP addresses are held.</li>
+          <li><b>Visit.</b> A run of activity by one reader with no gap longer than 30 minutes.</li>
+          <li><b>Page load.</b> One opening of one page. Reloading, or returning via the back button after the page was discarded, counts again.</li>
+          <li><b>Dates.</b> UK dates (Europe/London). A range includes both its start and end date.</li>
+          <li><b>Not counted.</b> Readers who switched recording off, browsers sending Global Privacy Control or Do Not Track, readers whose browser blocked the script, visits to this admin page, and any browser on the exclusion list (<span id="exclCount">0</span> at present, e.g. your own test phone).</li>
+          <li><b>Losses.</b> Events are sent in small batches. Some are lost when a phone closes a page abruptly or goes offline, most often the "left the page" event that carries time on page. Timings are averaged over page loads where that event arrived; loads without it are left out of those averages rather than counted as zero.</li>
+          <li><b>Bots.</b> Automated traffic is not filtered. Most crawlers don't run the script, so they are largely absent, but treat sudden spikes with care.</li>
+          <li><b>Small numbers.</b> Percentages from a handful of readers swing wildly. Signals ignore anything with fewer than 5 readers or starts.</li>
+          <li><b>Retention.</b> Raw events are kept for 13 months, then reduced to daily totals; ranges older than that will read as empty here.</li>
+        </ul>
+      </div>
+      <div class="panel" style="margin-top:12px">
+        <h3>Definitions</h3>
+        <div class="sub">Every measure used above.</div>
+        <div class="tscroll"><table class="defs" id="tDefs"></table></div>
+      </div>
+    </section>
+
+    <p class="foot">Digi Admin · figures from the <code>digi</code> database · <span id="genAt"></span></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var SUPABASE_URL = 'https://gnehttjheoyutrfsvslq.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_dEMntRNiElpGHn3Hd5Ef1Q_HvLa2wTB';   // public by design; data needs an admin sign-in
+  var C = { news:'#1C46C2', puzzles:'#0E7A4B', games:'#6A2BC9', ink:'#15171C', muted:'#5F636B', faint:'#8C9198', hair:'#E6E6E2',
+            good:'#1F7A4D', warn:'#A35C00', bad:'#B42318' };
+  var $ = function(s){ return document.querySelector(s); };
+  var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+
+  /* ---------------- definitions (basis of preparation) ---------------- */
+  var DEFS = [
+    ['readers','Readers','Distinct browsers with at least one recorded event in the period.','A person on two devices counts twice.'],
+    ['new','New readers','Readers whose first ever recorded event falls inside the period.','Readers who cleared their browser data reappear as new.'],
+    ['returning','Returning readers','Readers in the period who had also been seen on an earlier day.','Shown as a share of readers. Can include days before the period.'],
+    ['loads','Page loads','Openings of any page, including the three front pages.','Reloads count again.'],
+    ['visits','Visits','Runs of activity by one reader with no gap over 30 minutes.',''],
+    ['time','Time on page','Seconds the page was on screen and in the foreground, summed across the reader leaving and coming back. Medians are used in tables so one open-all-night tab doesn’t distort them.','Only page loads where the leaving event arrived are included.'],
+    ['read75','Read to 75%','Share of article page loads that scrolled at least 75% of the way down the page.','Pages shorter than the screen count as fully read.'],
+    ['bounced','Bounced','Share of page loads that were on screen for under 10 seconds.','Only page loads with a timing are included.'],
+    ['charts','Charts seen','Number of times an exhibit (chart) came at least half into view.','Counted once per chart per page load.'],
+    ['sources','Sources opened','Taps on links to other websites from an article, mostly its footnoted sources.',''],
+    ['started','Started','A puzzle page load where the player tapped or typed in the puzzle at least once.','Opening a puzzle without touching it is not a start.'],
+    ['solved','Solved','The puzzle’s result box appeared with a winning title, without “Reveal all” having been used.','Share is solved ÷ started.'],
+    ['failed','Failed','The result box appeared with a losing title (Sweep “Boom.”, Link “So close.”).','Only some types can be failed.'],
+    ['revealed','Revealed','The player used “Reveal all” before the result box appeared.',''],
+    ['abandoned','Abandoned','Started, but no result by the time the page was last seen.','Includes puzzles left open in a tab to finish later.'],
+    ['solvetime','Solve time','The time shown on the puzzle’s own result box for solved puzzles (median).','Falls back to seconds since the first tap if the box shows no time.'],
+    ['help','Used help','Share of finished puzzles where the player pressed any Check, Reveal-word or Hint button.',''],
+    ['runs','Game rounds','Rounds started. For Lighthouse Keeper, a round starts when night one begins.',''],
+    ['wins','Wins / losses','Rounds that ended in a win or a loss. Rounds abandoned mid-way are neither.',''],
+    ['furthest','Furthest headland','The highest headland any player reached in the period.',''],
+    ['taps','Card taps','Taps on a card on the News, Puzzles or Games list.','Position 1 is the top of the list at the time.'],
+    ['avgpos','Average position','Mean list position of the card when it was tapped.','Lower means it was tapped from nearer the top.'],
+    ['ref','Referrer','The site that linked to the page, when the browser reports one.','Many apps and social sites report nothing, so they appear as direct.'],
+    ['signals','Signals','Automatic flags. Low read-through: an article with at least 5 readers and under 30% reaching 75%. High bounce: at least 5 readers and over 60% bounced. Hard puzzle type: at least 5 starts and under 40% solved. High abandonment: at least 5 starts and over 40% abandoned. Top item: the most-read piece in each section.','Rules are fixed thresholds, not statistical tests.']
+  ];
+  function defLink(id){ return '<a class="def" href="#def-'+id+'" title="How this is measured" aria-label="How this is measured">i</a>'; }
+  $('#tDefs').innerHTML = '<thead><tr><th>Measure</th><th>Definition</th><th>Caveat</th></tr></thead><tbody>' +
+    DEFS.map(function(d){ return '<tr id="def-'+d[0]+'"><td>'+esc(d[1])+'</td><td>'+esc(d[2])+'</td><td>'+esc(d[3])+'</td></tr>'; }).join('') + '</tbody>';
+
+  /* ---------------- helpers ---------------- */
+  function londonToday(){ return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()); }
+  function addDays(iso,n){ var d=new Date(iso+'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); }
+  function fmtDate(iso){ if(!iso) return ''; var d=new Date(iso+'T12:00:00Z'); return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}); }
+  function n(x){ return x==null ? '<span class="dash">–</span>' : Number(x).toLocaleString('en-GB'); }
+  function pct(x){ return x==null ? '<span class="dash">–</span>' : x+'%'; }
+  function dur(s){ if(s==null) return '<span class="dash">–</span>'; s=Math.round(s); return s<60 ? s+'s' : Math.floor(s/60)+'m '+String(s%60).padStart(2,'0')+'s'; }
+  function share(a,b){ return b ? Math.round(100*a/b) : null; }
+  function tone(v,good,bad,higherBetter){ if(v==null) return ''; if(higherBetter){ return v>=good?'good':v<bad?'bad':'warn'; } return v<=good?'good':v>bad?'bad':'warn'; }
+
+  var FEED = {};
+  function title(path){ var f=FEED[path]; if(f) return f.headline; var m=String(path).replace(/^reports\//,'').replace(/\.html$/,'').replace(/^\d{4}-\d{2}-\d{2}-/,''); return m.replace(/-/g,' '); }
+  function pubDate(path){ var f=FEED[path]; if(f&&f.date) return f.date; var m=String(path).match(/(\d{4}-\d{2}-\d{2})/); return m?m[1]:''; }
+  var TYPE_NAMES = {'crossword-mini':'Mini crossword','logic-doku':'Doku','logic-path':'Path','logic-sweep':'Sweep','word-link':'Link'};
+  function ptype(path){ var m=String(path).match(/(crossword-mini|logic-doku|logic-path|logic-sweep|word-link)/); return m?m[1]:''; }
+
+  /* ---------------- sortable tables ---------------- */
+  // cols: [{key, label, def, left, fmt(row)->html, sort(row)->value}]
+  function table(el, cols, rows, opts){
+    opts = opts || {};
+    var state = el._sort || { key: opts.sortKey || cols[1].key, dir: opts.sortDir || 'desc' };
+    el._sort = state;
+    var limit = el._limit || opts.limit || 25;
+    function val(r,c){ return c.sort ? c.sort(r) : r[c.key]; }
+    var col = cols.filter(function(c){return c.key===state.key;})[0] || cols[1];
+    var sorted = rows.slice().sort(function(a,b){
+      var x=val(a,col), y=val(b,col);
+      if(x==null&&y==null) return 0; if(x==null) return 1; if(y==null) return -1;
+      if(typeof x==='string') return state.dir==='asc' ? x.localeCompare(y) : y.localeCompare(x);
+      return state.dir==='asc' ? x-y : y-x;
+    });
+    var shown = sorted.slice(0, limit);
+    var head = '<thead><tr>'+cols.map(function(c){
+      var s = c.key===state.key ? (state.dir==='asc'?'ascending':'descending') : 'none';
+      return '<th class="'+(c.left?'l':'')+'" aria-sort="'+s+'"><button type="button" data-k="'+c.key+'">'+esc(c.label)+'</button>'+(c.def?' '+defLink(c.def):'')+'</th>';
+    }).join('')+'</tr></thead>';
+    var body = shown.length ? shown.map(function(r){
+      return '<tr>'+cols.map(function(c){ return '<td class="'+(c.left?'l':'')+' num">'+(c.fmt?c.fmt(r):esc(r[c.key]))+'</td>'; }).join('')+'</tr>';
+    }).join('') : '<tr><td colspan="'+cols.length+'" class="empty">Nothing recorded in this period.</td></tr>';
+    el.innerHTML = head + '<tbody>'+body+'</tbody>';
+    var wrap = el.parentNode;
+    var more = wrap.nextElementSibling && wrap.nextElementSibling.classList.contains('more') ? wrap.nextElementSibling : null;
+    if (sorted.length > limit) {
+      if (!more) { more = document.createElement('button'); more.className='ghost more'; more.type='button'; wrap.parentNode.insertBefore(more, wrap.nextSibling); }
+      more.textContent = 'Show all '+sorted.length;
+      more.onclick = function(){ el._limit = 100000; table(el, cols, rows, opts); };
+    } else if (more) { more.remove(); }
+    el.querySelectorAll('thead button').forEach(function(b){
+      b.onclick = function(){
+        var k=b.dataset.k; state.dir = (state.key===k && state.dir==='desc') ? 'asc' : 'desc'; state.key=k;
+        table(el, cols, rows, opts);
+      };
+    });
+  }
+
+  /* ---------------- charts ---------------- */
+  var charts = {};
+  if (window.Chart) {
+    Chart.defaults.font.family = "'Inter','Helvetica Neue',Arial,sans-serif";
+    Chart.defaults.font.size = 12;
+    Chart.defaults.color = C.muted;
+    Chart.defaults.borderColor = C.hair;
+    Chart.defaults.plugins.legend.labels.boxWidth = 10;
+    Chart.defaults.plugins.legend.labels.boxHeight = 10;
+    Chart.defaults.animation = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { duration: 250 };
+  }
+  function chart(id, cfg){
+    if (!window.Chart) return;
+    if (charts[id]) charts[id].destroy();
+    charts[id] = new Chart(document.getElementById(id), cfg);
+  }
+  function emptyChart(id, msg){
+    if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+    var c = document.getElementById(id), box = c.parentNode, e = box.querySelector('.empty');
+    c.hidden = true;
+    if (!e) { e = document.createElement('div'); e.className = 'empty'; box.appendChild(e); }
+    e.textContent = msg || 'Nothing recorded in this period.';
+  }
+  function showChart(id){ var c=document.getElementById(id); c.hidden=false; var e=c.parentNode.querySelector('.empty'); if(e) e.remove(); }
+
+  /* ---------------- state ---------------- */
+  var S = { range: store('digiAdmin.range') || '30', from: '', to: '', filter: store('digiAdmin.filter') || 'all', data: null };
+  function setRange(r){
+    S.range = r; store('digiAdmin.range', r);
+    var today = londonToday();
+    if (r === 'all') { S.from = '2026-09-26'; S.to = today; }
+    else if (r !== 'custom') { S.from = addDays(today, -(+r - 1)); S.to = today; }
+    $('#from').value = S.from; $('#to').value = S.to;
+    $$('[data-range]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.range === r)); });
+  }
+
+  /* ---------------- auth ---------------- */
+  var sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'implicit' }
+  }) : null;
+
+  function showSignin(msg, kind){
+    $('#app').hidden = true; $('#signin').hidden = false;
+    $('#kick').textContent = 'Reader insights · private';
+    if (msg) { var s=$('#signinStatus'); s.hidden=false; s.className='status'+(kind?' '+kind:''); s.textContent=msg; }
+  }
+  function showApp(email){
+    $('#signin').hidden = true; $('#app').hidden = false;
+    $('#kick').innerHTML = '<div class="who">'+esc(email)+' · <button type="button" id="signout">Sign out</button></div>';
+    $('#signout').onclick = function(){ sb.auth.signOut().then(function(){ showSignin('Signed out.'); }); };
+  }
+
+  $('#signinForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = $('#email').value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { showSignin('Enter a full email address, like name@example.com.', 'err'); return; }
+    if (!sb) { showSignin('The sign-in library didn’t load. Check your connection and reload the page.', 'err'); return; }
+    var btn = $('#sendLink'); btn.disabled = true; btn.textContent = 'Sending…';
+    sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } })
+      .then(function(r){
+        btn.disabled = false; btn.textContent = 'Send sign-in link';
+        if (r.error) {
+          var m = /rate/i.test(r.error.message) ? 'Too many links requested. Wait a minute and try again.' : 'Couldn’t send the link: '+r.error.message;
+          showSignin(m, 'err');
+        } else {
+          store('digiAdmin.email', email);
+          showSignin('Link sent to '+email+'. Open it on this device to sign in. It can take a minute to arrive; check spam if not.', 'ok');
+        }
+      });
+  });
+
+  /* ---------------- load + render ---------------- */
+  function load(){
+    $('#loadError').hidden = true;
+    $('#updated').textContent = 'Loading…';
+    return sb.rpc('admin_dashboard', { p_from: S.from, p_to: S.to }).then(function(r){
+      if (r.error) {
+        if (/not_admin/.test(r.error.message)) { sb.auth.signOut(); showSignin('That email isn’t on the admin list. Sign in with an admin email.', 'err'); return; }
+        if (/JWT|expired|auth/i.test(r.error.message)) { showSignin('Your sign-in has expired. Send yourself a new link.', 'err'); return; }
+        var e=$('#loadError'); e.hidden=false; e.textContent='Couldn’t load the figures: '+r.error.message+'. Press Refresh to try again.';
+        $('#updated').textContent = '';
+        return;
+      }
+      S.data = r.data;
+      render();
+    });
+  }
+
+  function applyFilter(){
+    $$('[data-filter]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.filter === S.filter)); });
+    $$('section[data-part]').forEach(function(s){
+      var p = s.dataset.part; s.hidden = !(S.filter === 'all' || p === 'all' || p === S.filter);
+    });
+  }
+
+  function render(){
+    var D = S.data, K = D.kpis || {};
+    applyFilter();
+    $('#rangeLabel').textContent = fmtDate(D.range.from) + ' to ' + fmtDate(D.range.to) + ' (UK dates)';
+    $('#updated').textContent = 'Updated ' + new Date(D.generated_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    $('#genAt').textContent = 'generated ' + new Date(D.generated_at).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
+    $('#exclCount').textContent = D.excluded_readers || 0;
+
+    var F = S.filter;
+    var items = (D.items || []).filter(function(i){ return F==='all' || i.section===F; });
+    var news = (D.items || []).filter(function(i){ return i.section==='news'; });
+    var puz  = (D.items || []).filter(function(i){ return i.section==='puzzles'; });
+    var types = D.puzzle_types || [];
+    var ret = share(K.returning_readers, K.readers);
+    var solveRate = share(K.puzzles_solved, K.puzzle_starts);
+
+    /* KPI tiles */
+    var tiles = [
+      ['Readers', n(K.readers), (K.visits||0).toLocaleString('en-GB')+' visits', 'readers'],
+      ['New readers', n(K.new_readers), K.readers ? share(K.new_readers,K.readers)+'% of readers' : '', 'new'],
+      ['Returning', ret==null?'<span class="dash">–</span>':ret+'<small>%</small>', (K.returning_readers||0)+' readers seen before', 'returning'],
+      ['Page loads', n(K.page_loads), K.readers ? (K.page_loads/K.readers).toFixed(1)+' per reader' : '', 'loads'],
+      ['Article time', K.avg_article_secs==null?'<span class="dash">–</span>':dur(K.avg_article_secs), 'average on screen', 'time'],
+      ['Read to 75%', K.pct_articles_read_75==null?'<span class="dash">–</span>':K.pct_articles_read_75+'<small>%</small>', 'of article loads', 'read75'],
+      ['Puzzles started', n(K.puzzle_starts), '', 'started'],
+      ['Solve rate', solveRate==null?'<span class="dash">–</span>':solveRate+'<small>%</small>', (K.puzzles_solved||0)+' solved', 'solved'],
+      ['Game rounds', n(K.game_runs), '', 'runs'],
+      ['Events', n(K.events), 'raw records in range', 'loads']
+    ];
+    $('#kpis').innerHTML = tiles.map(function(t){
+      return '<div class="kpi"><div class="k"><span>'+t[0]+'</span>'+defLink(t[3])+'</div><div class="v">'+t[1]+'</div><div class="n">'+esc(t[2])+'</div></div>';
+    }).join('');
+
+    /* daily chart */
+    var daily = D.daily || [];
+    if (!daily.some(function(d){ return d.readers; })) emptyChart('chDaily');
+    else {
+      showChart('chDaily');
+      var ds = [];
+      [['news','News'],['puzzles','Puzzles'],['games','Games']].forEach(function(s){
+        if (F==='all' || F===s[0]) ds.push({ label:s[1], data:daily.map(function(d){return d[s[0]];}), borderColor:C[s[0]], backgroundColor:C[s[0]], tension:.25, pointRadius:daily.length>40?0:2, borderWidth:2 });
+      });
+      if (F==='all') ds.unshift({ label:'All readers', data:daily.map(function(d){return d.readers;}), borderColor:C.ink, backgroundColor:C.ink, borderDash:[4,3], tension:.25, pointRadius:0, borderWidth:1.5 });
+      chart('chDaily', { type:'line', data:{ labels:daily.map(function(d){ return fmtDate(d.day).replace(/ \d{4}$/,''); }), datasets:ds },
+        options:{ maintainAspectRatio:false, interaction:{mode:'index',intersect:false}, scales:{ y:{beginAtZero:true, ticks:{precision:0}}, x:{grid:{display:false}, ticks:{maxTicksLimit:8}} }, plugins:{legend:{position:'bottom'}} } });
+    }
+
+    /* signals */
+    var sig = [];
+    news.forEach(function(i){
+      if (i.readers>=5 && i.pct_read_75!=null && i.pct_read_75<30) sig.push(['warn','Low read-through','“'+title(i.item_path)+'”: only '+i.pct_read_75+'% of '+i.readers+' readers reached 75%.']);
+      if (i.readers>=5 && i.pct_bounced!=null && i.pct_bounced>60) sig.push(['bad','High bounce','“'+title(i.item_path)+'”: '+i.pct_bounced+'% left within 10 seconds.']);
+    });
+    types.forEach(function(t){
+      var sr = share(t.solved,t.starts), ab = share(t.abandoned,t.starts);
+      if (t.starts>=5 && sr!=null && sr<40) sig.push(['warn','Hard puzzle type', (TYPE_NAMES[t.type]||t.type)+': '+sr+'% of '+t.starts+' starts solved.']);
+      if (t.starts>=5 && ab!=null && ab>40) sig.push(['bad','High abandonment', (TYPE_NAMES[t.type]||t.type)+': '+ab+'% of starts not finished.']);
+    });
+    ['news','puzzles','games'].forEach(function(s){
+      var top = (D.items||[]).filter(function(i){return i.section===s;}).sort(function(a,b){return b.readers-a.readers;})[0];
+      if (top && top.readers>=2) sig.push(['good','Top '+ (s==='news'?'article':s==='puzzles'?'puzzle':'game'), '“'+title(top.item_path)+'”: '+top.readers+' readers.']);
+    });
+    if (!sig.length) sig.push(['info','Nothing flagged', K.readers ? 'No item has passed a signal threshold yet. Most need at least 5 readers.' : 'No readers recorded in this period.']);
+    $('#signals').innerHTML = sig.slice(0,10).map(function(s){ return '<div class="sig '+s[0]+'"><span class="tag">'+esc(s[1])+'</span><span>'+esc(s[2])+'</span></div>'; }).join('');
+
+    /* NEWS */
+    var topics = {};
+    news.forEach(function(i){ var t=i.topic||'Untagged'; topics[t]=(topics[t]||0)+i.readers; });
+    var tk = Object.keys(topics).sort(function(a,b){return topics[b]-topics[a];});
+    if (!tk.length) emptyChart('chTopics');
+    else { showChart('chTopics'); chart('chTopics',{ type:'bar', data:{ labels:tk, datasets:[{ label:'Readers', data:tk.map(function(k){return topics[k];}), backgroundColor:C.news, borderRadius:3, maxBarThickness:22 }]},
+      options:{ indexAxis:'y', maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,ticks:{precision:0}}, y:{grid:{display:false}} } } }); }
+    var sc = news.filter(function(i){ return i.median_secs!=null && i.pct_read_75!=null; });
+    if (!sc.length) emptyChart('chScatter', 'Needs articles with timings. They appear once readers leave a page.');
+    else { showChart('chScatter'); chart('chScatter',{ type:'bubble', data:{ datasets:[{ label:'Articles', data:sc.map(function(i){ return {x:i.median_secs, y:i.pct_read_75, r:Math.max(4, Math.min(16, 3+Math.sqrt(i.readers)*2)), t:title(i.item_path), n:i.readers}; }),
+        backgroundColor:'rgba(28,70,194,.35)', borderColor:C.news }]},
+      options:{ maintainAspectRatio:false, plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:function(c){ var p=c.raw; return p.t+' — '+p.n+' readers, '+p.y+'% read to 75%, median '+Math.round(p.x)+'s'; } } } },
+        scales:{ x:{ title:{display:true,text:'Median seconds on page'}, beginAtZero:true }, y:{ title:{display:true,text:'% reaching 75%'}, min:0, max:100 } } } }); }
+    renderNews();
+
+    /* PUZZLES */
+    var tOrder = types.slice().sort(function(a,b){ return b.page_loads-a.page_loads; });
+    if (!tOrder.length) emptyChart('chFunnel');
+    else {
+      showChart('chFunnel');
+      var lbl = tOrder.map(function(t){ return TYPE_NAMES[t.type]||t.type; });
+      chart('chFunnel', { type:'bar', data:{ labels:lbl, datasets:[
+        { label:'Opened, not started', data:tOrder.map(function(t){return t.page_loads - t.starts;}), backgroundColor:'#D9DBD6', stack:'s' },
+        { label:'Abandoned', data:tOrder.map(function(t){return t.abandoned;}), backgroundColor:'#E8B04B', stack:'s' },
+        { label:'Revealed', data:tOrder.map(function(t){return t.revealed;}), backgroundColor:'#9AA0A6', stack:'s' },
+        { label:'Failed', data:tOrder.map(function(t){return t.failed;}), backgroundColor:C.bad, stack:'s' },
+        { label:'Solved', data:tOrder.map(function(t){return t.solved;}), backgroundColor:C.puzzles, stack:'s' } ]},
+        options:{ maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}, scales:{ x:{stacked:true,grid:{display:false}}, y:{stacked:true,beginAtZero:true,ticks:{precision:0}} } } });
+    }
+    table($('#tTypes'), [
+      {key:'type', label:'Type', left:true, fmt:function(r){ return esc(TYPE_NAMES[r.type]||r.type); }, sort:function(r){ return TYPE_NAMES[r.type]||r.type; }},
+      {key:'players', label:'Players', def:'readers', fmt:function(r){return n(r.players);}},
+      {key:'starts', label:'Started', def:'started', fmt:function(r){return n(r.starts);}},
+      {key:'sr', label:'Solved', def:'solved', sort:function(r){return share(r.solved,r.starts);}, fmt:function(r){ var v=share(r.solved,r.starts); return v==null?pct(v):'<span class="pill '+tone(v,60,40,true)+'">'+v+'%</span>'; }},
+      {key:'ab', label:'Abandoned', def:'abandoned', sort:function(r){return share(r.abandoned,r.starts);}, fmt:function(r){ var v=share(r.abandoned,r.starts); return v==null?pct(v):'<span class="pill '+tone(v,20,40,false)+'">'+v+'%</span>'; }},
+      {key:'median_solve_secs', label:'Solve time', def:'solvetime', fmt:function(r){return dur(r.median_solve_secs);}},
+      {key:'help', label:'Used help', def:'help', sort:function(r){return share(r.used_help,r.finished);}, fmt:function(r){return pct(share(r.used_help,r.finished));}}
+    ], types, { sortKey:'starts' });
+    renderPuz();
+
+    /* GAMES */
+    table($('#tGames'), [
+      {key:'game', label:'Game', left:true, fmt:function(r){ return '<span class="hl">'+esc(r.game.replace(/-/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();}))+'</span>'; }},
+      {key:'players', label:'Players', def:'readers', fmt:function(r){return n(r.players);}},
+      {key:'runs', label:'Rounds', def:'runs', fmt:function(r){return n(r.runs);}},
+      {key:'wins', label:'Wins', def:'wins', fmt:function(r){return n(r.wins);}},
+      {key:'losses', label:'Losses', def:'wins', fmt:function(r){return n(r.losses);}},
+      {key:'wr', label:'Win rate', sort:function(r){return share(r.wins, r.wins+r.losses);}, fmt:function(r){return pct(share(r.wins, r.wins+r.losses));}},
+      {key:'furthest', label:'Furthest headland', def:'furthest', fmt:function(r){return n(r.furthest);}},
+      {key:'avg_end', label:'Avg headland at end', fmt:function(r){return r.avg_end==null?pct(null):r.avg_end;}}
+    ], D.games || [], { sortKey:'runs' });
+
+    /* AUDIENCE */
+    var mix = (D.mix || []).slice().sort(function(a,b){return b.readers-a.readers;});
+    if (!mix.length) emptyChart('chMix');
+    else { showChart('chMix'); chart('chMix',{ type:'bar', data:{ labels:mix.map(function(m){return m.mix;}), datasets:[{ label:'Readers', data:mix.map(function(m){return m.readers;}),
+      backgroundColor:mix.map(function(m){ return m.mix==='News'?C.news:m.mix==='Puzzles'?C.puzzles:m.mix==='Games'?C.games:C.ink; }), borderRadius:3, maxBarThickness:22 }]},
+      options:{ indexAxis:'y', maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,ticks:{precision:0}}, y:{grid:{display:false}} } } }); }
+    table($('#tCohorts'), [
+      {key:'week', label:'First week', left:true, fmt:function(r){ return 'w/c '+fmtDate(r.week); }},
+      {key:'new_readers', label:'New readers', def:'new', fmt:function(r){return n(r.new_readers);}},
+      {key:'came_back', label:'Came back', def:'returning', fmt:function(r){return n(r.came_back);}},
+      {key:'rate', label:'Rate', sort:function(r){return share(r.came_back,r.new_readers);}, fmt:function(r){ var v=share(r.came_back,r.new_readers); return v==null?pct(v):'<span class="pill '+tone(v,30,15,true)+'">'+v+'%</span>'; }}
+    ], D.cohorts || [], { sortKey:'week', sortDir:'desc' });
+    table($('#tRefs'), [
+      {key:'source', label:'Source', left:true, def:'ref'},
+      {key:'readers', label:'Readers', fmt:function(r){return n(r.readers);}},
+      {key:'page_loads', label:'Page loads', fmt:function(r){return n(r.page_loads);}}
+    ], D.referrers || [], { sortKey:'readers', limit:10 });
+    var dev = D.devices || [], order = ['phone','tablet','desktop','unknown'];
+    dev.sort(function(a,b){ return order.indexOf(a.screen)-order.indexOf(b.screen); });
+    if (!dev.length) emptyChart('chDevices');
+    else { showChart('chDevices'); chart('chDevices',{ type:'bar', data:{ labels:dev.map(function(d){return d.screen.charAt(0).toUpperCase()+d.screen.slice(1);}), datasets:[{ label:'Readers', data:dev.map(function(d){return d.readers;}), backgroundColor:C.ink, borderRadius:3, maxBarThickness:22 }]},
+      options:{ indexAxis:'y', maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,ticks:{precision:0}}, y:{grid:{display:false}} } } }); }
+
+    /* FRONT PAGES */
+    var pos = (D.positions || []).filter(function(p){ return F==='all' || p.section===F; });
+    if (!pos.length) emptyChart('chPos');
+    else {
+      showChart('chPos');
+      var labels = []; for (var i=1;i<=11;i++) labels.push(i===11?'11+':String(i));
+      var secs = ['news','puzzles','games'].filter(function(s){ return pos.some(function(p){return p.section===s;}); });
+      chart('chPos',{ type:'bar', data:{ labels:labels, datasets:secs.map(function(s){ return { label:s.charAt(0).toUpperCase()+s.slice(1), backgroundColor:C[s], borderRadius:2,
+          data:labels.map(function(_,ix){ var p=pos.filter(function(q){return q.section===s && q.pos===ix+1;})[0]; return p?p.taps:0; }) }; }) },
+        options:{ maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}, scales:{ x:{grid:{display:false}, title:{display:true,text:'Position in list'}}, y:{beginAtZero:true,ticks:{precision:0}} } } });
+    }
+    table($('#tCards'), [
+      {key:'item_path', label:'Card', left:true, sort:function(r){return title(r.item_path);}, fmt:function(r){ return '<a class="hl" href="'+esc(r.item_path)+'" target="_blank" rel="noopener">'+esc(title(r.item_path))+'</a><span class="meta">'+esc(r.section)+'</span>'; }},
+      {key:'taps', label:'Taps', def:'taps', fmt:function(r){return n(r.taps);}},
+      {key:'readers', label:'Readers', def:'readers', fmt:function(r){return n(r.readers);}},
+      {key:'avg_pos', label:'Avg position', def:'avgpos', fmt:function(r){return r.avg_pos==null?pct(null):r.avg_pos;}}
+    ], (D.cards || []).filter(function(c){ return F==='all' || c.section===F; }), { sortKey:'taps', limit:10 });
+  }
+
+  function itemCell(r){
+    var d = pubDate(r.item_path);
+    return '<a class="hl" href="'+esc(r.item_path)+'" target="_blank" rel="noopener">'+esc(title(r.item_path))+'</a><span class="meta">'+esc([r.topic, d?fmtDate(d):''].filter(Boolean).join(' · '))+'</span>';
+  }
+  function renderNews(){
+    var q = $('#qNews').value.trim().toLowerCase();
+    var rows = (S.data.items||[]).filter(function(i){ return i.section==='news' && (!q || (title(i.item_path)+' '+i.item_path+' '+(i.topic||'')).toLowerCase().indexOf(q)>=0); });
+    var max = Math.max.apply(null, rows.map(function(r){return r.readers;}).concat([1]));
+    table($('#tNews'), [
+      {key:'item_path', label:'Article', left:true, sort:function(r){return title(r.item_path);}, fmt:itemCell},
+      {key:'readers', label:'Readers', def:'readers', fmt:function(r){ return '<span class="bar" data-sec="news" style="width:'+Math.round(40*r.readers/max)+'px"></span>'+n(r.readers); }},
+      {key:'page_loads', label:'Loads', def:'loads', fmt:function(r){return n(r.page_loads);}},
+      {key:'median_secs', label:'Median time', def:'time', fmt:function(r){return dur(r.median_secs);}},
+      {key:'pct_read_75', label:'Read to 75%', def:'read75', fmt:function(r){ return r.pct_read_75==null?pct(null):'<span class="pill '+tone(r.pct_read_75,50,30,true)+'">'+r.pct_read_75+'%</span>'; }},
+      {key:'pct_bounced', label:'Bounced', def:'bounced', fmt:function(r){ return r.pct_bounced==null?pct(null):'<span class="pill '+tone(r.pct_bounced,30,60,false)+'">'+r.pct_bounced+'%</span>'; }},
+      {key:'charts_seen', label:'Charts seen', def:'charts', fmt:function(r){return n(r.charts_seen);}},
+      {key:'sources_opened', label:'Sources opened', def:'sources', fmt:function(r){return n(r.sources_opened);}},
+      {key:'pub', label:'Published', sort:function(r){return pubDate(r.item_path);}, fmt:function(r){ return esc(fmtDate(pubDate(r.item_path))); }}
+    ], rows, { sortKey:'readers' });
+  }
+  function renderPuz(){
+    var q = $('#qPuz').value.trim().toLowerCase();
+    var rows = (S.data.items||[]).filter(function(i){ return i.section==='puzzles' && (!q || (title(i.item_path)+' '+i.item_path+' '+(TYPE_NAMES[ptype(i.item_path)]||'')).toLowerCase().indexOf(q)>=0); });
+    table($('#tPuz'), [
+      {key:'item_path', label:'Puzzle', left:true, sort:function(r){return title(r.item_path);}, fmt:function(r){ return '<a class="hl" href="'+esc(r.item_path)+'" target="_blank" rel="noopener">'+esc(title(r.item_path))+'</a><span class="meta">'+esc([TYPE_NAMES[ptype(r.item_path)], fmtDate(pubDate(r.item_path))].filter(Boolean).join(' · '))+'</span>'; }},
+      {key:'readers', label:'Players', def:'readers', fmt:function(r){return n(r.readers);}},
+      {key:'starts', label:'Started', def:'started', fmt:function(r){return n(r.starts);}},
+      {key:'solved', label:'Solved', def:'solved', fmt:function(r){return n(r.solved);}},
+      {key:'pct_solved', label:'Solve rate', def:'solved', fmt:function(r){ return r.pct_solved==null?pct(null):'<span class="pill '+tone(r.pct_solved,60,40,true)+'">'+r.pct_solved+'%</span>'; }},
+      {key:'failed', label:'Failed', def:'failed', fmt:function(r){return n(r.failed);}},
+      {key:'revealed', label:'Revealed', def:'revealed', fmt:function(r){return n(r.revealed);}},
+      {key:'median_solve_secs', label:'Solve time', def:'solvetime', fmt:function(r){return dur(r.median_solve_secs);}}
+    ], rows, { sortKey:'readers' });
+  }
+
+  /* ---------------- controls ---------------- */
+  $$('[data-range]').forEach(function(b){ b.onclick = function(){ setRange(b.dataset.range); load(); }; });
+  ['#from','#to'].forEach(function(id){ $(id).addEventListener('change', function(){
+    var f=$('#from').value, t=$('#to').value; if(!f||!t) return;
+    if (f>t) { var e=$('#loadError'); e.hidden=false; e.textContent='The start date is after the end date. Pick a start on or before '+fmtDate(t)+'.'; return; }
+    S.range='custom'; S.from=f; S.to=t; $$('[data-range]').forEach(function(b){ b.setAttribute('aria-pressed','false'); }); load();
+  }); });
+  $$('[data-filter]').forEach(function(b){ b.onclick = function(){ S.filter=b.dataset.filter; store('digiAdmin.filter', S.filter); if (S.data) render(); else applyFilter(); }; });
+  $('#refresh').onclick = function(){ load(); };
+  var qt; ['#qNews','#qPuz'].forEach(function(id){ $(id).addEventListener('input', function(){ clearTimeout(qt); qt=setTimeout(function(){ if(!S.data) return; id==='#qNews'?renderNews():renderPuz(); },150); }); });
+
+  /* ---------------- boot ---------------- */
+  var e0 = store('digiAdmin.email'); if (e0) $('#email').value = e0;
+  setRange(S.range === 'custom' ? '30' : S.range);
+  var feedP = fetch('feed.json', {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : {items:[]}; })
+    .then(function(j){ (j.items||[]).forEach(function(i){ FEED[i.path] = i; }); }).catch(function(){});
+
+  if (!sb) { showSignin('The sign-in library didn’t load. Check your connection and reload the page.', 'err'); return; }
+  var booted = false;
+  function start(session){
+    if (!session) { booted = false; showSignin(); return; }
+    if (booted) return; booted = true;
+    showApp(session.user && session.user.email || '');
+    feedP.then(load);
+    if (location.hash && /access_token|error/.test(location.hash)) history.replaceState(null, '', location.pathname);
+  }
+  var errHash = /error_description=([^&]+)/.exec(location.hash);
+  sb.auth.getSession().then(function(r){
+    if (errHash && !(r.data && r.data.session)) { showSignin('That sign-in link didn’t work ('+decodeURIComponent(errHash[1].replace(/\+/g,' '))+'). Send yourself a new one.', 'err'); history.replaceState(null,'',location.pathname); return; }
+    start(r.data && r.data.session);
+  });
+  sb.auth.onAuthStateChange(function(ev, session){ if (ev === 'SIGNED_IN' || ev === 'INITIAL_SESSION') start(session); if (ev === 'SIGNED_OUT') { booted = false; } });
+})();
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Digi News — feed builder.
-   Scans /reports and /puzzles for .html files, reads the dn:* meta block from
+   Scans /reports, /puzzles and /games for .html files, reads the dn:* meta block from
    each head, and writes feed.json at the repo root. Run by GitHub Actions on
    every push; needs no dependencies. Node 18+.
 
@@ -9,7 +9,9 @@
      <meta name="dn:standfirst" content="…">
      <meta name="dn:topic"      content="…">
      <meta name="dn:date"       content="YYYY-MM-DD">
-     <meta name="dn:kind"       content="report|puzzle">
+     <meta name="dn:kind"       content="report|puzzle|game">
+       report → Digi News (index.html), puzzle → Digi Puzzles (puzzles.html),
+       game → Digi Games (games.html). Defaults to the folder's kind.
      <meta name="dn:read"       content="~8 min">      (optional)
      <meta name="dn:thumb"      content="url">          (optional)
      <meta name="dn:statlabel"  content="of patients">  (optional — overrides the
@@ -30,7 +32,8 @@ const path = require('path');
 const ROOT = process.cwd();
 const DIRS = [
   { dir: 'reports', kind: 'report' },
-  { dir: 'puzzles', kind: 'puzzle' }
+  { dir: 'puzzles', kind: 'puzzle' },
+  { dir: 'games',   kind: 'game' }
 ];
 
 // ---- publication cut-off ----------------------------------------------------
@@ -116,7 +119,7 @@ function mtimeDate(p) {
 // The front-page chips are only useful if one beat has exactly one label.
 // Canonical list; anything not in it is kept verbatim and reported, so a
 // genuinely new beat is never silently mangled into the wrong bucket.
-const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword', 'Word'];
+const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword', 'Word', 'Arcade', 'Strategy', 'Quiz'];
 const TOPIC_ALIASES = {
   'politics': 'UK politics', 'westminster': 'UK politics', 'uk politics': 'UK politics',
   'economics': 'Economy', 'economy': 'Economy', 'money': 'Economy', 'business': 'Economy',
@@ -131,7 +134,11 @@ const TOPIC_ALIASES = {
   // that actually need reading.
   'logic': 'Logic', 'lexidoku': 'Logic', 'doku': 'Logic',
   'crossword': 'Crossword', 'mini': 'Crossword',
-  'word': 'Word', 'link': 'Word'
+  'word': 'Word', 'link': 'Word',
+  // Digi Games beats.
+  'arcade': 'Arcade', 'action': 'Arcade', 'idle': 'Arcade',
+  'strategy': 'Strategy', 'tactics': 'Strategy',
+  'quiz': 'Quiz', 'trivia': 'Quiz'
 };
 
 function canonTopic(raw, rel, warnings) {
@@ -264,7 +271,7 @@ for (const { dir, kind } of DIRS) {
       meta(head, 'dn:topic') ||
       firstMatch(html, /<div class="topic"[^>]*>([\s\S]*?)<\/div>/i).split('\u00b7')[0].trim() ||
       fn.topic ||
-      (kind === 'puzzle' ? 'Puzzle' : 'Data');
+      (kind === 'puzzle' ? 'Puzzle' : kind === 'game' ? 'Game' : 'Data');
     const topic = canonTopic(rawTopic, rel, warnings);
 
     const date = meta(head, 'dn:date') || fn.date || mtimeDate(path.join(abs, file));
@@ -280,7 +287,8 @@ for (const { dir, kind } of DIRS) {
 
     // Puzzles have no measured hero stat — their number slots are score
     // placeholders — so their tile is drawn from the grid instead.
-    const hs = (kindVal === 'puzzle') ? null : heroStat(html);
+    // Games likewise: their big numbers are scores, not measurements.
+    const hs = (kindVal === 'report') ? heroStat(html) : null;
     const mask = (kindVal === 'puzzle') ? puzzleMask(html, rel, warnings) : '';
 
     // The tile's label is a KICKER, not a caption: ~14 characters, two words.

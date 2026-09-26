@@ -377,9 +377,11 @@
     ['abandoned','Abandoned','Started, but no result by the time the page was last seen.','Includes puzzles left open in a tab to finish later.'],
     ['solvetime','Solve time','The time shown on the puzzle’s own result box for solved puzzles (median).','Falls back to seconds since the first tap if the box shows no time.'],
     ['help','Used help','Share of finished puzzles where the player pressed any Check, Reveal-word or Hint button.',''],
-    ['runs','Game rounds','Rounds started. For Lighthouse Keeper, a round starts when night one begins.',''],
-    ['wins','Wins / losses','Rounds that ended in a win or a loss. Rounds abandoned mid-way are neither.',''],
-    ['furthest','Furthest headland','The highest headland any player reached in the period.',''],
+    ['runs','Game rounds','Rounds started (game_start). Each game defines a round in its own code: a level, a run or a single play-through. A retry or a resumed game counts as a new round.',''],
+    ['wins','Wins / losses','Rounds that ended in a win or a loss (game_end). Rounds abandoned mid-way are neither.',''],
+    ['gaband','Abandoned rounds','Rounds started minus rounds ended: restarted, closed or left mid-round.','Includes rounds still being played when the period ends.'],
+    ['gsecs','Round time','Median active play time of finished rounds, as reported by the game.','Excludes time paused or with the tab hidden.'],
+    ['furthest','Furthest level','The highest level any player reached in the period. Each game says what a level is (Lighthouse Keeper: the headland number).','Games with no levels leave this blank.'],
     ['taps','Card taps','Taps on a card on the News, Puzzles or Games list.','Position 1 is the top of the list at the time.'],
     ['avgpos','Average position','Mean list position of the card when it was tapped.','Lower means it was tapped from nearer the top.'],
     ['ref','Referrer','The site that linked to the page, when the browser reports one.','Many apps and social sites report nothing, so they appear as direct.'],
@@ -652,8 +654,10 @@
       {key:'wins', label:'Wins', def:'wins', fmt:function(r){return n(r.wins);}},
       {key:'losses', label:'Losses', def:'wins', fmt:function(r){return n(r.losses);}},
       {key:'wr', label:'Win rate', sort:function(r){return share(r.wins, r.wins+r.losses);}, fmt:function(r){return pct(share(r.wins, r.wins+r.losses));}},
-      {key:'furthest', label:'Furthest headland', def:'furthest', fmt:function(r){return n(r.furthest);}},
-      {key:'avg_end', label:'Avg headland at end', fmt:function(r){return r.avg_end==null?pct(null):r.avg_end;}}
+      {key:'abandoned', label:'Abandoned', def:'gaband', fmt:function(r){return n(r.abandoned);}},
+      {key:'median_secs', label:'Round time', def:'gsecs', fmt:function(r){return dur(r.median_secs);}},
+      {key:'furthest', label:'Furthest level', def:'furthest', fmt:function(r){return r.furthest==null?pct(null):n(r.furthest);}},
+      {key:'avg_end', label:'Avg level at end', fmt:function(r){return r.avg_end==null?pct(null):r.avg_end;}}
     ], D.games || [], { sortKey:'runs' });
 
     /* AUDIENCE */

@@ -34,6 +34,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Add reader-activity script to new pieces
+        run: node tools/inject-tracker.js
+
       - name: Build feed.json
         run: node tools/build-feed.js
 
@@ -41,10 +44,10 @@ jobs:
         run: |
           git config user.name  "digi-news-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add feed.json
+          git add feed.json reports puzzles games 2>/dev/null || git add feed.json reports
           if git diff --staged --quiet; then
-            echo "feed.json unchanged — nothing to commit"
+            echo "nothing changed — nothing to commit"
           else
-            git commit -m "chore: rebuild feed.json [skip ci]"
+            git commit -m "chore: rebuild feed.json, add tracker to new pieces [skip ci]"
             git push
           fi

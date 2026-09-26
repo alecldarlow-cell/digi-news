@@ -167,5 +167,10 @@
   .foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--hair);
     font-size:12px;color:var(--faint);line-height:1.6}
   .foot b{color:var(--muted)}
+  .foot .privacy{margin-top:8px}
+  .foot .privacy a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+  .optout{font:inherit;color:var(--muted);background:none;border:0;padding:0;cursor:pointer;
+    text-decoration:underline;text-underline-offset:2px}
+  .optout:disabled{cursor:default;text-decoration:none}
 
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

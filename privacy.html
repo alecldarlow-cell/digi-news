@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-section="site">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FCFCFB">
+<title>Privacy — Digi</title>
+<meta name="description" content="What Digi News, Digi Puzzles and Digi Games record about visits, and how to switch it off.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="front.css">
+<style>
+  .doc{padding:22px 0 8px}
+  .doc h1{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.02em;line-height:1.15}
+  .doc .lede{color:var(--muted);margin-top:8px}
+  .doc h2{font-family:var(--display);font-weight:700;font-size:18px;margin-top:26px}
+  .doc p,.doc li{font-size:16px;margin-top:8px}
+  .doc ul{padding-left:20px}
+  .doc a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+  .switch{margin-top:14px;font:inherit;font-weight:600;font-size:15px;padding:10px 16px;border-radius:999px;
+    border:1px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer}
+  .switch[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .switch:disabled{opacity:.7;cursor:default}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mono" aria-hidden="true">D</div>
+    <div class="word">Digi</div>
+    <div class="kick">Privacy</div>
+  </header>
+
+  <nav class="controls" aria-label="Sections">
+    <div class="bar">
+      <div class="sections">
+        <a class="sec news" href="index.html">News</a>
+        <a class="sec puzzles" href="puzzles.html">Puzzles</a>
+        <a class="sec games" href="games.html">Games</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="doc">
+    <h1>What we record, and how to stop it</h1>
+    <p class="lede">We count how the site is used so we can make it better. We never know who you are.</p>
+
+    <h2>What is recorded</h2>
+    <ul>
+      <li>Which pages, puzzles and games are opened, and which card on a front page was tapped.</li>
+      <li>How far down an article you scrolled (25, 50, 75 or 100%).</li>
+      <li>For puzzles and games: when you start and finish, time taken, and your score.</li>
+      <li>The website you came from (its name only), and whether you're on a phone, tablet or computer.</li>
+    </ul>
+    <p>To tell one visit from the next, your browser keeps a random code. It is not linked to your name,
+      email or anything else about you.</p>
+
+    <h2>What is never recorded</h2>
+    <p>Your name, email address, IP address, precise location, what you type, or your puzzle answers.
+      There is no advertising and no data is sold or shared with anyone else.</p>
+
+    <h2>Where it is kept</h2>
+    <p>On a Supabase database in London. Detailed records are kept for 13 months, then reduced to daily totals.</p>
+
+    <h2>Switch it off</h2>
+    <p>One tap stops all recording on this browser and deletes its random code. If your browser sends a
+      Global Privacy Control or Do Not Track signal, recording is already off.</p>
+    <button type="button" class="switch" data-digi-optout aria-pressed="false">Don’t record my visits</button>
+
+    <h2>Your rights and contact</h2>
+    <p>Because we don't know who you are, we usually can't find records that belong to you. If you have a
+      question or complaint, email <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a>. You can also contact the
+      <a href="https://ico.org.uk/make-a-complaint/">Information Commissioner's Office</a>.</p>
+    <p style="color:var(--faint);font-size:13px;margin-top:22px">Last updated 26 September 2026.</p>
+  </main>
+
+</div>
+<script src="dn-track.js" defer></script>
+</body>
+</html>

@@ -411,7 +411,7 @@ function msgUpdate(dt){if(SIM)return;const el=$('toast');
  else{msgGap-=dt;if(msgGap<=0&&msgQ.length){msgCur=msgQ.shift();msgT=0;el.querySelector('h2').textContent=msgCur.h;el.querySelector('p').textContent=msgCur.p;el.classList.toggle('banner',!!(st&&st.phase==='night'));el.style.opacity=1;}}}
 
 /* ---------- nights: each one adds a new threat ---------- */
-function startNight(){if(st.night===2)st.cp=snapState();st.night++;st.phase='night';st.t=0;st.warned=false;st.keeper.inTower=true;joy=null;
+function startNight(){if(st.night===2)st.cp=snapState();st.night++;if(st.night===1&&window.digi)digi.track('game_start',{game:'lighthouse-keeper',headland:st.L});st.phase='night';st.t=0;st.warned=false;st.keeper.inTower=true;joy=null;
  const n=st.night,L=st.L;st.hpMul=Math.pow(L,CFG.hpExp)*(1+CFG.nightGrow*(n-1))*(1-(st.assist||0));
  const q=[];const sk=Math.round((CFG.sk0+CFG.skN*n+(L-1)*CFG.skL*(n===1?0.5:1))*(1-(st.assist||0)));if(n===1)st.hpMul*=0.85;
  const skN=Math.max(3,Math.round(sk*sea().n));for(let i=0;i<skN;i++)q.push({type:'skiff',at:1.5+i*(26/skN)+Math.random()*1.2});
@@ -600,9 +600,9 @@ function dawn(){st.phase='day';st.t=0;st.dayLen=CFG.day*sea().day;if(tutOn()){me
 let lastResult=null;
 function cleared(){st.over=true;const frac=st.hp/st.maxHp,stars=1+(frac>=0.5?1:0)+(frac>=0.85?1:0);
  const done=meta.island;meta.island++;meta.stars+=stars;meta.earned+=stars*sea().starX;meta.lossL=null;meta.streakL=0;meta.streakN=0;meta.stats.wins++;meta.best[done]=Math.max(meta.best[done]||0,stars);
- const fin=done===FINALE&&!meta.finale;if(fin)meta.finale=true;saveMeta();clearRun();play('win');lastResult={win:true,L:done,stars,frac};
+ const fin=done===FINALE&&!meta.finale;if(fin)meta.finale=true;saveMeta();clearRun();play('win');lastResult={win:true,L:done,stars,frac};window.digi&&digi.track('game_end',{game:'lighthouse-keeper',win:true,headland:done,stars:stars,hp:Math.round(frac*100)});
  harbour(fin?'The whole coast is lit':`${hName(done)} is safe`,stars,fin?`You have lit every lighthouse from Hunstanton to Lowestoft Ness. The gold paint and the keeper's crown are yours. The open sea goes on for as long as you like.`:`The lighthouse kept ${Math.round(frac*100)}% of its health.`,`Sail to ${hName(meta.island)}`);}
-function lose(){st.over=true;const survived=st.night-1;let stars=0;if(survived>=2&&meta.lossL!==st.L){stars=1;meta.lossL=st.L;}meta.stars+=stars;meta.earned+=stars*sea().starX;meta.stats.lostN[Math.min(2,st.night-1)]++;if(meta.streakL===st.L)meta.streakN++;else{meta.streakL=st.L;meta.streakN=1;}saveMeta();clearRun();play('lose');lastResult={win:false,L:st.L,stars,night:st.night};
+function lose(){st.over=true;const survived=st.night-1;let stars=0;if(survived>=2&&meta.lossL!==st.L){stars=1;meta.lossL=st.L;}meta.stars+=stars;meta.earned+=stars*sea().starX;meta.stats.lostN[Math.min(2,st.night-1)]++;if(meta.streakL===st.L)meta.streakN++;else{meta.streakL=st.L;meta.streakN=1;}saveMeta();clearRun();play('lose');lastResult={win:false,L:st.L,stars,night:st.night};window.digi&&digi.track('game_end',{game:'lighthouse-keeper',win:false,headland:st.L,night:st.night,stars:stars});
  const cp=st.night===3?st.cp:null;
  harbour('The light went out',stars,`You survived ${survived} of 3 nights at ${hName(st.L)}.${stars?' That earns a star.':''}${meta.streakN>=1?' The sea will be a little calmer next try.':''}`,`Restart ${hName(st.L)}`,cp?()=>retryNight(cp):null);}
 const upCost=k=>1+meta.up[k];

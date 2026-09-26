@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" data-section="news">
+<html lang="en" data-section="games">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FCFCFB">
-<title>Digi News — the data desk</title>
-<meta name="description" content="Digi News: data journalism. Facts first, fully sourced, honest about uncertainty.">
+<title>Digi Games — the games room</title>
+<meta name="description" content="Digi Games: quick, replayable games to play in the browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!--
-  DIGI NEWS — FRONT PAGE  (index.html)
+  DIGI GAMES — FRONT PAGE  (games.html)
   One of three section pages (index.html, puzzles.html, games.html). Layout,
   styles and script are shared in front.css and front.js; this
   file only sets the section (data-section on <html>), masthead and footer.
@@ -22,22 +22,22 @@
 <div class="wrap">
 
   <header class="mast">
-    <div class="mono" aria-hidden="true">DN</div>
-    <div class="word">Digi<b>News</b></div>
-    <div class="kick">The data desk<span class="k2">Facts first · fully sourced</span></div>
+    <div class="mono" aria-hidden="true">DG</div>
+    <div class="word">Digi<b>Games</b></div>
+    <div class="kick">The games room<span class="k2">Quick to learn · built to replay</span></div>
   </header>
 
   <nav class="controls" aria-label="Sections and filters">
     <div class="bar">
       <div class="sections" aria-label="Sections">
-        <a class="sec news" href="index.html" aria-current="page">News</a>
+        <a class="sec news" href="index.html">News</a>
         <a class="sec puzzles" href="puzzles.html">Puzzles</a>
-        <a class="sec games" href="games.html">Games</a>
+        <a class="sec games" href="games.html" aria-current="page">Games</a>
       </div>
       <button class="sbtn" id="sbtn" type="button" aria-label="Search" aria-expanded="false" aria-controls="searchrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
     </div>
     <div class="searchrow" id="searchrow" hidden>
-      <input class="search" id="q" type="search" placeholder="Search headlines…" aria-label="Search headlines">
+      <input class="search" id="q" type="search" placeholder="Search games…" aria-label="Search games">
     </div>
     <div class="chips" id="chips" role="group" aria-label="Topic"></div>
   </nav>
@@ -49,8 +49,8 @@
   </ul>
 
   <footer class="foot">
-    <p><b>Digi News</b> — data journalism. Every piece is self-contained, sourced to tier, and
-    dated to the day it was produced. Corrections are logged in the footer of the piece concerned.</p>
+    <p><b>Digi Games</b> — small, replayable games that run in the browser. No sign-up,
+    no ads, nothing to install.</p>
     <p style="margin-top:8px" id="built"></p>
   </footer>
 

@@ -5,6 +5,7 @@ on:
     paths:
       - 'reports/**'
       - 'puzzles/**'
+      - 'games/**'
       - 'tools/**'
       - '.github/workflows/build-feed.yml'
   schedule:

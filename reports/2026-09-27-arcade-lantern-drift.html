@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lantern Drift</title>
+<meta name="dn:kind"       content="game">
+<meta name="dn:headline"   content="Lantern Drift">
+<meta name="dn:standfirst" content="Float a paper lantern down a night river. Hold to breathe in and let it rise, let go to breathe out and let it drift, and gather the lights at a calm six breaths a minute.">
+<meta name="dn:topic"      content="Arcade">
+<meta name="dn:date"       content="2026-09-27">
+<meta name="dn:read"       content="~3 min">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,500&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--ink:#eef0f7;--dim:rgba(238,240,247,.68);--night:#060b1f;--panel:rgba(10,16,38,.86);--line:rgba(238,240,247,.16);--warm:#ffc97a}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--night);color:var(--ink);font-family:Nunito,system-ui,sans-serif;overflow:hidden}
+#stage{position:relative;height:100%;max-width:480px;margin:0 auto;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;background:var(--night)}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#bar{position:absolute;left:0;right:0;top:env(safe-area-inset-top,0px);height:4px;background:rgba(238,240,247,.08);pointer-events:none}
+#barF{display:block;height:100%;width:0;background:linear-gradient(90deg,rgba(255,201,122,.35),rgba(255,201,122,.75));border-radius:0 2px 2px 0}
+#hud{position:absolute;left:0;right:0;top:calc(4px + env(safe-area-inset-top,0px));padding:8px 10px;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+#cnt{font-weight:800;font-size:14px;color:var(--warm);opacity:0;padding:6px 10px;background:rgba(6,11,31,.45);border-radius:10px;font-variant-numeric:tabular-nums;transition:opacity .8s}
+#pz{pointer-events:auto;width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:rgba(6,11,31,.5);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+#cue{position:absolute;left:0;right:0;bottom:calc(9% + env(safe-area-inset-bottom,0px));text-align:center;font-family:Lora,Georgia,serif;font-style:italic;font-size:20px;color:var(--ink);opacity:.7;pointer-events:none;transition:opacity .9s ease;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+#tut{position:absolute;left:50%;top:calc(64px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(340px,calc(100% - 24px));display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 8px 8px 14px;font-weight:700;font-size:15px;line-height:1.3;box-sizing:border-box}
+#tut span{flex:1}
+#tut button{background:rgba(238,240,247,.1);border:0;border-radius:10px;color:var(--ink);font:800 13px Nunito,system-ui,sans-serif;min-height:44px;min-width:56px;padding:0 12px;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+#ov{position:absolute;inset:0;background:rgba(3,6,18,.62);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto;box-sizing:border-box}
+#ov.title{display:block;padding:0;background:linear-gradient(180deg,rgba(3,6,18,.35),rgba(3,6,18,.15) 40%,rgba(3,6,18,.55))}
+.tTop{position:absolute;left:20px;right:20px;top:8%;text-align:center}
+.tTop h1{font-family:Lora,Georgia,serif;font-weight:500;font-size:40px;margin:0;letter-spacing:.01em;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.tTop p{margin:8px auto 0;max-width:300px;font-size:15px;line-height:1.4;color:var(--dim)}
+.tLen{position:absolute;left:0;right:0;top:calc(60% - 96px);display:flex;justify-content:center;gap:8px}
+.pill{min-height:44px;min-width:78px;padding:0 14px;border-radius:22px;border:1px solid var(--line);background:rgba(10,16,38,.7);color:var(--ink);font:800 15px Nunito,system-ui,sans-serif;cursor:pointer}
+.pill.on{background:var(--warm);color:#23160a;border-color:var(--warm)}
+.go{position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);width:min(260px,72%);height:56px;border:0;border-radius:28px;background:var(--warm);color:#23160a;font:800 18px Nunito,system-ui,sans-serif;cursor:pointer;box-shadow:0 0 30px rgba(255,201,122,.35)}
+.tMore{position:absolute;left:12px;right:12px;top:calc(60% + 40px);bottom:8px;overflow-y:auto;text-align:center}
+.lbl{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:6px 0 4px}
+.sws{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.sw{width:44px;height:44px;border-radius:50%;border:2px solid transparent;background:none;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sw i{width:26px;height:30px;border-radius:40%;display:block;box-shadow:0 0 12px var(--g)}
+.sw.on{border-color:var(--ink)}
+.sw:disabled{cursor:default}.sw:disabled i{opacity:.22;box-shadow:none}
+.chips{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.chip{min-height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:rgba(10,16,38,.7);color:var(--ink);font:800 13px Nunito,system-ui,sans-serif;cursor:pointer}
+.chip.on{border-color:var(--warm);color:var(--warm)}
+.chip:disabled{opacity:.35;cursor:default}
+.note{font-size:12px;color:var(--dim);margin:8px 0 2px;line-height:1.35}
+.row{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}
+.link{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;background:none;border:0;color:var(--dim);font:700 14px Nunito,system-ui,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.card{background:#0c1433;border:1px solid var(--line);border-radius:18px;padding:22px 18px 14px;max-width:360px;width:100%;text-align:center;box-sizing:border-box}
+.card h2{font-family:Lora,Georgia,serif;font-weight:500;font-size:28px;margin:0 0 6px}
+.card p{margin:0 0 10px;font-size:15px;line-height:1.4;color:var(--dim)}
+.stars{font-size:32px;letter-spacing:8px;color:var(--warm);margin:2px 0 4px}
+.stars .off{color:rgba(238,240,247,.16)}
+.big{font-family:Lora,Georgia,serif;font-size:46px;line-height:1.1;margin:4px 0 2px}
+.new{background:rgba(255,201,122,.1);border:1px solid rgba(255,201,122,.35);border-radius:12px;padding:8px 10px;margin:6px 0 4px;font-weight:700;font-size:14px;color:var(--warm)}
+.btn{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:48px;margin:8px 0 0;padding:8px 14px;border-radius:14px;border:1px solid var(--line);background:#16204a;color:var(--ink);font:800 15px Nunito,system-ui,sans-serif;text-align:left;cursor:pointer;box-sizing:border-box}
+.btn small{display:block;font-weight:600;font-size:12px;color:var(--dim)}
+.btn.primary{background:var(--warm);color:#23160a;border:0;justify-content:center;margin-top:14px}
+.btn.center{justify-content:center}
+.btn.armed{border-color:var(--warm)}
+.slbl{text-align:left;font-weight:800;font-size:15px;margin:12px 2px 0}
+.seg{display:flex;gap:6px;margin-top:6px}.seg .pill{flex:1;min-width:0;padding:0 6px;font-size:13px}
+.tg{width:44px;height:26px;border-radius:13px;background:rgba(238,240,247,.2);position:relative;flex:none}
+.tg::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.tg.on{background:var(--warm)}.tg.on::after{left:21px}
+@media (max-height:600px){.tTop{top:4%}.tTop h1{font-size:30px}.tTop p{display:none}}
+@media (prefers-reduced-motion:reduce){#cue,#cnt{transition:none}.tg::after{transition:none}}
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <canvas id="c" aria-label="Lantern Drift: a paper lantern on a night river"></canvas>
+  <div id="bar" aria-hidden="true"><i id="barF"></i></div>
+  <div id="hud">
+    <span id="cnt" aria-live="off">&#10022; 0</span>
+    <button id="pz" type="button" aria-label="Pause and settings"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg></button>
+  </div>
+  <div id="cue"></div>
+  <div id="tut" hidden><span>Hold as the light rises, let go as it falls</span><button type="button" id="tutSkip">Skip</button></div>
+  <div id="ov" hidden></div>
+</div>
+
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const stage=$('stage'),cv=$('c'),ctx=cv.getContext('2d'),ov=$('ov');
+let W=360,H=640,dpr=1,waterY=460;
+
+/* ---------- breathing model (tuned by simulation) ----------
+   One breath = 10 s: 4 s in (hold), 6 s out (release) = 6 breaths a minute.
+   Breath-curve lantern: each hold (or release) moves the lantern along a wave,
+   slow at the start and end of the breath and quicker in the middle, like lungs
+   filling and emptying. A little steady movement (BL) is mixed in so a thumb
+   press always responds, and holding past 4 s keeps drifting gently. The guide
+   ribbon is the path of a perfectly paced breather using the same physics, so
+   breathing on pace keeps the lantern on a smooth, sine-like ribbon.
+   A light counts if the lantern is near it vertically AND, on the rising and
+   falling stretches, the player is breathing the right way (in on the rise,
+   out on the fall). Near the turns, either is fine.                       */
+const CYCLE=10,IN=4,OUT=6,LOW=0.3,AMP=0.62,TOL=0.23,STEP=1,EASE=6,BL=0.15;
+const UP=AMP/IN,DOWN=AMP/OUT;
+const LENS={2:120,3:180,5:300};
+const GN=1000,GT=new Float32Array(GN);
+const prof=u=>u<1?BL+(1-BL)*Math.PI/2*Math.sin(Math.PI*u):BL;   // integrates to 1 over the breath
+const vTarget=(hold,th)=>hold?UP*prof(th/IN):-DOWN*prof(th/OUT);
+(function(){let h=LOW,v=-DOWN*BL;const dt=CYCLE/GN;
+ for(let c=0;c<4;c++)for(let i=0;i<GN;i++){if(c===3)GT[i]=h;const t=i*dt,hold=t<IN;v+=(vTarget(hold,hold?t:t-IN)-v)*Math.min(1,dt*EASE);h+=v*dt;}})();
+function g(t){if(t<0)return GT[0];const u=(t%CYCLE)/CYCLE*GN,i=Math.floor(u),f=u-i;return GT[i%GN]*(1-f)+GT[(i+1)%GN]*f;}
+const lightT=k=>k*STEP;   // one light a second; every breath has a light exactly at its top (4 s) and bottom (0 s)
+const isTurn=k=>{const p=lightT(k)%CYCLE;return p===0||p===IN;};
+function needs(t){const p=t%CYCLE;return p>0.5&&p<IN-0.4?1:p>IN+0.6&&p<CYCLE-0.5?-1:0;} // 1 = breathing in, -1 = out, 0 = either
+
+/* ---------- looks and unlocks ---------- */
+const COLS=[{id:'amber',name:'Amber',need:0,c:'#ffb45c',g:'255,180,92'},{id:'rose',name:'Rose',need:1,c:'#ff8fab',g:'255,143,171'},
+ {id:'jade',name:'Jade',need:3,c:'#6fe0a8',g:'111,224,168'},{id:'lilac',name:'Lilac',need:5,c:'#b9a2ff',g:'185,162,255'},{id:'moon',name:'Moonlight',need:8,c:'#dfe9ff',g:'223,233,255'}];
+const SCENES=[
+ {id:'night',name:'Night river',need:0,sky:['#050a1c','#0b1636','#1a2a58'],water:['#0b1533','#040816'],hill:'#070d24',hill2:'#0b1432',stars:1,moon:'#f3eed8'},
+ {id:'dusk',name:'Dusk',need:2,sky:['#150d2e','#40265a','#c4677a'],water:['#2a1838','#0d0718'],hill:'#1a1030',hill2:'#2a1840',stars:0.35,sun:1,moon:'#ffd9a8'},
+ {id:'snow',name:'Snow',need:4,sky:['#0b1320','#1a2838','#33455c'],water:['#12202f','#070d16'],hill:'#1d2a3a',hill2:'#2b3a4d',stars:0.5,snow:1,moon:'#eef4ff',cap:'#dfe8f2'},
+ {id:'harbour',name:'Harbour lights',need:6,sky:['#040812','#0a1430','#172650'],water:['#081230','#02050f'],hill:'#060b1c',hill2:'#0a1128',stars:0.7,harbour:1,moon:'#f3eed8'}];
+
+/* ---------- saved progress (localStorage, every access in try/catch) ---------- */
+const KEY='digi-lantern-drift-v1';
+const prefersRM=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}})();
+const SNDS={both:'Waves and pad',waves:'Waves',pad:'Pad',off:'Off'};
+const fresh=()=>({v:1,sessions:0,best:0,mins:0,len:3,col:'amber',scene:'night',snd:'both',rm:prefersRM,tutDone:false});
+let meta=fresh();
+try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(o&&typeof o==='object'){meta=Object.assign(fresh(),o);if(o.snd===undefined&&o.muted)meta.snd='off';delete meta.muted;}}}catch(e){}
+if(!SNDS[meta.snd])meta.snd='both';
+if(!LENS[meta.len])meta.len=3;
+const own=it=>meta.sessions>=it.need;
+if(!COLS.some(c=>c.id===meta.col&&own(c)))meta.col='amber';
+if(!SCENES.some(c=>c.id===meta.scene&&own(c)))meta.scene='night';
+function save(){try{localStorage.setItem(KEY,JSON.stringify(meta))}catch(e){}}
+const col=()=>COLS.find(c=>c.id===meta.col)||COLS[0];
+const scene=()=>SCENES.find(c=>c.id===meta.scene)||SCENES[0];
+
+/* ---------- Digi site tracking (site contract §5) ----------
+   A round is one session: it opens on the first hold (never on the title,
+   length picker or tutorial card) and closes when the session timer finishes.
+   Leaving or restarting mid-session sends nothing (counted as abandoned).
+   No level field: the game has no levels.                                 */
+const GAME='lantern-drift';
+let rnd={armed:false,open:false,secs:0,how:'new'};
+const modeStr=()=>S.len+'min';
+function trk(ev,x){try{if(window.digi&&window.digi.track)window.digi.track(ev,Object.assign({game:GAME},x));}catch(e){}}
+function rndArm(how){rnd={armed:true,open:false,secs:0,how:how||'new'};}
+function rndStart(){if(!rnd.armed||rnd.open)return;rnd.armed=false;rnd.open=true;trk('game_start',{mode:modeStr(),start:rnd.how});}
+function rndEnd(win,x){if(!rnd.open)rndStart();if(!rnd.open)return;rnd.open=false;trk('game_end',Object.assign({win:!!win,secs:Math.round(rnd.secs),mode:modeStr()},x));}
+// in the update loop, while playing and not paused: if(rnd.open) rnd.secs+=dt;
+
+/* ---------- sound (WebAudio, made in code, starts only after a tap) ----------
+   A soft wave (brown noise through a moving low-pass) and a warm pad (an open
+   D chord, slightly detuned, drifting on two slow unsynced LFOs) share one
+   synthetic reverb. Both swell and brighten as the lantern rises with the
+   in-breath and settle as it sinks; pitch never slides. Gathered lights ring
+   quiet low-passed bells from the same chord, at most one every ~2 s.      */
+const AU={ac:null};
+const CHORD=[146.83,220,293.66,329.63,440],BELLS=[587.33,659.25,880,987.77,1174.66];
+function audioInit(){try{if(!AU.ac){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;const ac=new AC();AU.ac=ac;
+  AU.out=ac.createGain();AU.out.gain.value=meta.snd==='off'?0:0.9;AU.out.connect(ac.destination);
+  AU.bus=ac.createGain();AU.bus.gain.value=0.0001;AU.bus.connect(AU.out);
+  AU.verb=ac.createConvolver();{const len=Math.round(ac.sampleRate*3.5),b=ac.createBuffer(2,len,ac.sampleRate);for(let ch=0;ch<2;ch++){const d=b.getChannelData(ch);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);}AU.verb.buffer=b;}
+  const vg=ac.createGain();vg.gain.value=0.5;AU.verb.connect(vg);vg.connect(AU.bus);
+  {const len=ac.sampleRate*4,nb=ac.createBuffer(1,len,ac.sampleRate),d=nb.getChannelData(0);let l=0;for(let i=0;i<len;i++){l=(l+0.02*(Math.random()*2-1))/1.02;d[i]=l*3.5;}
+   const ns=ac.createBufferSource();ns.buffer=nb;ns.loop=true;AU.wlp=ac.createBiquadFilter();AU.wlp.type='lowpass';AU.wlp.Q.value=0.4;AU.wlp.frequency.value=300;
+   AU.wg=ac.createGain();AU.wg.gain.value=0;ns.connect(AU.wlp);AU.wlp.connect(AU.wg);AU.wg.connect(AU.bus);const ws=ac.createGain();ws.gain.value=0.25;AU.wg.connect(ws);ws.connect(AU.verb);ns.start();}
+  {AU.plp=ac.createBiquadFilter();AU.plp.type='lowpass';AU.plp.Q.value=0.5;AU.plp.frequency.value=500;AU.pg=ac.createGain();AU.pg.gain.value=0;
+   CHORD.forEach((f,k)=>[-4,4].forEach(ct=>{const o=ac.createOscillator();o.type=k===0?'sine':'triangle';o.frequency.value=f;o.detune.value=ct+Math.random()*2;const og=ac.createGain();og.gain.value=(k===0?0.5:0.22)/(1+k*0.3);o.connect(og);og.connect(AU.plp);o.start();}));
+   [[0.07,120],[0.13,60]].forEach(([r,d])=>{const l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=r;lg.gain.value=d;l.connect(lg);lg.connect(AU.plp.frequency);l.start();});
+   AU.plp.connect(AU.pg);AU.pg.connect(AU.bus);const ps=ac.createGain();ps.gain.value=0.6;AU.pg.connect(ps);ps.connect(AU.verb);}}
+ if(AU.ac.state!=='running'&&meta.snd!=='off')AU.ac.resume();}catch(e){}}
+function audioTick(){if(!AU.ac||!AU.bus)return;try{const t=AU.ac.currentTime,m=meta.snd,f=Math.max(0,Math.min(1,(S.h-LOW)/AMP));
+ const bus=S.paused?0.0001:S.mode==='play'?1:S.mode==='ready'?0.6:S.mode==='end'?0.35:0.3;
+ AU.bus.gain.setTargetAtTime(bus,t,S.paused?0.25:1.1);
+ const w=m==='both'||m==='waves',p=m==='both'||m==='pad',both=m==='both';
+ AU.wlp.frequency.setTargetAtTime(260+f*900,t,0.25);AU.wg.gain.setTargetAtTime(w?(both?0.05+f*0.14:0.07+f*0.2):0,t,0.25);
+ AU.plp.frequency.setTargetAtTime(420+f*900,t,0.4);AU.pg.gain.setTargetAtTime(p?(both?0.035+f*0.03:0.06+f*0.05):0,t,0.5);}catch(e){}}
+let lastBell=-9;
+function chime(y){if(!AU.ac||!AU.bus||meta.snd==='off')return;try{const ac=AU.ac,t=ac.currentTime;if(t-lastBell<1.8)return;lastBell=t;
+ const o=ac.createOscillator(),lp=ac.createBiquadFilter(),gn=ac.createGain(),s2=ac.createGain();o.type='sine';o.frequency.value=BELLS[Math.max(0,Math.min(4,Math.round((y-LOW)/AMP*4)))];
+ lp.type='lowpass';lp.frequency.value=1600;gn.gain.setValueAtTime(0.0001,t);gn.gain.exponentialRampToValueAtTime(0.022,t+0.03);gn.gain.exponentialRampToValueAtTime(0.0001,t+3.2);
+ o.connect(lp);lp.connect(gn);gn.connect(AU.bus);s2.gain.value=0.7;gn.connect(s2);s2.connect(AU.verb);o.start(t);o.stop(t+3.4);}catch(e){}}
+function setSound(m){meta.snd=SNDS[m]?m:'both';save();try{if(AU.out)AU.out.gain.value=meta.snd==='off'?0:0.9;if(AU.ac&&meta.snd!=='off'&&AU.ac.state!=='running')AU.ac.resume();}catch(e){}}
+
+/* ---------- state ---------- */
+const S={mode:'title',paused:false,len:meta.len,dur:180,total:360,tau:0,h:LOW,v:0,hold:false,lh:false,th:0,idx:0,got:0,seen:0,marks:new Uint8Array(360),parts:[],flashT:0};
+let anyRound=false,clock=0,scroll=0,simHold=null;
+const ptrs=new Set();let keyHold=false;
+const holding=()=>simHold!==null?simHold:(ptrs.size>0||keyHold);
+const pps=()=>W*(meta.rm?0.06:0.11);
+const LX=()=>W*0.3;
+function yOf(h){const top=H*0.2+22,bot=waterY-24;return bot-h*(bot-top);}
+
+function enterReady(){try{if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();}catch(e){}ov.hidden=true;ov.className='';S.mode='ready';S.paused=false;S.len=meta.len;S.dur=LENS[S.len];S.total=Math.round(S.dur/STEP);
+ S.marks=new Uint8Array(S.total);S.idx=0;S.got=0;S.seen=0;S.tau=0;S.h=g(0);S.v=0;S.hold=false;S.parts=[];ptrs.clear();keyHold=false;
+ rndArm(anyRound?'retry':'new');$('tut').hidden=meta.tutDone;S.guide=!meta.tutDone;lastCue='';}
+function beginSession(){if(S.mode!=='ready'||S.paused)return;S.mode='play';S.tau=0;S.h=g(0);S.v=-DOWN*BL;S.lh=true;S.th=0;anyRound=true;rndStart();}
+function onHold(){audioInit();if(S.mode==='ready'&&!S.paused)beginSession();}
+function judge(i){const t=lightT(i),gd=g(t),n=needs(t);
+ const ok=n===0?Math.abs(S.h-gd)<TOL*0.7:Math.abs(S.h-gd)<TOL&&(n===1)===S.hold;   // turn lights: either direction, a little closer
+ S.marks[i]=ok?1:2;S.seen++;
+ if(ok){S.got++;chime(gd);if(simHold===null){S.flashT=1;if(!meta.rm&&(!S.parts.length||S.parts[S.parts.length-1].t>0.9))S.parts.push({t:0});}}}
+function finish(force){if(S.mode!=='play')return;S.mode='end';S.paused=false;ptrs.clear();keyHold=false;$('tut').hidden=true;
+ const pct=S.seen?Math.round(100*S.got/S.seen):0,stars=pct>=85?3:pct>=65?2:pct>=40?1:0;
+ const win=force===undefined?pct>=40:!!force;
+ const before=meta.sessions;meta.sessions++;meta.best=Math.max(meta.best,pct);meta.mins+=Math.round(S.tau/60);if(!meta.tutDone)meta.tutDone=true;save();
+ const fresh=[...COLS.filter(c=>c.need>before&&c.need<=meta.sessions).map(c=>c.name+' lantern'),...SCENES.filter(c=>c.need>before&&c.need<=meta.sessions).map(c=>c.name+' river')];
+ rndEnd(win,{score:pct,stars});
+ if(simHold===null)showEnd(pct,stars,fresh);}
+
+/* ---------- screens ---------- */
+function nextUnlock(){const all=[...COLS.map(c=>({n:c.name+' lantern',need:c.need})),...SCENES.map(c=>({n:c.name+' river',need:c.need}))].filter(x=>x.need>meta.sessions).sort((a,b)=>a.need-b.need);
+ if(!all.length)return 'Every lantern and river is yours.';const m=all[0].need-meta.sessions;return `Next: ${all[0].n} after ${m} more session${m>1?'s':''}.`;}
+function showTitle(){S.mode='title';S.paused=false;rnd.armed=false;rnd.open=false;$('tut').hidden=true;ptrs.clear();
+ ov.className='title';ov.hidden=false;
+ const r=()=>{ov.innerHTML=`<div class="tTop"><h1>Lantern Drift</h1><p>Breathe with the river. Hold to breathe in and the lantern rises; let go to breathe out and it drifts down.</p></div>
+  <div class="tLen" role="radiogroup" aria-label="Session length">${[2,3,5].map(n=>`<button type="button" class="pill${meta.len===n?' on':''}" data-len="${n}" role="radio" aria-checked="${meta.len===n}">${n} min</button>`).join('')}</div>
+  <button type="button" class="go" id="go">Begin</button>
+  <div class="tMore"><div class="lbl">Lantern</div><div class="sws">${COLS.map(c=>`<button type="button" class="sw${meta.col===c.id?' on':''}" data-col="${c.id}" ${own(c)?'':'disabled'} aria-label="${c.name} lantern${own(c)?'':', locked'}" style="--g:${c.c}"><i style="background:${c.c}"></i></button>`).join('')}</div>
+  <div class="lbl">River</div><div class="chips">${SCENES.map(s=>`<button type="button" class="chip${meta.scene===s.id?' on':''}" data-sc="${s.id}" ${own(s)?'':'disabled'}>${s.name}</button>`).join('')}</div>
+  <p class="note">Sessions completed: ${meta.sessions}. ${nextUnlock()}</p>
+  <div class="row"><button type="button" class="link" id="snd">Sound: ${SNDS[meta.snd]}</button><a class="link" href="../games.html">&larr; Digi Games</a></div></div>`;
+  ov.querySelectorAll('[data-len]').forEach(b=>b.addEventListener('click',()=>{meta.len=+b.dataset.len;save();r();}));
+  ov.querySelectorAll('[data-col]').forEach(b=>b.addEventListener('click',()=>{meta.col=b.dataset.col;save();r();}));
+  ov.querySelectorAll('[data-sc]').forEach(b=>b.addEventListener('click',()=>{meta.scene=b.dataset.sc;save();r();}));
+  $('snd').addEventListener('click',()=>{const k=Object.keys(SNDS);setSound(k[(k.indexOf(meta.snd)+1)%k.length]);audioInit();r();});
+  $('go').addEventListener('click',()=>{audioInit();enterReady();});};
+ r();}
+const tog=(id,on,label,sub)=>`<button type="button" class="btn" id="${id}" role="switch" aria-checked="${on}"><span>${label}${sub?`<small>${sub}</small>`:''}</span><i class="tg${on?' on':''}"></i></button>`;
+function showPause(){ov.className='';ov.hidden=false;
+ const r=()=>{ov.innerHTML=`<div class="card"><h2>Paused</h2><p>${S.mode==='play'?'Take your time. The river waits.':'Hold anywhere when you are ready to begin.'}</p>
+  <button type="button" class="btn primary" id="res">Resume</button>
+  <div class="slbl">Sound</div><div class="seg" role="radiogroup" aria-label="Sound">${Object.keys(SNDS).map(k=>`<button type="button" class="pill${meta.snd===k?' on':''}" data-snd="${k}" role="radio" aria-checked="${meta.snd===k}">${k==='both'?'Both':SNDS[k]}</button>`).join('')}</div>
+  ${tog('tR',meta.rm,'Reduce motion','Slower river, no twinkle or pulse rings. The breathing guide stays.')}
+  <button type="button" class="btn" id="lv"><span>Leave this session<small>Back to the start. This session won't be counted.</small></span></button>
+  <a class="link" href="../games.html">&larr; Digi Games</a></div>`;
+  $('res').addEventListener('click',resume);
+  ov.querySelectorAll('[data-snd]').forEach(b=>b.addEventListener('click',()=>{setSound(b.dataset.snd);audioInit();r();}));
+  $('tR').addEventListener('click',()=>{meta.rm=!meta.rm;save();r();});
+  $('lv').addEventListener('click',()=>{const b=$('lv');if(S.mode==='play'&&b.dataset.sure!=='1'){b.dataset.sure='1';b.classList.add('armed');b.querySelector('small').textContent='Tap again to leave. This session will not be counted.';return;}showTitle();});};
+ r();}
+function pause(){if(S.paused||(S.mode!=='play'&&S.mode!=='ready'))return;S.paused=true;ptrs.clear();keyHold=false;showPause();}
+function resume(){S.paused=false;ov.hidden=true;last=performance.now();}
+function showEnd(pct,stars,fresh){ov.className='';ov.hidden=false;
+ const heads=['Time well spent','A calm drift','Steady and calm','Beautifully paced'];
+ const msg=stars===3?'Slow and even, right with the river.':stars===2?'A lovely steady rhythm. A few lights drifted by.':stars===1?'You found the rhythm. Try letting the out-breath be long and slow.':'Every slow breath counts. Follow the lights: hold as they rise, let go as they fall.';
+ ov.innerHTML=`<div class="card"><h2>${heads[stars]}</h2><div class="stars" aria-label="${stars} of 3 stars">${[0,1,2].map(i=>i<stars?'&#9733;':'<span class="off">&#9733;</span>').join('')}</div>
+  <div class="big">${pct}%</div><p>of the lights gathered over ${S.len} minutes, about ${Math.round(S.dur/CYCLE)} slow breaths.</p><p>${msg}</p>
+  ${fresh.map(n=>`<div class="new">New: ${n}</div>`).join('')}
+  <button type="button" class="btn primary" id="again">Again</button>
+  <button type="button" class="btn center" id="opts">Change length or river</button>
+  <a class="link" href="../games.html">&larr; Digi Games</a></div>`;
+ $('again').addEventListener('click',()=>{audioInit();enterReady();});
+ $('opts').addEventListener('click',showTitle);}
+
+/* ---------- input: hold anywhere on the river ---------- */
+cv.addEventListener('pointerdown',e=>{e.preventDefault();ptrs.add(e.pointerId);try{cv.setPointerCapture(e.pointerId)}catch(_){}onHold();});
+const rel=e=>{ptrs.delete(e.pointerId);};
+cv.addEventListener('pointerup',rel);cv.addEventListener('pointercancel',rel);cv.addEventListener('lostpointercapture',rel);
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+addEventListener('keydown',e=>{if(e.code!=='Space'||e.repeat)return;if((S.mode==='ready'||S.mode==='play')&&!S.paused&&ov.hidden){e.preventDefault();keyHold=true;onHold();}});
+addEventListener('keyup',e=>{if(e.code==='Space')keyHold=false;});
+addEventListener('blur',()=>{ptrs.clear();keyHold=false;});
+$('pz').addEventListener('click',()=>{audioInit();if(S.mode==='play'||S.mode==='ready')pause();});
+$('tutSkip').addEventListener('click',()=>{meta.tutDone=true;save();$('tut').hidden=true;});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();save();try{if(AU.ac)AU.ac.suspend();}catch(e){}}else{try{if(AU.ac&&meta.snd!=='off')AU.ac.resume();}catch(e){}last=performance.now();}});
+addEventListener('pagehide',save);
+
+/* ---------- update ---------- */
+function update(dt){
+ if(S.paused)return;
+ const rm=meta.rm;clock+=dt*(rm?0.5:1);scroll+=pps()*dt;
+ if(S.mode==='play'){
+  const hold=holding();S.hold=hold;
+  if(hold!==S.lh){S.lh=hold;S.th=0;}S.th+=dt;
+  S.v+=(vTarget(hold,S.th)-S.v)*Math.min(1,dt*EASE);S.h+=S.v*dt;
+  if(S.h<0){S.h=0;if(S.v<0)S.v=0;}if(S.h>1){S.h=1;if(S.v>0)S.v=0;}
+  S.tau+=dt;if(rnd.open)rnd.secs+=dt;
+  while(S.idx<S.total&&lightT(S.idx)<=S.tau){judge(S.idx);S.idx++;}
+  if(!meta.tutDone&&S.tau>=CYCLE){meta.tutDone=true;save();$('tut').hidden=true;}
+  if(S.tau>=S.dur){finish();return;}
+ }else if(S.mode==='ready'||S.mode==='title'){S.h=g(0)+Math.sin(clock*1.3)*0.012;S.hold=false;}
+ else if(S.mode==='end'){S.v+=(0-S.v)*Math.min(1,dt*2);S.h+=(LOW-S.h)*Math.min(1,dt*0.6);}
+ S.flashT=Math.max(0,S.flashT-dt*1.1);
+ for(const p of S.parts)p.t+=dt;S.parts=S.parts.filter(p=>p.t<1.6);
+ if(scene().snow)for(const f of flakes){f.y+=f.s*dt*(rm?0.4:1);f.x-=(8+f.s*0.3)*dt*(rm?0.4:1);if(f.y>H+4){f.y=-4;f.x=Math.random()*W;}if(f.x<-4)f.x=W+4;}
+}
+
+/* ---------- drawing (all canvas, no images) ---------- */
+function rnd01(n){const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x);}
+const starsA=Array.from({length:90},(_,i)=>({x:rnd01(i),y:rnd01(i+300)*0.62,r:0.5+rnd01(i+600)*1.2,ph:rnd01(i+900)*6.28}));
+const flakes=Array.from({length:70},(_,i)=>({x:rnd01(i+40)*480,y:rnd01(i+80)*900,s:14+rnd01(i+120)*26,r:0.8+rnd01(i+160)*1.6}));
+const spr=document.createElement('canvas');spr.width=spr.height=64;{const c=spr.getContext('2d'),gr=c.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(0.18,'rgba(255,255,255,.75)');gr.addColorStop(0.45,'rgba(255,255,255,.18)');gr.addColorStop(1,'rgba(255,255,255,0)');c.fillStyle=gr;c.fillRect(0,0,64,64);}
+const tinted={};function glow(rgb){if(tinted[rgb])return tinted[rgb];const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');x.drawImage(spr,0,0);x.globalCompositeOperation='source-in';x.fillStyle=`rgb(${rgb})`;x.fillRect(0,0,64,64);return tinted[rgb]=c;}
+function blob(rgb,x,y,r,a){if(a<=0)return;ctx.globalAlpha=Math.min(1,a);ctx.drawImage(glow(rgb),x-r,y-r,r*2,r*2);ctx.globalAlpha=1;}
+function hillY(x,base,amp,f,o){return base-amp*(0.55*Math.sin(x*f+o)+0.3*Math.sin(x*f*2.3+o*1.7)+0.15*Math.sin(x*f*5.1+o*0.3));}
+function hills(off,base,amp,f,fill,cap){ctx.beginPath();ctx.moveTo(0,waterY+1);for(let x=0;x<=W+8;x+=8)ctx.lineTo(x,hillY(x+off,base,amp,f,1.3));ctx.lineTo(W,waterY+1);ctx.closePath();ctx.fillStyle=fill;ctx.fill();
+ if(cap){ctx.strokeStyle=cap;ctx.globalAlpha=0.5;ctx.lineWidth=2;ctx.beginPath();for(let x=0;x<=W+8;x+=8)ctx.lineTo(x,hillY(x+off,base,amp,f,1.3)+1);ctx.stroke();ctx.globalAlpha=1;}}
+function draw(){
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ const sc=scene(),rm=meta.rm,lc=col(),lx=LX(),P=pps();
+ // sky
+ let gr=ctx.createLinearGradient(0,0,0,waterY);sc.sky.forEach((c,i)=>gr.addColorStop(i/(sc.sky.length-1),c));ctx.fillStyle=gr;ctx.fillRect(0,0,W,waterY+1);
+ if(sc.sun)blob('255,170,120',W*0.72,waterY-10,W*0.55,0.35);
+ const nS=Math.round(starsA.length*sc.stars);for(let i=0;i<nS;i++){const s=starsA[i],tw=rm?0.7:0.55+0.45*Math.sin(clock*0.8+s.ph);ctx.fillStyle=`rgba(255,255,255,${0.55*tw})`;ctx.beginPath();ctx.arc(s.x*W,s.y*waterY,s.r,0,7);ctx.fill();}
+ const mx=W*0.83,my=H*0.27;blob('255,245,220',mx,my,54,0.22);ctx.fillStyle=sc.moon;ctx.beginPath();ctx.arc(mx,my,sc.sun?0:13,0,7);ctx.fill();
+ // far banks (slow parallax)
+ hills(scroll*0.08,waterY-18,26,0.006,sc.hill2,sc.cap);
+ hills(scroll*0.16,waterY-4,16,0.011,sc.hill,sc.cap);
+ if(sc.harbour){for(let i=-1;i<Math.ceil(W/34)+2;i++){const x=i*34-(scroll*0.16)%34,k=Math.floor((scroll*0.16)/34)+i,y=waterY-6-rnd01(k)*8;const rgb=rnd01(k+7)>0.3?'255,205,130':'170,210,255';
+  blob(rgb,x,y,7,0.9);ctx.fillStyle=`rgb(${rgb})`;ctx.fillRect(x-1,y-1,2,2);for(let j=1;j<6;j++)blob(rgb,x+(rm?0:Math.sin(clock*1.5+j+k)*2),waterY+6+j*7,4,0.28-j*0.04);}}
+ // water
+ gr=ctx.createLinearGradient(0,waterY,0,H);gr.addColorStop(0,sc.water[0]);gr.addColorStop(1,sc.water[1]);ctx.fillStyle=gr;ctx.fillRect(0,waterY,W,H-waterY);
+ if(!sc.sun)for(let j=0;j<7;j++)blob('255,245,220',mx+(rm?0:Math.sin(clock*1.1+j)*3),waterY+10+j*12,9-j,0.18-j*0.02);
+ ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;
+ for(let r=0;r<9;r++){const y=waterY+14+r*((H-waterY-14)/9),sp=0.6+r*0.12,len=18+r*6,gap=70+r*14,off=(scroll*sp+r*37)%gap;
+  for(let x=-gap+(gap-off);x<W+gap;x+=gap){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+len,y);ctx.stroke();}}
+ const titleM=S.mode==='title';
+ // guide ribbon
+ if(!titleM){const tau=S.tau,t0=tau-lx/P,endX=lx+(S.dur-tau)*P,rng=(waterY-24)-(H*0.2+22);
+ ctx.save();ctx.beginPath();ctx.rect(0,0,Math.min(W,endX),H);ctx.clip();
+ ctx.beginPath();for(let x=0;x<=W;x+=4){const t=tau+(x-lx)/P,y=yOf(g(t));x?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+ // soft guide band: only in the very first session, fading out over the second breath
+ const ga=S.guide?0.05*Math.max(0,Math.min(1,(20-tau)/8)):0;if(ga>0.002){ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=Math.max(26,rng*0.12);ctx.strokeStyle=`rgba(255,236,200,${ga.toFixed(3)})`;ctx.stroke();}ctx.restore();
+ // lights
+ const k0=Math.max(0,Math.floor((t0-STEP)/STEP)),k1=Math.min(S.total-1,Math.ceil((tau+(W-lx)/P)/STEP));
+ for(let k=k0;k<=k1;k++){const t=lightT(k),x=lx+(t-tau)*P,y=yOf(g(t)),m=S.marks[k];
+  if(m===1)continue;
+  if(m===2){blob('200,210,255',x,y,7,0.18);continue;}
+  const tw=rm?1:0.8+0.2*Math.sin(clock*3+k*1.7),tn=isTurn(k);blob('255,226,160',x,y,tn?22:14,(tn?0.85:0.75)*tw);ctx.fillStyle='rgba(255,248,230,.95)';ctx.beginPath();ctx.arc(x,y,tn?2.8:1.9,0,7);ctx.fill();}}
+ // lantern + reflection
+ const hx=titleM?W*0.5:lx,ly=titleM?H*0.34+Math.sin(clock*1.3)*4:yOf(S.h),hk=S.hold?1:0,hh=titleM?0.9:S.h;
+ for(let j=0;j<6;j++)blob(lc.g,hx+(rm?0:Math.sin(clock*1.4+j*0.9)*2.5),waterY+8+j*11,16-j*1.6,(0.32-j*0.045)*(1-hh*0.55));
+ const sw=S.flashT*S.flashT*(3-2*S.flashT),by=ly+(rm?0:Math.sin(clock*1.7)*1.2);
+ if(!(titleM&&H<480)){blob(lc.g,hx,ly,70+14*sw,0.28+0.1*hk+0.18*sw);drawLantern(hx,by,lc);}   // no hero lantern on very short (landscape) title screens
+ // gathered light: a soft pulse ring breathing out from the lantern
+ for(const p of S.parts){const u=Math.min(1,p.t/1.6),e=1-Math.pow(1-u,3),r=22+e*14;const al=0.2*(1-u)*(1-u);ctx.beginPath();ctx.ellipse(hx,by,r,r*1.12,0,0,7);ctx.strokeStyle=`rgba(${lc.g},${(al*0.3).toFixed(3)})`;ctx.lineWidth=5;ctx.stroke();ctx.strokeStyle=`rgba(${lc.g},${al.toFixed(3)})`;ctx.lineWidth=1.5;ctx.stroke();}
+ // snow
+ if(sc.snow){ctx.fillStyle='rgba(240,246,255,.75)';const n=rm?25:flakes.length;for(let i=0;i<n;i++){const f=flakes[i];ctx.beginPath();ctx.arc(f.x%W,f.y,f.r,0,7);ctx.fill();}}
+ // near reeds (fast parallax)
+ ctx.fillStyle='rgba(2,4,12,.85)';const ro=(scroll*1.25)%60;
+ for(let x=-60+(60-ro);x<W+60;x+=60){const kk=Math.floor((scroll*1.25+x)/60);for(let j=0;j<4;j++){const bx=x+j*9+rnd01(kk*4+j)*6,hh=18+rnd01(kk*4+j+50)*26,sw=rm?0:Math.sin(clock*1.2+bx*0.05)*2;
+  ctx.beginPath();ctx.moveTo(bx-1.6,H);ctx.quadraticCurveTo(bx+sw*0.5,H-hh*0.6,bx+sw,H-hh);ctx.quadraticCurveTo(bx+sw*0.5+1,H-hh*0.6,bx+1.6,H);ctx.fill();}}
+}
+function drawLantern(x,y,lc){const w=34,h=40;
+ ctx.strokeStyle='rgba(20,14,10,.6)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y-h/2-6);ctx.lineTo(x,y-h/2-14);ctx.stroke();
+ const gr=ctx.createRadialGradient(x,y+4,2,x,y,w*0.75);gr.addColorStop(0,'#fff6e2');gr.addColorStop(0.45,lc.c);gr.addColorStop(1,`rgba(${lc.g},.55)`);
+ ctx.fillStyle=gr;ctx.beginPath();ctx.moveTo(x-w*0.3,y-h/2);ctx.bezierCurveTo(x-w*0.72,y-h*0.32,x-w*0.72,y+h*0.32,x-w*0.3,y+h/2);ctx.lineTo(x+w*0.3,y+h/2);ctx.bezierCurveTo(x+w*0.72,y+h*0.32,x+w*0.72,y-h*0.32,x+w*0.3,y-h/2);ctx.closePath();ctx.fill();
+ ctx.strokeStyle='rgba(90,50,20,.28)';ctx.lineWidth=1;for(const s of [-0.5,0,0.5]){ctx.beginPath();ctx.moveTo(x+s*w*0.3,y-h/2);ctx.quadraticCurveTo(x+s*w*0.62,y,x+s*w*0.3,y+h/2);ctx.stroke();}
+ for(const yy of [-0.2,0.2]){ctx.beginPath();ctx.moveTo(x-w*0.52,y+yy*h);ctx.quadraticCurveTo(x,y+yy*h+2,x+w*0.52,y+yy*h);ctx.stroke();}
+ ctx.fillStyle='#2a1c14';rr(x-w*0.34,y-h/2-6,w*0.68,6,2);ctx.fill();rr(x-w*0.3,y+h/2,w*0.6,5,2);ctx.fill();
+ ctx.fillStyle='rgba(255,210,140,.8)';ctx.beginPath();ctx.moveTo(x-2,y+h/2+5);ctx.lineTo(x+2,y+h/2+5);ctx.lineTo(x,y+h/2+12);ctx.closePath();ctx.fill();}
+function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+
+/* ---------- HUD ---------- */
+let lastCue='',lastCnt=-1,lastBar=-1,lastVis='';
+function hud(){const cue=$('cue');let t='';
+ if(S.mode==='ready')t='Hold anywhere to breathe in';else if(S.mode==='play')t=(S.tau%CYCLE)<IN?'Breathe in':'Breathe out';
+ if(t!==lastCue){lastCue=t;cue.style.opacity=0;if(t)setTimeout(()=>{if(lastCue===t){cue.textContent=t;cue.style.opacity=0.7;}},meta.rm?0:350);}
+ const n=S.mode==='play'||S.mode==='end'?S.got:0;if(n!==lastCnt){lastCnt=n;$('cnt').textContent='✦ '+n;}
+ const vis=S.mode+'|'+(S.mode==='play');if(vis!==lastVis){lastVis=vis;$('cnt').style.opacity=S.mode==='play'?0.85:0;$('pz').hidden=!(S.mode==='play'||S.mode==='ready');}
+ const b=S.mode==='play'?Math.min(1,S.tau/S.dur):S.mode==='end'?1:0,bp=Math.round(b*1000);if(bp!==lastBar){lastBar=bp;$('barF').style.width=(b*100).toFixed(1)+'%';}}
+
+/* ---------- loop ---------- */
+function resize(){const r=stage.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);W=Math.max(1,r.width);H=Math.max(1,r.height);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);waterY=H*0.72;}
+let last=performance.now();
+function frame(now){const dt=Math.min(0.05,Math.max(0,(now-last)/1000));last=now;update(dt);draw();hud();audioTick();requestAnimationFrame(frame);}
+
+/* ---------- test hooks (only when window.__DGTEST is set) ---------- */
+if(window.__DGTEST)window.__dg={
+ end:w=>{if(S.mode==='end')return;if(S.mode==='title')enterReady();if(S.mode==='ready'){S.paused=false;beginSession();}S.paused=false;finish(w===undefined?undefined:!!w);},
+ get meta(){return meta},get S(){return S},g,
+ // run a whole session instantly through the real update loop; bot(tau,S) returns true to hold
+ sim(bot,len){meta.len=len||3;enterReady();simHold=true;beginSession();const dt=1/60;let n=0;while(S.mode==='play'&&n++<1e6){simHold=!!bot(S.tau,S);update(dt);}
+  simHold=null;const r={pct:S.seen?Math.round(100*S.got/S.seen):0,got:S.got,seen:S.seen,total:S.total};showTitle();return r;}};
+
+addEventListener('resize',resize);
+resize();showTitle();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

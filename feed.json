@@ -1,8 +1,8 @@
 {
-  "built": "2026-09-27T16:57:32.302Z",
+  "built": "2026-09-27T17:00:34.203Z",
   "today": "2026-09-27",
   "timezone": "Europe/London",
-  "count": 435,
+  "count": 436,
   "items": [
     {
       "path": "reports/2026-09-27-arcade-lantern-drift.html",
@@ -87,6 +87,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "..............o....................."
+    },
+    {
+      "path": "reports/2026-09-27-uk-cpi-energy-august.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "UK inflation rises to 3.1% as energy costs jump",
+      "standfirst": "The Consumer Prices Index rose to 3.1% in the year to August 2026, up from 2.9% in July, as motor fuel and domestic energy prices climbed faster than the rest of the household basket, official data show.",
+      "date": "2026-09-27",
+      "read": "short",
+      "thumb": "",
+      "stat": "3.1",
+      "statUnit": "%",
+      "statLabel": "inflation",
+      "mask": ""
     },
     {
       "path": "reports/2026-09-27-word-link-0050.html",

@@ -231,7 +231,8 @@ const sea=()=>SEA[meta.sea]||SEA.standard;
 const owned=it=>it.need==='finale'?meta.finale:meta.earned>=it.need;
 const paintC=()=>(PAINTS.find(q=>q.id===meta.paint)||PAINTS[0]).c;
 const prefersRM=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}})();
-const freshMeta=()=>({ver:5,island:1,stars:0,earned:0,up:{speed:0,start:0,dmg:0,net:0,hull:0},last:Date.now(),muted:false,music:true,rm:prefersRM,lossL:null,sens:'normal',tutDone:SIM,sea:'standard',seaAsked:false,best:{},paint:'red',hat:'sou',finale:false,streakL:0,streakN:0,stats:{played:0,sunk:0,saved:0,turned:0,attempts:0,wins:0,lostN:[0,0,0]},fs:true,beamHolds:0,beamLearned:false,seen:{}});
+const COARSE=(()=>{try{return matchMedia('(pointer: coarse)').matches}catch(e){return false}})();
+const freshMeta=()=>({ver:5,island:1,stars:0,earned:0,up:{speed:0,start:0,dmg:0,net:0,hull:0},last:Date.now(),muted:false,music:true,rm:prefersRM,lossL:null,sens:'normal',tutDone:SIM,sea:'standard',seaAsked:false,best:{},paint:'red',hat:'sou',finale:false,streakL:0,streakN:0,stats:{played:0,sunk:0,saved:0,turned:0,attempts:0,wins:0,lostN:[0,0,0]},fs:COARSE,beamHolds:0,beamLearned:false,seen:{}});
 let meta=freshMeta();
 function migrate(m){const f=freshMeta(),out=Object.assign(f,m);out.up=Object.assign(freshMeta().up,m.up||{});out.best=Object.assign({},m.best||{});out.stats=Object.assign(freshMeta().stats,m.stats||{});
  if(m.earned==null){let spent=0;for(const k in out.up)spent+=out.up[k]*(out.up[k]+1)/2;out.earned=(out.stars||0)+spent;}
@@ -505,12 +506,16 @@ $('tutSkip').addEventListener('click',()=>{meta.tutDone=true;saveMeta();toast('T
 $('menu').addEventListener('click',()=>{audioInit();openMenu('button');});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){saveRun();openMenu('hidden');try{if(SND.ac)SND.ac.suspend();}catch(e){}}else{try{if(SND.ac)SND.ac.resume();}catch(e){}last=performance.now();}});
 addEventListener('pagehide',saveRun);addEventListener('blur',()=>{if(!SIM&&st&&!st.over)openMenu('blur');});
-/* ---------- full screen: asked for on the first gesture where the browser allows it (Android Chrome); iPhone Safari has no page full screen, so the 100dvh layout carries it ---------- */
+/* ---------- full screen: asked for where the browser allows it (Android Chrome); iPhone Safari has no page full screen, so the 100dvh layout carries it.
+   Asked on the first tap (on pointerup: a touch pointerdown doesn't count as a gesture, so asking there silently failed on phones),
+   then again whenever a headland starts or play resumes, so a swipe out isn't permanent. On by default on touch screens. ---------- */
 const fsEl=document.documentElement,fsReq=fsEl.requestFullscreen||fsEl.webkitRequestFullscreen,fsOK=()=>!!fsReq&&!!(document.fullscreenEnabled||document.webkitFullscreenEnabled),fsOn=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
 let fsTried=false;
 function goFull(via){if(!fsOK()||fsOn())return;try{const r=fsReq.call(fsEl,{navigationUI:'hide'});const done=ok=>{if(ok)ui.fs=1;};if(r&&r.then)r.then(()=>{done(true);try{screen.orientation.lock('portrait').catch(()=>{})}catch(_){}}).catch(()=>done(false));else done(true);}catch(_){}}
 function exitFull(){try{(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(_){}}
-stage.addEventListener('pointerdown',()=>{if(fsTried||SIM)return;fsTried=true;if(meta.fs!==false)goFull('first');},true);
+function fsAsk(via){if(!SIM&&meta.fs!==false)goFull(via);}
+document.addEventListener('pointerup',()=>{if(fsTried||SIM)return;fsTried=true;fsAsk('first');},true);
+document.addEventListener('click',e=>{if(e.target&&e.target.closest&&e.target.closest('#go,#retry,#res,#collect'))fsAsk('start');},true);
 
 const msgQ=[];let msgCur=null,msgT=0,msgGap=0;
 function toast(h,p){if(SIM)return;if(msgCur&&msgCur.h===h&&msgCur.p===p)return;if(msgQ.some(m=>m.h===h&&m.p===p))return;msgQ.push({h,p});if(msgQ.length>6)msgQ.shift();}
@@ -1150,6 +1155,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

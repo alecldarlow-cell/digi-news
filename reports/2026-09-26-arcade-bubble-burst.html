@@ -214,7 +214,8 @@ const worldOf = i => WORLDS[Math.floor(i / PER_WORLD)];
 
 /* ---------- save ---------- */
 const SAVE_KEY = 'digi-bubble-burst-v1';
-const save = { unlocked: 0, stars: {}, best: {}, endlessBest: 0, muted: false };
+const coarse = (() => { try { return matchMedia('(pointer: coarse)').matches; } catch (e) { return false; } })();
+const save = { unlocked: 0, stars: {}, best: {}, endlessBest: 0, muted: false, fs: coarse };
 try { const s = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (s && typeof s === 'object' && !Array.isArray(s)) Object.assign(save, s); } catch (e) {}
 (function sanitiseSave() {
   const n = LEVELS.length, isObj = o => o && typeof o === 'object' && !Array.isArray(o);
@@ -224,8 +225,28 @@ try { const s = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (s && t
   save.best = clean(save.best, v => Number.isFinite(v) && v > 0);
   const eb = Number(save.endlessBest); save.endlessBest = Number.isFinite(eb) && eb > 0 ? Math.floor(eb) : 0;
   save.muted = save.muted === true;
+  save.fs = typeof save.fs === 'boolean' ? save.fs : coarse;
 })();
 function persist() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) {} }
+
+/* ---------- full screen ----------
+   A page can't hide the browser bars by itself. Where the browser allows it
+   (Android Chrome; iPhone Safari has no page full screen), starting a level,
+   Endless, a retry or a resume asks for full screen and keeps the phone upright.
+   It's on by default on touch screens and can be switched off from the menu.
+   Always called from a click, which is what the browser needs to allow it.   */
+const fsOK = (() => { try { return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled); } catch (e) { return false; } })();
+const isFS = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+function goFS() {
+  if (!fsOK || !save.fs || isFS()) return;
+  try {
+    const el = document.documentElement, rq = el.requestFullscreen || el.webkitRequestFullscreen; if (!rq) return;
+    const lock = () => { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('portrait').catch(() => {}); } catch (e) {} };
+    const p = rq.call(el, { navigationUI: 'hide' }); if (p && p.then) p.then(lock, () => {}); else lock();
+  } catch (e) {}
+}
+function exitFS() { try { if (!isFS()) return; const x = document.exitFullscreen || document.webkitExitFullscreen; const p = x && x.call(document); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+const fsBtn = where => fsOK ? '<button class="btn ghost" data-act="fs" data-arg="' + where + '" role="switch" aria-checked="' + save.fs + '" style="margin-top:10px">Full screen: ' + (save.fs ? 'on' : 'off') + '</button>' : '';
 
 /* ---------- helpers ---------- */
 const $ = id => document.getElementById(id);
@@ -1148,6 +1169,7 @@ function homeHtml() {
     '<button class="btn' + (paused ? '' : ' primary') + '" data-act="lv" data-arg="' + n + '"' + (paused ? '' : ' data-focus') + '>Play · Level ' + (n + 1) + '</button>' +
     '<div class="row2"><button class="btn" data-act="levels">Levels · ★' + totalStars() + '</button>' +
     '<button class="btn" data-act="endless">Endless</button></div>' +
+    fsBtn('home') +
     '<p class="small" style="margin-top:10px">Endless best: ' + save.endlessBest.toLocaleString() + '</p>' +
     '<p class="keys">Keyboard: ← → aim · Space shoot · S swap · P pause</p>';
 }
@@ -1172,7 +1194,7 @@ function pauseHtml() {
   return '<h2 id="ovTitle">Paused</h2><p class="sub">' + title + '</p>' + (hintText ? '<p class="small">' + hintText + '</p>' : '') +
     '<button class="btn primary" data-act="resume" data-focus>Resume</button>' +
     '<div class="row2"><button class="btn" data-act="retry">Restart</button><button class="btn" data-act="levels">Levels</button></div>' +
-    '<button class="btn ghost" data-act="home">Menu</button>';
+    '<button class="btn ghost" data-act="home">Menu</button>' + fsBtn('pause');
 }
 function openHome() {
   if (S.mode === 'play') S.mode = 'paused';
@@ -1187,6 +1209,8 @@ function resume() { if (S.mode === 'paused') { S.mode = 'play'; hideOverlay(); l
 card.addEventListener('click', e => {
   const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
   const a = b.dataset.act;
+  if (a === 'lv' || a === 'endless' || a === 'resume' || a === 'retry' || a === 'next') goFS();
+  if (a === 'fs') { save.fs = !save.fs; persist(); if (save.fs) goFS(); else exitFS(); showOverlay(b.dataset.arg === 'pause' ? pauseHtml() : homeHtml()); const nb = card.querySelector('[data-act=fs]'); if (nb) try { nb.focus({ preventScroll: true }); } catch (e) {} return; }
   if (a === 'lv') startLevel(+b.dataset.arg);
   else if (a === 'levels') { if (S.mode === 'play') S.mode = 'paused'; if (S.mode !== 'paused') S.mode = 'menu'; showOverlay(levelsHtml()); }
   else if (a === 'endless') startEndless();
@@ -1195,7 +1219,7 @@ card.addEventListener('click', e => {
   else if (a === 'retry') S.kind === 'endless' ? startEndless() : startLevel(S.idx);
   else if (a === 'next') startLevel(S.idx + 1);
 });
-$('pauseBtn').addEventListener('click', () => { if (S.mode === 'play') pause(); else if (S.mode === 'paused' && !ov.hidden && card.querySelector('[data-act=resume]')) resume(); });
+$('pauseBtn').addEventListener('click', () => { if (S.mode === 'play') pause(); else if (S.mode === 'paused' && !ov.hidden && card.querySelector('[data-act=resume]')) { goFS(); resume(); } });
 const sndBtn = $('sndBtn');
 function syncSnd() { sndBtn.setAttribute('aria-pressed', String(!save.muted)); sndBtn.setAttribute('aria-label', save.muted ? 'Sound off' : 'Sound on'); }
 sndBtn.addEventListener('click', () => { save.muted = !save.muted; persist(); syncSnd(); if (!save.muted) snd('swap'); });
@@ -1277,6 +1301,5 @@ showOverlay(homeHtml());
 requestAnimationFrame(t => { last = t; requestAnimationFrame(tick); });
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

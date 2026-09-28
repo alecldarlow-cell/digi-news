@@ -151,7 +151,7 @@ const ET={skiff:CFG.skiff,fog:CFG.fog,boss:CFG.boss};
    slots: cannon spots as [dx from centre, depth below the coast in headland heights]. from: where ships come from,
    [weight,'t'|'l'|'r',a,b] (top: x range; sides: height range as a fraction of the sea above the point). */
 const MAPS=[null,
- {pal:{g:['#86b865','#679a4c'],sand:'#e6cc95',sand2:'#d9bb80'},edge:'chalk',deco:['flowers'],
+ {pal:{g:['#86b865','#679a4c'],sand:'#e6cc95',sand2:'#d9bb80'},edge:'chalk',deco:['gorse'],
   slots:{canL:[-92,.353],canR:[92,.353],canC:[0,.13]}},
  {shape:{rx:170,wob:[[.05,3,1]]},pal:{g:['#9fae70','#6f8750'],sand:'#eedaa8',sand2:'#dcc48e',sea:['#0b2f3e','#145463','#227381','#3a9194']},deco:['dunes','marsh','seahenge'],
   slots:{canL:[-100,.3],canR:[96,.33],canC:[10,.14]},rocks:[[30,-34],[372,-40]]},
@@ -160,28 +160,28 @@ const MAPS=[null,
  {shape:{cx:190,sk:.2,wob:[[.04,5,0]]},pal:{g:['#79a85a','#4a7738'],sand:'#f1dca4',sand2:'#dfc486'},deco:['huts','pines'],
   slots:{canL:[66,.26],canR:[-92,.34],canC:[16,.12],canD:[124,.46]},from:[[3,'t',20,380],[2,'r',.2,.75]],jet:[40,374],
   here:'Ships come in from the east as well as the north, and there is a fourth cannon spot on the east flank.'},
- {shape:{cx:215,rx:128,ry:1.14,sk:-.15},pal:{g:['#a4ad7a','#7b8a57'],sand:'#bdb5a8',sand2:'#9c9488',sea:['#0a2b44','#124f71','#1f6e8e','#3a89a2']},edge:'shingle',deco:['seals','lifeboat'],
+ {shape:{cx:215,rx:128,ry:1.14,sk:-.15},pal:{g:['#94ab6c','#6c8a4e'],sand:'#bdb5a8',sand2:'#9c9488',sea:['#0a2b44','#124f71','#1f6e8e','#3a89a2']},edge:'shingle',deco:['seals','lifeboat','marsh'],
   slots:{canL:[-38,.3],canR:[44,.3],canC:[0,.1],canD:[-92,.52]},from:[[3,'t',120,300],[2,'l',.25,.8]],jet:[40,370],rocks:[[40,-30],[372,-24],[300,-60]],
   here:'A long, narrow spit. Ships gather in the middle and slip in from the west, so short walks and a crowded point.'},
  {shape:{rx:188,ry:.8,wob:[[.09,5,.6]]},pal:{g:['#7aa95b','#5a8a45'],sand:'#c7b99f',sand2:'#a89a80'},edge:'shingle',deco:['crabboats','flint'],
   slots:{canL:[-110,.3],canR:[110,.3],canC:[0,.15],canD:[-40,.3]},jet:[32,368],from:[[1,'t',20,90],[1,'t',310,380],[.6,'t',150,250]],
   here:'A broad, low beach. Ships hug both flanks, so the cannon spots out wide matter more than the one on the point.'},
- {shape:{cx:232,rx:160,wob:[[.04,6,1]]},pal:{g:['#7cb05f','#5c9046'],sand:'#e3c98e',sand2:'#cdb176',sea:['#082a4a','#0f4d7c','#1c6c9a','#2f88ad']},deco:['pier','church'],
+ {shape:{cx:232,rx:160,wob:[[.04,6,1]]},pal:{g:['#7cb05f','#5c9046'],sand:'#e3c98e',sand2:'#cdb176',sea:['#082a4a','#0f4d7c','#1c6c9a','#2f88ad']},deco:['pier','church','terrace'],
   slots:{canL:[-110,.35],canR:[64,.3],canC:[-18,.12]},from:[[3,'t',120,390],[2,'l',.15,.7]],jet:[44,380],rocks:[[384,-34],[250,-60]],
   here:'The point sits east of the pier. Ships swing round the pier from the west, a long walk from the east jetty.'},
  {shape:{cx:182,wob:[[.12,4,2],[.05,9,0]]},pal:{g:['#89a85c','#607f42'],sand:'#dcc08a',sand2:'#c6a672',clay:['#c98d52','#a8693a'],sea:['#123248','#1d5170','#2d6f8c','#4b8ba0']},edge:'clay',deco:['slump','flint'],weather:'drizzle',
   slots:{canL:[78,.3],canR:[-100,.36],canC:[0,.14],canD:[132,.5]},jet:[46,374],from:[[3,'t',20,380],[2,'r',.2,.8]],
   here:'Crumbling coves on a wet day. Ships round the eastern cove, and a fourth cannon spot sits out on the east edge.'},
- {shape:{cx:212,sk:-.24,wob:[[.07,6,1.4]]},pal:{g:['#8aa55c','#63803f'],sand:'#d6bb88',sand2:'#bb9d6c',clay:['#b87a45','#8f5a30'],sea:['#16293a','#223f55','#335b72','#527a8e']},edge:'clay',deco:['groynes','ruin'],weather:'drizzle',
+ {shape:{cx:212,sk:-.24,wob:[[.07,6,1.4]]},pal:{g:['#8aa55c','#63803f'],sand:'#d6bb88',sand2:'#bb9d6c',clay:['#b87a45','#8f5a30'],sea:['#16293a','#223f55','#335b72','#527a8e']},edge:'clay',deco:['groynes','ruin','fields'],weather:'drizzle',
   slots:{canL:[-82,.28],canR:[92,.36],canC:[-30,.1],canD:[-128,.5]},jet:[34,360],from:[[3,'t',20,380],[2,'l',.2,.8]],
   here:'The west side stands tallest and ships come at it from the west. The far west spot is exposed, but it covers the approach.'},
- {shape:{rx:148,ry:1.1,wob:[[.05,4,.3]]},pal:{g:['#abb573','#7e9152'],sand:'#f2dfb0',sand2:'#dcc38e'},edge:'dune',deco:['dunes','seals'],
+ {shape:{rx:148,ry:1.1,wob:[[.05,4,.3]]},pal:{g:['#abb573','#7e9152'],sand:'#f2dfb0',sand2:'#dcc38e'},edge:'dune',deco:['dunes','seals','heath'],
   slots:{canL:[-58,.3],canR:[62,.3],canC:[0,.1],canD:[-116,.44]},from:[[2,'t',60,340],[1,'l',.2,.75],[1,'r',.2,.75]],
   here:'A tall, narrow point between big dunes. Ships come from both sides at once, so no single cannon covers everything.'},
- {shape:{cx:176,rx:162,wob:[[.05,5,2]]},pal:{g:['#7caf5e','#5a8c45'],sand:'#e8cf98',sand2:'#d2b57c'},deco:['river','harbourlight'],
+ {shape:{cx:176,rx:162,wob:[[.05,5,2]]},pal:{g:['#7caf5e','#5a8c45'],sand:'#e8cf98',sand2:'#d2b57c'},deco:['river','harbourlight','terrace'],
   slots:{canL:[70,.28],canR:[-90,.33],canC:[0,.12],canD:[108,.52]},from:[[3,'t',20,360],[2,'r',.15,.6]],jet:[40,330],cot:282,wx1:350,rocks:[[30,-34]],
   here:'The river mouth cuts off the east side. Ships follow the channel in from the east.'},
- {shape:{cx:214,sk:.26,wob:[[.04,7,0]]},pal:{g:['#86b265','#62904a'],sand:'#c9c7bd',sand2:'#a9a79d',sea:['#252a55','#34507f','#4f7ea3','#86aebb']},edge:'wall',deco:['turbine','dial'],
+ {shape:{cx:214,sk:.26,wob:[[.04,7,0]]},pal:{g:['#86b265','#62904a'],sand:'#c9c7bd',sand2:'#a9a79d',sea:['#252a55','#34507f','#4f7ea3','#86aebb']},edge:'wall',deco:['turbine','dial','gorse'],
   slots:{canL:[80,.28],canR:[-72,.3],canC:[20,.1],canD:[120,.52]},jet:[46,378],from:[[2,'t',20,380],[2,'r',.15,.8]],
   here:'The most easterly point. Half the fleet comes straight out of the sunrise, from the east.'}];
 const mapOf=L=>L<=FINALE?MAPS[L]:MAPS[2+((L-FINALE-1)%11)];
@@ -395,7 +395,7 @@ function newIsland(fresh,snap){
  const away='';
  if(resumed==='retry'){}
  else if(resumed)toast('Welcome back',away||'Picking up where you left off');
- else{toast(hName(L)+(L<=FINALE?' · headland '+L+' of '+FINALE:''),beachOf(L).tip);if(mapOf(L).here)toast('This beach',mapOf(L).here);
+ else{toast(hName(L),(L<=FINALE?'Headland '+L+' of '+FINALE+'. ':'')+beachOf(L).tip);if(mapOf(L).here)toast('This beach',mapOf(L).here);
   if(L===1&&!meta.tutDone)msgClear();}
  if(st.assist>0)toast('Calmer seas','After '+meta.streakN+' tries here, ships are '+Math.round(st.assist*100)+'% weaker so you can get past this headland.');
  pendingBonus=0;if(!awayOpen)$('modal').hidden=true;
@@ -459,8 +459,10 @@ let joy=null,aimId=null,bot=null;const keys={};
 function toScr(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)/S,y:(e.clientY-r.top)/S};}
 function toWorld(e){return scrToWorld(toScr(e));}
 const inSea=p=>p.y<coastY(p.x)-4;
-function setAim(p){st.aim=Math.atan2(p.y-G.oy,p.x-G.ox);st.aimed=true;}
-const clampAim=()=>{st.aim=Math.max(-Math.PI-0.6,Math.min(0.6,st.aim));};
+function setAim(p){st.aim=Math.atan2(p.y-G.oy,p.x-G.ox);clampAim();st.aimed=true;}
+/* the beam sweeps the sea side of the tower. Angles below the lamp on the west come out of atan2 as +π-ish, so fold them to -π-ish first;
+   otherwise the clamp flings the beam to the east and a low west harbour can never be lit */
+const clampAim=()=>{let a=st.aim;while(a>Math.PI/2+0.4)a-=Math.PI*2;while(a<-Math.PI*1.5-0.4)a+=Math.PI*2;st.aim=Math.max(-Math.PI-0.9,Math.min(0.9,a));};
 let dial=null;
 /* quick tap (<200ms, <10px, no joystick/beam drag, only finger down) = pause, or dismiss the current sign */
 const TAP_MS=200,TAP_PX=10;let taps={},downN=0;
@@ -1029,15 +1031,38 @@ function decoBeforeLand(M){const d=M.deco||[],R=rngOf(31);
   ctx.fillStyle='rgba(0,20,40,.25)';ctx.fillRect(x-3,y1,14,y0-y1);ctx.fillStyle='#4a3a2c';for(let y=y1;y<y0;y+=10){ctx.fillRect(x-7,y,2.5,5);ctx.fillRect(x+4.5,y,2.5,5);}
   ctx.fillStyle='#9b8568';ctx.fillRect(x-6,y1,12,y0-y1);ctx.strokeStyle='#e9e4d8';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x-6,y1);ctx.lineTo(x-6,y0);ctx.moveTo(x+6,y1);ctx.lineTo(x+6,y0);ctx.stroke();
   ctx.strokeStyle='rgba(60,45,30,.4)';for(let y=y1+3;y<y0;y+=3){ctx.beginPath();ctx.moveTo(x-6,y);ctx.lineTo(x+6,y);ctx.stroke();}
-  ctx.fillStyle='#f3efe6';ctx.strokeStyle='#2a1d10';rr(ctx,x-15,y1+4,30,18,3);ctx.fill();ctx.stroke();ctx.fillStyle='#6d8fa8';ctx.beginPath();ctx.ellipse(x,y1+6,15,6,0,Math.PI,0);ctx.fill();ctx.stroke();
-  ctx.fillStyle='#f3efe6';rr(ctx,x-9,y1-18,18,16,2);ctx.fill();ctx.stroke();ctx.fillStyle='#c8402e';ctx.beginPath();ctx.moveTo(x-11,y1-17);ctx.lineTo(x,y1-26);ctx.lineTo(x+11,y1-17);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#4a5560';ctx.fillRect(x-4,y1-10,8,8);}
- if(d.includes('groynes')){/* Happisburgh's broken sea defences: timber posts running out into the sea */ctx.fillStyle='#4a3524';for(let x=34;x<392;x+=48){const cy=coastY(x);for(let y=cy-24;y<cy+14;y+=5){if(R()<0.18)continue;ctx.fillRect(x-1.6+R()*1.2,y,3.2,3.6);}}}
+  /* pavilion: a low hall with a rounded blue roof; beside it the lifeboat house and its slipway into the sea */
+  ctx.fillStyle='rgba(0,20,40,.25)';ctx.fillRect(x-18,y1+2,40,22);ctx.fillStyle='#f3efe6';ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;rr(ctx,x-17,y1+2,34,16,2);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#5f86a6';rr(ctx,x-15,y1-3,30,9,4);ctx.fill();ctx.stroke();ctx.fillStyle='#9fd0e6';for(let i=0;i<4;i++)ctx.fillRect(x-13+i*7,y1+9,4,5);
+  ctx.fillStyle='#8a7a66';ctx.save();ctx.translate(x+13,y1-10);ctx.rotate(-0.5);ctx.fillRect(-3,-22,6,24);ctx.restore();
+  ctx.fillStyle='#f3efe6';ctx.fillRect(x+6,y1-16,14,12);ctx.strokeRect(x+6,y1-16,14,12);ctx.fillStyle='#c8402e';ctx.beginPath();ctx.moveTo(x+4,y1-15);ctx.lineTo(x+13,y1-22);ctx.lineTo(x+22,y1-15);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#4a5560';ctx.fillRect(x+10,y1-11,6,7);}
+ if(d.includes('groynes')){/* Happisburgh's broken sea defences: timber groynes running out into the sea, some boards gone */for(let x=34;x<392;x+=48){const cy=coastY(x),y0=cy-26,gap=R()<0.5?cy-14+R()*8:null;
+   ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(x,y0-2);ctx.lineTo(x,y0+6);ctx.stroke();
+   ctx.strokeStyle='#6b4f36';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(x,y0);ctx.lineTo(x,gap||cy+14);if(gap){ctx.moveTo(x,gap+7);ctx.lineTo(x,cy+14);}ctx.stroke();
+   ctx.fillStyle='#3e2c1d';for(let y=y0;y<cy+14;y+=7)ctx.fillRect(x-2.2,y,4.4,3);}}
 }
 function decoLand(M,P){const d=M.deco||[],R=rngOf(MAPS.indexOf(M)*13+1);
+ /* soft light and shade on the grass so the ground doesn't read as one flat fill */
+ for(let i=0;i<46;i++){const x=R()*400,y=G.cy-G.ry+R()*(H-G.cy+G.ry),r=26+R()*54;if(!onGrass(x,y,10))continue;const light=i%2;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,light?'rgba(255,255,220,.09)':'rgba(10,40,10,.08)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(x,y,r,r*0.6,0,0,7);ctx.fill();}
+ ctx.save();coastPath(M.edge==='dune'?34:24);ctx.clip();
+ if(d.includes('fields')){/* Happisburgh farmland: ploughed strips behind hedges */const top=G.band+74,cols=['#9a7a52','#a88b5e','#8c9c58'];for(let fx=-10,k=0;fx<400;fx+=96+R()*30,k++){const fw=90+R()*26;
+   ctx.fillStyle=cols[k%3];ctx.fillRect(fx,top,fw,H-top);ctx.strokeStyle=k%3===2?'rgba(60,90,40,.35)':'rgba(70,50,30,.35)';ctx.lineWidth=1.2;for(let yy=top+4;yy<H;yy+=5){ctx.beginPath();ctx.moveTo(fx+2,yy);ctx.lineTo(fx+fw-2,yy);ctx.stroke();}
+   ctx.strokeStyle='#4f7a3a';ctx.lineWidth=4;ctx.strokeRect(fx,top,fw,H-top+20);}}
+ if(d.includes('heath')){/* heather and blown sand inland of the dunes */for(let i=0;i<34;i++){const x=R()*400,y=G.band+10+R()*(H-G.band),n=6+R()*8|0;if(!onGrass(x,y,30))continue;
+   for(let j=0;j<n;j++){const px=x+(R()-0.5)*22,py=y+(R()-0.5)*10;ctx.fillStyle=j%3?'#8f6a8c':'#a77fa3';ctx.beginPath();ctx.arc(px,py,1.8+R()*1.4,0,7);ctx.fill();}
+   ctx.strokeStyle='rgba(110,120,70,.6)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x-8,y+4);ctx.lineTo(x-10,y-3);ctx.moveTo(x+7,y+4);ctx.lineTo(x+9,y-4);ctx.stroke();}}
+ ctx.restore();
+ if(d.includes('gorse')){for(let i=0;i<34;i++){const x=R()*400,y=G.cy-G.ry+R()*(H-G.cy+G.ry);if(!onGrass(x,y,40)||!propClear(x,y,12))continue;if(Math.abs(x-market().x)<40&&Math.abs(y-market().y)<40)continue;
+   ctx.fillStyle='rgba(0,0,0,.16)';ctx.beginPath();ctx.ellipse(x+2,y+3,9,3.5,0,0,7);ctx.fill();ctx.fillStyle='#3f6b33';ctx.beginPath();ctx.arc(x-4,y-1,5,0,7);ctx.arc(x+3,y-2,6,0,7);ctx.arc(x,y-6,5,0,7);ctx.fill();
+   ctx.fillStyle='#f2c230';for(let j=0;j<6;j++){ctx.beginPath();ctx.arc(x-6+R()*12,y-9+R()*9,1.2,0,7);ctx.fill();}}}
  if(d.includes('river')){/* the Yare runs out past the east side; a stone pier walls the channel */const x0=(G.wx1||388)+6,top=G.band-30;
   const rg=ctx.createLinearGradient(0,top,0,H);rg.addColorStop(0,'#2d8aa8');rg.addColorStop(1,'#246f8a');ctx.fillStyle=rg;ctx.fillRect(x0,top,400-x0+10,H-top+10);
   ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1.2;for(let y=top+20;y<H;y+=22){ctx.beginPath();ctx.moveTo(x0+10,y);ctx.quadraticCurveTo(x0+22,y-3,x0+34,y);ctx.stroke();}
-  ctx.fillStyle='#8d8b84';ctx.fillRect(x0-6,G.band-120,7,H-G.band+130);ctx.fillStyle='#a9a79f';ctx.fillRect(x0-6,G.band-120,7,3);G.harbour={x:x0-2,y:G.band-120};}
+  const py=G.band-110;ctx.fillStyle='rgba(0,20,40,.25)';ctx.fillRect(x0-4,py+4,14,H-py);ctx.fillStyle='#8d8b84';ctx.fillRect(x0-7,py,12,H-py+10);ctx.strokeStyle='rgba(60,58,54,.45)';ctx.lineWidth=0.8;
+  for(let y=py+6;y<H;y+=7){ctx.beginPath();ctx.moveTo(x0-7,y);ctx.lineTo(x0+5,y);ctx.stroke();ctx.beginPath();const bx=x0-1+((y/7|0)%2?3:-3);ctx.moveTo(bx,y-7);ctx.lineTo(bx,y);ctx.stroke();}
+  ctx.fillStyle='#b3b0a7';ctx.fillRect(x0-7,py,12,2.5);ctx.beginPath();ctx.arc(x0-1,py+1,6.5,Math.PI,0);ctx.fill();
+  const mb=H-70;ctx.save();ctx.translate(x0+22,mb);ctx.fillStyle='rgba(0,20,40,.25)';ctx.beginPath();ctx.ellipse(1,3,7,15,0,0,7);ctx.fill();ctx.fillStyle='#c8402e';ctx.strokeStyle='#2a1d10';ctx.lineWidth=0.9;ctx.beginPath();ctx.moveTo(0,-15);ctx.quadraticCurveTo(6,-6,5,12);ctx.lineTo(-5,12);ctx.quadraticCurveTo(-6,-6,0,-15);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#f5f1e8';ctx.fillRect(-3,-2,6,8);ctx.restore();
+  G.harbour={x:x0-1,y:py};}
  if(d.includes('dunes')){const big=M.edge==='dune'?1.35:1;for(let x=8;x<396;x+=(15+R()*8)*big){const y=coastY(x)+24+R()*8*big;if(Math.hypot(x-G.lx,(y-G.ly)*1.2)<60||pads.some(p=>p.type==='jetty'&&Math.abs(p.x-x)<24))continue;ctx.save();ctx.translate(x,y);ctx.scale(big,big);ctx.translate(-x,-y);ctx.fillStyle=P.sand2;ctx.beginPath();ctx.ellipse(x+2,y+3,17,7,0,0,7);ctx.fill();ctx.fillStyle=P.sand;ctx.beginPath();ctx.ellipse(x,y,16,6.5,0,0,7);ctx.fill();
    ctx.strokeStyle='#869556';ctx.lineWidth=1.2;for(let i=0;i<5;i++){const tx=x-9+i*4.5;ctx.beginPath();ctx.moveTo(tx,y+1);ctx.lineTo(tx-2+R()*4,y-7-R()*3);ctx.stroke();}ctx.restore();}}
  if(d.includes('marsh')){/* creeks winding through the salt marsh, with sea lavender */ctx.lineCap='round';
@@ -1060,15 +1085,18 @@ function decoLand(M,P){const d=M.deco||[],R=rngOf(MAPS.indexOf(M)*13+1);
 function decoTop(M){const d=M.deco||[],R=rngOf(MAPS.indexOf(M)*19+5),spot=(cands,r)=>cands.find(([x,y])=>onGrass(x,y,40)&&propClear(x,y,r));
  if(d.includes('flint')){const y=Math.min(H-70,G.band+128);for(let x=20;x<390;x+=24){if(!propClear(x,y,12)||!onGrass(x,y))continue;ctx.fillStyle='rgba(0,0,0,.18)';ctx.fillRect(x-10,y+8,22,4);ctx.fillStyle='#8e8c88';ctx.fillRect(x-10,y-6,20,14);ctx.fillStyle='#b6b3ab';for(let i=0;i<10;i++)ctx.fillRect(x-9+R()*17,y-5+R()*12,1.8,1.4);
    ctx.strokeStyle='#2a1d10';ctx.lineWidth=0.9;ctx.strokeRect(x-10,y-6,20,14);ctx.fillStyle='#c0603a';ctx.beginPath();ctx.moveTo(x-12,y-5);ctx.lineTo(x,y-16);ctx.lineTo(x+12,y-5);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#9fd0e6';ctx.fillRect(x-6,y-1,5,4);ctx.fillStyle='#5b3d22';ctx.fillRect(x+2,y,4,8);}}
+ if(d.includes('terrace')){/* a terrace of brick houses with bright doors */const doors=['#2f6fb5','#c8402e','#2f8f5b','#f2c14e'],y=Math.min(H-70,G.band+118);let n=0;for(let x=16;x<(G.wx1||388)-6;x+=21){if(!propClear(x,y,11)||!onGrass(x,y)){n=0;continue;}
+   ctx.fillStyle='rgba(0,0,0,.18)';ctx.fillRect(x-10,y+8,21,4);ctx.fillStyle=n%2?'#b5654a':'#a55a42';ctx.fillRect(x-10,y-10,21,18);ctx.strokeStyle='#2a1d10';ctx.lineWidth=0.9;ctx.strokeRect(x-10,y-10,21,18);
+   ctx.fillStyle='#4f5a66';ctx.fillRect(x-11,y-14,23,5);ctx.strokeRect(x-11,y-14,23,5);ctx.fillStyle='#9fd0e6';ctx.fillRect(x-7,y-7,5,4);ctx.fillRect(x+3,y-7,5,4);ctx.fillStyle=doors[n++%4];ctx.fillRect(x-2,y+1,4,7);}}
  if(d.includes('lifeboat')){const q=spot([[G.lx+56,G.ly+10],[G.lx-56,G.ly+10],[G.lx+70,G.ly+60],[G.lx-70,G.ly+60]],16);if(q){const [x,y]=q;ctx.fillStyle='rgba(0,0,0,.2)';ctx.fillRect(x-14,y+8,30,5);ctx.fillStyle='#3f7fc4';ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.fillRect(x-14,y-8,28,17);ctx.strokeRect(x-14,y-8,28,17);
    ctx.fillStyle='#2c5f99';ctx.beginPath();ctx.moveTo(x-17,y-7);ctx.lineTo(x-10,y-17);ctx.lineTo(x+10,y-17);ctx.lineTo(x+17,y-7);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#f5f1e8';ctx.fillRect(x-4,y-3,8,12);ctx.fillRect(x-11,y-4,4,4);ctx.fillRect(x+7,y-4,4,4);}}
- if(d.includes('church')){const q=spot([[40,G.band+120],[360,G.band+130],[60,H-60],[370,H-70],[250,H-50]],18);if(q){const [x,y]=q;ctx.fillStyle='rgba(0,0,0,.2)';ctx.fillRect(x-8,y+6,46,6);ctx.fillStyle='#9a968e';ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.fillRect(x+4,y-6,32,13);ctx.strokeRect(x+4,y-6,32,13);
+ if(d.includes('church')){const q=spot([[G.cx-80,G.band+170],[G.cx+56,G.band+176],[40,G.band+120],[360,G.band+130]],18);if(q){const [x,y]=q;ctx.fillStyle='rgba(0,0,0,.2)';ctx.fillRect(x-8,y+6,46,6);ctx.fillStyle='#9a968e';ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.fillRect(x+4,y-6,32,13);ctx.strokeRect(x+4,y-6,32,13);
    ctx.fillStyle='#6e7680';ctx.beginPath();ctx.moveTo(x+2,y-5);ctx.lineTo(x+20,y-14);ctx.lineTo(x+38,y-5);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#a8a49b';ctx.fillRect(x-8,y-34,14,41);ctx.strokeRect(x-8,y-34,14,41);
    ctx.fillStyle='#a8a49b';for(let i=0;i<4;i++){ctx.fillRect(x-8+i*4,y-38,2.4,4);}ctx.fillStyle='#4a4f57';ctx.fillRect(x-3,y-26,4,6);ctx.fillRect(x-3,y-12,4,6);}}
  if(d.includes('dial')){const x=G.cx+G.rx*0.55,y=coastY(x)+34;if(propClear(x,y,14)){ctx.fillStyle='#e4e1d6';ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(x,y,15,7,0,0,7);ctx.fill();ctx.stroke();
    ctx.strokeStyle='#2f5fb5';for(let i=0;i<8;i++){const a=i*0.785;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(a)*13,y+Math.sin(a)*6);ctx.stroke();}ctx.fillStyle='#c8402e';ctx.beginPath();ctx.ellipse(x,y,3,1.6,0,0,7);ctx.fill();}}
- if(d.includes('turbine')){const q=spot([[40,G.band+100],[360,G.band+110],[150,H-40],[260,H-40],[40,H-50]],14);G.turb=q?{x:q[0],y:q[1]}:null;if(q){ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.moveTo(q[0]-2,q[1]);ctx.lineTo(q[0]+40,q[1]+10);ctx.lineTo(q[0]+42,q[1]+6);ctx.lineTo(q[0]+2,q[1]-2);ctx.closePath();ctx.fill();}}
- if(d.includes('harbourlight')&&G.harbour){const {x,y}=G.harbour;ctx.fillStyle='#f5f1e8';ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.fillRect(x-4,y-20,8,20);ctx.strokeRect(x-4,y-20,8,20);ctx.fillStyle='#c8402e';ctx.fillRect(x-4,y-14,8,4);ctx.fillRect(x-4,y-6,8,4);ctx.fillStyle='#2b2e33';ctx.fillRect(x-5,y-24,10,4);}
+ if(d.includes('turbine')){const q=spot([[G.cx+64,G.band+150],[G.cx-78,G.band+150],[40,G.band+100],[360,G.band+110]],14);G.turb=q?{x:q[0],y:q[1]}:null;if(q){ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.moveTo(q[0]-2,q[1]);ctx.lineTo(q[0]+40,q[1]+10);ctx.lineTo(q[0]+42,q[1]+6);ctx.lineTo(q[0]+2,q[1]-2);ctx.closePath();ctx.fill();}}
+ if(d.includes('harbourlight')&&G.harbour){const {x,y}=G.harbour;ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(x+4,y+3,6,2.5,0,0,7);ctx.fill();ctx.fillStyle='#f5f1e8';ctx.strokeStyle='#2a1d10';ctx.lineWidth=0.9;ctx.fillRect(x-3,y-12,6,13);ctx.strokeRect(x-3,y-12,6,13);ctx.fillStyle='#c8402e';ctx.fillRect(x-3,y-9,6,3);ctx.fillRect(x-3,y-3,6,3);ctx.fillStyle='#ffe07a';ctx.fillRect(x-2,y-16,4,4);ctx.fillStyle='#2b2e33';ctx.beginPath();ctx.moveTo(x-4,y-16);ctx.lineTo(x,y-20);ctx.lineTo(x+4,y-16);ctx.fill();}
  /* seals and pups hauled out on the sand; placed once here, drawn every frame so they can lift their heads */
  G.seals=[];if(d.includes('seals')){const pup=M.edge==='dune';for(let x=20;x<390&&G.seals.length<7;x+=30+R()*30){const y=coastY(x)+12+R()*5;if(!propClear(x,y,8))continue;G.seals.push({x,y,a:(R()-0.5)*0.8,ph:R()*6,pup:pup&&R()<0.5});}}}
 function decoAnim(M){for(const s of G.seals||[]){const lift=Math.max(0,Math.sin(clock*0.7+s.ph))*(meta.rm?0:1);ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.a);
@@ -1291,6 +1319,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

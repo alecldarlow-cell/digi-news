@@ -1,8 +1,8 @@
 {
-  "built": "2026-09-28T05:07:03.185Z",
+  "built": "2026-09-28T05:15:22.142Z",
   "today": "2026-09-28",
   "timezone": "Europe/London",
-  "count": 442,
+  "count": 443,
   "items": [
     {
       "path": "reports/2026-09-28-arcade-sea-glass.html",
@@ -31,6 +31,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "........##.....##........"
+    },
+    {
+      "path": "reports/2026-09-28-fish-social-escape.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "When neighbours vanish, glassfish pull away",
+      "standfirst": "A Nature study finds that disappearing virtual neighbours can prompt retreat — but their swimming must first look natural.",
+      "date": "2026-09-28",
+      "read": "3 min",
+      "thumb": "",
+      "stat": "84.1",
+      "statUnit": "",
+      "statLabel": "mm from screen",
+      "mask": ""
     },
     {
       "path": "reports/2026-09-28-logic-doku-0077.html",

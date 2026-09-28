@@ -602,7 +602,9 @@ function spawn(type){
  if(type==='boss')sign('boss',on,'The ghost galleon','A huge, slow ship that hits the tower hard. Hold the beam on it: it burns, slows down and takes 50% more cannon damage.');}
 function harbourPoint(){const j=pads.find(p=>p.type==='jetty'&&p.level>0);if(j){const tip=jettyTip(j),s=jettySide(j);return{x:tip.x+s*26,y:tip.y-6};}return{x:70,y:coastY(70)-24};}
 function spawnMerchant(){const hp=harbourPoint();const x=hp.x<200?250+Math.random()*90:60+Math.random()*90;
- st.merchants.push({x,y:22,tx:hp.x,ty:hp.y,lost:0,state:'lost',h:Math.PI/2,t:0,beam:false});
+ /* spawn inside the beam's reach (470), whatever the screen height: on tall screens y:22 was out of reach */
+ const mdx=x-G.ox,y=Math.max(22,G.oy-Math.sqrt(Math.max(0,430*430-mdx*mdx)));
+ st.merchants.push({x,y,tx:hp.x,ty:hp.y,lost:0,state:'lost',h:Math.PI/2,t:0,beam:false});
  const m=st.merchants[st.merchants.length-1];if(!sign('merchant',()=>m.state==='lost'?m:null,'A merchant ship is lost','It only sails home while it is in your beam. Guide it to the green ring for a pile of coins.'))toast('Merchant lost','Keep the beam on it to bring it home.');}
 function spawnKraken(){const cans=pads.filter(p=>p.type==='cannon'&&p.level>0&&!p.grabbed);const tgt=cans.length?cans[Math.floor(Math.random()*cans.length)]:null;
  const tx=tgt?tgt.x:G.lx;const x=Math.max(24,Math.min(376,tx+(tx<200?-34:34)));
@@ -700,7 +702,9 @@ function update(dt){
   st.krakens=st.krakens.filter(kr=>!(kr.state==='sink'&&kr.t>1.2));
   for(const m of st.merchants){m.t+=dt;m.beam=inBeam(m.x,m.y);
    if(m.state==='lost'){const dx=m.tx-m.x,dy=m.ty-m.y,d=Math.hypot(dx,dy);m.h=Math.atan2(dy,dx);
-    if(m.beam){m.x+=dx/d*34*dt;m.y+=dy/d*34*dt;m.lost=Math.max(0,m.lost-dt*0.5);}else{m.lost+=dt;m.x+=dx/d*3*dt;m.y+=dy/d*3*dt;}
+    /* beyond the beam's reach (e.g. after a resize or a resumed save): sail in on its own, and the dark doesn't count yet */
+    if(!m.beam&&Math.hypot(m.x-G.ox,m.y-G.oy)>450){m.x+=dx/d*24*dt;m.y+=dy/d*24*dt;}
+    else if(m.beam){m.x+=dx/d*34*dt;m.y+=dy/d*34*dt;m.lost=Math.max(0,m.lost-dt*0.5);}else{m.lost+=dt;m.x+=dx/d*3*dt;m.y+=dy/d*3*dt;}
     if(d<8){m.state='safe';m.t=0;st.tutF.merchant=true;const n=Math.round(10*Math.sqrt(st.L));for(let i=0;i<n;i++){const cx=Math.max(20,Math.min(380,m.tx+Math.random()*30-15));dropCoin(cx,coastY(cx)+16+Math.random()*8);}meta.stats.saved++;play('win');toast('Merchant home safe','It paid '+n+' coins. They are on the beach by the jetty.');}
     else if(m.lost>14){m.state='gone';m.t=0;st.tutF.merchant=true;meta.stats.turned++;toast('The merchant turned back','It gave up after too long in the dark. Flick the beam back to it every few seconds.');}}
    else if(m.state==='gone'){m.h=-Math.PI/2;m.y-=30*dt;}}
@@ -1319,6 +1323,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

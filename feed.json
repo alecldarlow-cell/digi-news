@@ -1,9 +1,23 @@
 {
-  "built": "2026-09-28T05:42:53.678Z",
+  "built": "2026-09-28T05:51:55.369Z",
   "today": "2026-09-28",
   "timezone": "Europe/London",
-  "count": 443,
+  "count": 444,
   "items": [
+    {
+      "path": "reports/2026-09-28-ageing-doctors-regional-gaps.html",
+      "kind": "report",
+      "topic": "Medicine",
+      "headline": "Ageing doctors, unequal staffing: two pressures on health care",
+      "standfirst": "WHO’s latest workforce findings show a wide Europe–Africa staffing gap. Older doctor workforces and uneven local coverage add different challenges for health services.",
+      "date": "2026-09-28",
+      "read": "~5 min",
+      "thumb": "",
+      "stat": "13",
+      "statUnit": "×",
+      "statLabel": "doctor density",
+      "mask": ""
+    },
     {
       "path": "reports/2026-09-28-arcade-sea-glass.html",
       "kind": "game",

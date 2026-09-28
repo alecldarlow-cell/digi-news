@@ -6,7 +6,7 @@
 <title>Lantern Drift</title>
 <meta name="dn:kind"       content="game">
 <meta name="dn:headline"   content="Lantern Drift">
-<meta name="dn:standfirst" content="Float a paper lantern down a night river. Hold to breathe in and let it rise, let go to breathe out and let it drift, and gather the lights at a calm six breaths a minute.">
+<meta name="dn:standfirst" content="Breathe with a drifting lantern, or unwind your body one lantern at a time: tense, let go, and watch it float free.">
 <meta name="dn:topic"      content="Arcade">
 <meta name="dn:date"       content="2026-09-27">
 <meta name="dn:read"       content="~3 min">
@@ -70,8 +70,21 @@ button:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:2px}
 .tg{width:44px;height:26px;border-radius:13px;background:rgba(238,240,247,.2);position:relative;flex:none}
 .tg::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
 .tg.on{background:var(--warm)}.tg.on::after{left:21px}
+.card{margin:auto}
+.modes{position:absolute;left:0;right:0;top:calc(60% - 146px);display:flex;justify-content:center;gap:8px}
+.mode{min-height:46px;min-width:124px;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:rgba(10,16,38,.7);color:var(--ink);font:800 16px Nunito,system-ui,sans-serif;cursor:pointer}
+.mode.on{border-color:var(--warm);color:var(--warm);background:rgba(40,30,20,.55)}
+.tLen.u{top:calc(60% - 92px)}
+#uskip{position:absolute;left:10px;top:calc(12px + env(safe-area-inset-top,0px));min-height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:rgba(6,11,31,.5);color:var(--ink);font:800 14px Nunito,system-ui,sans-serif;cursor:pointer}
+#cue.u{font-size:18px;line-height:1.35;padding:0 22px}
+#sub{position:absolute;left:0;right:0;bottom:calc(9% - 26px + env(safe-area-inset-bottom,0px));text-align:center;font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--dim);opacity:0;pointer-events:none;transition:opacity .9s ease}
+.safe{text-align:left;font-size:15px;line-height:1.45;color:var(--ink);background:rgba(255,201,122,.07);border:1px solid rgba(255,201,122,.25);border-radius:12px;padding:10px 12px;margin:4px 0 6px}
+.sky{display:block;width:100%;height:96px;border-radius:12px;margin:8px 0 6px}
+.facts{display:flex;justify-content:center;gap:18px;margin:2px 0 8px;font-weight:800;font-size:15px}
+.facts b{display:block;font-family:Lora,Georgia,serif;font-weight:500;font-size:30px;color:var(--warm)}
+.chips.l{justify-content:flex-start;margin-top:6px}
 @media (max-height:600px){.tTop{top:4%}.tTop h1{font-size:30px}.tTop p{display:none}}
-@media (prefers-reduced-motion:reduce){#cue,#cnt{transition:none}.tg::after{transition:none}}
+@media (prefers-reduced-motion:reduce){#cue,#cnt,#sub{transition:none}.tg::after{transition:none}}
 </style>
 </head>
 <body>
@@ -83,7 +96,9 @@ button:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:2px}
     <span id="cnt" aria-live="off">&#10022; 0</span>
     <button id="pz" type="button" aria-label="Pause and settings"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg></button>
   </div>
+  <button id="uskip" type="button" hidden>Skip this one</button>
   <div id="cue"></div>
+  <div id="sub" aria-hidden="true">keep breathing</div>
   <div id="tut" hidden><span>Hold as the light rises, let go as it falls</span><button type="button" id="tutSkip">Skip</button></div>
   <div id="ov" hidden></div>
 </div>
@@ -134,11 +149,21 @@ const KEY='digi-lantern-drift-v1';
 const prefersRM=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}})();
 const SNDS={both:'Waves and pad',waves:'Waves',pad:'Pad',off:'Off'};
 const coarse=(()=>{try{return matchMedia('(pointer: coarse)').matches}catch(e){return false}})();
-const fresh=()=>({v:1,sessions:0,best:0,mins:0,len:3,col:'amber',scene:'night',snd:'both',rm:prefersRM,tutDone:false,fs:coarse});
+// Unwind settings (added in the revision; older saves simply get these defaults):
+// gm = last mode picked, un = 4 (Short) or 7 (Full), ulong = longer rests, ugentle = off|slight|release,
+// uskip = areas always skipped, uspeak = spoken cues, usafe = safety card seen, usess = Unwind sessions done
+const fresh=()=>({v:1,sessions:0,best:0,mins:0,len:3,col:'amber',scene:'night',snd:'both',rm:prefersRM,tutDone:false,fs:coarse,
+ gm:'breathe',un:4,ulong:false,ugentle:'off',uskip:[],uspeak:false,usafe:false,usess:0});
 let meta=fresh();
 try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(o&&typeof o==='object'){meta=Object.assign(fresh(),o);if(o.snd===undefined&&o.muted)meta.snd='off';delete meta.muted;}}}catch(e){}
 if(!SNDS[meta.snd])meta.snd='both';
 if(!LENS[meta.len])meta.len=3;
+if(meta.gm!=='unwind')meta.gm='breathe';
+if(meta.un!==7)meta.un=4;
+if(!['off','slight','release'].includes(meta.ugentle))meta.ugentle='off';
+meta.uskip=Array.isArray(meta.uskip)?meta.uskip.filter((a,i,x)=>typeof a==='string'&&x.indexOf(a)===i):[];
+['ulong','uspeak','usafe'].forEach(k=>{meta[k]=meta[k]===true;});
+if(!(meta.usess>=0))meta.usess=0;
 const own=it=>meta.sessions>=it.need;
 if(!COLS.some(c=>c.id===meta.col&&own(c)))meta.col='amber';
 if(!SCENES.some(c=>c.id===meta.scene&&own(c)))meta.scene='night';
@@ -150,10 +175,14 @@ const scene=()=>SCENES.find(c=>c.id===meta.scene)||SCENES[0];
    A round is one session: it opens on the first hold (never on the title,
    length picker or tutorial card) and closes when the session timer finishes.
    Leaving or restarting mid-session sends nothing (counted as abandoned).
-   No level field: the game has no levels.                                 */
+   No level field: the game has no levels.
+   Unwind: a round is one Unwind session, from the first hold (the first
+   opening breath) to the end of the finale. mode = 'unwind-4' | 'unwind-7'.
+   game_end adds skips; win = clean releases >= 40% of the groups attempted
+   (tracking only: the screen stays gentle either way).                    */
 const GAME='lantern-drift';
 let rnd={armed:false,open:false,secs:0,how:'new'};
-const modeStr=()=>S.len+'min';
+const modeStr=()=>S.mode.charAt(0)==='u'?'unwind-'+U.n:S.len+'min';
 function trk(ev,x){try{if(window.digi&&window.digi.track)window.digi.track(ev,Object.assign({game:GAME},x));}catch(e){}}
 function rndArm(how){rnd={armed:true,open:false,secs:0,how:how||'new'};}
 function rndStart(){if(!rnd.armed||rnd.open)return;rnd.armed=false;rnd.open=true;trk('game_start',{mode:modeStr(),start:rnd.how});}
@@ -182,7 +211,7 @@ function audioInit(){try{if(!AU.ac){const AC=window.AudioContext||window.webkitA
    AU.plp.connect(AU.pg);AU.pg.connect(AU.bus);const ps=ac.createGain();ps.gain.value=0.6;AU.pg.connect(ps);ps.connect(AU.verb);}}
  if(AU.ac.state!=='running'&&meta.snd!=='off')AU.ac.resume();}catch(e){}}
 function audioTick(){if(!AU.ac||!AU.bus)return;try{const t=AU.ac.currentTime,m=meta.snd,f=Math.max(0,Math.min(1,(S.h-LOW)/AMP));
- const bus=S.paused?0.0001:S.mode==='play'?1:S.mode==='ready'?0.6:S.mode==='end'?0.35:0.3;
+ const bus=S.paused?0.0001:S.mode==='play'?1:S.mode==='ready'?0.6:S.mode==='end'?0.35:S.mode==='uplay'?0.85:S.mode==='uready'?0.6:S.mode==='uend'?0.35:0.3;
  AU.bus.gain.setTargetAtTime(bus,t,S.paused?0.25:1.1);
  const w=m==='both'||m==='waves',p=m==='both'||m==='pad',both=m==='both';
  AU.wlp.frequency.setTargetAtTime(260+f*900,t,0.25);AU.wg.gain.setTargetAtTime(w?(both?0.05+f*0.14:0.07+f*0.2):0,t,0.25);
@@ -192,7 +221,32 @@ function chime(y){if(!AU.ac||!AU.bus||meta.snd==='off')return;try{const ac=AU.ac
  const o=ac.createOscillator(),lp=ac.createBiquadFilter(),gn=ac.createGain(),s2=ac.createGain();o.type='sine';o.frequency.value=BELLS[Math.max(0,Math.min(4,Math.round((y-LOW)/AMP*4)))];
  lp.type='lowpass';lp.frequency.value=1600;gn.gain.setValueAtTime(0.0001,t);gn.gain.exponentialRampToValueAtTime(0.022,t+0.03);gn.gain.exponentialRampToValueAtTime(0.0001,t+3.2);
  o.connect(lp);lp.connect(gn);gn.connect(AU.bus);s2.gain.value=0.7;gn.connect(s2);s2.connect(AU.verb);o.start(t);o.stop(t+3.4);}catch(e){}}
-function setSound(m){meta.snd=SNDS[m]?m:'both';save();try{if(AU.out)AU.out.gain.value=meta.snd==='off'?0:0.9;if(AU.ac&&meta.snd!=='off'&&AU.ac.state!=='running')AU.ac.resume();}catch(e){}}
+function setSound(m){meta.snd=SNDS[m]?m:'both';save();try{if(AU.out)AU.out.gain.value=meta.snd==='off'?0:0.9;if(AU.ac&&meta.snd!=='off'&&AU.ac.state!=='running')AU.ac.resume();}catch(e){}if(meta.snd==='off')hush();}
+
+/* ---------- Unwind cues: tones, buzzes, optional speech ----------
+   Three distinct soft tones so a session works with eyes closed:
+   cue = a slow rising tone (a new area, get ready to tense),
+   release = a warm bell (let go now), next = two low notes (the rest is
+   ending, a new area is coming). Buzzes where the phone supports them
+   (Android; iPhone doesn't vibrate from a web page). Speech is optional,
+   off by default, and only uses voices that run on the device.        */
+function tone(kind){if(!AU.ac||!AU.bus||meta.snd==='off'||simHold!==null)return;try{const ac=AU.ac,t=ac.currentTime;
+ const note=(f,f2,at,dur,peak,type)=>{const o=ac.createOscillator(),lp=ac.createBiquadFilter(),gn=ac.createGain(),s2=ac.createGain();o.type=type||'sine';
+  o.frequency.setValueAtTime(f,t+at);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+at+dur*0.6);lp.type='lowpass';lp.frequency.value=1800;
+  gn.gain.setValueAtTime(0.0001,t+at);gn.gain.exponentialRampToValueAtTime(peak,t+at+(f2?dur*0.35:0.03));gn.gain.exponentialRampToValueAtTime(0.0001,t+at+dur);
+  o.connect(lp);lp.connect(gn);gn.connect(AU.bus);s2.gain.value=0.6;gn.connect(s2);s2.connect(AU.verb);o.start(t+at);o.stop(t+at+dur+0.1);};
+ if(kind==='cue'){note(293.66,440,0,1.6,0.05);note(587.33,880,0.05,1.5,0.012);}
+ else if(kind==='bell'){note(880,0,0,3.6,0.05);note(1318.5,0,0,2.4,0.014);note(440,0,0,3.2,0.02);}
+ else if(kind==='nag'){note(659.25,0,0,1.6,0.035);note(659.25,0,0.45,1.8,0.03);}
+ else if(kind==='next'){note(220,0,0,1.4,0.05,'triangle');note(293.66,0,0.5,1.8,0.045,'triangle');}}catch(e){}}
+let buzzed=false;   // only ever cancel a buzz we started (Chrome logs an error for vibrate before the first tap)
+function buzz(p){if(simHold!==null)return;try{if(navigator.vibrate){buzzed=true;navigator.vibrate(p);}}catch(e){}}
+let voice=null;
+function findVoice(){try{if(!window.speechSynthesis||!window.SpeechSynthesisUtterance)return null;const vs=speechSynthesis.getVoices().filter(v=>v.localService===true);
+ voice=vs.find(v=>/^en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||vs[0]||null;}catch(e){voice=null;}return voice;}
+try{if(window.speechSynthesis){findVoice();speechSynthesis.addEventListener('voiceschanged',findVoice);}}catch(e){}
+function say(txt){if(!meta.uspeak||meta.snd==='off'||simHold!==null||!voice)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.voice=voice;u.lang=voice.lang;u.rate=0.85;u.pitch=0.95;u.volume=0.9;speechSynthesis.speak(u);}catch(e){}}
+function hush(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}try{if(buzzed&&navigator.vibrate){buzzed=false;navigator.vibrate(0);}}catch(e){}}
 
 /* ---------- full screen ----------
    A web page can't hide the browser's address and status bars by itself. On
@@ -218,7 +272,7 @@ function enterReady(){try{if(document.activeElement&&document.activeElement.blur
  S.marks=new Uint8Array(S.total);S.idx=0;S.got=0;S.seen=0;S.tau=0;S.h=g(0);S.v=0;S.hold=false;S.parts=[];ptrs.clear();keyHold=false;
  rndArm(anyRound?'retry':'new');$('tut').hidden=meta.tutDone;S.guide=!meta.tutDone;lastCue='';}
 function beginSession(){if(S.mode!=='ready'||S.paused)return;S.mode='play';S.tau=0;S.h=g(0);S.v=-DOWN*BL;S.lh=true;S.th=0;anyRound=true;rndStart();}
-function onHold(){audioInit();if(S.mode==='ready'&&!S.paused)beginSession();}
+function onHold(){audioInit();if(S.mode==='ready'&&!S.paused)beginSession();else if(S.mode==='uready'&&!S.paused)uBegin();}
 function judge(i){const t=lightT(i),gd=g(t),n=needs(t);
  const ok=n===0?Math.abs(S.h-gd)<TOL*0.7:Math.abs(S.h-gd)<TOL&&(n===1)===S.hold;   // turn lights: either direction, a little closer
  S.marks[i]=ok?1:2;S.seen++;
@@ -231,41 +285,175 @@ function finish(force){if(S.mode!=='play')return;S.mode='end';S.paused=false;ptr
  rndEnd(win,{score:pct,stars});
  if(simHold===null)showEnd(pct,stars,fresh);}
 
+/* ---------- Unwind: progressive muscle relaxation ----------
+   Same world, same control: hold = breathe in and tense, let go = breathe out
+   and release. The phone can't feel muscles, so only timing is judged.
+   Session: two opening breaths (4 s in, 6 s out) -> for each muscle group:
+   cue 2 s (rising tone, lantern brightens) -> wait for a hold -> tense (ring
+   fills over 6 s, bell at 6 s) -> release (6 s breath out, the lantern slips
+   its mooring and floats up to stay in the sky) -> rest 15 s (25 s with
+   longer rests; never judged) -> next. Finale: one last breath, every
+   lantern in the sky glows at once, then a gentle summary.
+   Clean release = held at least 3 s and let go within 2 s of the bell
+   (4-8 s). Let go before 3 s: the lantern settles back and the group repeats
+   once, softer; a second early let-go moves on. Still holding 3 s after the
+   bell: "let go now" and a buzz; at 10 s it moves on anyway.
+   All timers advance only in update(), which doesn't run while paused.   */
+const AREAS=[{id:'hands',name:'Hands and forearms'},{id:'arms',name:'Upper arms'},{id:'face',name:'Face'},{id:'jaw',name:'Jaw and neck'},
+ {id:'shoulders',name:'Shoulders and back'},{id:'stomach',name:'Stomach'},{id:'legs',name:'Legs and feet'}];
+const GROUPS={
+ 7:[{a:['hands'],area:'hands and forearms',pl:1,go:'Squeeze the phone and make a fist with your other hand.',sl:'Squeeze the phone just slightly, and curl your other hand loosely.'},
+  {a:['arms'],area:'upper arms',pl:1,go:'Bend your elbows and tighten your biceps.',sl:'Bend your elbows and tighten your upper arms just slightly.'},
+  {a:['face'],area:'face',pl:0,go:'Scrunch up your eyes and nose.',sl:'Scrunch your eyes and nose just slightly.'},
+  {a:['jaw'],area:'jaw and neck',pl:1,go:'Clench your teeth gently and tip your chin slightly down.',sl:'Touch your teeth together lightly, chin just slightly down.'},
+  {a:['shoulders'],area:'shoulders and upper back',pl:1,go:'Shrug your shoulders up and back.',sl:'Lift your shoulders just slightly.'},
+  {a:['stomach'],area:'stomach',pl:0,go:'Draw your stomach in.',sl:'Draw your stomach in just slightly.'},
+  {a:['legs'],area:'legs and feet',pl:1,go:'Press your knees together and point your toes gently, lightly, to avoid cramp.',sl:'Press your knees together just slightly and point your toes very gently.'}],
+ 4:[{a:['hands','arms'],area:'arms and hands',pl:1,go:'Squeeze the phone, make a fist with your other hand and bend your elbows to tighten your arms.',sl:'Squeeze the phone just slightly and bend your elbows, tightening your arms a little.'},
+  {a:['face','jaw'],area:'face and neck',pl:1,go:'Scrunch your eyes and nose, clench your teeth gently, chin slightly down.',sl:'Scrunch your eyes and nose just slightly, teeth lightly together.'},
+  {a:['shoulders','stomach'],area:'shoulders, chest and stomach',pl:1,go:'Shrug your shoulders up and back and draw your stomach in.',sl:'Lift your shoulders just slightly and draw your stomach in a little.'},
+  {a:['legs'],area:'legs and feet',pl:1,go:'Press your knees together and point your toes gently, lightly, to avoid cramp.',sl:'Press your knees together just slightly and point your toes very gently.'}]};
+const UCUE=2,UBELL=6,UEARLY=3,UNAG=9,UMAX=10,UREL=6,UOPEN=20,UFIN=10,UGLOW=4;
+const restLen=()=>meta.ulong?25:15;
+const gText=gr=>meta.ugentle==='release'?`Hold lightly and notice your ${gr.area}, then let go and let ${gr.pl?'them':'it'} soften.`:meta.ugentle==='slight'?gr.sl:gr.go;
+const skipped=gr=>gr.a.some(a=>meta.uskip.includes(a));   // Short groups: skipped if any of their areas is on the skip list
+let uSim=false;   // true only while the test hook runs a whole session instantly
+let U={n:4,gs:[],res:[],gi:-1,ph:'idle',t:0,ht:0,tot:0,rep:0,soft:false,susp:false,bell:false,nag:false,recue:false,nx:false,ten:0,sky:[],rip:[],dim:0,bodyA:0,moorA:0,half:-1};
+function enterUnwind(){try{if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();}catch(e){}ov.hidden=true;ov.className='';
+ S.mode='uready';S.paused=false;ptrs.clear();keyHold=false;$('tut').hidden=true;
+ const n=meta.un===7?7:4;U={n,gs:GROUPS[n],res:GROUPS[n].map(()=>null),gi:-1,ph:'idle',t:0,ht:0,tot:0,rep:0,soft:false,susp:false,bell:false,nag:false,recue:false,nx:false,ten:0,sky:[],rip:[],dim:0,bodyA:0,moorA:0,half:-1};
+ S.h=g(0);S.v=0;S.hold=false;S.parts=[];S.flashT=0;rndArm(anyRound?'retry':'new');lastCue='';}
+function uBegin(){if(S.mode!=='uready'||S.paused)return;S.mode='uplay';U.ph='open';U.t=0;U.half=-1;S.h=g(0);S.v=-DOWN*BL;S.lh=true;S.th=0;anyRound=true;rndStart();}
+function breathStep(dt,hold){S.hold=hold;if(hold!==S.lh){S.lh=hold;S.th=0;}S.th+=dt;S.v+=(vTarget(hold,S.th)-S.v)*Math.min(1,dt*EASE);S.h+=S.v*dt;
+ if(S.h<0){S.h=0;if(S.v<0)S.v=0;}if(S.h>HSOFT&&S.v>0)S.v*=Math.max(0,1-(S.h-HSOFT)/(HMAX-HSOFT));if(S.h>HMAX){S.h=HMAX;if(S.v>0)S.v=0;}}
+function breathSay(t,first,end){if(t>end-0.5)return;const h=Math.floor(t/CYCLE)*2+((t%CYCLE)<IN?0:1);if(h!==U.half){U.half=h;say(h%2?'And out.':first&&h===0?'Breathe in slowly.':'In.');}}
+function uNext(){U.gi++;while(U.gi<U.n&&skipped(U.gs[U.gi])){U.res[U.gi]={skip:true};U.gi++;}
+ U.t=0;U.ht=0;U.rep=0;U.soft=false;U.susp=false;U.bell=false;U.nag=false;U.recue=false;U.nx=false;U.ten=0;
+ if(U.gi>=U.n){U.ph='finale';U.half=-1;S.th=0;S.lh=holding();S.v=0;return;}
+ U.ph='cue';tone('cue');say(gText(U.gs[U.gi]));}
+function uCueAgain(){U.ph='cue';U.t=0;U.ht=0;U.bell=false;U.nag=false;U.recue=false;U.susp=false;U.soft=true;tone('cue');say('A little softer this time. '+gText(U.gs[U.gi]));}
+function uRelease(clean){const gi=U.gi;U.res[gi]={skip:false,clean:!!clean,rep:U.rep};
+ U.sky.push({gi,t0:U.tot,ten:U.ten});U.moorA=0;U.ph='release';U.t=0;if(!U.bell){tone('bell');say('Breathe out, and let it all go.');}U.bell=true;}
+function uSkip(){if(S.mode!=='uplay'||S.paused||(U.ph!=='cue'&&U.ph!=='wait'))return;U.res[U.gi]={skip:true};U.ph='gap';U.t=0;tone('next');hush();}
+function uUpdate(dt){
+ U.t+=dt;U.tot+=dt;if(rnd.open)rnd.secs+=dt;
+ const hold=holding(),rl=restLen();
+ switch(U.ph){
+ case 'open':breathStep(dt,hold);breathSay(U.t,true,UOPEN);if(U.t>=UOPEN)uNext();break;
+ case 'cue':U.ten+=(0-U.ten)*Math.min(1,dt*3);if(U.t>=UCUE){U.ph='wait';U.t=0;}break;
+ case 'wait':
+  if(hold){U.ph='tense';U.t=0;U.ht=0;buzz(40);}
+  else if(U.t>=8&&!U.recue){U.recue=true;tone('cue');}
+  break;
+ case 'tense':
+  if(U.susp){if(!hold)break;U.susp=false;}   // after a pause mid-tense, the ring waits for the next hold, then carries on
+  if(!hold){if(U.ht<UEARLY){U.ph='settle';U.t=0;U.set0=U.ten;hush();break;}uRelease(U.ht>=UBELL-2&&U.ht<=UBELL+2);break;}
+  U.ht+=dt;U.ten=Math.min(1,U.ht/UBELL);
+  if(U.ht>=UBELL&&!U.bell){U.bell=true;tone('bell');buzz([60,90,60]);say('And let go.');}
+  if(U.ht>=UNAG&&!U.nag){U.nag=true;tone('nag');buzz(220);say('Let go now.');}
+  if(U.ht>=UMAX)uRelease(false);
+  break;
+ case 'settle':U.ten=U.set0*Math.max(0,1-U.t/1.2);   // released before 3 s: the lantern settles back softly
+  if(U.t>=1.5){if(U.rep<1){U.rep++;uCueAgain();}else{U.ten=0;uRelease(false);}}
+  break;
+ case 'release':U.ten=0;if(U.t>=UREL){U.ph='rest';U.t=0;const gr=U.gs[U.gi];say(`Notice how your ${gr.area} ${gr.pl?'feel':'feels'} now.`);}break;
+ case 'rest':if(U.t>=rl-1.6&&!U.nx){U.nx=true;if(U.gi<U.n-1)tone('next');}if(U.t>=rl)uNext();break;
+ case 'gap':if(U.t>=1.4)uNext();break;
+ case 'finale':breathStep(dt,hold);breathSay(U.t,false,UFIN);if(U.t>=UFIN){U.ph='glow';U.t=0;tone('bell');}break;
+ case 'glow':if(U.t>=UGLOW){uFinish();return;}break;}
+ // pad and waves follow the lantern in the breaths, and the tension in the groups
+ if(U.ph!=='open'&&U.ph!=='finale'&&U.ph!=='glow'){const tg=LOW+AMP*0.55*U.ten;S.h+=(tg-S.h)*Math.min(1,dt*1.5);S.hold=hold;}
+}
+function uScore(){let att=0,clean=0,rel=0,skips=0;U.res.forEach((r,i)=>{if(r&&r.skip)skips++;else if(r){att++;rel++;if(r.clean)clean++;}});
+ // groups not reached yet (only when the test hook ends a session early) count as neither
+ const pct=att?Math.round(100*clean/att):0;return {att,clean,rel,skips,pct,stars:pct>=85?3:pct>=65?2:pct>=40?1:0};}
+function uFinish(force){if(S.mode!=='uplay')return;S.mode='uend';S.paused=false;ptrs.clear();keyHold=false;hush();$('uskip').hidden=true;
+ const r=uScore(),win=force===undefined?r.pct>=40&&r.att>0:!!force;
+ const before=meta.sessions;meta.sessions++;meta.usess++;meta.mins+=Math.round(U.tot/60);save();
+ rndEnd(win,{score:r.pct,stars:r.stars,skips:r.skips});
+ if(!uSim)showUEnd(r,unlockedSince(before));}
+function unlockedSince(before){return [...COLS.filter(c=>c.need>before&&c.need<=meta.sessions).map(c=>c.name+' lantern'),...SCENES.filter(c=>c.need>before&&c.need<=meta.sessions).map(c=>c.name+' river')];}
+function uProg(){if(U.ph==='open')return 0.06*U.t/UOPEN;if(U.ph==='finale'||U.ph==='glow')return 0.94+0.06*cl01(U.ph==='glow'?1:U.t/UFIN);
+ const f={cue:0,wait:0.05,tense:0.1+0.25*cl01(U.ht/UBELL),settle:0.1,release:0.35+0.15*cl01(U.t/UREL),rest:0.5+0.5*cl01(U.t/restLen()),gap:1}[U.ph]||0;return 0.06+0.88*(Math.max(0,U.gi)+f)/U.n;}
+function uCueText(){if(S.mode==='uready')return 'Hold anywhere to breathe in';if(S.mode!=='uplay')return '';
+ const gr=U.gs[U.gi],br=t=>(t%CYCLE)<IN?'Breathe in':'Breathe out';
+ switch(U.ph){case 'open':return br(U.t);
+  case 'cue':case 'wait':return (U.soft?'A little softer this time. ':'')+gText(gr)+(U.ph==='wait'&&U.t>=4?' Hold anywhere when you’re ready.':'');
+  case 'tense':if(U.susp)return 'Hold again to carry on';return U.ht>=UNAG?'Let go now':U.ht>=UBELL?'And let go':(U.soft?'A little softer this time. ':'')+gText(gr);
+  case 'settle':return 'That’s fine. Let it settle.';
+  case 'release':return 'Breathe out slowly and let it all go';
+  case 'rest':return `Notice how your ${gr.area} ${gr.pl?'feel':'feels'} now.`;
+  case 'gap':return '';
+  case 'finale':return U.t<IN?'One last breath together. Breathe in':br(U.t);
+  case 'glow':return '';}return '';}
+
 /* ---------- screens ---------- */
 function nextUnlock(){const all=[...COLS.map(c=>({n:c.name+' lantern',need:c.need})),...SCENES.map(c=>({n:c.name+' river',need:c.need}))].filter(x=>x.need>meta.sessions).sort((a,b)=>a.need-b.need);
  if(!all.length)return 'Every lantern and river is yours.';const m=all[0].need-meta.sessions;return `Next: ${all[0].n} after ${m} more session${m>1?'s':''}.`;}
-function showTitle(){S.mode='title';S.paused=false;rnd.armed=false;rnd.open=false;$('tut').hidden=true;ptrs.clear();
+function showTitle(){S.mode='title';S.paused=false;rnd.armed=false;rnd.open=false;$('tut').hidden=true;ptrs.clear();hush();$('uskip').hidden=true;
  ov.className='title';ov.hidden=false;
- const r=()=>{ov.innerHTML=`<div class="tTop"><h1>Lantern Drift</h1><p>Breathe with the river. Hold to breathe in and the lantern rises; let go to breathe out and it drifts down.</p></div>
-  <div class="tLen" role="radiogroup" aria-label="Session length">${[2,3,5].map(n=>`<button type="button" class="pill${meta.len===n?' on':''}" data-len="${n}" role="radio" aria-checked="${meta.len===n}">${n} min</button>`).join('')}</div>
+ const r=()=>{const uw=meta.gm==='unwind';ov.innerHTML=`<div class="tTop"><h1>Lantern Drift</h1><p>${uw?'Unwind your body one lantern at a time. Hold to breathe in and tense; let go to breathe out and watch it float free.':'Breathe with the river. Hold to breathe in and the lantern rises; let go to breathe out and it drifts down.'}</p></div>
+  <div class="modes" role="radiogroup" aria-label="Mode">${[['breathe','Breathe'],['unwind','Unwind']].map(([k,l])=>`<button type="button" class="mode${meta.gm===k?' on':''}" data-gm="${k}" role="radio" aria-checked="${meta.gm===k}">${l}</button>`).join('')}</div>
+  ${uw?`<div class="tLen u" role="radiogroup" aria-label="Session length">${[[4,'Short · 2½ min'],[7,'Full · 4 min']].map(([n,l])=>`<button type="button" class="pill${meta.un===n?' on':''}" data-un="${n}" role="radio" aria-checked="${meta.un===n}">${l}</button>`).join('')}</div>`
+  :`<div class="tLen u" role="radiogroup" aria-label="Session length">${[2,3,5].map(n=>`<button type="button" class="pill${meta.len===n?' on':''}" data-len="${n}" role="radio" aria-checked="${meta.len===n}">${n} min</button>`).join('')}</div>`}
   <button type="button" class="go" id="go">Begin</button>
   <div class="tMore"><div class="lbl">Lantern</div><div class="sws">${COLS.map(c=>`<button type="button" class="sw${meta.col===c.id?' on':''}" data-col="${c.id}" ${own(c)?'':'disabled'} aria-label="${c.name} lantern${own(c)?'':', locked'}" style="--g:${c.c}"><i style="background:${c.c}"></i></button>`).join('')}</div>
   <div class="lbl">River</div><div class="chips">${SCENES.map(s=>`<button type="button" class="chip${meta.scene===s.id?' on':''}" data-sc="${s.id}" ${own(s)?'':'disabled'}>${s.name}</button>`).join('')}</div>
   <p class="note">Sessions completed: ${meta.sessions}. ${nextUnlock()}</p>
   <div class="row"><button type="button" class="link" id="snd">Sound: ${SNDS[meta.snd]}</button><a class="link" href="../games.html">&larr; Digi Games</a></div></div>`;
   ov.querySelectorAll('[data-len]').forEach(b=>b.addEventListener('click',()=>{meta.len=+b.dataset.len;save();r();}));
+  ov.querySelectorAll('[data-un]').forEach(b=>b.addEventListener('click',()=>{meta.un=+b.dataset.un;save();r();}));
+  ov.querySelectorAll('[data-gm]').forEach(b=>b.addEventListener('click',()=>{meta.gm=b.dataset.gm;save();r();}));
   ov.querySelectorAll('[data-col]').forEach(b=>b.addEventListener('click',()=>{meta.col=b.dataset.col;save();r();}));
   ov.querySelectorAll('[data-sc]').forEach(b=>b.addEventListener('click',()=>{meta.scene=b.dataset.sc;save();r();}));
   $('snd').addEventListener('click',()=>{const k=Object.keys(SNDS);setSound(k[(k.indexOf(meta.snd)+1)%k.length]);audioInit();r();});
-  $('go').addEventListener('click',()=>{goFS();audioInit();enterReady();});};
+  $('go').addEventListener('click',()=>{if(meta.gm==='unwind'){if(!meta.usafe){audioInit();showSafety('first');return;}goFS();audioInit();enterUnwind();return;}goFS();audioInit();enterReady();});};
+ r();}
+// Safety card: before the first Unwind session, and afterwards from the pause menu
+function showSafety(from){ov.className='';ov.hidden=false;
+ const r=()=>{const gOn=meta.ugentle!=='off';ov.innerHTML=`<div class="card"><h2>Before you unwind</h2>
+  <div class="safe">Tense to about half strength, never to pain. Keep breathing. Skip anything sore or injured. Stop if anything hurts or you feel dizzy.</div>
+  ${from==='first'?'<button type="button" class="btn primary" id="sBeg">Begin</button>':''}
+  ${tog('sG',gOn,'Gentle mode','Softer wording, same timings. For pain or injury, choose release only.')}
+  ${gOn?`<div class="seg" role="radiogroup" aria-label="Gentle mode">${[['slight','Tighten slightly'],['release','Release only']].map(([k,l])=>`<button type="button" class="pill${meta.ugentle===k?' on':''}" data-ug="${k}" role="radio" aria-checked="${meta.ugentle===k}">${l}</button>`).join('')}</div>`:''}
+  ${from==='first'?'<button type="button" class="link" id="sBack">Not now</button>':'<button type="button" class="btn primary" id="sBack">Back</button>'}</div>`;
+  if($('sBeg'))$('sBeg').addEventListener('click',()=>{meta.usafe=true;save();goFS();audioInit();enterUnwind();});
+  $('sG').addEventListener('click',()=>{meta.ugentle=meta.ugentle==='off'?'slight':'off';save();r();});
+  ov.querySelectorAll('[data-ug]').forEach(b=>b.addEventListener('click',()=>{meta.ugentle=b.dataset.ug;save();r();}));
+  $('sBack').addEventListener('click',()=>{if(from==='first')showTitle();else showPause();});};
  r();}
 const tog=(id,on,label,sub)=>`<button type="button" class="btn" id="${id}" role="switch" aria-checked="${on}"><span>${label}${sub?`<small>${sub}</small>`:''}</span><i class="tg${on?' on':''}"></i></button>`;
 function showPause(){ov.className='';ov.hidden=false;
- const r=()=>{ov.innerHTML=`<div class="card"><h2>Paused</h2><p>${S.mode==='play'?'Take your time. The river waits.':'Hold anywhere when you are ready to begin.'}</p>
+ const r=()=>{const uw=S.mode.charAt(0)==='u';findVoice();
+  ov.innerHTML=`<div class="card"><h2>Paused</h2><p>${S.mode==='play'?'Take your time. The river waits.':S.mode==='uplay'?'Take your time. The lanterns wait.':'Hold anywhere when you are ready to begin.'}</p>
   <button type="button" class="btn primary" id="res">Resume</button>
   <div class="slbl">Sound</div><div class="seg" role="radiogroup" aria-label="Sound">${Object.keys(SNDS).map(k=>`<button type="button" class="pill${meta.snd===k?' on':''}" data-snd="${k}" role="radio" aria-checked="${meta.snd===k}">${k==='both'?'Both':SNDS[k]}</button>`).join('')}</div>
   ${fsOK?tog('tF',meta.fs,'Full screen','Hide the browser bars while you play'):''}
-  ${tog('tR',meta.rm,'Reduce motion','Slower river, no twinkle or pulse rings. The breathing guide stays.')}
+  ${uw?tog('tR',meta.rm,'Reduce motion','Lanterns fade instead of floating. The ring, bell and breath guide stay.'):tog('tR',meta.rm,'Reduce motion','Slower river, no twinkle or pulse rings. The breathing guide stays.')}
+  ${uw?`${tog('tL',meta.ulong,'Longer rests','25 seconds of rest after each area instead of 15')}
+  ${tog('tG',meta.ugentle!=='off','Gentle mode','Softer wording, same timings')}
+  ${meta.ugentle!=='off'?`<div class="seg" role="radiogroup" aria-label="Gentle mode">${[['slight','Tighten slightly'],['release','Release only']].map(([k,l])=>`<button type="button" class="pill${meta.ugentle===k?' on':''}" data-ug="${k}" role="radio" aria-checked="${meta.ugentle===k}">${l}</button>`).join('')}</div>`:''}
+  ${voice?tog('tV',meta.uspeak,'Spoken cues','A quiet voice reads each step, using a voice on this phone'):''}
+  <div class="slbl">Always skip</div><div class="chips l">${AREAS.map(a=>`<button type="button" class="chip${meta.uskip.includes(a.id)?' on':''}" data-sk="${a.id}" aria-pressed="${meta.uskip.includes(a.id)}">${a.name}</button>`).join('')}</div>
+  <p class="note" style="text-align:left">Skipped areas are left out of every session until you turn them back on.</p>
+  <button type="button" class="btn" id="sf"><span>Safety notes<small>Half strength, keep breathing, stop if anything hurts</small></span></button>`:''}
   <button type="button" class="btn" id="lv"><span>Leave this session<small>Back to the start. This session won't be counted.</small></span></button>
   <a class="link" href="../games.html">&larr; Digi Games</a></div>`;
   $('res').addEventListener('click',resume);
   ov.querySelectorAll('[data-snd]').forEach(b=>b.addEventListener('click',()=>{setSound(b.dataset.snd);audioInit();r();}));
   $('tR').addEventListener('click',()=>{meta.rm=!meta.rm;save();r();});
   if($('tF'))$('tF').addEventListener('click',()=>{meta.fs=!meta.fs;save();if(meta.fs)goFS();else exitFS();r();});
-  $('lv').addEventListener('click',()=>{const b=$('lv');if(S.mode==='play'&&b.dataset.sure!=='1'){b.dataset.sure='1';b.classList.add('armed');b.querySelector('small').textContent='Tap again to leave. This session will not be counted.';return;}showTitle();});};
+  if(uw){$('tL').addEventListener('click',()=>{meta.ulong=!meta.ulong;save();r();});
+   $('tG').addEventListener('click',()=>{meta.ugentle=meta.ugentle==='off'?'slight':'off';save();r();});
+   ov.querySelectorAll('[data-ug]').forEach(b=>b.addEventListener('click',()=>{meta.ugentle=b.dataset.ug;save();r();}));
+   if($('tV'))$('tV').addEventListener('click',()=>{meta.uspeak=!meta.uspeak;save();r();});
+   ov.querySelectorAll('[data-sk]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.sk,i=meta.uskip.indexOf(k);if(i<0)meta.uskip.push(k);else meta.uskip.splice(i,1);save();r();}));
+   $('sf').addEventListener('click',()=>showSafety('pause'));}
+  $('lv').addEventListener('click',()=>{const b=$('lv');if((S.mode==='play'||S.mode==='uplay')&&b.dataset.sure!=='1'){b.dataset.sure='1';b.classList.add('armed');b.querySelector('small').textContent='Tap again to leave. This session will not be counted.';return;}showTitle();});};
  r();}
-function pause(){if(S.paused||(S.mode!=='play'&&S.mode!=='ready'))return;S.paused=true;ptrs.clear();keyHold=false;showPause();}
-function resume(){S.paused=false;ov.hidden=true;last=performance.now();}
+function pause(){if(S.paused||(S.mode!=='play'&&S.mode!=='ready'&&S.mode!=='uplay'&&S.mode!=='uready'))return;S.paused=true;ptrs.clear();keyHold=false;
+ if(S.mode==='uplay'){hush();if(U.ph==='tense')U.susp=true;}showPause();}
+function resume(){goFS();S.paused=false;ov.hidden=true;last=performance.now();}
 function showEnd(pct,stars,fresh){ov.className='';ov.hidden=false;
  const heads=['Time well spent','A calm drift','Steady and calm','Beautifully paced'];
  const msg=stars===3?'Slow and even, right with the river.':stars===2?'A lovely steady rhythm. A few lights drifted by.':stars===1?'You found the rhythm. Try letting the out-breath be long and slow.':'Every slow breath counts. Follow the lights: hold as they rise, let go as they fall.';
@@ -277,16 +465,41 @@ function showEnd(pct,stars,fresh){ov.className='';ov.hidden=false;
   <a class="link" href="../games.html">&larr; Digi Games</a></div>`;
  $('again').addEventListener('click',()=>{goFS();audioInit();enterReady();});
  $('opts').addEventListener('click',showTitle);}
+function showUEnd(r,fresh){ov.className='';ov.hidden=false;
+ const heads=['Rest well','A softer night','Loose and easy','Beautifully let go'];
+ const msg=r.att===0?'A quiet night on the river. Every area was skipped this time.':r.stars===3?'Slow, steady and right on time.':r.stars===2?'A steady rhythm of holding and letting go.':r.stars===1?'You found the rhythm. Let go all at once when the bell rings.':'Every release counts. Next time, hold until the bell, then let go all at once.';
+ ov.innerHTML=`<div class="card"><h2>${heads[r.stars]}</h2><div class="stars" aria-label="${r.stars} of 3 stars">${[0,1,2].map(i=>i<r.stars?'&#9733;':'<span class="off">&#9733;</span>').join('')}</div>
+  <canvas class="sky" id="skyC" aria-label="Your night sky: ${r.rel} lantern${r.rel===1?'':'s'}"></canvas>
+  <div class="facts"><span><b>${r.rel}</b>lantern${r.rel===1?'':'s'} released</span>${r.skips?`<span><b>${r.skips}</b>skipped</span>`:''}</div>
+  <p>${r.att?`${r.clean} of ${r.att} let go on the bell.`:''} ${msg}</p>
+  ${fresh.map(n=>`<div class="new">New: ${n}</div>`).join('')}
+  <button type="button" class="btn primary" id="again">Again</button>
+  <button type="button" class="btn center" id="toB">Breathe</button>
+  <button type="button" class="link" id="opts">Change session or river</button>
+  <a class="link" href="../games.html">&larr; Digi Games</a></div>`;
+ drawSkyCard($('skyC'));
+ $('again').addEventListener('click',()=>{goFS();audioInit();enterUnwind();});
+ $('toB').addEventListener('click',()=>{meta.gm='breathe';save();goFS();audioInit();enterReady();});
+ $('opts').addEventListener('click',showTitle);}
+// the finished night sky, redrawn small for the summary card (canvas art only, no text)
+function drawSkyCard(c){try{const w=c.clientWidth||300,h=c.clientHeight||96,d=Math.min(2,window.devicePixelRatio||1);c.width=Math.round(w*d);c.height=Math.round(h*d);
+ const x=c.getContext('2d'),sc=scene(),lc=col();x.setTransform(d,0,0,d,0,0);
+ const gr=x.createLinearGradient(0,0,0,h);sc.sky.forEach((cc,i)=>gr.addColorStop(i/(sc.sky.length-1),cc));x.fillStyle=gr;x.fillRect(0,0,w,h);
+ for(let i=0;i<40;i++){x.fillStyle=`rgba(255,255,255,${0.25+0.3*rnd01(i+5)})`;x.beginPath();x.arc(rnd01(i)*w,rnd01(i+300)*h,0.5+rnd01(i+600),0,7);x.fill();}
+ U.sky.forEach(L=>{const p=slotPos(L.gi,w,h*3.2);const g=glow(lc.g);x.globalAlpha=0.9;x.drawImage(g,p[0]-22,p[1]-22+h*0.12,44,44);x.globalAlpha=1;
+  x.fillStyle=lc.c;x.beginPath();x.ellipse(p[0],p[1]+h*0.12,5,6,0,0,7);x.fill();x.fillStyle='#fff6e2';x.beginPath();x.arc(p[0],p[1]+h*0.12+1,2,0,7);x.fill();});}catch(e){}}
 
 /* ---------- input: hold anywhere on the river ---------- */
-cv.addEventListener('pointerdown',e=>{e.preventDefault();ptrs.add(e.pointerId);try{cv.setPointerCapture(e.pointerId)}catch(_){}onHold();});
+cv.addEventListener('pointerdown',e=>{e.preventDefault();ptrs.add(e.pointerId);try{cv.setPointerCapture(e.pointerId)}catch(_){}onHold();
+ if((S.mode==='uplay'||S.mode==='uready')&&!S.paused){const b=cv.getBoundingClientRect();U.rip.push({x:e.clientX-b.left,y:e.clientY-b.top,t:0});if(U.rip.length>6)U.rip.shift();}});
 const rel=e=>{ptrs.delete(e.pointerId);};
 cv.addEventListener('pointerup',rel);cv.addEventListener('pointercancel',rel);cv.addEventListener('lostpointercapture',rel);
 cv.addEventListener('contextmenu',e=>e.preventDefault());
-addEventListener('keydown',e=>{if(e.code!=='Space'||e.repeat)return;if((S.mode==='ready'||S.mode==='play')&&!S.paused&&ov.hidden){e.preventDefault();keyHold=true;onHold();}});
+addEventListener('keydown',e=>{if(e.code!=='Space'||e.repeat)return;if((S.mode==='ready'||S.mode==='play'||S.mode==='uready'||S.mode==='uplay')&&!S.paused&&ov.hidden){e.preventDefault();keyHold=true;onHold();}});
 addEventListener('keyup',e=>{if(e.code==='Space')keyHold=false;});
 addEventListener('blur',()=>{ptrs.clear();keyHold=false;});
-$('pz').addEventListener('click',()=>{audioInit();if(S.mode==='play'||S.mode==='ready')pause();});
+$('pz').addEventListener('click',()=>{audioInit();if(S.mode==='play'||S.mode==='ready'||S.mode==='uplay'||S.mode==='uready')pause();});
+$('uskip').addEventListener('click',uSkip);
 $('tutSkip').addEventListener('click',()=>{meta.tutDone=true;save();$('tut').hidden=true;});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();save();try{if(AU.ac)AU.ac.suspend();}catch(e){}}else{try{if(AU.ac&&meta.snd!=='off')AU.ac.resume();}catch(e){}last=performance.now();}});
 addEventListener('pagehide',save);
@@ -294,7 +507,7 @@ addEventListener('pagehide',save);
 /* ---------- update ---------- */
 function update(dt){
  if(S.paused)return;
- const rm=meta.rm;clock+=dt*(rm?0.5:1);scroll+=pps()*dt;
+ const rm=meta.rm,um=S.mode.charAt(0)==='u';clock+=dt*(rm?0.5:1);scroll+=pps()*dt*(um?0.2:1);
  if(S.mode==='play'){
   const hold=holding();S.hold=hold;
   if(hold!==S.lh){S.lh=hold;S.th=0;}S.th+=dt;
@@ -304,9 +517,14 @@ function update(dt){
   while(S.idx<S.total&&lightT(S.idx)<=S.tau){judge(S.idx);S.idx++;}
   if(!meta.tutDone&&S.tau>=CYCLE){meta.tutDone=true;save();$('tut').hidden=true;}
   if(S.tau>=S.dur){finish();return;}
- }else if(S.mode==='ready'||S.mode==='title'){S.h=g(0)+Math.sin(clock*1.3)*0.012;S.hold=false;}
+ }else if(S.mode==='uplay'){uUpdate(dt);if(S.mode!=='uplay')return;
+ }else if(S.mode==='ready'||S.mode==='title'||S.mode==='uready'){S.h=g(0)+Math.sin(clock*1.3)*0.012;S.hold=false;}
  else if(S.mode==='end'){S.v+=(0-S.v)*Math.min(1,dt*2);S.h+=(LOW-S.h)*Math.min(1,dt*0.6);}
  S.flashT=Math.max(0,S.flashT-dt*1.1);
+ if(um){const ph=S.mode==='uplay'?U.ph:'';U.dim+=((ph==='rest'?1:0)-U.dim)*Math.min(1,dt*0.8);
+  U.bodyA+=((['cue','wait','tense','settle','release'].includes(ph)?1:ph==='rest'?0.75:0)-U.bodyA)*Math.min(1,dt*1.6);
+  U.moorA+=((['cue','wait','tense','settle'].includes(ph)?1:0)-U.moorA)*Math.min(1,dt*(ph==='release'?6:2));
+  for(const q of U.rip)q.t+=dt;U.rip=U.rip.filter(q=>q.t<1.8);}
  for(const p of S.parts)p.t+=dt;S.parts=S.parts.filter(p=>p.t<1.6);
  if(scene().snow)for(const f of flakes){f.y+=f.s*dt*(rm?0.4:1);f.x-=(8+f.s*0.3)*dt*(rm?0.4:1);if(f.y>waterY+8){f.y=-4-Math.random()*40;f.x=Math.random()*W;}if(f.x<-4)f.x=W+4;}
 }
@@ -345,9 +563,9 @@ function draw(){
   const x=((q.x*span-scroll*sp)%span+span)%span-len-20,a=(0.04+0.085*d)*(rm?0.7:0.5+0.5*Math.sin(clock*q.f+q.ph));if(a<0.01)continue;
   ctx.strokeStyle=`rgba(210,225,255,${a.toFixed(3)})`;ctx.lineWidth=0.8+d*1.4;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+len,y);ctx.stroke();}
  ctx.lineCap='butt';
- const titleM=S.mode==='title';
+ const titleM=S.mode==='title',um=S.mode.charAt(0)==='u';
  // guide ribbon
- if(!titleM){const tau=S.tau,t0=tau-lx/P,endX=lx+(S.dur-tau)*P,rng=(waterY-24)-(H*0.2+22);
+ if(!titleM&&!um){const tau=S.tau,t0=tau-lx/P,endX=lx+(S.dur-tau)*P,rng=(waterY-24)-(H*0.2+22);
  ctx.save();ctx.beginPath();ctx.rect(0,0,Math.min(W,endX),H);ctx.clip();
  ctx.beginPath();for(let x=0;x<=W;x+=4){const t=tau+(x-lx)/P,y=yOf(g(t));x?ctx.lineTo(x,y):ctx.moveTo(x,y);}
  // soft guide band: only in the very first session, fading out over the second breath
@@ -358,20 +576,96 @@ function draw(){
   if(m===1)continue;
   if(m===2){blob('200,210,255',x,y,7,0.18);continue;}
   const tw=rm?1:0.8+0.2*Math.sin(clock*3+k*1.7),tn=isTurn(k);blob('255,226,160',x,y,tn?22:14,(tn?0.85:0.75)*tw);ctx.fillStyle='rgba(255,248,230,.95)';ctx.beginPath();ctx.arc(x,y,tn?2.8:1.9,0,7);ctx.fill();}}
+ if(um)drawUnwind(lc,rm);else{
  // lantern + reflection
- const hx=titleM?W*0.5:lx,ly=titleM?H*0.34+Math.sin(clock*1.3)*4:yOf(S.h),hk=S.hold?1:0,hh=titleM?0.9:S.h;
+ const titleY=Math.min(H*0.34,H*0.6-196);   // title lantern sits clear of the mode buttons
+ const hx=titleM?W*0.5:lx,ly=titleM?titleY+Math.sin(clock*1.3)*4:yOf(S.h),hk=S.hold?1:0,hh=titleM?0.9:S.h;
  for(let j=0;j<6;j++)blob(lc.g,hx+(rm?0:Math.sin(clock*1.4+j*0.9)*2.5),waterY+8+j*11,16-j*1.6,(0.32-j*0.045)*(1-hh*0.55));
  const sw=S.flashT*S.flashT*(3-2*S.flashT),by=ly+(rm?0:Math.sin(clock*1.7)*1.2);
- if(!(titleM&&H<480)){blob(lc.g,hx,ly,70+14*sw,0.28+0.1*hk+0.18*sw);drawLantern(hx,by,lc);}   // no hero lantern on very short (landscape) title screens
+ if(!(titleM&&(H<480||titleY<H*0.08+140))){blob(lc.g,hx,ly,70+14*sw,0.28+0.1*hk+0.18*sw);drawLantern(hx,by,lc);}   // no hero lantern on very short (landscape) title screens
  // gathered light: a soft pulse ring breathing out from the lantern
- for(const p of S.parts){const u=Math.min(1,p.t/1.6),e=1-Math.pow(1-u,3),r=22+e*14;const al=0.2*(1-u)*(1-u);ctx.beginPath();ctx.ellipse(hx,by,r,r*1.12,0,0,7);ctx.strokeStyle=`rgba(${lc.g},${(al*0.3).toFixed(3)})`;ctx.lineWidth=5;ctx.stroke();ctx.strokeStyle=`rgba(${lc.g},${al.toFixed(3)})`;ctx.lineWidth=1.5;ctx.stroke();}
+ for(const p of S.parts){const u=Math.min(1,p.t/1.6),e=1-Math.pow(1-u,3),r=22+e*14;const al=0.2*(1-u)*(1-u);ctx.beginPath();ctx.ellipse(hx,by,r,r*1.12,0,0,7);ctx.strokeStyle=`rgba(${lc.g},${(al*0.3).toFixed(3)})`;ctx.lineWidth=5;ctx.stroke();ctx.strokeStyle=`rgba(${lc.g},${al.toFixed(3)})`;ctx.lineWidth=1.5;ctx.stroke();}}
  // snow
  if(sc.snow){const n=rm?25:flakes.length;for(let i=0;i<n;i++){const f=flakes[i],a=0.75*Math.max(0,Math.min(1,(waterY+8-f.y)/14));if(a<=0)continue;ctx.fillStyle=`rgba(240,246,255,${a.toFixed(3)})`;ctx.beginPath();ctx.arc(f.x%W,f.y,f.r*(0.6+0.4*a/0.75),0,7);ctx.fill();}}   // flakes shrink and melt as they touch the water
  // near reeds (fast parallax)
  ctx.fillStyle='rgba(2,4,12,.85)';const ro=(scroll*1.25)%60;
  for(let x=-60+(60-ro);x<W+60;x+=60){const kk=Math.floor((scroll*1.25+x)/60);for(let j=0;j<4;j++){const bx=x+j*9+rnd01(kk*4+j)*6,hh=18+rnd01(kk*4+j+50)*26,sw=rm?0:Math.sin(clock*1.2+bx*0.05)*2;
   ctx.beginPath();ctx.moveTo(bx-1.6,H);ctx.quadraticCurveTo(bx+sw*0.5,H-hh*0.6,bx+sw,H-hh);ctx.quadraticCurveTo(bx+sw*0.5+1,H-hh*0.6,bx+1.6,H);ctx.fill();}}
+ if(um)drawUnwindTop(rm);
 }
+
+/* ---------- Unwind drawing (canvas only: no images, no text) ---------- */
+const ease=p=>p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+const cl01=v=>Math.max(0,Math.min(1,v));
+function slotPos(gi,w,h){const n=U.n,t=n>1?gi/(n-1):0.5;return [w*(0.12+0.76*t),h*(0.13-0.06*(1-Math.pow(2*t-1,2)))];}
+const moorP=()=>[W*0.72,waterY-36];
+function lanternAt(x,y,lc,sc,a){if(a<=0.005)return;ctx.save();ctx.globalAlpha=Math.min(1,a);ctx.translate(x,y);ctx.scale(sc,sc);drawLantern(0,0,lc);ctx.restore();}
+// a simple glowing body outline; each piece belongs to one area
+const BODY=[
+ {a:'face',c:[0,0.55,0.5]},
+ {a:'jaw',p:[[0,1.02],[0,1.42]],w:0.36},
+ {a:'arms',p:[[-1.08,1.7],[-1.36,2.95]],w:0.36},{a:'arms',p:[[1.08,1.7],[1.36,2.95]],w:0.36},
+ {a:'hands',p:[[-1.36,2.95],[-1.5,4.1]],w:0.3},{a:'hands',p:[[1.36,2.95],[1.5,4.1]],w:0.3},
+ {a:'hands',c:[-1.52,4.36,0.24]},{a:'hands',c:[1.52,4.36,0.24]},
+ {a:'legs',p:[[-0.4,3.85],[-0.47,5.8],[-0.5,7.55]],w:0.5},{a:'legs',p:[[0.4,3.85],[0.47,5.8],[0.5,7.55]],w:0.5},
+ {a:'legs',p:[[-0.5,7.66],[-0.86,7.74]],w:0.26},{a:'legs',p:[[0.5,7.66],[0.86,7.74]],w:0.26},
+ {a:'stomach',p:[[0,2.75],[0,3.75]],w:1.3},
+ {a:'shoulders',p:[[0,1.72],[0,2.7]],w:1.45},
+ {a:'shoulders',p:[[-1.06,1.66],[0,1.5],[1.06,1.66]],w:0.42}];
+const bodyCv=document.createElement('canvas');
+function drawBody(al,hi,hiA,rm){const u=Math.min((waterY-H*0.2-40)/8,H*0.05,W*0.13);if(u<6)return;const cx=W*0.36,y0=H*0.2;
+ const d=dpr;if(bodyCv.width!==cv.width||bodyCv.height!==cv.height){bodyCv.width=cv.width;bodyCv.height=cv.height;}
+ const b=bodyCv.getContext('2d');b.setTransform(1,0,0,1,0,0);b.clearRect(0,0,bodyCv.width,bodyCv.height);b.setTransform(d,0,0,d,0,0);b.lineCap='round';b.lineJoin='round';
+ const X=v=>cx+v*u,Y=v=>y0+v*u;
+ const pass=(sel,col,grow)=>{for(const s of BODY){if(!sel(s))continue;b.fillStyle=b.strokeStyle=col;
+  if(s.c){b.beginPath();b.arc(X(s.c[0]),Y(s.c[1]),s.c[2]*u+grow/2,0,7);b.fill();}
+  else{b.lineWidth=s.w*u+grow;b.beginPath();s.p.forEach((q,i)=>i?b.lineTo(X(q[0]),Y(q[1])):b.moveTo(X(q[0]),Y(q[1])));b.stroke();}}};
+ const isHi=s=>hi.includes(s.a);
+ pass(()=>true,'rgba(190,210,255,.5)',3.2);
+ if(hiA>0.01)pass(isHi,`rgba(255,205,130,${(0.95*hiA).toFixed(3)})`,3.2);
+ pass(()=>true,'#0a1330',0);
+ if(hiA>0.01)pass(isHi,`rgba(255,190,110,${(0.3*hiA).toFixed(3)})`,0);
+ // warm glow behind the highlighted area
+ if(hiA>0.01){let sx=0,sy=0,n=0;for(const s of BODY)if(isHi(s)){(s.c?[s.c]:s.p).forEach(q=>{sx+=q[0];sy+=q[1];n++;});}
+  if(n){const pulse=rm?1:0.9+0.1*Math.sin(clock*2);blob('255,200,120',X(sx/n),Y(sy/n),u*2.6,0.3*hiA*al*pulse);}}
+ ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=al;ctx.drawImage(bodyCv,0,0);ctx.restore();}
+function drawUnwind(lc,rm){
+ const [mx,my]=moorP(),ph=S.mode==='uplay'?U.ph:S.mode==='uready'?'ready':'end',px=W*0.88,py=waterY+10;
+ const gl=ph==='glow'?1+1.4*Math.sin(Math.PI*Math.min(1,U.t/(UGLOW*0.8))):ph==='end'?1.3:1;
+ // lanterns already in the sky (they float up from the mooring and stay)
+ for(const L of U.sky){const [sx,sy]=slotPos(L.gi,W,H),p=ph==='end'?1:cl01((U.tot-L.t0)/5.5),bob=rm?0:Math.sin(clock*0.8+L.gi*1.3)*2;
+  if(rm){lanternAt(mx,my,lc,1,1-2*p);if(p>0.5){blob(lc.g,sx,sy,26*gl,0.3*gl*(2*p-1));lanternAt(sx,sy,lc,0.45,2*p-1);}continue;}
+  const e=ease(p),x=mx+(sx-mx)*e+Math.sin(p*Math.PI)*16,y=my+(sy-my)*e+bob*e,sc=1-0.55*e;
+  blob(lc.g,x,y,(60-34*e)*gl,(0.28+0.05*(1-e))*gl);lanternAt(x,y,lc,sc,1);}
+ // the body outline, lighting up the current area
+ if(U.bodyA>0.01&&U.gi>=0&&U.gi<U.n){const gr=U.gs[U.gi];const hiA=ph==='cue'?cl01(U.t/0.8):ph==='rest'?0.6:ph==='release'?1-0.4*cl01(U.t/UREL):1;drawBody(U.bodyA,gr.a,hiA,rm);}
+ // mooring post on the near bank
+ ctx.fillStyle='#1a120c';rr(px-4,py,8,30,2);ctx.fill();ctx.fillStyle='#2a1c14';rr(px-5,py-3,10,5,2);ctx.fill();
+ // the moored lantern for this area
+ if(U.moorA>0.01){const ten=U.ten,ly=my+6*ten,br=ph==='cue'?1-cl01(U.t/UCUE)*0.5:0;
+  for(let j=0;j<5;j++)blob(lc.g,mx+(rm?0:Math.sin(clock*1.4+j*0.9)*2),waterY+8+j*11,14-j*1.6,(0.26-j*0.045)*U.moorA);
+  blob(lc.g,mx,ly,64+br*18,(0.26+0.3*br+0.08*ten)*U.moorA);
+  ctx.strokeStyle=`rgba(215,190,150,${(0.6*U.moorA).toFixed(3)})`;ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(mx,ly+32);ctx.quadraticCurveTo((mx+px)/2,Math.max(ly+32,py)+(1-ten)*24,px,py);ctx.stroke();
+  lanternAt(mx,ly,lc,1,U.moorA);
+  // the tense ring: fills over 6 s, full at the bell
+  const R=40;if(['cue','wait','tense','settle'].includes(ph)){const tr=ph==='cue'?cl01(U.t/UCUE):1;
+   ctx.lineWidth=3;ctx.strokeStyle=`rgba(238,240,247,${(0.13*tr*U.moorA).toFixed(3)})`;ctx.beginPath();ctx.arc(mx,ly,R,0,7);ctx.stroke();
+   const pr=ph==='tense'?cl01(U.ht/UBELL):ph==='settle'?ten:0;
+   if(pr>0){ctx.lineCap='round';ctx.strokeStyle=`rgba(255,201,122,${(ph==='settle'?0.5:0.9)*U.moorA})`;ctx.beginPath();ctx.arc(mx,ly,R,-Math.PI/2,-Math.PI/2+pr*Math.PI*2);ctx.stroke();ctx.lineCap='butt';}
+   if(ph==='tense'&&U.ht>=UBELL){const k=rm?0.6:0.45+0.35*Math.sin(clock*4);blob('255,201,122',mx,ly,R*1.6,0.25*k);}}}
+ // the breath-out guide: a circle shrinking over the 6 s out-breath
+ if(ph==='release'){const f=cl01(U.t/UREL);ctx.lineWidth=2;ctx.strokeStyle='rgba(238,240,247,.12)';ctx.beginPath();ctx.arc(mx,my,48,0,7);ctx.stroke();
+  ctx.strokeStyle='rgba(255,220,170,.6)';ctx.fillStyle='rgba(255,220,170,.06)';ctx.beginPath();ctx.arc(mx,my,8+40*(1-f),0,7);ctx.fill();ctx.stroke();}
+ // opening and closing breaths: the Breathe lantern and a ring showing where the breath should be
+ let ba=0,bt=0;if(ph==='ready')ba=1;else if(ph==='open'){ba=cl01((UOPEN-U.t)/1.5);bt=U.t;}else if(ph==='finale'){ba=cl01(U.t/1.5);bt=U.t;}else if(ph==='glow'){ba=1-cl01(U.t/2);bt=UFIN;}
+ if(ba>0.01){const bx=W*0.5,by=yOf(ph==='ready'?S.h:S.h),gy=yOf(g(bt));
+  ctx.lineWidth=2;ctx.strokeStyle=`rgba(255,236,200,${(0.4*ba).toFixed(3)})`;ctx.fillStyle=`rgba(255,236,200,${(0.05*ba).toFixed(3)})`;ctx.beginPath();ctx.arc(bx,gy,30,0,7);ctx.fill();ctx.stroke();
+  for(let j=0;j<6;j++)blob(lc.g,bx+(rm?0:Math.sin(clock*1.4+j*0.9)*2.5),waterY+8+j*11,16-j*1.6,(0.32-j*0.045)*(1-S.h*0.55)*ba);
+  blob(lc.g,bx,by,70,(0.28+(S.hold?0.1:0))*ba);lanternAt(bx,by+(rm?0:Math.sin(clock*1.7)*1.2),lc,1,ba);}
+}
+function drawUnwindTop(rm){
+ if(U.dim>0.01){ctx.fillStyle=`rgba(2,4,12,${(0.42*U.dim).toFixed(3)})`;ctx.fillRect(0,0,W,H);}
+ ctx.lineWidth=1.5;for(const q of U.rip){const u=q.t/1.8,r=rm?20:8+u*46,a=0.32*(1-u)*(rm?0.8:1);ctx.strokeStyle=`rgba(220,232,255,${a.toFixed(3)})`;ctx.beginPath();ctx.ellipse(q.x,q.y,r,r*0.42,0,0,7);ctx.stroke();}}
 function drawLantern(x,y,lc){const w=34,h=40;
  ctx.strokeStyle='rgba(20,14,10,.6)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y-h/2-6);ctx.lineTo(x,y-h/2-14);ctx.stroke();
  const gr=ctx.createRadialGradient(x,y+4,2,x,y,w*0.75);gr.addColorStop(0,'#fff6e2');gr.addColorStop(0.45,lc.c);gr.addColorStop(1,`rgba(${lc.g},.55)`);
@@ -383,13 +677,17 @@ function drawLantern(x,y,lc){const w=34,h=40;
 function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
 
 /* ---------- HUD ---------- */
-let lastCue='',lastCnt=-1,lastBar=-1,lastVis='';
+let lastCue='',lastCnt=-1,lastBar=-1,lastVis='',lastU=false,lastSk=false,lastSb=false;
 function hud(){const cue=$('cue');let t='';
- if(S.mode==='ready')t='Hold anywhere to breathe in';else if(S.mode==='play')t=(S.tau%CYCLE)<IN?'Breathe in':'Breathe out';
+ const um=S.mode.charAt(0)==='u';
+ if(S.mode==='ready')t='Hold anywhere to breathe in';else if(S.mode==='play')t=(S.tau%CYCLE)<IN?'Breathe in':'Breathe out';else if(um)t=uCueText();
+ if(um!==lastU){lastU=um;cue.classList.toggle('u',um);}
+ const sk=S.mode==='uplay'&&!S.paused&&(U.ph==='cue'||U.ph==='wait');if(sk!==lastSk){lastSk=sk;$('uskip').hidden=!sk;}
+ const sb=S.mode==='uplay'&&U.ph==='tense'&&!U.susp&&U.ht<UBELL;if(sb!==lastSb){lastSb=sb;$('sub').style.opacity=sb?0.5:0;}
  if(t!==lastCue){lastCue=t;cue.style.opacity=0;if(t)setTimeout(()=>{if(lastCue===t){cue.textContent=t;cue.style.opacity=0.7;}},meta.rm?0:350);}
  const n=S.mode==='play'||S.mode==='end'?S.got:0;if(n!==lastCnt){lastCnt=n;$('cnt').textContent='✦ '+n;}
- const vis=S.mode+'|'+(S.mode==='play');if(vis!==lastVis){lastVis=vis;$('cnt').style.opacity=S.mode==='play'?0.85:0;$('pz').hidden=!(S.mode==='play'||S.mode==='ready');}
- const b=S.mode==='play'?Math.min(1,S.tau/S.dur):S.mode==='end'?1:0,bp=Math.round(b*1000);if(bp!==lastBar){lastBar=bp;$('barF').style.width=(b*100).toFixed(1)+'%';}}
+ const vis=S.mode+'|'+(S.mode==='play');if(vis!==lastVis){lastVis=vis;$('cnt').style.opacity=S.mode==='play'?0.85:0;$('pz').hidden=!(S.mode==='play'||S.mode==='ready'||S.mode==='uplay'||S.mode==='uready');}
+ const b=S.mode==='play'?Math.min(1,S.tau/S.dur):S.mode==='end'||S.mode==='uend'?1:S.mode==='uplay'?uProg():0,bp=Math.round(b*1000);if(bp!==lastBar){lastBar=bp;$('barF').style.width=(b*100).toFixed(1)+'%';}}
 
 /* ---------- loop ---------- */
 function resize(){const r=stage.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);W=Math.max(1,r.width);H=Math.max(1,r.height);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);waterY=H*0.72;}
@@ -398,8 +696,17 @@ function frame(now){const dt=Math.min(0.05,Math.max(0,(now-last)/1000));last=now
 
 /* ---------- test hooks (only when window.__DGTEST is set) ---------- */
 if(window.__DGTEST)window.__dg={
- end:w=>{if(S.mode==='end')return;if(S.mode==='title')enterReady();if(S.mode==='ready'){S.paused=false;beginSession();}S.paused=false;finish(w===undefined?undefined:!!w);},
- get meta(){return meta},get S(){return S},g,
+ end:w=>{if(S.mode==='end'||S.mode==='uend')return;
+  if(S.mode.charAt(0)==='u'||(S.mode==='title'&&meta.gm==='unwind')){if(S.mode==='title')enterUnwind();if(S.mode==='uready'){S.paused=false;uBegin();}S.paused=false;uFinish(w===undefined?undefined:!!w);return;}
+  if(S.mode==='title')enterReady();if(S.mode==='ready'){S.paused=false;beginSession();}S.paused=false;finish(w===undefined?undefined:!!w);},
+ get meta(){return meta},get S(){return S},get U(){return U},g,uScore,pause,resume,uSkip,save,
+ // step the real update loop by `secs` seconds (headless timing tests); hold = what the player is doing
+ step(secs,hold){simHold=hold===undefined?null:!!hold;const dt=1/60;for(let i=0;i<Math.round(secs*60);i++)update(dt);simHold=null;},
+ // run a whole Unwind session instantly; bot(U,S) returns true to hold. Returns the score and a log of phase changes.
+ usim(bot,n,opts){opts=opts||{};meta.un=n||4;enterUnwind();simHold=true;uSim=true;uBegin();const dt=1/60,log=[];let k=0,lp='',t=0;
+  while(S.mode==='uplay'&&k++<2e5){simHold=!!bot(U,S);if(opts.pauseAt&&opts.pauseAt(U,t)){pause();const tU=JSON.stringify([U.ph,U.t,U.ht,U.gi,rnd.secs]);for(let i=0;i<120;i++)update(dt);log.push({frozen:tU===JSON.stringify([U.ph,U.t,U.ht,U.gi,rnd.secs])});resume();}
+   update(dt);t+=dt;const p=U.gi+':'+U.ph+(U.soft?'~':'');if(p!==lp){log.push({p,t:+t.toFixed(2),ht:+U.ht.toFixed(2)});lp=p;}}
+  simHold=null;uSim=false;const r=Object.assign(uScore(),{res:U.res.slice(),secs:rnd.secs,tot:U.tot,log});return r;},
  // run a whole session instantly through the real update loop; bot(tau,S) returns true to hold
  sim(bot,len){meta.len=len||3;enterReady();simHold=true;beginSession();const dt=1/60;let n=0;while(S.mode==='play'&&n++<1e6){simHold=!!bot(S.tau,S);update(dt);}
   simHold=null;const r={pct:S.seen?Math.round(100*S.got/S.seen):0,got:S.got,seen:S.seen,total:S.total};showTitle();return r;}};
@@ -408,6 +715,5 @@ addEventListener('resize',resize);
 resize();showTitle();requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

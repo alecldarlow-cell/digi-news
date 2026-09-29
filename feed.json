@@ -1,8 +1,8 @@
 {
-  "built": "2026-09-29T07:38:11.028Z",
+  "built": "2026-09-29T12:49:50.118Z",
   "today": "2026-09-29",
   "timezone": "Europe/London",
-  "count": 449,
+  "count": 450,
   "items": [
     {
       "path": "reports/2026-09-29-crossword-mini-0080.html",
@@ -17,6 +17,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "...#.#.............#.#..."
+    },
+    {
+      "path": "reports/2026-09-29-innovation-inputs-outputs.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "Innovation rankings hide different routes to results",
+      "standfirst": "WIPO’s 2026 index separates the conditions for innovation from its measured outputs. The scores reveal contrasts that a single league table conceals, but cannot establish which economy gets the best return on investment.",
+      "date": "2026-09-29",
+      "read": "6 min",
+      "thumb": "",
+      "stat": "139",
+      "statUnit": "",
+      "statLabel": "economies",
+      "mask": ""
     },
     {
       "path": "reports/2026-09-29-logic-doku-0078.html",

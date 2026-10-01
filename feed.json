@@ -1,9 +1,37 @@
 {
-  "built": "2026-10-01T17:23:01.662Z",
+  "built": "2026-10-01T18:03:57.284Z",
   "today": "2026-10-01",
   "timezone": "Europe/London",
-  "count": 461,
+  "count": 464,
   "items": [
+    {
+      "path": "reports/2026-10-01-anaesthesia-shared-neural-changes.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Anaesthesia study finds shared neural changes across six species",
+      "standfirst": "A peer-reviewed comparison identifies a common subset of changes in neural activity. The findings concern information processing and responsiveness, with limits on what they reveal about consciousness.",
+      "date": "2026-10-01",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "485",
+      "statUnit": "",
+      "statLabel": "features",
+      "mask": ""
+    },
+    {
+      "path": "reports/2026-10-01-cholera-cases-and-deaths.html",
+      "kind": "report",
+      "topic": "Medicine",
+      "headline": "WHO records more cholera deaths despite fewer reported cases",
+      "standfirst": "Reported cases fell in 2025 while deaths rose. The divergence highlights why a smaller surveillance total cannot, on its own, establish progress.",
+      "date": "2026-10-01",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "7,870",
+      "statUnit": "",
+      "statLabel": "deaths",
+      "mask": ""
+    },
     {
       "path": "reports/2026-10-01-crossword-mini-0082.html",
       "kind": "puzzle",
@@ -17,6 +45,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "....#...##.....##...#...."
+    },
+    {
+      "path": "reports/2026-10-01-healthy-ageing-policy-and-tracking.html",
+      "kind": "report",
+      "topic": "Society",
+      "headline": "Healthy ageing policies expand, but tracking remains limited",
+      "standfirst": "WHO’s midpoint update shows wider policy coverage for older people. Measuring whether those policies improve lives remains a separate challenge.",
+      "date": "2026-10-01",
+      "read": "~3 min",
+      "thumb": "",
+      "stat": "22.7",
+      "statUnit": "%",
+      "statLabel": "of countries",
+      "mask": ""
     },
     {
       "path": "reports/2026-10-01-logic-doku-0080.html",

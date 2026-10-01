@@ -1,8 +1,8 @@
 {
-  "built": "2026-10-01T17:22:03.291Z",
+  "built": "2026-10-01T17:23:01.662Z",
   "today": "2026-10-01",
   "timezone": "Europe/London",
-  "count": 460,
+  "count": 461,
   "items": [
     {
       "path": "reports/2026-10-01-crossword-mini-0082.html",
@@ -129,6 +129,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "..............o....................."
+    },
+    {
+      "path": "reports/2026-09-30-strategy-pocket-weather.html",
+      "kind": "game",
+      "topic": "Strategy",
+      "headline": "Pocket Weather",
+      "standfirst": "Bring eight Norfolk valleys to harvest. Guide rain and sunshine onto the crops, turn the windmill, and push the storms away from the village.",
+      "date": "2026-09-30",
+      "read": "~3 min",
+      "thumb": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cGF0aCBmaWxsPSIjY2JkYzlkIiBkPSJNMCAwaDEyMHYxMjBIMHoiLz48cGF0aCBmaWxsPSIjOWZiZDc4IiBkPSJNMCAwaDEyMHYzMEw4NiAxOCA1MiAyOSAyMCAxNyAwIDI2eiIvPjxwYXRoIGQ9Im01OCA2MyAyIDI1LTI3IDE1IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ZGFhOTEiIHN0cm9rZS13aWR0aD0iNiIvPjxwYXRoIGQ9Im01OCA2MyAyIDI1LTI3IDE1IiBmaWxsPSJub25lIiBzdHJva2U9IiNiMGNiYjgiIHN0cm9rZS13aWR0aD0iMyIvPjxwYXRoIGQ9Ik0xIDc3UTMgNjIgMTkgNjhRMzMgNjQgMzkgODBRNDcgOTUgMzAgMTA2UTEyIDExMCAyIDk5WiIgZmlsbD0iI2RmYzk5NiIgc3Ryb2tlPSIjOGJhMzZjIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNNCA3OFE2IDY3IDE5IDcyUTMxIDY4IDM1IDgxUTQzIDk0IDI4IDEwMlExMyAxMDYgNSA5N1oiIGZpbGw9IiM2MmE4YjIiIHN0cm9rZT0iIzQyN2Q5MCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTQgODdoMjZNOCA5NGgyNyIgc3Ryb2tlPSIjYzJlMWQwIiBzdHJva2Utd2lkdGg9IjIiLz48cGF0aCBkPSJtMzkgNTIgMzkgM3YyOWwtMzktM3oiIGZpbGw9IiM5Mjc5NGEiIHN0cm9rZT0iIzc2NjEzZSIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0ibTQ2IDc1IDAtMTVtLTQgMyA0IDUgNC04bTggMTZWNjFtLTQgMyA0IDUgNC04bTggMTZWNjJtLTQgMyA0IDUgNC04IiBmaWxsPSJub25lIiBzdHJva2U9IiNmNGQzNmMiIHN0cm9rZS13aWR0aD0iMi41Ii8+PHBhdGggZD0ibTg3IDEwNSA1LTQ2aDEzbDcgNDZ6IiBmaWxsPSIjZjRlNWI5IiBzdHJva2U9IiM3MDVkNDAiIHN0cm9rZS13aWR0aD0iMiIvPjxwYXRoIGQ9Im04OCA2MSAxMC0xNCAxMiAxNHoiIGZpbGw9IiNhNjY3NDciIHN0cm9rZT0iIzcxNTEzOCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTk4IDU0djQxTTc5IDc0aDM5IiBzdHJva2U9IiM2YzU3M2IiIHN0cm9rZS13aWR0aD0iMyIvPjxwYXRoIGQ9Ik05OSA1NGg3djE4aC03ek0xMDEgNzVoMTd2N2gtMTd6TTkwIDc3aDd2MThoLTd6TTc5IDY1aDE3djdINzl6IiBmaWxsPSIjZmZmMWM4IiBzdHJva2U9IiM4OTczNGMiLz48Y2lyY2xlIGN4PSI5OCIgY3k9Ijc0IiByPSI0IiBmaWxsPSIjOGM3MTRiIi8+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNyIgcj0iMTIiIGZpbGw9IiNmZmU1OTIiIHN0cm9rZT0iI2JjOWEzZiIvPjxwYXRoIGQ9Ik0yNSA3djRtMCAzMnY0TTUgMjdoNG0zMiAwaDRNMTEgMTNsMyAzbTIzIDIzIDMgMyIgc3Ryb2tlPSIjZmZlNTkyIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNNTIgNDBjLTE1IDAtMTYtMTUtNC0xOCAwLTE2IDI0LTE4IDI5LTYgMTktNCAyOCAyNCA2IDI0eiIgZmlsbD0iI2ZmZjllOCIgc3Ryb2tlPSIjOGZhNjlhIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Im01NSA0NC0yIDZtMTItNi0yIDZtMTItNi0yIDYiIHN0cm9rZT0iIzQ2N2Y5OCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+Cg==",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     },
     {
       "path": "reports/2026-09-30-word-link-0053.html",

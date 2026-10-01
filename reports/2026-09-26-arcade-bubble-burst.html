@@ -498,12 +498,25 @@ function refreshShooter() {
 }
 function resetFx() { S.pops = []; S.falls = []; S.parts = []; S.texts = []; S.flying = null; S.aiming = false; S.shake = 0; S.shift = 0; S.flash = 0; }
 
+/* ---------- Digi site tracking (site contract §5) ----------
+   A round is one level attempt, or one Endless run. level = level number (1-40);
+   Endless sends mode 'endless' and no level. game_start fires on the first shot
+   or swap of the round, or when a timed level's clock first runs. */
+const GAME = 'bubble-burst';
+let rnd = { armed: false, open: false, secs: 0, how: 'new' }, armHow = 'new';
+function trk(ev, x) { try { if (window.digi && window.digi.track) window.digi.track(ev, Object.assign({ game: GAME }, x)); } catch (e) {} }
+function rndFields() { return S.kind === 'endless' ? { mode: 'endless' } : { level: S.idx + 1, mode: 'levels' }; }
+function rndArm() { rnd = { armed: true, open: false, secs: 0, how: armHow }; armHow = 'new'; }
+function rndStart() { if (!rnd.armed || rnd.open) return; rnd.armed = false; rnd.open = true; trk('game_start', Object.assign(rndFields(), { start: rnd.how })); }
+function rndEnd(win, x) { if (!rnd.open) rndStart(); if (!rnd.open) return; rnd.open = false; trk('game_end', Object.assign(rndFields(), { win: !!win, secs: Math.round(rnd.secs) }, x)); }
+
 function startLevel(idx, show = true) {
   idx = clamp(idx, 0, LEVELS.length - 1);
   const sp = LEVELS[idx], B = buildLevel(idx);
   Object.assign(S, { kind: 'level', idx, spec: sp, grid: B.grid, parity: 0, ceil: 0, score: 0, combo: 0, meter: 0,
     meterMax: sp.meter || 20, fired: 0, shotsLeft: sp.shots || null, timeLeft: sp.time || null, dropIn: sp.drop || 0, freed: 0, endT: 0 });
   resetFx();
+  rndArm();
   S.goalTotal = sp.goal === 'rescue' ? countWhere(S, h => h.t === 'star') : 0;
   S.colourStart = countWhere(S, isColour);
   S.par = PARS[idx] || Math.ceil(S.colourStart * .34) + 2;
@@ -529,6 +542,7 @@ function startEndless() {
   Object.assign(S, { kind: 'endless', idx: -1, spec: { name: 'Endless', colors: 4, specials: ALL3 }, grid: emptyGrid(), parity: 0, ceil: 0,
     score: 0, combo: 0, meter: 0, meterMax: 24, fired: 0, shotsLeft: null, timeLeft: null, rows: 0, freed: 0, endT: 0 });
   resetFx();
+  rndArm();
   S.rnd = mulberry((Date.now() & 0xffffff) + 7);
   for (let i = 0; i < 9; i++) pushRow(false);
   S.rowIn = rowEvery();
@@ -555,6 +569,7 @@ function fire() {
   if (S.mode !== 'play' || S.flying || !S.cur) return;
   const sim = simulate(S, S.angle);
   if (!sim) return;
+  rndStart();
   const pts = sim.pts, segs = [];
   let total = 0;
   for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); segs.push(l); total += l; }
@@ -566,6 +581,7 @@ function fire() {
 }
 function swap() {
   if (S.mode !== 'play' || !S.next) return;
+  rndStart();
   [S.cur, S.next] = [S.next, S.cur];
   snd('swap');
 }
@@ -659,6 +675,7 @@ function finish(win, reason) {
       '<button class="btn primary" data-act="endless" data-focus>Play again</button>' +
       '<div class="row2"><button class="btn" data-act="levels">Levels</button><button class="btn ghost" data-act="home">Menu</button></div>';
     snd(nb ? 'win' : 'lose');
+    rndEnd(false, { score: S.score, rows: Math.max(0, S.rows - 9) });
   } else if (win) {
     let bonus = 500, why = [], left = 0;
     for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
@@ -682,6 +699,7 @@ function finish(win, reason) {
             : '<button class="btn primary" data-act="next" data-focus>Next level</button>') +
       '<div class="row2"><button class="btn" data-act="retry">Replay</button><button class="btn ghost" data-act="levels">Levels</button></div>';
     snd('win');
+    rndEnd(true, { score: S.score, stars: st });
   } else {
     const msg = { room: 'The bubbles crossed the line.', shots: 'You ran out of shots.', time: 'Time ran out.' }[reason] || '';
     const prog = S.spec.goal === 'rescue' ? S.freed / Math.max(1, S.goalTotal) : 1 - goalLeft() / Math.max(1, S.colourStart);
@@ -690,6 +708,7 @@ function finish(win, reason) {
       '<button class="btn primary" data-act="retry" data-focus>Try again</button>' +
       '<div class="row2"><button class="btn" data-act="levels">Levels</button><button class="btn ghost" data-act="home">Menu</button></div>';
     snd('lose');
+    rndEnd(false, { score: S.score });
   }
   updHud();
   S.endHtml = html;
@@ -900,6 +919,18 @@ function resize() {
   $('hint').style.top = Math.max(band + 52, (DEADY - 106) * scale) + 'px';
 }
 window.addEventListener('resize', resize);
+/* Fullscreen, rotation and the phone's safe-area insets can move the HUD after the
+   resize event has already fired, which left the board drawn under the chips.
+   Re-measure after those events, and keep checking cheaply from the game loop. */
+let layoutKey = '';
+function layoutNow() {
+  const app = $('app').getBoundingClientRect(), hud = document.querySelector(LANDQ.matches ? '.top' : '.hud').getBoundingClientRect();
+  return Math.round(app.width) + 'x' + Math.round(app.height) + ':' + Math.round(hud.bottom - app.top);
+}
+function checkLayout() { const k = layoutNow(); if (k !== layoutKey) { layoutKey = k; resize(); } }
+['fullscreenchange', 'webkitfullscreenchange', 'orientationchange'].forEach(ev => (ev === 'orientationchange' ? window : document).addEventListener(ev, () => { checkLayout(); setTimeout(checkLayout, 120); setTimeout(checkLayout, 450); }));
+window.addEventListener('resize', () => { setTimeout(checkLayout, 120); setTimeout(checkLayout, 450); });
+if (window.visualViewport) window.visualViewport.addEventListener('resize', () => setTimeout(checkLayout, 60));
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { for (const k in spr) delete spr[k]; });
 function setSky(wd) {
   document.body.style.setProperty('--sky-a', wd.bg); document.body.style.setProperty('--sky-b', wd.bg2);
@@ -1083,8 +1114,10 @@ function pathPos(f) {
 
 /* ---------- loop ---------- */
 let last = performance.now(), lastHudSec = -1;
+let frameN = 0;
 function tick(now) {
   const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (++frameN % 15 === 0) checkLayout();
   step(dt);
   draw(now);
   requestAnimationFrame(tick);
@@ -1096,12 +1129,14 @@ function step(dt) {
     const k = (keys.ArrowLeft || keys.a ? 1 : 0) - (keys.ArrowRight || keys.d ? 1 : 0);
     if (k) { S.angle = clamp(S.angle + k * dt * (keys.Shift ? 2.2 : 1.1), MIN_A, MAX_A); S.guide = true; }
   }
+  if (S.mode === 'play' && rnd.open) rnd.secs += dt;
   if (S.flying && S.mode !== 'play') S.flying = null;
   if (S.flying) {
     S.flying.d += SPEED * dt;
     if (S.flying.d >= S.flying.total) { const f = S.flying; S.flying = null; land(f.sim, f.b); }
   }
   if (S.mode === 'play' && S.timeLeft != null) {
+    rndStart();
     S.timeLeft -= dt;
     const sec = Math.ceil(S.timeLeft);
     if (sec !== lastHudSec) { lastHudSec = sec; updHud(); if (sec <= 10 && sec > 0) snd('stick'); }
@@ -1216,7 +1251,7 @@ card.addEventListener('click', e => {
   else if (a === 'endless') startEndless();
   else if (a === 'home') openHome();
   else if (a === 'resume') resume();
-  else if (a === 'retry') S.kind === 'endless' ? startEndless() : startLevel(S.idx);
+  else if (a === 'retry') { armHow = 'retry'; S.kind === 'endless' ? startEndless() : startLevel(S.idx); }
   else if (a === 'next') startLevel(S.idx + 1);
 });
 $('pauseBtn').addEventListener('click', () => { if (S.mode === 'play') pause(); else if (S.mode === 'paused' && !ov.hidden && card.querySelector('[data-act=resume]')) { goFS(); resume(); } });
@@ -1285,6 +1320,8 @@ window.addEventListener('keydown', e => {
 });
 window.addEventListener('keyup', e => { const k = e.key.length === 1 ? e.key.toLowerCase() : e.key; keys[k] = false; });
 
+if (window.__DGTEST === true) window.__dg = { end: win => { if (S.mode === 'over') return; if (S.mode !== 'play') startLevel(nextLevelIdx(), false); rndStart(); finish(!!win, 'test'); } };
+
 /* ---------- test hook (only with #test in the URL) ---------- */
 if (location.hash === '#test') {
   window.BB = { S, LEVELS, startLevel, startEndless, simulate, resolveShot, presentColours, countWhere, isColour, goalLeft, lowestEff, nbrs,
@@ -1301,6 +1338,5 @@ showOverlay(homeHtml());
 requestAnimationFrame(t => { last = t; requestAnimationFrame(tick); });
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

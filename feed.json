@@ -1,8 +1,8 @@
 {
-  "built": "2026-10-03T07:14:09.954Z",
+  "built": "2026-10-03T13:18:00.583Z",
   "today": "2026-10-03",
   "timezone": "Europe/London",
-  "count": 474,
+  "count": 475,
   "items": [
     {
       "path": "reports/2026-10-03-crossword-mini-0084.html",
@@ -73,6 +73,20 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "................"
+    },
+    {
+      "path": "reports/2026-10-02-britain-pensions-international-comparison.html",
+      "kind": "report",
+      "topic": "Economy",
+      "headline": "Britain’s pension system relies on more than the state",
+      "standfirst": "A comparison with the G7, the Netherlands and Australia shows why state pension payments alone cannot tell us how well a retirement system works.",
+      "date": "2026-10-02",
+      "read": "~4 min",
+      "thumb": "",
+      "stat": "£241.30",
+      "statUnit": "",
+      "statLabel": "state pension",
+      "mask": ""
     },
     {
       "path": "reports/2026-10-02-crossword-mini-0083.html",

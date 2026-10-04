@@ -140,13 +140,13 @@ let S=1,W=400,H=700,dpr=1;
 const G={};let pads=[];let coast=[];
 
 /* ---------- tuning (set by simulation) ---------- */
-const CFG={firstDay:90,day:60,sk0:5,skN:3,skL:1.2,hpExp:0.72,nightGrow:0.04,chests0:4,chestCoins:5,chestsDawn:3,towerHp:100,
+const CFG={firstDay:90,day:60,sk0:5,skN:3,skL:1.2,hpExp:0.68,nightGrow:0.04,chests0:4,chestCoins:5,chestsDawn:3,towerHp:100,
  skiff:{hp:18,spd:27,dps:5,r:11,coins:2},fog:{hp:26,spd:20,dps:5,r:12,coins:3,fog:true},boss:{hp:240,spd:11,dps:20,r:22,coins:14},krakenHp:36,
- trip:12,cratePrice:3,priceStep:2,
+ trip:12,cratePrice:3,priceStep:1.5,
  /* damage as a slope, not a cliff: lit ships chip the tower from range on the way in; at the shore fewer fire at once, each harder and slower */
  chipR:210,chipGap:3.5,chipMul:0.5,chipN:3,shoreGap:2.6,shoreMul:1.8,
  /* mid game pressure from headland 3 */
- midN:1.25,midHp:1.1};
+ midN:1.2,midHp:1.05};
 const ET={skiff:CFG.skiff,fog:CFG.fog,boss:CFG.boss};
 
 /* ---------- map: a headland jutting north from the mainland ---------- */
@@ -443,11 +443,13 @@ const burnNow=()=>burnL(lampLvl())*(lampSpec()==='focus'?1.5:1);
 function chooseSpec(p){const o=SPECS[p.type];if(!o)return;if(SIM){p.spec=o[Math.random()<0.5?0:1].id;return;}
  $('card').innerHTML=`<h2>Choose a speciality</h2><p>Your ${padInfo(p).t.toLowerCase()} has reached level 3. Pick how it works from now on.</p>`+o.map(x=>`<button class="btn" data-s="${x.id}"><span>${x.name}<small>${x.d}</small></span></button>`).join('');
  $('card').querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{p.spec=b.dataset.s;$('modal').hidden=true;last=performance.now();toast(o.find(x=>x.id===p.spec).name,o.find(x=>x.id===p.spec).d);}));$('modal').hidden=false;}
-const tripT=l=>CFG.trip/(1+0.35*(l-1))/(1+0.15*meta.up.net),cratesPer=(l,p)=>(p&&p.spec==='night'?1:l>=3?2:1)+(l>=5?1:0),priceL=l=>CFG.cratePrice+CFG.priceStep*(l-1);
+const tripT=l=>CFG.trip/(1+0.35*(l-1))/(1+0.15*meta.up.net),cratesPer=(l,p)=>(p&&p.spec==='night'?1:l>=3?2:1)+(l>=5?1:0),priceL=l=>Math.round(CFG.cratePrice+CFG.priceStep*(l-1));
 const canDmg=l=>7*Math.pow(1.45,l-1)*(1+0.15*meta.up.dmg),canRange=l=>170+25*l;
 /* mason: each visit repairs 10% of the tower, or adds 10% shield once it is whole (shield caps at 50%). The price climbs with every visit in a day and with the headland */
 const MASON_STEP=0.1,SHIELD_MAX=0.5,masonCost=()=>Math.round((5+2.5*st.L)*Math.pow(1.4,st.masonN||0));
-const cost=p=>p.type==='mason'?masonCost():Math.round(p.base*Math.pow(1.9,p.level-(p.start||0)));
+/* income buildings (boats, market, cart) get dearer faster than defences, so an all-economy opening isn't a free win */
+const ECON={market:1},costG=p=>ECON[p.type]?2.3:1.9;
+const cost=p=>p.type==='mason'?masonCost():Math.round(p.base*Math.pow(costG(p),p.level-(p.start||0)));
 const market=()=>pads.find(p=>p.id==='market');
 /* build tiers: level 4 opens from headland 4 and level 5 from headland 7, so later beaches always have something worth saving for */
 const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.type==='mason'?(st.hp<st.maxHp||((st.shield||0)<st.maxHp*SHIELD_MAX&&st.phase==='day'&&st.dayLen-st.t<25)):p.level<maxLvl();
@@ -1432,6 +1434,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

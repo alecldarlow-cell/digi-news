@@ -241,7 +241,7 @@ function applyCam(c,k,ox,oy){c.setTransform(k*cam.z,0,0,k*cam.z,k*(200-cam.x*cam
 function inView(p,m){const q=worldToScr(p);return q.x>m&&q.x<400-m&&q.y>m&&q.y<H-m;}
 const BUILT={jetty:'Its boat lands crates of fish on the beach. Carry them to the market stall to turn them into coins.',market:'Every crate now sells for more coins.',
  cannon:'It fires at lit ships in range. At night, keep the beam near where it points.',lamp:'A wider beam and a stronger burn, so fog ships show up sooner.',
- dog:'By day it fetches coins lying away from you and brings them back. Leave it the far ones.',cart:'By day it collects crates from the beach and sells them at the market for you.'};
+ dog:'It digs up coins while it waits, opens chests you have not reached and fetches far coins. At night it brings them to the tower door.',cart:'By day it collects crates from the beach and sells them at the market for you.'};
 const BEACH=[null,
  {fl:'Striped cliffs of red and white chalk, looking west over the Wash.',nw:'chests, a fishing boat, the market and your first cannon',tip:'Coins pay for buildings. Stand still on a square to build it.'},
  {fl:'Salt marsh and dunes, where a 4,000-year-old timber circle was found in the sand.',nw:'a kraken on night 3, plus a second cannon, the lamp and a second boat to build',tip:'A kraken grabs a cannon so it cannot fire. Burn the kraken with the beam to free it.'},
@@ -255,7 +255,8 @@ const BEACH=[null,
  {fl:'Tall dunes where grey seals come ashore to have their pups.',nw:'tougher ships again',tip:'Keep the tower above half health for the second star, and above 85% for the third.'},
  {fl:'The harbour mouth where the river Yare meets the sea.',nw:'another fog ship every night',tip:'Upgrade the lamp: a wider beam catches fog ships sooner and burns harder.'},
  {fl:'The most easterly point in Britain, and the last light on the coast.',nw:'the final headland and the strongest fleet yet',tip:'Clear it to unlock the gold paint and the keeper\'s crown.'}];
-const beachOf=L=>BEACH[L]||{fl:'Past the last lighthouse, the sea goes on.',nw:'stronger ships with every headland',tip:BEACH[4+(L%9)].tip};
+const beachOf=L=>{const b=beachOf0(L),x=[];if(nightsOf(L)>nightsOf(L-1))x.push(nightsOf(L)===4?'a fourth night to hold':'a fifth night to hold');if(capL(L)>capL(L-1))x.push('level '+capL(L)+' for every building');return x.length?Object.assign({},b,{nw:b.nw+', plus '+x.join(' and ')}):b;};
+const beachOf0=L=>BEACH[L]||{fl:'Past the last lighthouse, the sea goes on.',nw:'stronger ships with every headland',tip:BEACH[4+(L%9)].tip};
 /* ---------- first-time signs: shown once ever (saved), point at the thing, say why and what to do, go after ~4s or a tap ---------- */
 const signQ=[];let signCur=null;
 const NIGHT_SIGNS={fog:1,boss:1,kraken:1,merchant:1,lowHp:1};
@@ -415,12 +416,14 @@ function applySnap(o){Object.assign(st,{night:o.night,phase:'day',t:o.t,dayLen:o
  if(walkable(o.k[0],o.k[1])){st.keeper.x=o.k[0];st.keeper.y=o.k[1];}if(o.tf)st.tutF=o.tf;st.gain=o.g||0;}
 function snapState(){const n=st.phase==='night';return{L:st.L,night:n?st.night-1:st.night,t:n?CFG.day-10:st.t,dayLen:n?CFG.day:st.dayLen,carried:st.carried,fish:st.fish,hp:st.hp,
   pads:pads.map(p=>[p.id,p.level,p.paid,p.spec||null]),chests:st.chests.filter(c=>!c.open).map(c=>[c.x,c.y,c.coins]),coins:st.coins.map(c=>[c.x,c.y]),crates:st.crates.map(c=>[c.x,c.y,c.pad]),k:[st.keeper.x,st.keeper.y],tf:st.tutF,g:st.gain||0};}
-function retryNight(cp){newIsland(true,cp);st.t=Math.max(0,st.dayLen-8);st.cp=cp;toast('Night 3 again','Your buildings are as you left them. Dark falls in 8 seconds, so spend any coins now.');}
+function retryNight(cp){newIsland(true,cp);st.t=Math.max(0,st.dayLen-8);st.cp=cp;toast('Night '+NN()+' again','Your buildings are as you left them. Dark falls in 8 seconds, so spend any coins now.');}
 function saveRun(){if(SIM||!st||st.over)return;try{localStorage.setItem(RUNKEY,JSON.stringify(snapState()))}catch(e){}}
 function clearRun(){if(SIM)return;try{localStorage.removeItem(RUNKEY)}catch(e){}}
 function washChests(n,coins){for(let i=0;i<n;i++){let x,y,ok=false,tries=0;
   while(!ok&&tries++<40){x=24+Math.random()*352;y=coastY(x)+16+Math.random()*6;ok=walkable(x,y+4)&&pads.every(p=>{const q=padPos(p);return Math.hypot(p.x-x,p.y-y)>44&&Math.hypot(q.x-x,q.y-y)>40;})&&Math.hypot(G.lx-x,G.ly-y)>40&&st.chests.every(c=>Math.hypot(c.x-x,c.y-y)>50);}
   if(ok)st.chests.push({x,y,coins,open:false,t:0});}}
+/* rounds per headland grow along the coast */
+const nightsOf=L=>L>=8?5:L>=4?4:3,NN=()=>nightsOf(st.L);
 const unlocked=p=>(!p.minL||st.L>=p.minL)&&(!p.req||pads.find(q=>q.id===p.req).level>0);
 const padPos=p=>(p.level>0&&p.type!=='lamp')?{x:p.x+p.ux,y:p.y+p.uy,s:34}:{x:p.x,y:p.y,s:44};
 const fs=n=>Math.max(n,12/S)/Math.sqrt(cam.z);
@@ -435,19 +438,21 @@ const burnNow=()=>burnL(lampLvl())*(lampSpec()==='focus'?1.5:1);
 function chooseSpec(p){const o=SPECS[p.type];if(!o)return;if(SIM){p.spec=o[Math.random()<0.5?0:1].id;return;}
  $('card').innerHTML=`<h2>Choose a speciality</h2><p>Your ${padInfo(p).t.toLowerCase()} has reached level 3. Pick how it works from now on.</p>`+o.map(x=>`<button class="btn" data-s="${x.id}"><span>${x.name}<small>${x.d}</small></span></button>`).join('');
  $('card').querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{p.spec=b.dataset.s;$('modal').hidden=true;last=performance.now();toast(o.find(x=>x.id===p.spec).name,o.find(x=>x.id===p.spec).d);}));$('modal').hidden=false;}
-const tripT=l=>CFG.trip/(1+0.35*(l-1))/(1+0.15*meta.up.net),cratesPer=(l,p)=>p&&p.spec==='night'?1:l>=3?2:1,priceL=l=>CFG.cratePrice+CFG.priceStep*(l-1);
+const tripT=l=>CFG.trip/(1+0.35*(l-1))/(1+0.15*meta.up.net),cratesPer=(l,p)=>(p&&p.spec==='night'?1:l>=3?2:1)+(l>=5?1:0),priceL=l=>CFG.cratePrice+CFG.priceStep*(l-1);
 const canDmg=l=>7*Math.pow(1.45,l-1)*(1+0.15*meta.up.dmg),canRange=l=>170+25*l;
 const cost=p=>Math.round(p.base*Math.pow(1.9,p.level-(p.start||0)));
 const market=()=>pads.find(p=>p.id==='market');
+/* build tiers: level 4 opens from headland 4 and level 5 from headland 7, so later beaches always have something worth saving for */
+const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.level<maxLvl();
 const jettySide=p=>p.x<G.cx?1:-1,jettyTip=p=>({x:p.x,y:coastY(p.x)-40});
 
 /* ---------- what each build spot does ---------- */
-const dogCap=l=>[0,3,5,8][l],dogSpd=l=>[0,80,100,125][l],cartCap=l=>[0,2,3,4][l],cartSpd=l=>[0,45,60,75][l];
+const dogCap=l=>[0,6,10,16,24,32][l],dogSpd=l=>[0,90,110,130,145,160][l],dogDig=l=>[0,1,2,3,5,7][l],DIG_T=7,cartCap=l=>[0,2,3,4,5,6][l],cartSpd=l=>[0,45,60,75,85,95][l];
 function padInfo(p){const r=padInfo0(p);if(p.level===2&&SPECS[p.type])r.s+='  ·  then choose a speciality';return r;}
 function padInfo0(p){const L=p.level,N=L+1,arrow=(a,b)=>L?`${a} → ${b}`:`${b}`;
- if(p.type==='dog')return{t:'Beach dog',d:'',s:L?`Carries ${dogCap(L)} → ${dogCap(N)} coins · faster`:`Fetches coins for you by day, ${dogCap(1)} at a time`};
+ if(p.type==='dog')return{t:'Beach dog',d:'',s:L?`Carries ${dogCap(L)} → ${dogCap(N)} · digs up ${dogDig(L)} → ${dogDig(N)} coins`:`Digs up coins, opens far chests, fetches day and night`};
  if(p.type==='cart')return{t:'Fish cart',d:'',s:L?`Carries ${cartCap(L)} → ${cartCap(N)} crates · faster`:`Hauls ${cartCap(1)} crates at a time to the market`};
- if(p.type==='jetty')return{t:'Fishing boat',d:'Sails out by day and lands crates of fish here. Carry the crates to the fish market to sell them.',s:(L?`Trip ${tripT(L).toFixed(1)}s → ${tripT(N).toFixed(1)}s`:`A trip every ${tripT(1).toFixed(1)}s`)+(N>=3?'  ·  2 crates per trip':'')};
+ if(p.type==='jetty')return{t:'Fishing boat',d:'Sails out by day and lands crates of fish here. Carry the crates to the fish market to sell them.',s:(L?`Trip ${tripT(L).toFixed(1)}s → ${tripT(N).toFixed(1)}s`:`A trip every ${tripT(1).toFixed(1)}s`)+(N>=5?`  ·  ${cratesPer(5,p)} crates per trip`:N>=3?'  ·  2 crates per trip':'')};
  if(p.type==='market')return{t:'Fish market',d:'Walk up to the stall with crates of fish to sell them. Upgrading raises the price.',s:`${priceL(L)} → ${priceL(N)} coins per crate`};
  if(p.type==='cannon')return{t:'Cannon',d:'Fires at any ship that is lit up. Ships inside the beam take 50% extra damage.',s:'Damage '+arrow(Math.round(canDmg(L)),Math.round(canDmg(N)))+'  ·  Range '+arrow(canRange(L),canRange(N))};
  const a=L+1,b=L+2,deg=l=>Math.round(beamHalfL(l)*2*57.3);
@@ -503,7 +508,7 @@ function showStyle(back){const it=(arr,key)=>arr.map(x=>{const own=owned(x),on=m
  $('bk').addEventListener('click',back);}
 function showLog(back){const s=meta.stats,mins=Math.round(s.played/60),worst=s.lostN.indexOf(Math.max(...s.lostN));
  const row=(a,b)=>`<div class="lrow"><span>${a}</span><b>${b}</b></div>`;
- $('card').innerHTML=pageHead("Keeper's logbook")+`<div class="log">${row('Furthest headland',hName(Math.min(meta.island,99)))}${row('Headlands cleared',s.wins)}${row('Attempts',s.attempts)}${row('Ships sunk',s.sunk)}${row('Merchants guided home',s.saved)}${row('Merchants that turned back',s.turned)}${row('Time at the lamp',mins<60?mins+' min':(mins/60).toFixed(1)+' h')}${row('Losses on nights 1 / 2 / 3',s.lostN.join(' / '))}</div>${Math.max(...s.lostN)>0?`<p class="note">Most losses happen on night ${worst+1}.</p>`:''}`;
+ $('card').innerHTML=pageHead("Keeper's logbook")+`<div class="log">${row('Furthest headland',hName(Math.min(meta.island,99)))}${row('Headlands cleared',s.wins)}${row('Attempts',s.attempts)}${row('Ships sunk',s.sunk)}${row('Merchants guided home',s.saved)}${row('Merchants that turned back',s.turned)}${row('Time at the lamp',mins<60?mins+' min':(mins/60).toFixed(1)+' h')}${row('Losses on nights 1 / 2 / 3+',s.lostN.join(' / '))}</div>${Math.max(...s.lostN)>0?`<p class="note">Most losses happen on night ${worst+1}.</p>`:''}`;
  $('bk').addEventListener('click',back);}
 const pageHead=t=>`<div class="phead"><button class="bk" id="bk" type="button" aria-label="Back">&#8249; Back</button><h2>${t}</h2></div>`;
 const sw=(id,on,label,sub)=>`<button class="btn" id="${id}" role="switch" aria-checked="${on}"><span>${label}${sub?`<small>${sub}</small>`:''}</span><i class="sw2${on?' on':''}"></i></button>`;
@@ -511,7 +516,7 @@ function openMenu(via){if(!st||st.over||!$('modal').hidden||awayOpen)return;joy=
  const close=()=>{$('modal').hidden=true;last=performance.now();};
  const nav=(id,label,sub)=>`<button class="btn nav" id="${id}"><span>${label}<small>${sub}</small></span><span class="chev" aria-hidden="true">&#8250;</span></button>`;
  const spd={slow:'Slow',normal:'Normal',fast:'Fast'};
- const root=()=>{$('card').innerHTML=`<h2>Paused</h2><p>${hName(st.L)} · ${st.phase==='night'?'night '+st.night:'day '+(st.night+1)} of 3 · <span class="star">★ ${meta.stars}</span></p><button class="btn primary" id="res">Resume</button>
+ const root=()=>{$('card').innerHTML=`<h2>Paused</h2><p>${hName(st.L)} · ${st.phase==='night'?'night '+st.night:'day '+(st.night+1)} of ${NN()} · <span class="star">★ ${meta.stars}</span></p><button class="btn primary" id="res">Resume</button>
   <div class="sect">Your game</div>
   ${nav('vC','Coast chart',`${hName(st.L)} · headland ${st.L}${st.L<=FINALE?' of '+FINALE:''}`)}
   ${nav('vS','Lighthouse and keeper','Tower paint and hats')}
@@ -551,6 +556,12 @@ function openMenu(via){if(!st||st.over||!$('modal').hidden||awayOpen)return;joy=
   sure('rA','Tap again to erase all headlands, stars and upgrades.',()=>{const m={muted:meta.muted,music:meta.music,rm:meta.rm,sens:meta.sens,sea:meta.sea,tutDone:meta.tutDone};meta=Object.assign(freshMeta(),m);saveMeta();clearRun();newIsland(true);last=performance.now();});
   if($('tT'))$('tT').addEventListener('click',()=>{meta.tutDone=false;saveMeta();clearRun();newIsland(true);last=performance.now();});};
  root();$('modal').hidden=false;}
+/* ghost-tap guard: the tap that opens a menu (or changes its page) can land a second time on whatever button
+   appears under the finger. Ignore taps on the menu for a moment after it opens or its page changes. */
+{let guard=0;const mo=$('modal'),arm=ms=>{guard=Math.max(guard,performance.now()+ms);};
+ new MutationObserver(()=>{if(!mo.hidden)arm(450);}).observe(mo,{attributes:true,attributeFilter:['hidden']});
+ new MutationObserver(()=>{if(!mo.hidden)arm(300);}).observe($('card'),{childList:true});
+ for(const ev of ['click','pointerdown','pointerup','touchend'])mo.addEventListener(ev,e=>{if(performance.now()<guard){e.stopPropagation();if(ev==='click'||ev==='touchend')e.preventDefault();}},true);}
 $('sign').addEventListener('click',()=>signDismiss('tap'));
 $('tutSkip').addEventListener('click',()=>{meta.tutDone=true;saveMeta();toast('Tutorial skipped','Tap the game to pause. The guided start can be replayed from there.');});
 $('menu').addEventListener('click',()=>{audioInit();openMenu('button');});
@@ -575,15 +586,21 @@ function msgUpdate(dt){if(SIM)return;const el=$('toast');
  else{msgGap-=dt;if(msgGap<=0&&msgQ.length){msgCur=msgQ.shift();msgT=0;el.querySelector('h2').textContent=msgCur.h;el.querySelector('p').textContent=msgCur.p;el.classList.toggle('banner',!!(st&&st.phase==='night'));el.style.opacity=1;}}}
 
 /* ---------- nights: each one adds a new threat ---------- */
-function startNight(){if(st.night===2)st.cp=snapState();st.night++;if(st.night===1)rndStart();st.phase='night';st.t=0;st.warned=false;st.keeper.inTower=true;joy=null;
- const n=st.night,L=st.L;st.hpMul=Math.pow(L,CFG.hpExp)*(1+CFG.nightGrow*(n-1))*(1-(st.assist||0));
- const q=[];const sk=Math.round((CFG.sk0+CFG.skN*n+(L-1)*CFG.skL*(n===1?0.5:1))*(1-(st.assist||0)));if(n===1)st.hpMul*=0.85;
+function startNight(){if(st.night===NN()-1)st.cp=snapState();st.night++;if(st.night===1)rndStart();st.phase='night';st.t=0;st.warned=false;st.keeper.inTower=true;joy=null;
+ const n=st.night,L=st.L,N=NN(),last=n===N;
+ /* nn: how hard this night is on the old three-night curve. Extra nights fill in the curve, and the last night of a 5-night beach goes one step past it */
+ const nn=n<=1?1:1+(n-1)*((N-3)*0.5+2)/(N-1);
+ st.hpMul=Math.pow(L,CFG.hpExp)*(1+CFG.nightGrow*(nn-1))*(1-(st.assist||0));
+ const q=[];const sk=Math.round((CFG.sk0+CFG.skN*nn+(L-1)*CFG.skL*(n===1?0.5:1))*(1-(st.assist||0)));if(n===1)st.hpMul*=0.85;
  const skN=Math.max(3,Math.round(sk*sea().n));for(let i=0;i<skN;i++)q.push({type:'skiff',at:1.5+i*(26/skN)+Math.random()*1.2});
  st.hpMul*=sea().hp*(L===1?0.8:1);
- if(n>=2){const f=Math.max(1,Math.round((n-1+Math.floor((L-1)/2))*sea().n));for(let i=0;i<f;i++)q.push({type:'fog',at:6+i*7});}
- if(n===3){if(L>=2)q.push({type:'kraken',at:9});q.push({type:'boss',at:18});}
+ if(n>=2){const f=Math.max(1,Math.round((nn-1+Math.floor((L-1)/2))*sea().n)),gap=Math.min(7,20/Math.max(1,f-1));for(let i=0;i<f;i++)q.push({type:'fog',at:6+i*gap});}
+ if(last){if(L>=2)q.push({type:'kraken',at:9});q.push({type:'boss',at:18});}
+ else if(n===3&&N>=5&&L>=2)q.push({type:'kraken',at:12});
  if(n<=2||L>=3)q.push({type:'merchant',at:n===1?9:7});
- q.sort((a,b)=>a.at-b.at);st.q=q;st.nightTotal=q.filter(x=>x.type!=='merchant').length;play('bell');play('horn');
+ q.sort((a,b)=>a.at-b.at);
+ {const sh=q.filter(x=>x.type!=='merchant'&&x.type!=='kraken'),k=Math.min(5,Math.ceil(sh.length*0.25));if(sh.length>=6){const tail=sh.slice(-k),t0=Math.max(tail[0].at-2,sh[sh.length-k-1].at+1);tail.forEach((x,i)=>{x.at=t0+i*0.5;});q.sort((a,b)=>a.at-b.at);}}
+ st.q=q;st.nightTotal=q.filter(x=>x.type!=='merchant').length;play('bell');play('horn');
  if(!meta.seen.night1){meta.seen.night1=1;saveMeta();toast('Night has fallen','Ships are coming for the tower, and cannons only fire at lit ships. Drag to swing the beam onto them.');}}
 const LANES=[40,120,200,280,360];
 function spawn(type){
@@ -615,9 +632,9 @@ function spawnKraken(){const cans=pads.filter(p=>p.type==='cannon'&&p.level>0&&!
 const num=(x,y,txt,col)=>st.nums.push({x,y,txt,col,t:0});
 const part=o=>st.parts.push(Object.assign({t:0,vx:0,vy:0,r:3,max:0.8},o));
 function update(dt){
- msgUpdate(dt);signUpdate(dt);camUpdate(dt);
+ msgUpdate(dt);signUpdate(dt);camUpdate(dt);{const lp=pads.find(p=>p.id==='lamp');G.oy=G.ly-62-3*(lp?lp.level:0);}
  st.shake=Math.max(0,st.shake-dt);st.hitFlash=Math.max(0,st.hitFlash-dt);
- for(const p of st.parts){p.t+=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.kind==='plank'){p.vx*=0.97;p.vy*=0.97;p.rot=(p.rot||0)+dt*3;}}
+ for(const p of st.parts){p.t+=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.kind==='plank'){p.vx*=0.97;p.vy*=0.97;p.rot=(p.rot||0)+dt*3;}if(p.kind==='dirt')p.vy+=180*dt;}
  st.parts=st.parts.filter(p=>p.t<p.max);
  for(const n of st.nums)n.t+=dt;st.nums=st.nums.filter(n=>n.t<0.9);
  for(const w of st.wrecks)w.t+=dt;st.wrecks=st.wrecks.filter(w=>w.t<1.6);
@@ -635,9 +652,7 @@ function update(dt){
  if(vx)k.f=Math.sign(vx);k.walk+=Math.hypot(vx,vy)*dt*12;
  const tl=Math.hypot(k.x-G.lx,(k.y-G.ly)*1.3);if(tl<22){const a=Math.atan2(k.y-G.ly,k.x-G.lx);k.x=G.lx+Math.cos(a)*22;k.y=G.ly+Math.sin(a)*22/1.3;}
  // chests
- for(const c of st.chests){if(c.open){c.t+=dt;continue;}if(!k.inTower&&Math.hypot(k.x-c.x,k.y-c.y)<18){c.open=true;play('chest');st.tutF.chest=true;c.lidT=0;
-   for(let i=0;i<c.coins;i++){const a=Math.random()*6.28,r=14+Math.random()*16;dropCoin(c.x+Math.cos(a)*r,c.y+6+Math.sin(a)*r*0.7,{x:c.x,y:c.y-8},0.12+i*0.03);}
-   st.fx.push({kind:'ring',x:c.x,y:c.y,t:0});}}
+ for(const c of st.chests){if(c.open){c.t+=dt;continue;}if(!k.inTower&&Math.hypot(k.x-c.x,k.y-c.y)<18){st.tutF.chest=true;openChest(c);}}
  st.chests=st.chests.filter(c=>c.t<2.5);
  // crates: pick up, then sell at the market
  for(const c of st.crates){c.age+=dt;if(!k.inTower&&st.fish<8&&c.age>0.3&&Math.hypot(k.x-c.x,k.y-c.y)<16){c.dead=true;st.fish++;play('thud');st.tutF.crate=true;meta.seen.crate=1;if(st.fish>=8)sign('handsFull',()=>st.keeper,'Your hands are full','You can carry 8 crates. Sell them at the market before picking up more.');}}
@@ -647,11 +662,12 @@ function update(dt){
  // build spots
  for(const p of pads){if(!unlocked(p))continue;
   if(p.build>0){p.build-=dt;if(p.build<=0)p.pop=0.45;}if(p.pop>0)p.pop-=dt;if(p.recoil>0)p.recoil-=dt;
-  if(p.level<3){const pp=padPos(p),near=!k.inTower&&Math.abs(k.x-pp.x)<pp.s/2+4&&Math.abs(k.y-pp.y)<pp.s/2+4,on=near&&st.carried>0&&!(p.build>0)&&!p.lock;
+  if(padOpen(p)){const pp=padPos(p),near=!k.inTower&&Math.abs(k.x-pp.x)<pp.s/2+4&&Math.abs(k.y-pp.y)<pp.s/2+4,on=near&&st.carried>0&&!(p.build>0)&&!p.lock;
    if(p.lock&&!near&&!(p.build>0))p.lock=false;
    p.dwell=on&&k.mv<0.12?(p.dwell||0)+dt:0;
    if(p.dwell>0.45){p.t+=dt;
-    while(p.t>0.05&&st.carried>0){p.t-=0.05;st.carried--;p.paid++;st.fx.push({kind:'fly',x:k.x,y:k.y-14,tx:pp.x,ty:pp.y,t:0});play('pay',p.paid/cost(p));
+    /* pay in bigger chunks for big costs, so even a level-5 build fills in about two seconds */
+    const chunk=Math.max(1,Math.ceil(cost(p)/40));while(p.t>0.05&&st.carried>0){p.t-=0.05;const c=Math.min(chunk,st.carried,cost(p)-p.paid);st.carried-=c;p.paid+=c;st.fx.push({kind:'fly',x:k.x,y:k.y-14,tx:pp.x,ty:pp.y,t:0});play('pay',p.paid/cost(p));
      if(p.paid>=cost(p)){p.level++;{const q=padPos(p);for(const c of st.chests){if(c.open||Math.hypot(c.x-q.x,c.y-q.y)>36)continue;for(const dx of [44,-44,70,-70]){const nx=c.x+dx;if(walkable(nx,c.y+4)&&pads.every(o=>{const r=padPos(o);return Math.hypot(r.x-nx,r.y-c.y)>36})){c.x=nx;break;}}}}if(p.level===3&&SPECS[p.type]){if(SIM)chooseSpec(p);else{const tryC=()=>{if(!$('modal').hidden||st.over){setTimeout(tryC,800);return;}chooseSpec(p);};setTimeout(tryC,1500);}}p.paid=0;p.dwell=0;p.build=1.4;p.lock=true;st.fx.push({kind:'ring',x:p.x,y:p.y,t:0});play('hammer');
       {const t=padInfo(p).t+(p.level>1?' level '+p.level:' built'),why=BUILT[p.type],pp=p;if(p.level===1&&why&&(p.type==='dog'||p.type==='cart'))sign('built_'+p.type,()=>({x:pp.x,y:pp.y-8}),t,why);else if(p.level===1&&why&&!meta.seen['built_'+p.type]){meta.seen['built_'+p.type]=1;saveMeta();toast(t,why);}else toast(t,padInfo(p).s.split('  ·  ')[0]);}break;}}}else p.t=0;}
   if(p.level<1)continue;
@@ -672,6 +688,8 @@ function update(dt){
  for(const c of st.coins){c.age+=dt;const d=Math.hypot(k.x-c.x,k.y-c.y);if(d<60&&c.age>0.45){c.x+=(k.x-c.x)/d*300*dt;c.y+=(k.y-c.y)/d*300*dt;}if(d<12&&c.age>0.45){c.dead=true;st.carried++;coinSfx();st.fx.push({kind:'wal',x:c.x,y:c.y-4,t:0});}}
  st.coins=st.coins.filter(c=>!c.dead);
  // night
+ for(const m of st.merchants){if(m.state==='lost')continue;m.t+=dt;if(m.state==='gone'){m.h=-Math.PI/2;m.y-=30*dt;}}
+ st.merchants=st.merchants.filter(m=>!(m.state!=='lost'&&m.t>3));
  if(st.phase==='night'){
   if(tutOn()&&!st.tutF.lit&&st.enemies.length){for(const q of st.q)q.at+=dt;}
   while(st.q.length&&st.q[0].at<=st.t){const ty=st.q.shift().type;spawn(ty);if(tutOn()&&!st.tutF.lit&&st.enemies.length===1)st.enemies[0].tutSlow=true;}
@@ -683,7 +701,7 @@ function update(dt){
    if(e.beam){e.hp-=bdps*dt;e.burnAcc+=bdps*dt;e.burnT+=dt;e.smokeT-=dt;
     if(e.smokeT<=0){e.smokeT=0.09;part({kind:'smoke',x:e.x+Math.random()*10-5,y:e.y+Math.random()*6-3,vx:Math.random()*10-5,vy:-18,r:3+Math.random()*2,max:0.8});part({kind:'ember',x:e.x+Math.random()*12-6,y:e.y,vx:Math.random()*20-10,vy:-30,r:1.5,max:0.5});}
     if(e.burnT>0.6){num(e.x,e.y-e.d.r-6,'-'+Math.round(e.burnAcc),'#ffb347');e.burnAcc=0;e.burnT=0;}}
-   if(!e.atk){const mx=e.tx-e.x,my=e.ty-e.y,m=Math.hypot(mx,my);if(e.slowT>0)e.slowT-=dt;const v=e.d.spd*sea().spd*(e.beam?0.5:1)*(e.slowT>0?0.67:1)*(e.tutSlow&&!st.tutF.lit?0.4:1);e.h=Math.atan2(my,mx);
+   if(!e.atk){const mx=e.tx-e.x,my=e.ty-e.y,m=Math.hypot(mx,my);if(e.slowT>0)e.slowT-=dt;const v=e.d.spd*sea().spd*(e.beam?0.5:1)*(!st.q.length&&st.enemies.length<=5?1.6:1)*(e.slowT>0?0.67:1)*(e.tutSlow&&!st.tutF.lit?0.4:1);e.h=Math.atan2(my,mx);
     if(m<3)e.atk=true;else{e.x+=mx/m*v*dt;e.y+=my/m*v*dt;}}
    else{e.fire-=dt;if(e.fire<=0&&firing.includes(e)){e.fire=1.4;const tx=G.lx+Math.random()*12-6,ty=G.ly-30+Math.random()*16;
      st.eshots.push({sx:e.x,sy:e.y,tx,ty,t:0,T:Math.hypot(tx-e.x,ty-e.y)/200,dmg:e.d.dps*1.4});part({kind:'flash',x:e.x,y:e.y,r:5,max:0.1});play('pop');}}
@@ -700,15 +718,15 @@ function update(dt){
    if(kr.hp<=0){kr.state='sink';kr.t=0;if(kr.tgt)kr.tgt.grabbed=false;play('splash');
     for(let i=0;i<6;i++){const cx=Math.max(20,Math.min(380,kr.x+Math.random()*40-20));dropCoin(cx,coastY(cx)+14+Math.random()*8);}}}
   st.krakens=st.krakens.filter(kr=>!(kr.state==='sink'&&kr.t>1.2));
-  for(const m of st.merchants){m.t+=dt;m.beam=inBeam(m.x,m.y);
-   if(m.state==='lost'){const dx=m.tx-m.x,dy=m.ty-m.y,d=Math.hypot(dx,dy);m.h=Math.atan2(dy,dx);
+  for(const m of st.merchants){if(m.state!=='lost')continue;m.t+=dt;m.beam=inBeam(m.x,m.y);
+   {const dx=m.tx-m.x,dy=m.ty-m.y,d=Math.hypot(dx,dy);m.h=Math.atan2(dy,dx);
     /* beyond the beam's reach (e.g. after a resize or a resumed save): sail in on its own, and the dark doesn't count yet */
     if(!m.beam&&Math.hypot(m.x-G.ox,m.y-G.oy)>450){m.x+=dx/d*24*dt;m.y+=dy/d*24*dt;}
     else if(m.beam){m.x+=dx/d*34*dt;m.y+=dy/d*34*dt;m.lost=Math.max(0,m.lost-dt*0.5);}else{m.lost+=dt;m.x+=dx/d*3*dt;m.y+=dy/d*3*dt;}
     if(d<8){m.state='safe';m.t=0;st.tutF.merchant=true;const n=Math.round(10*Math.sqrt(st.L));for(let i=0;i<n;i++){const cx=Math.max(20,Math.min(380,m.tx+Math.random()*30-15));dropCoin(cx,coastY(cx)+16+Math.random()*8);}meta.stats.saved++;play('win');toast('Merchant home safe','It paid '+n+' coins. They are on the beach by the jetty.');}
-    else if(m.lost>14){m.state='gone';m.t=0;st.tutF.merchant=true;meta.stats.turned++;toast('The merchant turned back','It gave up after too long in the dark. Flick the beam back to it every few seconds.');}}
-   else if(m.state==='gone'){m.h=-Math.PI/2;m.y-=30*dt;}}
-  st.merchants=st.merchants.filter(m=>!(m.state!=='lost'&&m.t>3));
+    else if(m.lost>14){m.state='gone';m.t=0;st.tutF.merchant=true;meta.stats.turned++;toast('The merchant turned back','It gave up after too long in the dark. Flick the beam back to it every few seconds.');}
+    /* never sail over the headland: slide along the shore instead */
+    if(m.state==='lost'){const cy=coastY(m.x)-16;if(m.y>cy&&Math.abs(m.tx-m.x)>20)m.y=Math.max(cy,Math.min(m.y,m.ty));}}}
   if(!st.q.length&&!st.enemies.length&&!st.krakens.length&&!st.merchants.some(m=>m.state==='lost')&&st.t>6)dawn();
  }else{if(!st.warned&&st.dayLen-st.t<8){st.warned=true;toast('Night in 8 seconds','Ships attack after dark. Finish building now: coins you carry cannot fire a cannon.');}if(st.t>=st.dayLen)startNight();}
  updateHelpers(dt);signChecks();
@@ -731,19 +749,31 @@ function update(dt){
  if(st.pc!=null&&st.carried>st.pc)st.gain+=st.carried-st.pc;st.pc=st.carried;
 }
 function signChecks(){if(SIM||st.over||signCur||signQ.length)return;
- if(st.phase==='day'&&!meta.seen.padReady&&!tutOn()){const p=pads.find(p=>unlocked(p)&&p.level<3&&!(p.build>0)&&!p.lock&&st.carried>=cost(p)-p.paid);if(p)sign('padReady',()=>{const q=padPos(p);return{x:q.x,y:q.y-q.s/2};},'You can afford this','The square glows when you have the coins. Stand still on it to build.');}
+ if(st.phase==='day'&&!meta.seen.padReady&&!tutOn()){const p=pads.find(p=>unlocked(p)&&padOpen(p)&&!(p.build>0)&&!p.lock&&st.carried>=cost(p)-p.paid);if(p)sign('padReady',()=>{const q=padPos(p);return{x:q.x,y:q.y-q.s/2};},'You can afford this','The square glows when you have the coins. Stand still on it to build.');}
  if(st.phase==='night'&&st.hp<st.maxHp*0.3)sign('lowHp',()=>({x:G.lx,y:G.ly-60}),'The tower is badly hurt','If it reaches zero the light goes out. Keep the beam on the closest ships: they burn and sail at half speed.');}
 function moveTo(o,t,v,dt){const dx=t.x-o.x,dy=t.y-o.y,d=Math.hypot(dx,dy);if(d<1)return true;const s=Math.min(d,v*dt);o.x+=dx/d*s;o.y+=dy/d*s;o.f=dx<0?-1:1;o.walk=(o.walk||0)+dt*12;return d<5;}
 function updateHelpers(dt){const k=st.keeper,day=st.phase==='day';
  const dp=pads.find(p=>p.id==='dog');
- if(dp&&dp.level>0){const d=st.dog||(st.dog={x:G.cottage.x,y:G.cottage.y+14,state:'idle',load:0,f:1});const v=dogSpd(dp.level);
-  if(!day){d.state='home';moveTo(d,{x:G.cottage.x,y:G.cottage.y+14},v,dt);if(d.tgt){d.tgt.claim=false;d.tgt=null;}}
-  else{if(d.state==='home')d.state=d.load?'return':'idle';
-   if(d.state==='idle'||d.state==='fetch'){if(!d.tgt||d.tgt.dead||!st.coins.includes(d.tgt)){d.tgt=null;let bd=1e9;for(const c of st.coins){if(c.claim||c.age<0.6||Math.hypot(c.x-k.x,c.y-k.y)<70)continue;const dd=Math.hypot(c.x-d.x,c.y-d.y);if(dd<bd){bd=dd;d.tgt=c;}}
-     if(d.tgt){d.tgt.claim=true;d.state='fetch';}else d.state=d.load?'return':'idle';}
-    if(d.tgt&&moveTo(d,d.tgt,v,dt)){d.tgt.dead=true;st.coins=st.coins.filter(c=>c!==d.tgt);d.tgt=null;d.load++;if(d.load>=dogCap(dp.level))d.state='return';}
-    if(d.state==='idle'&&!d.tgt)moveTo(d,{x:k.x+30*(k.f||1),y:k.y+10},v*0.6,dt);}
-   if(d.state==='return'&&!k.inTower){if(moveTo(d,k,v,dt)||Math.hypot(d.x-k.x,d.y-k.y)<14){if(d.load){st.carried+=d.load;num(k.x,k.y-50,'+'+d.load,'#f6c343');play('purse');st.fx.push({kind:'wal',x:k.x,y:k.y-30,t:0});}d.load=0;d.state='idle';}}}}
+ /* the beach dog: digs up coins while idle, opens chests the keeper hasn't reached, fetches far coins,
+    and keeps working at night (it hands its load in at the tower door while the keeper is up the tower) */
+ if(dp&&dp.level>0){const d=st.dog||(st.dog={x:G.cottage.x,y:G.cottage.y+14,state:'idle',load:0,f:1,dig:0});const v=dogSpd(dp.level),cap=dogCap(dp.level);
+  const drop=k.inTower?{x:G.lx+18,y:G.ly+18}:k;
+  if(d.state==='home')d.state=d.load?'return':'idle';
+  if(d.state==='idle'||d.state==='fetch'){
+   if(!d.tgt||(d.tgt.coin&&(d.tgt.o.dead||!st.coins.includes(d.tgt.o)))||(d.tgt.chest&&d.tgt.o.open)){if(d.tgt&&d.tgt.o)d.tgt.o.claim=false;d.tgt=null;let bd=1e9;
+    const away=o=>k.inTower||Math.hypot(o.x-k.x,o.y-k.y)>=70;
+    for(const c of st.coins){if(c.claim||c.age<0.6||!away(c))continue;const dd=Math.hypot(c.x-d.x,c.y-d.y);if(dd<bd){bd=dd;d.tgt={coin:1,o:c};}}
+    if(day)for(const c of st.chests){if(c.open||c.claim||!(k.inTower||Math.hypot(c.x-k.x,c.y-k.y)>=90))continue;const dd=Math.hypot(c.x-d.x,c.y-d.y)*0.7;if(dd<bd){bd=dd;d.tgt={chest:1,o:c};}}
+    if(d.tgt){d.tgt.o.claim=true;d.state='fetch';}else d.state=d.load?'return':'idle';}
+   if(d.tgt&&moveTo(d,d.tgt.o,v,dt)){const o=d.tgt.o;d.tgt=null;
+    if(o.coin===undefined&&st.chests.includes(o)){o.claim=false;openChest(o);}
+    else{o.dead=true;st.coins=st.coins.filter(c=>c!==o);d.load++;if(d.load>=cap)d.state='return';}}
+   if(d.state==='idle'&&!d.tgt){
+    if(day&&!k.inTower){moveTo(d,{x:k.x+30*(k.f||1),y:k.y+10},v*0.6,dt);d.dig+=dt;
+     if(d.dig>=DIG_T){d.dig=0;const n=dogDig(dp.level);d.load+=n;d.digT=0.6;for(let i=0;i<6;i++)part({kind:'dirt',x:d.x+Math.random()*8-4,y:d.y,vx:Math.random()*50-25,vy:-30-Math.random()*30,r:1.8,max:0.5});num(d.x,d.y-24,'dug +'+n,'#f6c343');d.state='return';}}
+    else moveTo(d,{x:G.cottage.x,y:G.cottage.y+14},v*0.6,dt);}}
+  if(d.digT>0)d.digT-=dt;
+  if(d.state==='return'){if(moveTo(d,drop,v,dt)||Math.hypot(d.x-drop.x,d.y-drop.y)<14){if(d.load){st.carried+=d.load;num(drop.x,drop.y-(k.inTower?30:50),'+'+d.load,'#f6c343');play('purse');st.fx.push({kind:'wal',x:drop.x,y:drop.y-30,t:0});}d.load=0;d.state='idle';}}}
  const cp=pads.find(p=>p.id==='cart');
  if(cp&&cp.level>0){const c=st.cart||(st.cart={x:cp.x,y:cp.y-6,state:'idle',load:0,f:1});const v=cartSpd(cp.level),mk=market();
   if(!day&&c.state!=='sell'){if(c.tgt){c.tgt.claim=false;c.tgt=null;}if(c.load)c.state='sell';else moveTo(c,{x:cp.x,y:cp.y-6},v,dt);}
@@ -775,11 +805,14 @@ function sinkShip(e){meta.stats.sunk++;st.wrecks.push({x:e.x,y:e.y,h:e.h,d:e.d,t
  for(let i=0;i<7;i++){const a=Math.random()*6.28,v=30+Math.random()*50;part({kind:'plank',x:e.x,y:e.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:e.d.r*0.35,max:1.4,rot:a});}
  for(let i=0;i<e.d.coins;i++){const cx=Math.max(20,Math.min(380,e.x+Math.random()*30-15));dropCoin(cx,coastY(cx)+14+Math.random()*8);}}
 /* coins pop out with a small hop and a wobble that settles flat; from = where they fly out of (a chest), delay staggers a burst */
+function openChest(c){if(c.open)return;c.open=true;c.t=0;play('chest');c.lidT=0;
+ for(let i=0;i<c.coins;i++){const a=Math.random()*6.28,r=14+Math.random()*16;dropCoin(c.x+Math.cos(a)*r,c.y+6+Math.sin(a)*r*0.7,{x:c.x,y:c.y-8},0.12+i*0.03);}
+ st.fx.push({kind:'ring',x:c.x,y:c.y,t:0});}
 function dropCoin(x,y,from,delay){st.coins.push({x,y,age:-(delay||0),ph:Math.random()*6,fx:from?from.x:x,fy:from?from.y:y});}
 function dawn(){st.phase='day';st.t=0;st.dayLen=CFG.day*sea().day;if(tutOn()){meta.tutDone=true;saveMeta();toast('You are the keeper now','Fish and build by day, light the lamp at night. Tap the game to pause.');}st.keeper.inTower=false;st.keeper.x=G.lx;st.keeper.y=G.ly+24;dial=null;aimId=null;
- if(st.night>=3){cleared();return;}
+ if(st.night>=NN()){cleared();return;}
  st.hp=Math.min(st.maxHp,st.hp+st.maxHp*0.25);washChests(CFG.chestsDawn,Math.round(6*Math.sqrt(st.L)));saveRun();
- if(!sign('dawn',()=>{const c=st.chests.find(c=>!c.open);return c?{x:c.x,y:c.y}:null;},'Dawn: chests washed up','The tide brings new chests every morning. Walk onto them for coins, then build before night '+(st.night+1)+' of 3.'))toast('Dawn','Night '+(st.night+1)+' of 3 comes next. The tower mended a quarter of its damage.');}
+ if(!sign('dawn',()=>{const c=st.chests.find(c=>!c.open);return c?{x:c.x,y:c.y}:null;},'Dawn: chests washed up','The tide brings new chests every morning. Walk onto them for coins, then build before night '+(st.night+1)+' of '+NN()+'.'))toast('Dawn','Night '+(st.night+1)+' of '+NN()+' comes next. The tower mended a quarter of its damage.');}
 
 /* ---------- stars and the harbour ---------- */
 let lastResult=null;
@@ -789,8 +822,8 @@ function cleared(){st.over=true;const frac=st.hp/st.maxHp,stars=1+(frac>=0.5?1:0
  meta.beamLearned=true;saveMeta();
  harbour(fin?'The whole coast is lit':`${hName(done)} is safe`,stars,fin?`Every lighthouse from Hunstanton to Lowestoft Ness is lit. The gold paint and the keeper's crown are yours.`:'',`Sail to ${hName(meta.island)}`,null,meta.island,st.gain||0);}
 function lose(){st.over=true;const survived=st.night-1;let stars=0;if(survived>=2&&meta.lossL!==st.L){stars=1;meta.lossL=st.L;}meta.stars+=stars;meta.earned+=stars*sea().starX;meta.stats.lostN[Math.min(2,st.night-1)]++;if(meta.streakL===st.L)meta.streakN++;else{meta.streakL=st.L;meta.streakN=1;}saveMeta();clearRun();play('lose');lastResult={win:false,L:st.L,stars,night:st.night};rndEnd(false,{stars,night:st.night});
- const cp=st.night===3?st.cp:null;
- harbour('The light went out',stars,`You held ${survived} of 3 nights.${stars?' That earns a star.':''} The sea will be a little calmer next try.`,`Restart ${hName(st.L)}`,cp?()=>retryNight(cp):null,0,st.gain||0);}
+ const cp=st.night===NN()?st.cp:null;
+ harbour('The light went out',stars,`You held ${survived} of ${NN()} nights.${stars?' That earns a star.':''} The sea will be a little calmer next try.`,`Restart ${hName(st.L)}`,cp?()=>retryNight(cp):null,0,st.gain||0);}
 const upCost=k=>1+meta.up[k];
 function buy(k){if(meta.up[k]<5&&meta.stars>=upCost(k)){meta.stars-=upCost(k);meta.up[k]++;saveMeta();return true;}return false;}
 /* between-headland card: one results line, then what is new on the next beach */
@@ -799,7 +832,7 @@ function harbour(title,stars,text,next,retry,nextL,coins){if(SIM)return;
  const bL=nextL||st.L,bi=beachOf(bL),win=!!nextL;
  const beach=`<div class="beach"><div class="k">${win?'Next':'This headland'} · ${bL<=FINALE?'headland '+bL+' of '+FINALE:'open sea'}</div><h3>${hName(bL)}</h3><p class="fl">${bi.fl}</p>${win?`<p class="nw">New here: <i>${bi.nw}</i></p>`:''}${mapOf(bL).here?`<p class="tp" style="margin:0 0 6px"><b>This beach:</b> ${mapOf(bL).here}</p>`:''}<p class="tp"><b>Tip:</b> ${bi.tip}</p></div>`;
  const render=()=>{$('card').innerHTML=`<h2>${title}</h2><div class="results">${starRow}${coinRow}</div>${text?`<p>${text}</p>`:''}${beach}`+
-  (retry?`<button class="btn primary" id="retry">Retry night 3 with your base</button><button class="btn" id="go" style="justify-content:center">${next}</button>`:`<button class="btn primary" id="go">${next}</button>`)+
+  (retry?`<button class="btn primary" id="retry">Retry the last night with your base</button><button class="btn" id="go" style="justify-content:center">${next}</button>`:`<button class="btn primary" id="go">${next}</button>`)+
   `<button class="btn nav" id="hb"><span>Harbour<small>Spend stars on upgrades · coast chart</small></span><span class="price">★ ${meta.stars}</span></button><a class="link home" href="../games.html">&larr; Digi Games</a>`;
   $('go').addEventListener('click',()=>newIsland(true));if(retry)$('retry').addEventListener('click',retry);$('hb').addEventListener('click',shop);};
  const shop=()=>{$('card').innerHTML=pageHead('Harbour')+`<p style="text-align:left">Stars buy upgrades that last for every headland. You have <span class="star">★ ${meta.stars}</span>.</p>`+
@@ -871,7 +904,7 @@ function wake(x,y,h,r,alpha){ctx.save();ctx.translate(x,y);ctx.rotate(h);ctx.str
 function pill(x,y,txt,col){const f=fs(10);ctx.font=`800 ${f}px Nunito,system-ui,sans-serif`;const w=ctx.measureText(txt).width+10,h=f+5;ctx.fillStyle='rgba(8,20,33,.85)';rr(ctx,x-w/2,y-h/2,w,h,h/2);ctx.fill();ctx.fillStyle=col;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,x,y+0.5);}
 function nextJob(){const k=st.keeper,near=(arr)=>{let b=null,bd=1e9;for(const o of arr){const d=Math.hypot(o.x-k.x,o.y-k.y);if(d<bd){bd=d;b=o;}}return b;};
  if(st.fish>0&&(st.fish>=3||!st.crates.length)){const m=market();return{x:m.x,y:m.y-10};}
- const aff=pads.filter(p=>unlocked(p)&&p.level<3&&!(p.build>0)&&!p.lock&&st.carried>=cost(p)-p.paid).map(p=>padPos(p));if(aff.length)return near(aff);
+ const aff=pads.filter(p=>unlocked(p)&&padOpen(p)&&!(p.build>0)&&!p.lock&&st.carried>=cost(p)-p.paid).map(p=>padPos(p));if(aff.length)return near(aff);
  if(st.crates.length&&st.fish<8)return near(st.crates);
  const ch=st.chests.filter(c=>!c.open);if(ch.length)return near(ch);
  const far=st.coins.filter(c=>Math.hypot(c.x-k.x,c.y-k.y)>60);if(far.length)return near(far);
@@ -980,6 +1013,8 @@ function drawCannon(p){const x=p.x,y=p.y,L=p.level,O='#2a1d10';
  ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(x+2,y+4,18,9,0,0,7);ctx.fill();
  ctx.fillStyle=L>=3?'#b8afa1':'#9a9186';ctx.beginPath();ctx.arc(x,y,L>=3?18:16,0,7);ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=1;ctx.stroke();
  if(L>=3){ctx.strokeStyle='rgba(90,80,70,.6)';for(let i=0;i<10;i++){const a=i*0.628;ctx.beginPath();ctx.moveTo(x+Math.cos(a)*12,y+Math.sin(a)*12);ctx.lineTo(x+Math.cos(a)*18,y+Math.sin(a)*18);ctx.stroke();}ctx.strokeStyle='#d4a52a';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x,y,12,0,7);ctx.stroke();ctx.lineWidth=1;}
+ if(L>=4){ctx.fillStyle='#d4a52a';for(let i=0;i<8;i++){const a=i*0.785+0.39;ctx.beginPath();ctx.arc(x+Math.cos(a)*15,y+Math.sin(a)*15,1.3,0,7);ctx.fill();}}
+ if(L>=5){ctx.strokeStyle='#d4a52a';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,18.5,0,7);ctx.stroke();ctx.lineWidth=1;}
  ctx.fillStyle=L>=3?'#9c9385':'#857c70';ctx.beginPath();ctx.arc(x,y,11.5,0,7);ctx.fill();
  if(L===2){ctx.fillStyle='#cdb88c';ctx.strokeStyle='#8c7650';for(let i=0;i<7;i++){const a=Math.PI*0.15+i*0.45;ctx.beginPath();ctx.ellipse(x+Math.cos(a)*15,y+Math.sin(a)*15,4,2.6,a+Math.PI/2,0,7);ctx.fill();ctx.stroke();}}
  const rc=-5*Math.max(0,(p.recoil||0)/0.15);ctx.save();ctx.translate(x,y);ctx.rotate(p.ang);ctx.translate(rc,0);
@@ -988,12 +1023,12 @@ function drawCannon(p){const x=p.x,y=p.y,L=p.level,O='#2a1d10';
  ctx.strokeStyle='rgba(40,25,10,.5)';ctx.beginPath();ctx.moveTo(-9.5,-2.2);ctx.lineTo(6.5,-2.2);ctx.moveTo(-9.5,2.2);ctx.lineTo(6.5,2.2);ctx.stroke();
  if(L>=2){ctx.fillStyle='#474c54';ctx.fillRect(-5,-6.5,1.6,13);ctx.fillRect(2.5,-6.5,1.6,13);}
  if(p.spec==='chain'){ctx.strokeStyle='#b9bec5';ctx.lineWidth=0.9;for(let i=0;i<4;i++){ctx.beginPath();ctx.ellipse(-8.5+i*2.4,-8.6,1.3,0.8,0,0,7);ctx.stroke();}}
- const len=(p.spec==='long'?24:19)+(L>=3?2:0),w0=L>=3?5.3:4.6,w1=L>=3?3.9:3.4,col=L>=3?'#1f2126':L===2?'#a8733a':'#4a4f57',hi=L>=3?'#5a606a':L===2?'#e8b476':'#858b94',band=L>=3?'#d4a52a':L===2?'#6b4a22':'#2b2e33';
- ctx.fillStyle=col;ctx.strokeStyle=O;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-8,-w0);ctx.lineTo(len,-w1);ctx.lineTo(len,w1);ctx.lineTo(-8,w0);ctx.arc(-8,0,w0,Math.PI*0.5,Math.PI*1.5);ctx.closePath();ctx.fill();ctx.stroke();
+ const len=(p.spec==='long'?24:19)+(L>=3?2:0),w0=L>=3?5.3:4.6,w1=L>=3?3.9:3.4,col=L>=3?'#1f2126':L===2?'#a8733a':'#4a4f57',hi=L>=3?'#5a606a':L===2?'#e8b476':'#858b94',band=L>=3?'#d4a52a':L===2?'#6b4a22':'#2b2e33';const col2=L>=5?'#3a2a4a':col;
+ ctx.fillStyle=col2;ctx.strokeStyle=O;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-8,-w0);ctx.lineTo(len,-w1);ctx.lineTo(len,w1);ctx.lineTo(-8,w0);ctx.arc(-8,0,w0,Math.PI*0.5,Math.PI*1.5);ctx.closePath();ctx.fill();ctx.stroke();
  ctx.beginPath();ctx.arc(-13.8,0,1.9,0,7);ctx.fill();ctx.stroke();
  rr(ctx,len-3,-w1-1,3.6,2*w1+2,1);ctx.fill();ctx.stroke();
  ctx.fillStyle=hi;ctx.fillRect(-7,-w0+1.3,len+2,1.1);
- ctx.fillStyle=band;for(const bx of (L>=2?[-5,3,len-7]:[-4]))ctx.fillRect(bx,-w0+0.2,1.8,2*w0-0.4);
+ ctx.fillStyle=band;for(const bx of (L>=4?[-6,-1,4,len-8,len-4]:L>=2?[-5,3,len-7]:[-4]))ctx.fillRect(bx,-w0+0.2,1.8,2*w0-0.4);
  ctx.fillStyle='#0c0d0f';ctx.beginPath();ctx.ellipse(len+0.7,0,0.9,w1*0.62,0,0,7);ctx.fill();
  ctx.restore();}
 function crate(x,y,s){ctx.fillStyle='rgba(0,0,0,.2)';ctx.fillRect(x-7*s,y+4*s,15*s,3*s);ctx.fillStyle='#a7743f';ctx.fillRect(x-7*s,y-5*s,14*s,10*s);ctx.strokeStyle='#6e4a24';ctx.lineWidth=1;ctx.strokeRect(x-7*s,y-5*s,14*s,10*s);
@@ -1149,7 +1184,7 @@ function draw(){
  // build spots
  for(const p of pads){if(p.build>0){const u=1-p.build/1.4;for(let i=0;i<3;i++){const a=clock*6+i*2.1;ctx.fillStyle=`rgba(230,220,200,${0.5*(1-u)})`;ctx.beginPath();ctx.arc(p.x+Math.cos(a)*16,p.y+6+Math.sin(a)*5,4+u*4,0,7);ctx.fill();}
   ctx.save();ctx.translate(p.x+14,p.y-18);ctx.rotate(Math.sin(clock*18)*0.6);ctx.fillStyle='#5b3d22';ctx.fillRect(-1,0,2,9);ctx.fillStyle='#8c939b';ctx.fillRect(-4,-2,8,4);ctx.restore();}}
- for(const p of pads){if(!unlocked(p)||p.level>=3||p.build>0||p.lock)continue;const pp=padPos(p),s=pp.s,can=st.carried>=cost(p)-p.paid&&st.phase==='day';
+ for(const p of pads){if(!unlocked(p)||!padOpen(p)||p.build>0||p.lock)continue;const pp=padPos(p),s=pp.s,can=st.carried>=cost(p)-p.paid&&st.phase==='day';
   ctx.globalAlpha=can||p.paid>0?1:0.62;
   ctx.fillStyle='rgba(20,30,20,.35)';rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.fill();
   if(can){ctx.save();ctx.shadowColor='rgba(246,195,67,.95)';ctx.shadowBlur=meta.rm?8:8+5*Math.sin(clock*5);ctx.strokeStyle='rgba(246,195,67,.9)';ctx.lineWidth=3;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();ctx.restore();}
@@ -1168,7 +1203,9 @@ function draw(){
    ctx.fillStyle='#bcd3dc';for(let i=0;i<3;i++){ctx.beginPath();ctx.ellipse(p.x-9+i*9,p.y+1,4,1.8,0,0,7);ctx.fill();}
    if(st.fish>0&&Math.hypot(st.keeper.x-p.x,st.keeper.y-p.y)<80){ctx.strokeStyle=`rgba(246,195,67,${0.5+0.4*Math.sin(clock*6)})`;ctx.lineWidth=2;ctx.beginPath();ctx.arc(p.x,p.y,30,0,7);ctx.stroke();}}
   if(p.type==='cannon')drawCannon(p);
-  if(p.type!=='lamp')for(let i=0;i<p.level;i++){ctx.fillStyle='#f6c343';ctx.strokeStyle='#8a6410';ctx.lineWidth=1;ctx.beginPath();ctx.arc(p.x-8+i*8,p.y-(p.type==='cannon'?22:24),2.8,0,7);ctx.fill();ctx.stroke();}
+  if(p.type!=='lamp'){const n=p.level,py=p.y-(p.type==='cannon'?22:24);for(let i=0;i<n;i++){ctx.fillStyle='#f6c343';ctx.strokeStyle='#8a6410';ctx.lineWidth=1;ctx.beginPath();ctx.arc(p.x-(n-1)*3.5+i*7,py,2.6,0,7);ctx.fill();ctx.stroke();}
+   if(n>=4){const fx=p.x+(p.type==='cannon'?15:14),fy=p.y-(p.type==='cannon'?8:14),fw=meta.rm?0:Math.sin(clock*5+p.x)*1.4;ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(fx,fy);ctx.lineTo(fx,fy-20);ctx.stroke();
+    ctx.fillStyle=n>=5?'#d4a52a':paintC();ctx.beginPath();ctx.moveTo(fx,fy-20);ctx.lineTo(fx+11,fy-17+fw);ctx.lineTo(fx,fy-13);ctx.closePath();ctx.fill();ctx.lineWidth=0.7;ctx.stroke();}}
   ctx.restore();
   if(p.type==='jetty'&&st.crates.filter(c=>c.pad===p.id).length>=6)pill(p.x,p.y-30,'FULL','#ff8a70');}
  // chests, crates, coins
@@ -1177,19 +1214,51 @@ function draw(){
  drawCart(st.cart);drawDog(st.dog);
  for(const c of st.coins)drawGroundCoin(c);
  // lighthouse + keeper
- const drawL=()=>{const x=G.lx,y=G.ly,h=56;ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(x+6,y+3,24,8,0,0,7);ctx.fill();
+ /* the lighthouse grows with the lamp: taller tower, bigger lantern, gold gallery, a dome, a weathervane;
+    Stone base (harbour upgrade) adds a stone plinth */
+ const lp=pads.find(p=>p.id==='lamp'),lv=lp?lp.level:0,hb=meta.up.hull||0,TH=56+3*lv;
+ const drawL=()=>{const x=G.lx,y=G.ly,h=TH,O='#2a1d10',night=st.dk;ctx.save();
+  if(lp&&lp.pop>0&&!meta.rm){const q=Math.sin((1-lp.pop/0.45)*Math.PI);ctx.translate(x,y);ctx.scale(1-0.08*q,1+0.14*q);ctx.translate(-x,-y);}
+  if(lv>=3){const R=26+5*lv,a=(0.10+0.05*(lv-3))*(0.5+0.5*night)+0.06*Math.sin(clock*2)*(meta.rm?0:1),rg=ctx.createRadialGradient(x,y-h-8,0,x,y-h-8,R);rg.addColorStop(0,`rgba(255,228,140,${a})`);rg.addColorStop(1,'rgba(255,228,140,0)');ctx.fillStyle=rg;ctx.beginPath();ctx.arc(x,y-h-8,R,0,7);ctx.fill();}
+  ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(x+6,y+3,24+hb,8,0,0,7);ctx.fill();
+  if(hb>0){const w=21+hb*1.4;ctx.fillStyle='#7d756b';ctx.beginPath();ctx.ellipse(x,y+1,w,8,0,0,7);ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=0.8;ctx.stroke();
+   ctx.strokeStyle='rgba(40,30,20,.45)';for(let i=0;i<8+hb;i++){const a=Math.PI*(0.05+0.9*i/(7+hb));ctx.beginPath();ctx.moveTo(x+Math.cos(a)*w,y+1+Math.sin(a)*8);ctx.lineTo(x+Math.cos(a)*w*0.8,y+1+Math.sin(a)*6.4);ctx.stroke();}
+   if(hb>=5){ctx.strokeStyle='#d4a52a';ctx.lineWidth=1.4;ctx.beginPath();ctx.ellipse(x,y+1,w-2,6.6,0,0.1,Math.PI-0.1);ctx.stroke();}}
   ctx.fillStyle='#8c8f94';ctx.beginPath();ctx.ellipse(x,y,19,7,0,0,7);ctx.fill();ctx.fillStyle='#a7aaaf';ctx.beginPath();ctx.ellipse(x,y-2,17,6,0,0,7);ctx.fill();
-  ctx.save();ctx.beginPath();ctx.moveTo(x-14,y-2);ctx.lineTo(x-9,y-h);ctx.lineTo(x+9,y-h);ctx.lineTo(x+14,y-2);ctx.closePath();ctx.fillStyle=st.hitFlash>0.12?'#ffffff':'#f5f1e8';ctx.fill();ctx.clip();
-  ctx.fillStyle=st.hitFlash>0.12?'#ffd0c0':paintC();for(let i=0;i<3;i++)ctx.fillRect(x-16,y-14-i*16,32,8);
+  const bw=14+(lv>=4?1:0),tw=9+(lv>=4?0.5:0);
+  ctx.save();ctx.beginPath();ctx.moveTo(x-bw,y-2);ctx.lineTo(x-tw,y-h);ctx.lineTo(x+tw,y-h);ctx.lineTo(x+bw,y-2);ctx.closePath();ctx.fillStyle=st.hitFlash>0.12?'#ffffff':'#f5f1e8';ctx.fill();ctx.clip();
+  ctx.fillStyle=st.hitFlash>0.12?'#ffd0c0':paintC();for(let i=0;y-14-i*16>y-h+2;i++)ctx.fillRect(x-16,y-14-i*16,32,8);
   ctx.fillStyle='rgba(0,0,0,.14)';ctx.fillRect(x+2,y-h,16,h);
+  /* windows: one at level 1, more from level 4; they glow after dark */
+  const win=(wy)=>{ctx.fillStyle=night>0.3?`rgba(255,214,120,${0.6+0.4*night})`:'#3b4650';rr(ctx,x-2.2,wy-3.5,4.4,7,2);ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=0.7;ctx.stroke();};
+  if(lv>=1)win(y-h*0.62);if(lv>=4){win(y-h*0.36);win(y-h*0.86);}
   const dmg=1-st.hp/st.maxHp;if(dmg>0.3){ctx.strokeStyle='rgba(40,30,30,.6)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(x-6,y-20);ctx.lineTo(x-2,y-28);ctx.lineTo(x-5,y-34);ctx.stroke();}
   if(dmg>0.6){ctx.beginPath();ctx.moveTo(x+5,y-8);ctx.lineTo(x+2,y-16);ctx.lineTo(x+6,y-24);ctx.stroke();}
-  ctx.restore();ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x-14,y-2);ctx.lineTo(x-9,y-h);ctx.lineTo(x+9,y-h);ctx.lineTo(x+14,y-2);ctx.stroke();
-  ctx.fillStyle='#7a5231';ctx.fillRect(x-3,y-11,6,9);
-  ctx.fillStyle='#2b2e33';ctx.fillRect(x-13,y-h-3,26,4);ctx.strokeStyle='#2b2e33';ctx.lineWidth=1;for(let i=-11;i<=11;i+=4){ctx.beginPath();ctx.moveTo(x+i,y-h-3);ctx.lineTo(x+i,y-h-7);ctx.stroke();}
-  const glow=0.5+0.5*st.dk;ctx.fillStyle=`rgba(255,${210+30*glow|0},120,${0.7+0.3*glow})`;ctx.fillRect(x-7,y-h-13,14,10);ctx.strokeStyle='#2b2e33';ctx.strokeRect(x-7,y-h-13,14,10);
-  ctx.fillStyle=paintC();ctx.beginPath();ctx.moveTo(x-10,y-h-13);ctx.lineTo(x,y-h-22);ctx.lineTo(x+10,y-h-13);ctx.fill();ctx.fillStyle='#2b2e33';ctx.beginPath();ctx.arc(x,y-h-23,1.8,0,7);ctx.fill();};
- if(st.keeper.inTower){drawL();ctx.fillStyle='#f2c230';ctx.strokeStyle='#2a1d10';ctx.lineWidth=0.8;ctx.beginPath();ctx.arc(G.lx+4,G.ly-63,2.6,0,7);ctx.fill();ctx.stroke();}
+  ctx.restore();ctx.strokeStyle=O;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x-bw,y-2);ctx.lineTo(x-tw,y-h);ctx.lineTo(x+tw,y-h);ctx.lineTo(x+bw,y-2);ctx.stroke();
+  ctx.fillStyle='#7a5231';ctx.fillRect(x-3,y-11,6,9);if(lv>=2){ctx.fillStyle='#d4a52a';ctx.beginPath();ctx.arc(x+1.6,y-6,0.9,0,7);ctx.fill();}
+  /* gallery and railing */
+  const gw=13+lv,gold=lv>=2;ctx.fillStyle='#2b2e33';ctx.fillRect(x-gw,y-h-3,2*gw,4);
+  ctx.strokeStyle=gold?'#b8903a':'#2b2e33';ctx.lineWidth=1;for(let i=-gw+2;i<=gw-2;i+=4){ctx.beginPath();ctx.moveTo(x+i,y-h-3);ctx.lineTo(x+i,y-h-7);ctx.stroke();}
+  if(gold){ctx.strokeStyle='#d4a52a';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x-gw,y-h-7);ctx.lineTo(x+gw,y-h-7);ctx.stroke();}
+  if(lv>=4){ctx.fillStyle='#2b2e33';ctx.fillRect(x-gw+3,y-h+6,2*gw-6,2.5);}
+  /* lantern */
+  const lw=7+lv,lh=10+lv,ly=y-h-3-lh,glow=0.5+0.5*night;
+  ctx.fillStyle=`rgba(255,${210+30*glow|0},120,${0.7+0.3*glow})`;ctx.fillRect(x-lw,ly,2*lw,lh);
+  if(lv>=3&&!meta.rm){const u=(clock*0.6)%1,sx=x-lw+u*2*lw;ctx.save();ctx.beginPath();ctx.rect(x-lw,ly,2*lw,lh);ctx.clip();ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillRect(sx-1.5,ly,3,lh);ctx.restore();}
+  ctx.strokeStyle='#2b2e33';ctx.lineWidth=1;ctx.strokeRect(x-lw,ly,2*lw,lh);
+  if(lv>=1){ctx.strokeStyle='rgba(43,46,51,.7)';for(let i=1;i<(lv>=3?4:3);i++){const bx=x-lw+i*2*lw/(lv>=3?4:3);ctx.beginPath();ctx.moveTo(bx,ly);ctx.lineTo(bx,ly+lh);ctx.stroke();}}
+  /* roof: painted cone, then a copper dome at level 3, a gold dome at level 5 */
+  let top;
+  if(lv<3){ctx.fillStyle=paintC();ctx.beginPath();ctx.moveTo(x-lw-3,ly);ctx.lineTo(x,ly-9);ctx.lineTo(x+lw+3,ly);ctx.fill();ctx.strokeStyle=O;ctx.stroke();top=ly-9;}
+  else{const dr=lw+2;ctx.fillStyle=lv>=5?'#d4a52a':'#3f7d6b';ctx.beginPath();ctx.ellipse(x,ly,dr,dr*0.85,0,Math.PI,0);ctx.closePath();ctx.fill();ctx.strokeStyle=O;ctx.stroke();
+   ctx.fillStyle='rgba(255,255,255,.3)';ctx.beginPath();ctx.ellipse(x-dr*0.35,ly-dr*0.45,dr*0.22,dr*0.14,-0.5,0,7);ctx.fill();
+   ctx.strokeStyle='#d4a52a';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x-dr,ly);ctx.lineTo(x+dr,ly);ctx.stroke();top=ly-dr*0.85;}
+  ctx.fillStyle='#2b2e33';ctx.beginPath();ctx.arc(x,top-1,1.8,0,7);ctx.fill();
+  if(lv>=4){ctx.strokeStyle=O;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,top-1);ctx.lineTo(x,top-12);ctx.stroke();
+   const sw=meta.rm?0:Math.sin(clock*0.8)*0.4;ctx.save();ctx.translate(x,top-9);ctx.rotate(sw);ctx.fillStyle=lv>=5?'#d4a52a':'#2b2e33';ctx.beginPath();ctx.moveTo(-6,0);ctx.lineTo(5,-1);ctx.lineTo(7,0);ctx.lineTo(5,1);ctx.closePath();ctx.fill();ctx.fillRect(-7,-2.5,2,5);ctx.restore();
+   if(lv>=5){ctx.fillStyle=paintC();const fw=meta.rm?0:Math.sin(clock*5)*1.2;ctx.beginPath();ctx.moveTo(x,top-12);ctx.lineTo(x+9,top-10+fw);ctx.lineTo(x,top-8);ctx.closePath();ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=0.7;ctx.stroke();}}
+  ctx.restore();};
+ if(st.keeper.inTower){drawL();ctx.fillStyle='#f2c230';ctx.strokeStyle='#2a1d10';ctx.lineWidth=0.8;ctx.beginPath();ctx.arc(G.lx+4,G.ly-TH-7,2.6,0,7);ctx.fill();ctx.stroke();}
  else if(st.keeper.y<G.ly){drawKeeper(st.keeper);drawL();}else{drawL();drawKeeper(st.keeper);}
  for(const c of st.chests)if(c.open)drawChest(c);
  for(const e of st.enemies)if(!e.lit)drawShip(e);
@@ -1223,13 +1292,14 @@ function draw(){
   if(p.kind==='smoke'){ctx.fillStyle=`rgba(200,200,205,${0.45*a})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r*(1+p.t*1.5),0,7);ctx.fill();}
   else if(p.kind==='mflash'){if(!meta.rm||p.t<0.05){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.a);const k=1+p.t*5;ctx.fillStyle=`rgba(255,196,90,${a})`;ctx.beginPath();ctx.moveTo(-2,-3*k);ctx.lineTo(7*k,-4.5*k);ctx.lineTo(13*k,0);ctx.lineTo(7*k,4.5*k);ctx.lineTo(-2,3*k);ctx.closePath();ctx.fill();ctx.fillStyle=`rgba(255,250,220,${a})`;ctx.beginPath();ctx.ellipse(3*k,0,4*k,2*k,0,0,7);ctx.fill();ctx.restore();}}
   else if(p.kind==='flash'){ctx.fillStyle=`rgba(255,210,120,${a})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r*(1+p.t*6),0,7);ctx.fill();}
+  else if(p.kind==='dirt'){ctx.fillStyle=`rgba(120,86,50,${a})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();}
   else if(p.kind==='ember'){ctx.fillStyle=`rgba(255,150,40,${a})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();}
   else if(p.kind==='spark'){ctx.fillStyle=`rgba(255,230,120,${a})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();}
   else if(p.kind==='plank'){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot||0);ctx.globalAlpha=a;ctx.fillStyle='#7a5231';ctx.fillRect(-p.r,-1.5,p.r*2,3);ctx.restore();ctx.globalAlpha=1;}}
  for(const s of st.shots){ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(s.x,s.y,3,1.5,0,0,7);ctx.fill();ctx.fillStyle='#1e1e22';ctx.beginPath();ctx.arc(s.x,s.y-(s.z||0),3.2,0,7);ctx.fill();ctx.fillStyle='rgba(255,255,255,.4)';ctx.beginPath();ctx.arc(s.x-1,s.y-(s.z||0)-1,1,0,7);ctx.fill();}
  for(const s of st.eshots){const u=Math.min(1,s.t/s.T),x=s.sx+(s.tx-s.sx)*u,y=s.sy+(s.ty-s.sy)*u,z=Math.sin(u*Math.PI)*22;ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(x,y,2.5,1.3,0,0,7);ctx.fill();ctx.fillStyle='#3a1f1f';ctx.beginPath();ctx.arc(x,y-z,2.8,0,7);ctx.fill();ctx.fillStyle='rgba(255,120,60,.6)';ctx.beginPath();ctx.arc(x,y-z,1.2,0,7);ctx.fill();}
  // lighthouse health, above the tower
- {const f=Math.max(0,st.hp/st.maxHp),w=56,x=G.lx-w/2,y=G.ly-90;const col=f>0.6?'#4cc36b':f>0.3?'#f0b429':'#e5484d';
+ {const f=Math.max(0,st.hp/st.maxHp),w=56,x=G.lx-w/2,y=G.ly-90-4*lv-(lv>=4?10:0);const col=f>0.6?'#4cc36b':f>0.3?'#f0b429':'#e5484d';
   ctx.fillStyle='rgba(0,0,0,.55)';rr(ctx,x-2,y-2,w+4,10,4);ctx.fill();ctx.fillStyle=col;rr(ctx,x,y,Math.max(2,w*f),6,3);ctx.fill();
   if(st.hitFlash>0){ctx.fillStyle=`rgba(255,255,255,${st.hitFlash*2.4})`;rr(ctx,x,y,w,6,3);ctx.fill();}
   ctx.font=`800 ${fs(10)}px Nunito,system-ui,sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.6)';const pt=Math.ceil(f*100)+'%';ctx.strokeText(pt,x+w+6,y+3);ctx.fillStyle=col;ctx.fillText(pt,x+w+6,y+3);ctx.textAlign='center';
@@ -1237,7 +1307,7 @@ function draw(){
  for(const p of pads){if(!p.dwell||p.dwell>=0.45)continue;const pp=padPos(p),f=p.dwell/0.45;ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(pp.x,pp.y,pp.s*0.72,-Math.PI/2,-Math.PI/2+f*Math.PI*2);ctx.stroke();}
  // labels
  ctx.textAlign='center';ctx.textBaseline='middle';
- for(const p of pads){if(!unlocked(p)||p.level>=3||p.build>0||p.lock)continue;const pp=padPos(p),big=pp.s>40,can=st.carried>=cost(p)-p.paid&&st.phase==='day';ctx.globalAlpha=can||p.paid>0?1:0.62;
+ for(const p of pads){if(!unlocked(p)||!padOpen(p)||p.build>0||p.lock)continue;const pp=padPos(p),big=pp.s>40,can=st.carried>=cost(p)-p.paid&&st.phase==='day';ctx.globalAlpha=can||p.paid>0?1:0.62;
   icon(p.type,pp.x,pp.y-(big?8:6),big?1:0.8,'#fff');
   ctx.font=`800 ${fs(big?13:11)}px Nunito,system-ui,sans-serif`;ctx.fillStyle='#f6c343';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.45)';const tx=String(cost(p)-p.paid);ctx.strokeText(tx,pp.x+4,pp.y+(big?9:7));ctx.fillText(tx,pp.x+4,pp.y+(big?9:7));
   ctx.beginPath();ctx.arc(pp.x-(big?9:8),pp.y+(big?9:7),3.5,0,7);ctx.fill();
@@ -1295,7 +1365,7 @@ const threatsLeft=()=>st.enemies.length+st.q.filter(x=>x.type!=='merchant').leng
 function hud(dt){const left=threatsLeft(),night=st.phase==='night';
  if(flashT>0){flashT-=dt||0;if(flashT<=0)$('flash').style.opacity=0;}
  const ph=st.over?'over':st.phase+st.night;
- if(ph!==lastPh){if(night){flash(`Night ${st.night} of 3 · ${left} threat${left===1?'':'s'}`,3);}lastPh=ph;lastLeft=left;}
+ if(ph!==lastPh){if(night){flash(`Night ${st.night} of ${NN()} · ${left} threat${left===1?'':'s'}`,3);}lastPh=ph;lastLeft=left;}
  else if(night&&left!==lastLeft){if(left<lastLeft)flash(left?`${left} threat${left===1?'':'s'} left`:`Night ${st.night} cleared`,left?1.6:2.6);lastLeft=left;}
  if(st.carried!==lastWal){const w=$('wal');if(st.carried>lastWal&&lastWal>=0&&!meta.rm){w.classList.remove('bump');void w.offsetWidth;w.classList.add('bump');}$('walN').textContent=st.carried;lastWal=st.carried;}
  if(st.fish!==lastFish){$('walF').innerHTML=st.fish?`<i class="crt"></i>×${st.fish}${st.fish>=8?'<span class="full">full</span>':''}`:'';lastFish=st.fish;}
@@ -1303,7 +1373,7 @@ function hud(dt){const left=threatsLeft(),night=st.phase==='night';
  {const u=night?(st.nightTotal?1-left/st.nightTotal:0):Math.min(1,st.t/st.dayLen),w=(u*100).toFixed(1)+'%',c=night?'#b9c7d6':(st.dayLen-st.t<15?'#f08a4b':'#f6c343'),k=w+c;
   if(k!==progW){progW=k;const f=$('progF');f.style.width=w;f.style.background=c;}}
  $('bell').hidden=st.phase!=='day'||st.over||(tutOn()&&pads.find(p=>p.id==='canL').level<1);{const b=st.phase==='day'?earlyBonus():0,tx=b>0?'Hold to light the lamp · +'+b:'Hold to light the lamp';if($('bell').textContent!==tx)$('bell').textContent=tx;}
- let near=null,nd=1e9;if(!st.over&&!st.keeper.inTower)for(const p of pads){if(!unlocked(p)||p.level>=3||p.build>0||p.lock)continue;const pp=padPos(p),d=Math.hypot(st.keeper.x-pp.x,st.keeper.y-pp.y);if(d<pp.s/2+16&&d<nd){nd=d;near=p;}}
+ let near=null,nd=1e9;if(!st.over&&!st.keeper.inTower)for(const p of pads){if(!unlocked(p)||!padOpen(p)||p.build>0||p.lock)continue;const pp=padPos(p),d=Math.hypot(st.keeper.x-pp.x,st.keeper.y-pp.y);if(d<pp.s/2+16&&d<nd){nd=d;near=p;}}
  let html='';if(near){const i=padInfo(near),rem=cost(near)-near.paid;html=`<span class="cost${st.carried<rem?' short':''}">${rem} coins</span><b>${i.t} · ${near.level?'level '+(near.level+1):'build'}</b><div class="stat">${i.s}</div>`;}
  if(html!==lastInfo){lastInfo=html;$('info').innerHTML=html;$('info').hidden=!html;}
  {const tc=tutCur(),el=$('tut');stage.classList.toggle('tutOn',!!tc);el.hidden=!tc;if(tc){const tx=`Step ${tc.i+1} of ${tc.n}`;if($('tutN').textContent!==tx)$('tutN').textContent=tx;if($('tutH').textContent!==tc.h)$('tutH').textContent=tc.h;}

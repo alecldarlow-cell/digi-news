@@ -201,6 +201,7 @@ const PADS=[
  {id:'canD',type:'cannon',at:()=>slotAt('canD'),cost:16,req:'canR'},
  {id:'dog',type:'dog',at:()=>({x:G.cottage.x-54,y:G.cottage.y+6}),cost:15,req:'jetty1',minL:3},
  {id:'cart',type:'cart',at:()=>({x:150,y:Math.min(H-128,G.band+56)+6}),cost:20,req:'jetty2',minL:3},
+ {id:'mason',type:'mason',at:()=>({x:G.lx+58,y:G.ly+40}),cost:0,req:'canL',minL:2},
  {id:'market',type:'market',at:()=>({x:92,y:Math.min(H-128,G.band+56)}),cost:6,req:null,start:1},
 ];
 function resize(){const r=stage.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);const old=G.cy!==undefined?{cy:G.cy,ry:G.ry,band:G.band,H}:null;
@@ -255,7 +256,7 @@ const BEACH=[null,
  {fl:'Tall dunes where grey seals come ashore to have their pups.',nw:'tougher ships again',tip:'Keep the tower above half health for the second star, and above 85% for the third.'},
  {fl:'The harbour mouth where the river Yare meets the sea.',nw:'another fog ship every night',tip:'Upgrade the lamp: a wider beam catches fog ships sooner and burns harder.'},
  {fl:'The most easterly point in Britain, and the last light on the coast.',nw:'the final headland and the strongest fleet yet',tip:'Clear it to unlock the gold paint and the keeper\'s crown.'}];
-const beachOf=L=>{const b=beachOf0(L),x=[];if(nightsOf(L)>nightsOf(L-1))x.push(nightsOf(L)===4?'a fourth night to hold':'a fifth night to hold');if(capL(L)>capL(L-1))x.push('level '+capL(L)+' for every building');return x.length?Object.assign({},b,{nw:b.nw+', plus '+x.join(' and ')}):b;};
+const beachOf=L=>{const b=beachOf0(L),x=[];if(nightsOf(L)>nightsOf(L-1))x.push(nightsOf(L)===4?'a fourth night to hold':'a fifth night to hold');if(capL(L)>capL(L-1))x.push('level '+capL(L)+' for every building');if(L===2)x.push('a mason who repairs and shields the tower');return x.length?Object.assign({},b,{nw:b.nw+', plus '+x.join(' and ')}):b;};
 const beachOf0=L=>BEACH[L]||{fl:'Past the last lighthouse, the sea goes on.',nw:'stronger ships with every headland',tip:BEACH[4+(L%9)].tip};
 /* ---------- first-time signs: shown once ever (saved), point at the thing, say why and what to do, go after ~4s or a tap ---------- */
 const signQ=[];let signCur=null;
@@ -413,9 +414,9 @@ function applySnap(o){Object.assign(st,{night:o.night,phase:'day',t:o.t,dayLen:o
  for(const [x,y,c] of o.chests)if(walkable(x,y))st.chests.push({x,y,coins:c,open:false,t:0});
  for(const [x,y] of o.coins)if(walkable(x,y))dropCoin(x,y);
  for(const [x,y,pd] of o.crates)if(walkable(x,y))st.crates.push({x,y,pad:pd,age:1});
- if(walkable(o.k[0],o.k[1])){st.keeper.x=o.k[0];st.keeper.y=o.k[1];}if(o.tf)st.tutF=o.tf;st.gain=o.g||0;}
+ if(walkable(o.k[0],o.k[1])){st.keeper.x=o.k[0];st.keeper.y=o.k[1];}if(o.tf)st.tutF=o.tf;st.gain=o.g||0;st.shield=o.sh||0;st.masonN=o.mn||0;}
 function snapState(){const n=st.phase==='night';return{L:st.L,night:n?st.night-1:st.night,t:n?CFG.day-10:st.t,dayLen:n?CFG.day:st.dayLen,carried:st.carried,fish:st.fish,hp:st.hp,
-  pads:pads.map(p=>[p.id,p.level,p.paid,p.spec||null]),chests:st.chests.filter(c=>!c.open).map(c=>[c.x,c.y,c.coins]),coins:st.coins.map(c=>[c.x,c.y]),crates:st.crates.map(c=>[c.x,c.y,c.pad]),k:[st.keeper.x,st.keeper.y],tf:st.tutF,g:st.gain||0};}
+  pads:pads.map(p=>[p.id,p.level,p.paid,p.spec||null]),chests:st.chests.filter(c=>!c.open).map(c=>[c.x,c.y,c.coins]),coins:st.coins.map(c=>[c.x,c.y]),crates:st.crates.map(c=>[c.x,c.y,c.pad]),k:[st.keeper.x,st.keeper.y],tf:st.tutF,g:st.gain||0,sh:st.shield||0,mn:st.masonN||0};}
 function retryNight(cp){newIsland(true,cp);st.t=Math.max(0,st.dayLen-8);st.cp=cp;toast('Night '+NN()+' again','Your buildings are as you left them. Dark falls in 8 seconds, so spend any coins now.');}
 function saveRun(){if(SIM||!st||st.over)return;try{localStorage.setItem(RUNKEY,JSON.stringify(snapState()))}catch(e){}}
 function clearRun(){if(SIM)return;try{localStorage.removeItem(RUNKEY)}catch(e){}}
@@ -440,16 +441,19 @@ function chooseSpec(p){const o=SPECS[p.type];if(!o)return;if(SIM){p.spec=o[Math.
  $('card').querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{p.spec=b.dataset.s;$('modal').hidden=true;last=performance.now();toast(o.find(x=>x.id===p.spec).name,o.find(x=>x.id===p.spec).d);}));$('modal').hidden=false;}
 const tripT=l=>CFG.trip/(1+0.35*(l-1))/(1+0.15*meta.up.net),cratesPer=(l,p)=>(p&&p.spec==='night'?1:l>=3?2:1)+(l>=5?1:0),priceL=l=>CFG.cratePrice+CFG.priceStep*(l-1);
 const canDmg=l=>7*Math.pow(1.45,l-1)*(1+0.15*meta.up.dmg),canRange=l=>170+25*l;
-const cost=p=>Math.round(p.base*Math.pow(1.9,p.level-(p.start||0)));
+/* mason: each visit repairs 10% of the tower, or adds 10% shield once it is whole (shield caps at 50%). The price climbs with every visit in a day and with the headland */
+const MASON_STEP=0.1,SHIELD_MAX=0.5,masonCost=()=>Math.round((5+2.5*st.L)*Math.pow(1.4,st.masonN||0));
+const cost=p=>p.type==='mason'?masonCost():Math.round(p.base*Math.pow(1.9,p.level-(p.start||0)));
 const market=()=>pads.find(p=>p.id==='market');
 /* build tiers: level 4 opens from headland 4 and level 5 from headland 7, so later beaches always have something worth saving for */
-const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.level<maxLvl();
+const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.type==='mason'?(st.hp<st.maxHp||(st.shield||0)<st.maxHp*SHIELD_MAX):p.level<maxLvl();
 const jettySide=p=>p.x<G.cx?1:-1,jettyTip=p=>({x:p.x,y:coastY(p.x)-40});
 
 /* ---------- what each build spot does ---------- */
 const dogCap=l=>[0,6,10,16,24,32][l],dogSpd=l=>[0,90,110,130,145,160][l],dogDig=l=>[0,1,2,3,5,7][l],DIG_T=7,cartCap=l=>[0,2,3,4,5,6][l],cartSpd=l=>[0,45,60,75,85,95][l];
 function padInfo(p){const r=padInfo0(p);if(p.level===2&&SPECS[p.type])r.s+='  ·  then choose a speciality';return r;}
 function padInfo0(p){const L=p.level,N=L+1,arrow=(a,b)=>L?`${a} → ${b}`:`${b}`;
+ if(p.type==='mason'){const full=st.hp>=st.maxHp;return{t:'Mason',d:'',s:full?`Adds a shield of ${Math.round(st.maxHp*MASON_STEP)} above full health · price rises each visit today`:`Repairs ${Math.round(st.maxHp*MASON_STEP)} tower health · price rises each visit today`};}
  if(p.type==='dog')return{t:'Beach dog',d:'',s:L?`Carries ${dogCap(L)} → ${dogCap(N)} · digs up ${dogDig(L)} → ${dogDig(N)} coins`:`Digs up coins, opens far chests, fetches day and night`};
  if(p.type==='cart')return{t:'Fish cart',d:'',s:L?`Carries ${cartCap(L)} → ${cartCap(N)} crates · faster`:`Hauls ${cartCap(1)} crates at a time to the market`};
  if(p.type==='jetty')return{t:'Fishing boat',d:'Sails out by day and lands crates of fish here. Carry the crates to the fish market to sell them.',s:(L?`Trip ${tripT(L).toFixed(1)}s → ${tripT(N).toFixed(1)}s`:`A trip every ${tripT(1).toFixed(1)}s`)+(N>=5?`  ·  ${cratesPer(5,p)} crates per trip`:N>=3?'  ·  2 crates per trip':'')};
@@ -668,6 +672,8 @@ function update(dt){
    if(p.dwell>0.45){p.t+=dt;
     /* pay in bigger chunks for big costs, so even a level-5 build fills in about two seconds */
     const chunk=Math.max(1,Math.ceil(cost(p)/40));while(p.t>0.05&&st.carried>0){p.t-=0.05;const c=Math.min(chunk,st.carried,cost(p)-p.paid);st.carried-=c;p.paid+=c;st.fx.push({kind:'fly',x:k.x,y:k.y-14,tx:pp.x,ty:pp.y,t:0});play('pay',p.paid/cost(p));
+     if(p.paid>=cost(p)&&p.type==='mason'){const g=st.maxHp*MASON_STEP;if(st.hp<st.maxHp){st.hp=Math.min(st.maxHp,st.hp+g);toast('Tower repaired',Math.ceil(st.hp/st.maxHp*100)+'% health');}else{st.shield=Math.min(st.maxHp*SHIELD_MAX,(st.shield||0)+g);toast('Tower shielded','Ships wear the shield down before the tower');}
+      st.masonN=(st.masonN||0)+1;p.paid=0;p.dwell=0;p.build=0.6;p.lock=true;st.fx.push({kind:'ring',x:G.lx,y:G.ly-20,t:0});play('hammer');for(let i=0;i<8;i++)part({kind:'dirt',x:G.lx+Math.random()*24-12,y:G.ly-10-Math.random()*40,vx:Math.random()*60-30,vy:-20-Math.random()*30,r:1.6,max:0.5});break;}
      if(p.paid>=cost(p)){p.level++;{const q=padPos(p);for(const c of st.chests){if(c.open||Math.hypot(c.x-q.x,c.y-q.y)>36)continue;for(const dx of [44,-44,70,-70]){const nx=c.x+dx;if(walkable(nx,c.y+4)&&pads.every(o=>{const r=padPos(o);return Math.hypot(r.x-nx,r.y-c.y)>36})){c.x=nx;break;}}}}if(p.level===3&&SPECS[p.type]){if(SIM)chooseSpec(p);else{const tryC=()=>{if(!$('modal').hidden||st.over){setTimeout(tryC,800);return;}chooseSpec(p);};setTimeout(tryC,1500);}}p.paid=0;p.dwell=0;p.build=1.4;p.lock=true;st.fx.push({kind:'ring',x:p.x,y:p.y,t:0});play('hammer');
       {const t=padInfo(p).t+(p.level>1?' level '+p.level:' built'),why=BUILT[p.type],pp=p;if(p.level===1&&why&&(p.type==='dog'||p.type==='cart'))sign('built_'+p.type,()=>({x:pp.x,y:pp.y-8}),t,why);else if(p.level===1&&why&&!meta.seen['built_'+p.type]){meta.seen['built_'+p.type]=1;saveMeta();toast(t,why);}else toast(t,padInfo(p).s.split('  ·  ')[0]);}break;}}}else p.t=0;}
   if(p.level<1)continue;
@@ -714,7 +720,7 @@ function update(dt){
    kr.beam=inBeam(kr.x,kr.y);
    if(kr.beam&&kr.t>1){kr.hp-=bdps*dt;kr.burnAcc=(kr.burnAcc||0)+bdps*dt;kr.burnT=(kr.burnT||0)+dt;if(kr.burnT>0.6){num(kr.x,kr.y-26,'-'+Math.round(kr.burnAcc),'#ffb347');kr.burnAcc=0;kr.burnT=0;}
     if(Math.random()<dt*10)part({kind:'smoke',x:kr.x+Math.random()*16-8,y:kr.y,vx:0,vy:-16,r:4,max:0.7});}
-   if(!kr.tgt&&kr.t>1.5){st.hp-=6*dt;}
+   if(!kr.tgt&&kr.t>1.5){hurt(6*dt);}
    if(kr.hp<=0){kr.state='sink';kr.t=0;if(kr.tgt)kr.tgt.grabbed=false;play('splash');
     for(let i=0;i<6;i++){const cx=Math.max(20,Math.min(380,kr.x+Math.random()*40-20));dropCoin(cx,coastY(cx)+14+Math.random()*8);}}}
   st.krakens=st.krakens.filter(kr=>!(kr.state==='sink'&&kr.t>1.2));
@@ -741,7 +747,7 @@ function update(dt){
   else{s.x+=dx/d*step;s.y+=dy/d*step;s.trav+=step;s.z=Math.sin(Math.min(1,s.prog)*Math.PI)*Math.min(26,(s.trav+d)*0.12);}}
  st.shots=st.shots.filter(s=>!s.dead);st.enemies=st.enemies.filter(e=>!e.dead);
  // enemy cannonballs
- for(const s of st.eshots){s.t+=dt;if(s.t>=s.T){s.dead=true;st.hp-=s.dmg;if(!meta.rm){st.shake=0.3;if(clock-(st.lastFlash||-9)>0.4){st.hitFlash=0.25;st.lastFlash=clock;}}play('hit');
+ for(const s of st.eshots){s.t+=dt;if(s.t>=s.T){s.dead=true;hurt(s.dmg);if(!meta.rm){st.shake=0.3;if(clock-(st.lastFlash||-9)>0.4){st.hitFlash=0.25;st.lastFlash=clock;}}play('hit');
    for(let i=0;i<8;i++)part({kind:'spark',x:s.tx,y:s.ty,vx:Math.random()*120-60,vy:Math.random()*120-80,r:1.8,max:0.35});part({kind:'smoke',x:s.tx,y:s.ty,vy:-15,r:6,max:0.9});}}
  st.eshots=st.eshots.filter(s=>!s.dead);
  if(st.hp<=0&&!st.over){st.hp=0;lose();}
@@ -801,6 +807,7 @@ function drawCart(c){if(!c)return;ctx.save();ctx.translate(c.x,c.y);ctx.scale(c.
 function moveKeeper(k,dx,dy){if(!dx&&!dy)return;let nx=k.x+dx,ny=k.y+dy;
  if(ny<coastY(nx)+14){const sl=(coastY(k.x+1)-coastY(k.x-1))/2,tl=Math.hypot(1,sl),tx=1/tl,ty=sl/tl,dot=dx*tx+dy*ty;const g=0.7;nx=k.x+dot*tx*g;ny=k.y+dot*ty*g;}
  nx=Math.max(12,Math.min(388,nx));ny=Math.min(H-14,ny);const cy=coastY(nx)+14;if(ny<cy)ny=cy;k.x=nx;k.y=ny;}
+function hurt(d){const sh=st.shield||0;if(sh>0){const a=Math.min(sh,d);st.shield=sh-a;d-=a;}st.hp-=d;}
 function sinkShip(e){meta.stats.sunk++;st.wrecks.push({x:e.x,y:e.y,h:e.h,d:e.d,type:e.type,t:0});play('splash');
  for(let i=0;i<7;i++){const a=Math.random()*6.28,v=30+Math.random()*50;part({kind:'plank',x:e.x,y:e.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:e.d.r*0.35,max:1.4,rot:a});}
  for(let i=0;i<e.d.coins;i++){const cx=Math.max(20,Math.min(380,e.x+Math.random()*30-15));dropCoin(cx,coastY(cx)+14+Math.random()*8);}}
@@ -809,7 +816,7 @@ function openChest(c){if(c.open)return;c.open=true;c.t=0;play('chest');c.lidT=0;
  for(let i=0;i<c.coins;i++){const a=Math.random()*6.28,r=14+Math.random()*16;dropCoin(c.x+Math.cos(a)*r,c.y+6+Math.sin(a)*r*0.7,{x:c.x,y:c.y-8},0.12+i*0.03);}
  st.fx.push({kind:'ring',x:c.x,y:c.y,t:0});}
 function dropCoin(x,y,from,delay){st.coins.push({x,y,age:-(delay||0),ph:Math.random()*6,fx:from?from.x:x,fy:from?from.y:y});}
-function dawn(){st.phase='day';st.t=0;st.dayLen=CFG.day*sea().day;if(tutOn()){meta.tutDone=true;saveMeta();toast('You are the keeper now','Fish and build by day, light the lamp at night. Tap the game to pause.');}st.keeper.inTower=false;st.keeper.x=G.lx;st.keeper.y=G.ly+24;dial=null;aimId=null;
+function dawn(){st.phase='day';st.t=0;st.masonN=0;st.dayLen=CFG.day*sea().day;if(tutOn()){meta.tutDone=true;saveMeta();toast('You are the keeper now','Fish and build by day, light the lamp at night. Tap the game to pause.');}st.keeper.inTower=false;st.keeper.x=G.lx;st.keeper.y=G.ly+24;dial=null;aimId=null;
  if(st.night>=NN()){cleared();return;}
  st.hp=Math.min(st.maxHp,st.hp+st.maxHp*0.25);washChests(CFG.chestsDawn,Math.round(6*Math.sqrt(st.L)));saveRun();
  if(!sign('dawn',()=>{const c=st.chests.find(c=>!c.open);return c?{x:c.x,y:c.y}:null;},'Dawn: chests washed up','The tide brings new chests every morning. Walk onto them for coins, then build before night '+(st.night+1)+' of '+NN()+'.'))toast('Dawn','Night '+(st.night+1)+' of '+NN()+' comes next. The tower mended a quarter of its damage.');}
@@ -980,6 +987,7 @@ function icon(type,x,y,s,col){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.s
  if(type==='cart'){ctx.fillRect(-8,-4,13,7);ctx.beginPath();ctx.arc(-3,5,2.6,0,7);ctx.fill();ctx.fillRect(5,-6,5,2);}
  if(type==='market'){ctx.beginPath();ctx.ellipse(-1,0,6,3.6,0,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(4,0);ctx.lineTo(9,-4);ctx.lineTo(9,4);ctx.closePath();ctx.fill();}
  if(type==='cannon'){ctx.beginPath();ctx.arc(-3,2,4.5,0,7);ctx.fill();ctx.save();ctx.rotate(-0.5);ctx.fillRect(-2,-2.4,11,4.8);ctx.restore();}
+ if(type==='mason'){ctx.fillRect(-8,1,7,5);ctx.fillRect(1,1,7,5);ctx.fillRect(-4,-5,8,5);ctx.save();ctx.rotate(0.6);ctx.fillRect(5,-11,2,6);ctx.restore();}
  if(type==='lamp'){ctx.beginPath();ctx.arc(0,0,3.5,0,7);ctx.fill();for(let i=0;i<8;i++){const a=i*0.785;ctx.beginPath();ctx.moveTo(Math.cos(a)*5.5,Math.sin(a)*5.5);ctx.lineTo(Math.cos(a)*8.5,Math.sin(a)*8.5);ctx.stroke();}}
  ctx.restore();}
 /* ---------- coins, chests and cannons ---------- */
@@ -1189,7 +1197,7 @@ function draw(){
   ctx.fillStyle='rgba(20,30,20,.35)';rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.fill();
   if(can){ctx.save();ctx.shadowColor='rgba(246,195,67,.95)';ctx.shadowBlur=meta.rm?8:8+5*Math.sin(clock*5);ctx.strokeStyle='rgba(246,195,67,.9)';ctx.lineWidth=3;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();ctx.restore();}
   const fr=p.paid/cost(p);if(fr>0){ctx.save();rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.clip();ctx.fillStyle='rgba(246,195,67,.6)';ctx.fillRect(pp.x-s/2,pp.y+s/2-s*fr,s,s*fr);ctx.restore();}
-  if(p.level){ctx.strokeStyle='#f6c343';ctx.lineWidth=2.5;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();}
+  if(p.level||p.type==='mason'){ctx.strokeStyle='#f6c343';ctx.lineWidth=2.5;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();}
   else{ctx.setLineDash([5,4]);ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();ctx.setLineDash([]);}
   ctx.globalAlpha=1;}
  // buildings
@@ -1258,6 +1266,7 @@ function draw(){
    const sw=meta.rm?0:Math.sin(clock*0.8)*0.4;ctx.save();ctx.translate(x,top-9);ctx.rotate(sw);ctx.fillStyle=lv>=5?'#d4a52a':'#2b2e33';ctx.beginPath();ctx.moveTo(-6,0);ctx.lineTo(5,-1);ctx.lineTo(7,0);ctx.lineTo(5,1);ctx.closePath();ctx.fill();ctx.fillRect(-7,-2.5,2,5);ctx.restore();
    if(lv>=5){ctx.fillStyle=paintC();const fw=meta.rm?0:Math.sin(clock*5)*1.2;ctx.beginPath();ctx.moveTo(x,top-12);ctx.lineTo(x+9,top-10+fw);ctx.lineTo(x,top-8);ctx.closePath();ctx.fill();ctx.strokeStyle=O;ctx.lineWidth=0.7;ctx.stroke();}}
   ctx.restore();};
+ if((st.shield||0)>0){const a=0.18+0.12*Math.min(1,st.shield/(st.maxHp*SHIELD_MAX))+(meta.rm?0:0.05*Math.sin(clock*3));ctx.strokeStyle=`rgba(111,195,255,${a*2})`;ctx.fillStyle=`rgba(111,195,255,${a*0.5})`;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(G.lx,G.ly-TH*0.5,26,TH*0.5+18,0,0,7);ctx.fill();ctx.stroke();}
  if(st.keeper.inTower){drawL();ctx.fillStyle='#f2c230';ctx.strokeStyle='#2a1d10';ctx.lineWidth=0.8;ctx.beginPath();ctx.arc(G.lx+4,G.ly-TH-7,2.6,0,7);ctx.fill();ctx.stroke();}
  else if(st.keeper.y<G.ly){drawKeeper(st.keeper);drawL();}else{drawL();drawKeeper(st.keeper);}
  for(const c of st.chests)if(c.open)drawChest(c);
@@ -1302,7 +1311,8 @@ function draw(){
  {const f=Math.max(0,st.hp/st.maxHp),w=56,x=G.lx-w/2,y=G.ly-90-4*lv-(lv>=4?10:0);const col=f>0.6?'#4cc36b':f>0.3?'#f0b429':'#e5484d';
   ctx.fillStyle='rgba(0,0,0,.55)';rr(ctx,x-2,y-2,w+4,10,4);ctx.fill();ctx.fillStyle=col;rr(ctx,x,y,Math.max(2,w*f),6,3);ctx.fill();
   if(st.hitFlash>0){ctx.fillStyle=`rgba(255,255,255,${st.hitFlash*2.4})`;rr(ctx,x,y,w,6,3);ctx.fill();}
-  ctx.font=`800 ${fs(10)}px Nunito,system-ui,sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.6)';const pt=Math.ceil(f*100)+'%';ctx.strokeText(pt,x+w+6,y+3);ctx.fillStyle=col;ctx.fillText(pt,x+w+6,y+3);ctx.textAlign='center';
+  const shf=(st.shield||0)/st.maxHp;if(shf>0){ctx.fillStyle='rgba(0,0,0,.55)';rr(ctx,x-2,y-8,w*SHIELD_MAX*2+4,6,3);ctx.fill();ctx.fillStyle='#6fc3ff';rr(ctx,x,y-7,Math.max(2,w*shf*2),4,2);ctx.fill();}
+  ctx.font=`800 ${fs(10)}px Nunito,system-ui,sans-serif`;ctx.textAlign='left';ctx.textBaseline='middle';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.6)';const pt=Math.ceil(f*100)+'%'+((st.shield||0)>0.5?' +'+Math.round(st.shield/st.maxHp*100):'');ctx.strokeText(pt,x+w+6,y+3);ctx.fillStyle=col;ctx.fillText(pt,x+w+6,y+3);ctx.textAlign='center';
 }
  for(const p of pads){if(!p.dwell||p.dwell>=0.45)continue;const pp=padPos(p),f=p.dwell/0.45;ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(pp.x,pp.y,pp.s*0.72,-Math.PI/2,-Math.PI/2+f*Math.PI*2);ctx.stroke();}
  // labels
@@ -1374,7 +1384,7 @@ function hud(dt){const left=threatsLeft(),night=st.phase==='night';
   if(k!==progW){progW=k;const f=$('progF');f.style.width=w;f.style.background=c;}}
  $('bell').hidden=st.phase!=='day'||st.over||(tutOn()&&pads.find(p=>p.id==='canL').level<1);{const b=st.phase==='day'?earlyBonus():0,tx=b>0?'Hold to light the lamp · +'+b:'Hold to light the lamp';if($('bell').textContent!==tx)$('bell').textContent=tx;}
  let near=null,nd=1e9;if(!st.over&&!st.keeper.inTower)for(const p of pads){if(!unlocked(p)||!padOpen(p)||p.build>0||p.lock)continue;const pp=padPos(p),d=Math.hypot(st.keeper.x-pp.x,st.keeper.y-pp.y);if(d<pp.s/2+16&&d<nd){nd=d;near=p;}}
- let html='';if(near){const i=padInfo(near),rem=cost(near)-near.paid;html=`<span class="cost${st.carried<rem?' short':''}">${rem} coins</span><b>${i.t} · ${near.level?'level '+(near.level+1):'build'}</b><div class="stat">${i.s}</div>`;}
+ let html='';if(near){const i=padInfo(near),rem=cost(near)-near.paid;html=`<span class="cost${st.carried<rem?' short':''}">${rem} coins</span><b>${i.t} · ${near.type==='mason'?(st.hp>=st.maxHp?'shield':'repair'):near.level?'level '+(near.level+1):'build'}</b><div class="stat">${i.s}</div>`;}
  if(html!==lastInfo){lastInfo=html;$('info').innerHTML=html;$('info').hidden=!html;}
  {const tc=tutCur(),el=$('tut');stage.classList.toggle('tutOn',!!tc);el.hidden=!tc;if(tc){const tx=`Step ${tc.i+1} of ${tc.n}`;if($('tutN').textContent!==tx)$('tutN').textContent=tx;if($('tutH').textContent!==tc.h)$('tutH').textContent=tc.h;}
   if(tc&&tc.i===5){bellEl.style.boxShadow=meta.rm?'0 0 0 4px #fff':`0 0 0 ${3+2*Math.sin(clock*6)|0}px #fff, 0 3px 0 #a67c14`;}else bellEl.style.boxShadow='';}

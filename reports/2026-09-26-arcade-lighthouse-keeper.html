@@ -142,7 +142,11 @@ const G={};let pads=[];let coast=[];
 /* ---------- tuning (set by simulation) ---------- */
 const CFG={firstDay:90,day:60,sk0:5,skN:3,skL:1.2,hpExp:0.72,nightGrow:0.04,chests0:4,chestCoins:5,chestsDawn:3,towerHp:100,
  skiff:{hp:18,spd:27,dps:5,r:11,coins:2},fog:{hp:26,spd:20,dps:5,r:12,coins:3,fog:true},boss:{hp:240,spd:11,dps:20,r:22,coins:14},krakenHp:36,
- trip:12,cratePrice:3,priceStep:2};
+ trip:12,cratePrice:3,priceStep:2,
+ /* damage as a slope, not a cliff: lit ships chip the tower from range on the way in; at the shore fewer fire at once, each harder and slower */
+ chipR:210,chipGap:3.5,chipMul:0.5,chipN:3,shoreGap:2.6,shoreMul:1.8,
+ /* mid game pressure from headland 3 */
+ midN:1.25,midHp:1.1};
 const ET={skiff:CFG.skiff,fog:CFG.fog,boss:CFG.boss};
 
 /* ---------- map: a headland jutting north from the mainland ---------- */
@@ -169,7 +173,7 @@ const MAPS=[null,
  {shape:{cx:232,rx:160,wob:[[.04,6,1]]},pal:{g:['#7cb05f','#5c9046'],sand:'#e3c98e',sand2:'#cdb176',sea:['#082a4a','#0f4d7c','#1c6c9a','#2f88ad']},deco:['pier','church','terrace'],
   slots:{canL:[-110,.35],canR:[64,.3],canC:[-18,.12]},from:[[3,'t',120,390],[2,'l',.15,.7]],jet:[44,380],rocks:[[384,-34],[250,-60]],
   here:'The point sits east of the pier. Ships swing round the pier from the west, a long walk from the east jetty.'},
- {shape:{cx:182,wob:[[.12,4,2],[.05,9,0]]},pal:{g:['#89a85c','#607f42'],sand:'#dcc08a',sand2:'#c6a672',clay:['#c98d52','#a8693a'],sea:['#123248','#1d5170','#2d6f8c','#4b8ba0']},edge:'clay',deco:['slump','flint'],weather:'drizzle',
+ {ease:0.88,shape:{cx:182,wob:[[.12,4,2],[.05,9,0]]},pal:{g:['#89a85c','#607f42'],sand:'#dcc08a',sand2:'#c6a672',clay:['#c98d52','#a8693a'],sea:['#123248','#1d5170','#2d6f8c','#4b8ba0']},edge:'clay',deco:['slump','flint'],weather:'drizzle',
   slots:{canL:[78,.3],canR:[-100,.36],canC:[0,.14],canD:[132,.5]},jet:[46,374],from:[[3,'t',20,380],[2,'r',.2,.8]],
   here:'Crumbling coves on a wet day. Ships round the eastern cove, and a fourth cannon spot sits out on the east edge.'},
  {shape:{cx:212,sk:-.24,wob:[[.07,6,1.4]]},pal:{g:['#8aa55c','#63803f'],sand:'#d6bb88',sand2:'#bb9d6c',clay:['#b87a45','#8f5a30'],sea:['#16293a','#223f55','#335b72','#527a8e']},edge:'clay',deco:['groynes','ruin','fields'],weather:'drizzle',
@@ -218,7 +222,7 @@ function layout(){landDirty=true;seaDirty=true;const M=curMap(),sh=M.shape||{};G
  G.cottage={x:M.cot||320,y:Math.min(H-120,G.band+58)};
  pads.forEach(p=>{const q=p.at();p.x=q.x;p.y=q.y;});
  /* where the upgrade square goes once a building stands: below it, unless that lands on the tower, off the land or on another spot */
- const tower=(x,y)=>Math.abs(x-G.lx)<34&&y>G.ly-96&&y<G.ly+22;
+ const tower=(x,y)=>Math.abs(x-G.lx)<40&&y>G.ly-140&&y<G.ly+26;
  pads.forEach(p=>{p.ux=0;p.uy=32;if(p.type==='lamp')return;const ok=(dx,dy)=>{const x=p.x+dx,y=p.y+dy;return walkable(x,y-10)&&walkable(x,y+10)&&!tower(x,y)&&pads.every(o=>o===p||Math.hypot(o.x-x,o.y-y)>40);};
   for(const [dx,dy] of [[0,32],[p.x<G.lx?-46:46,6],[p.x<G.lx?46:-46,6],[0,-34]])if(ok(dx,dy)){p.ux=dx;p.uy=dy;break;}});}
 
@@ -253,7 +257,7 @@ const BEACH=[null,
  {fl:'The pier and its lifeboat station, home of the Cromer crab.',nw:'another fog ship every night',tip:'Ships in the beam take 50% more cannon damage and sail at half speed. Park the beam where the cannons point.'},
  {fl:'A quiet village on soft, crumbling cliffs.',nw:'tougher ships again',tip:'Spend stars in the harbour. Better powder and Stone base matter most from here on.'},
  {fl:'A red-and-white striped lighthouse on a coast losing ground to the sea.',nw:'another fog ship every night',tip:'Guide every merchant home: each one leaves a big pile of coins by the jetty.'},
- {fl:'Tall dunes where grey seals come ashore to have their pups.',nw:'tougher ships again',tip:'Keep the tower above half health for the second star, and above 85% for the third.'},
+ {fl:'Tall dunes where grey seals come ashore to have their pups.',nw:'tougher ships again',tip:'Stars count the damage the tower takes over the whole headland. Sink ships before they fire and you keep all three.'},
  {fl:'The harbour mouth where the river Yare meets the sea.',nw:'another fog ship every night',tip:'Upgrade the lamp: a wider beam catches fog ships sooner and burns harder.'},
  {fl:'The most easterly point in Britain, and the last light on the coast.',nw:'the final headland and the strongest fleet yet',tip:'Clear it to unlock the gold paint and the keeper\'s crown.'}];
 const beachOf=L=>{const b=beachOf0(L),x=[];if(nightsOf(L)>nightsOf(L-1))x.push(nightsOf(L)===4?'a fourth night to hold':'a fifth night to hold');if(capL(L)>capL(L-1))x.push('level '+capL(L)+' for every building');if(L===2)x.push('a mason who repairs and shields the tower');return x.length?Object.assign({},b,{nw:b.nw+', plus '+x.join(' and ')}):b;};
@@ -276,7 +280,7 @@ const COAST=['Hunstanton','Holme','Brancaster','Wells','Blakeney Point','Shering
 const hName=L=>L<=FINALE?COAST[L-1]:'Open sea '+(L-FINALE);
 const PAINTS=[{id:'red',name:'Classic red',c:'#c8402e',need:0},{id:'black',name:'Storm black',c:'#2b2e33',need:6},{id:'green',name:'Harbour green',c:'#2f8f5b',need:12},{id:'blue',name:'Royal blue',c:'#2f5fb5',need:20},{id:'gold',name:'Gold leaf',c:'#d4a52a',need:'finale'}];
 const HATS=[{id:'sou',name:"Yellow sou'wester",need:0},{id:'beanie',name:'Red beanie',need:4},{id:'cap',name:"Captain's cap",need:10},{id:'fisher',name:"Blue fisherman's cap",need:16},{id:'crown',name:"Keeper's crown",need:'finale'}];
-const SEA={calm:{name:'Calm',hp:0.7,n:0.8,day:1.2,spd:1,cap:3,tower:25,starX:1,d:'Weaker, fewer ships and longer days'},standard:{name:'Standard',hp:1,n:1,day:1,spd:1,cap:3,tower:0,starX:1,d:'The sea as intended'},stormy:{name:'Stormy',hp:1.12,n:1.15,day:0.9,spd:1.05,cap:99,tower:0,starX:2,d:'Tougher, faster, more ships. Stars count double for paints and hats'}};
+const SEA={calm:{name:'Calm',hp:0.7,n:0.8,day:1.2,spd:1,cap:2,tower:25,starX:1,d:'Weaker, fewer ships and longer days'},standard:{name:'Standard',hp:1,n:1,day:1,spd:1,cap:2,tower:0,starX:1,d:'The sea as intended'},stormy:{name:'Stormy',hp:1.05,n:1.1,day:0.9,spd:1.05,cap:3,tower:0,starX:2,d:'Tougher, faster, more ships. Stars count double for paints and hats'}};
 const sea=()=>SEA[meta.sea]||SEA.standard;
 const owned=it=>it.need==='finale'?meta.finale:meta.earned>=it.need;
 const paintC=()=>(PAINTS.find(q=>q.id===meta.paint)||PAINTS[0]).c;
@@ -414,9 +418,9 @@ function applySnap(o){Object.assign(st,{night:o.night,phase:'day',t:o.t,dayLen:o
  for(const [x,y,c] of o.chests)if(walkable(x,y))st.chests.push({x,y,coins:c,open:false,t:0});
  for(const [x,y] of o.coins)if(walkable(x,y))dropCoin(x,y);
  for(const [x,y,pd] of o.crates)if(walkable(x,y))st.crates.push({x,y,pad:pd,age:1});
- if(walkable(o.k[0],o.k[1])){st.keeper.x=o.k[0];st.keeper.y=o.k[1];}if(o.tf)st.tutF=o.tf;st.gain=o.g||0;st.shield=o.sh||0;st.masonN=o.mn||0;}
+ if(walkable(o.k[0],o.k[1])){st.keeper.x=o.k[0];st.keeper.y=o.k[1];}if(o.tf)st.tutF=o.tf;st.gain=o.g||0;st.shield=o.sh||0;st.masonN=o.mn||0;st.taken=o.tk||0;}
 function snapState(){const n=st.phase==='night';return{L:st.L,night:n?st.night-1:st.night,t:n?CFG.day-10:st.t,dayLen:n?CFG.day:st.dayLen,carried:st.carried,fish:st.fish,hp:st.hp,
-  pads:pads.map(p=>[p.id,p.level,p.paid,p.spec||null]),chests:st.chests.filter(c=>!c.open).map(c=>[c.x,c.y,c.coins]),coins:st.coins.map(c=>[c.x,c.y]),crates:st.crates.map(c=>[c.x,c.y,c.pad]),k:[st.keeper.x,st.keeper.y],tf:st.tutF,g:st.gain||0,sh:st.shield||0,mn:st.masonN||0};}
+  pads:pads.map(p=>[p.id,p.level,p.paid,p.spec||null]),chests:st.chests.filter(c=>!c.open).map(c=>[c.x,c.y,c.coins]),coins:st.coins.map(c=>[c.x,c.y]),crates:st.crates.map(c=>[c.x,c.y,c.pad]),k:[st.keeper.x,st.keeper.y],tf:st.tutF,g:st.gain||0,sh:st.shield||0,mn:st.masonN||0,tk:st.taken||0};}
 function retryNight(cp){newIsland(true,cp);st.t=Math.max(0,st.dayLen-8);st.cp=cp;toast('Night '+NN()+' again','Your buildings are as you left them. Dark falls in 8 seconds, so spend any coins now.');}
 function saveRun(){if(SIM||!st||st.over)return;try{localStorage.setItem(RUNKEY,JSON.stringify(snapState()))}catch(e){}}
 function clearRun(){if(SIM)return;try{localStorage.removeItem(RUNKEY)}catch(e){}}
@@ -424,7 +428,7 @@ function washChests(n,coins){for(let i=0;i<n;i++){let x,y,ok=false,tries=0;
   while(!ok&&tries++<40){x=24+Math.random()*352;y=coastY(x)+16+Math.random()*6;ok=walkable(x,y+4)&&pads.every(p=>{const q=padPos(p);return Math.hypot(p.x-x,p.y-y)>44&&Math.hypot(q.x-x,q.y-y)>40;})&&Math.hypot(G.lx-x,G.ly-y)>40&&st.chests.every(c=>Math.hypot(c.x-x,c.y-y)>50);}
   if(ok)st.chests.push({x,y,coins,open:false,t:0});}}
 /* rounds per headland grow along the coast */
-const nightsOf=L=>L>=8?5:L>=4?4:3,NN=()=>nightsOf(st.L);
+const nightsOf=L=>L>=9?5:L>=4?4:3,NN=()=>nightsOf(st.L);
 const unlocked=p=>(!p.minL||st.L>=p.minL)&&(!p.req||pads.find(q=>q.id===p.req).level>0);
 const padPos=p=>(p.level>0&&p.type!=='lamp')?{x:p.x+p.ux,y:p.y+p.uy,s:34}:{x:p.x,y:p.y,s:44};
 const fs=n=>Math.max(n,12/S)/Math.sqrt(cam.z);
@@ -446,7 +450,7 @@ const MASON_STEP=0.1,SHIELD_MAX=0.5,masonCost=()=>Math.round((5+2.5*st.L)*Math.p
 const cost=p=>p.type==='mason'?masonCost():Math.round(p.base*Math.pow(1.9,p.level-(p.start||0)));
 const market=()=>pads.find(p=>p.id==='market');
 /* build tiers: level 4 opens from headland 4 and level 5 from headland 7, so later beaches always have something worth saving for */
-const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.type==='mason'?(st.hp<st.maxHp||(st.shield||0)<st.maxHp*SHIELD_MAX):p.level<maxLvl();
+const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.type==='mason'?(st.hp<st.maxHp||((st.shield||0)<st.maxHp*SHIELD_MAX&&st.phase==='day'&&st.dayLen-st.t<25)):p.level<maxLvl();
 const jettySide=p=>p.x<G.cx?1:-1,jettyTip=p=>({x:p.x,y:coastY(p.x)-40});
 
 /* ---------- what each build spot does ---------- */
@@ -594,13 +598,15 @@ function startNight(){if(st.night===NN()-1)st.cp=snapState();st.night++;if(st.ni
  const n=st.night,L=st.L,N=NN(),last=n===N;
  /* nn: how hard this night is on the old three-night curve. Extra nights fill in the curve, and the last night of a 5-night beach goes one step past it */
  const nn=n<=1?1:1+(n-1)*((N-3)*0.5+2)/(N-1);
+ /* mid-game pressure: full from headland 3, tapering off by headland 12 so the late game doesn't run away */
+ const midT=L<3?0:Math.max(0,Math.min(1,(12-L)/8)),mid=1+(CFG.midN-1)*midT;
  st.hpMul=Math.pow(L,CFG.hpExp)*(1+CFG.nightGrow*(nn-1))*(1-(st.assist||0));
- const q=[];const sk=Math.round((CFG.sk0+CFG.skN*nn+(L-1)*CFG.skL*(n===1?0.5:1))*(1-(st.assist||0)));if(n===1)st.hpMul*=0.85;
+ const q=[];const sk=Math.round((CFG.sk0+CFG.skN*nn+(L-1)*CFG.skL*(n===1?0.5:1))*mid*(1-(st.assist||0)));st.hpMul*=1+(CFG.midHp-1)*midT*(MAPS.indexOf(mapOf(L))===8?0:1)*(mapOf(L).ease?0:1);if(mapOf(L).ease)st.hpMul*=mapOf(L).ease;if(n===1)st.hpMul*=0.85;
  const skN=Math.max(3,Math.round(sk*sea().n));for(let i=0;i<skN;i++)q.push({type:'skiff',at:1.5+i*(26/skN)+Math.random()*1.2});
  st.hpMul*=sea().hp*(L===1?0.8:1);
  if(n>=2){const f=Math.max(1,Math.round((nn-1+Math.floor((L-1)/2))*sea().n)),gap=Math.min(7,20/Math.max(1,f-1));for(let i=0;i<f;i++)q.push({type:'fog',at:6+i*gap});}
  if(last){if(L>=2)q.push({type:'kraken',at:9});q.push({type:'boss',at:18});}
- else if(n===3&&N>=5&&L>=2)q.push({type:'kraken',at:12});
+ else if(n===3&&N>=5&&L>=10)q.push({type:'kraken',at:12});
  if(n<=2||L>=3)q.push({type:'merchant',at:n===1?9:7});
  q.sort((a,b)=>a.at-b.at);
  {const sh=q.filter(x=>x.type!=='merchant'&&x.type!=='kraken'),k=Math.min(5,Math.ceil(sh.length*0.25));if(sh.length>=6){const tail=sh.slice(-k),t0=Math.max(tail[0].at-2,sh[sh.length-k-1].at+1);tail.forEach((x,i)=>{x.at=t0+i*0.5;});q.sort((a,b)=>a.at-b.at);}}
@@ -636,7 +642,7 @@ function spawnKraken(){const cans=pads.filter(p=>p.type==='cannon'&&p.level>0&&!
 const num=(x,y,txt,col)=>st.nums.push({x,y,txt,col,t:0});
 const part=o=>st.parts.push(Object.assign({t:0,vx:0,vy:0,r:3,max:0.8},o));
 function update(dt){
- msgUpdate(dt);signUpdate(dt);camUpdate(dt);{const lp=pads.find(p=>p.id==='lamp');G.oy=G.ly-62-3*(lp?lp.level:0);}
+ msgUpdate(dt);signUpdate(dt);camUpdate(dt);padViewUpdate(dt);{const lp=pads.find(p=>p.id==='lamp');G.oy=G.ly-62-3*(lp?lp.level:0);}
  st.shake=Math.max(0,st.shake-dt);st.hitFlash=Math.max(0,st.hitFlash-dt);
  for(const p of st.parts){p.t+=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.kind==='plank'){p.vx*=0.97;p.vy*=0.97;p.rot=(p.rot||0)+dt*3;}if(p.kind==='dirt')p.vy+=180*dt;}
  st.parts=st.parts.filter(p=>p.t<p.max);
@@ -702,6 +708,7 @@ function update(dt){
   const half=beamHalf(),bdps=burnNow(),lr=lampR();
   const inBeam=(x,y)=>{const dx=x-G.ox,dy=y-G.oy;let da=Math.atan2(dy,dx)-st.aim;da=Math.atan2(Math.sin(da),Math.cos(da));return Math.abs(da)<half&&Math.hypot(dx,dy)<470;};
   const firing=st.enemies.filter(e=>e.atk).slice(0,sea().cap);
+  const chippers=st.enemies.filter(e=>!e.atk&&e.lit&&Math.hypot(e.x-G.lx,e.y-G.ly)<CFG.chipR).sort((a,b)=>Math.hypot(a.x-G.lx,a.y-G.ly)-Math.hypot(b.x-G.lx,b.y-G.ly)).slice(0,CFG.chipN);
   for(const e of st.enemies){const dist=Math.hypot(e.x-G.ox,e.y-G.oy);
    e.beam=inBeam(e.x,e.y);if(e.beam)st.tutF.lit=true;e.lit=e.beam||(!e.d.fog&&dist<lr)||dist<55;
    if(e.beam){e.hp-=bdps*dt;e.burnAcc+=bdps*dt;e.burnT+=dt;e.smokeT-=dt;
@@ -709,8 +716,10 @@ function update(dt){
     if(e.burnT>0.6){num(e.x,e.y-e.d.r-6,'-'+Math.round(e.burnAcc),'#ffb347');e.burnAcc=0;e.burnT=0;}}
    if(!e.atk){const mx=e.tx-e.x,my=e.ty-e.y,m=Math.hypot(mx,my);if(e.slowT>0)e.slowT-=dt;const v=e.d.spd*sea().spd*(e.beam?0.5:1)*(!st.q.length&&st.enemies.length<=5?1.6:1)*(e.slowT>0?0.67:1)*(e.tutSlow&&!st.tutF.lit?0.4:1);e.h=Math.atan2(my,mx);
     if(m<3)e.atk=true;else{e.x+=mx/m*v*dt;e.y+=my/m*v*dt;}}
-   else{e.fire-=dt;if(e.fire<=0&&firing.includes(e)){e.fire=1.4;const tx=G.lx+Math.random()*12-6,ty=G.ly-30+Math.random()*16;
-     st.eshots.push({sx:e.x,sy:e.y,tx,ty,t:0,T:Math.hypot(tx-e.x,ty-e.y)/200,dmg:e.d.dps*1.4});part({kind:'flash',x:e.x,y:e.y,r:5,max:0.1});play('pop');}}
+   else{e.fire-=dt;if(e.fire<=0&&firing.includes(e)){e.fire=CFG.shoreGap;const tx=G.lx+Math.random()*12-6,ty=G.ly-30+Math.random()*16;
+     st.eshots.push({sx:e.x,sy:e.y,tx,ty,t:0,T:Math.hypot(tx-e.x,ty-e.y)/200,dmg:e.d.dps*CFG.shoreMul});part({kind:'flash',x:e.x,y:e.y,r:5,max:0.1});play('pop');}}
+   if(!e.atk&&e.lit&&chippers.includes(e)){e.chip=(e.chip==null?CFG.chipGap*Math.random():e.chip)-dt;if(e.chip<=0){e.chip=CFG.chipGap;const tx=G.lx+Math.random()*12-6,ty=G.ly-30+Math.random()*16;
+     st.eshots.push({sx:e.x,sy:e.y,tx,ty,t:0,T:Math.hypot(tx-e.x,ty-e.y)/220,dmg:e.d.dps*CFG.chipMul,chip:1});part({kind:'flash',x:e.x,y:e.y,r:3,max:0.08});play('pop');}}
    if(e.hp<=0){e.dead=true;sinkShip(e);}}
   st.enemies=st.enemies.filter(e=>!e.dead);
   if(!meta.beamLearned&&st.aimed){const on=st.enemies.some(e=>e.beam)||st.krakens.some(k=>k.beam)||st.merchants.some(m=>m.beam&&m.state==='lost');
@@ -747,7 +756,7 @@ function update(dt){
   else{s.x+=dx/d*step;s.y+=dy/d*step;s.trav+=step;s.z=Math.sin(Math.min(1,s.prog)*Math.PI)*Math.min(26,(s.trav+d)*0.12);}}
  st.shots=st.shots.filter(s=>!s.dead);st.enemies=st.enemies.filter(e=>!e.dead);
  // enemy cannonballs
- for(const s of st.eshots){s.t+=dt;if(s.t>=s.T){s.dead=true;hurt(s.dmg);if(!meta.rm){st.shake=0.3;if(clock-(st.lastFlash||-9)>0.4){st.hitFlash=0.25;st.lastFlash=clock;}}play('hit');
+ for(const s of st.eshots){s.t+=dt;if(s.t>=s.T){s.dead=true;hurt(s.dmg);if(!meta.rm&&!s.chip){st.shake=0.3;if(clock-(st.lastFlash||-9)>0.4){st.hitFlash=0.25;st.lastFlash=clock;}}play('hit');
    for(let i=0;i<8;i++)part({kind:'spark',x:s.tx,y:s.ty,vx:Math.random()*120-60,vy:Math.random()*120-80,r:1.8,max:0.35});part({kind:'smoke',x:s.tx,y:s.ty,vy:-15,r:6,max:0.9});}}
  st.eshots=st.eshots.filter(s=>!s.dead);
  if(st.hp<=0&&!st.over){st.hp=0;lose();}
@@ -807,7 +816,7 @@ function drawCart(c){if(!c)return;ctx.save();ctx.translate(c.x,c.y);ctx.scale(c.
 function moveKeeper(k,dx,dy){if(!dx&&!dy)return;let nx=k.x+dx,ny=k.y+dy;
  if(ny<coastY(nx)+14){const sl=(coastY(k.x+1)-coastY(k.x-1))/2,tl=Math.hypot(1,sl),tx=1/tl,ty=sl/tl,dot=dx*tx+dy*ty;const g=0.7;nx=k.x+dot*tx*g;ny=k.y+dot*ty*g;}
  nx=Math.max(12,Math.min(388,nx));ny=Math.min(H-14,ny);const cy=coastY(nx)+14;if(ny<cy)ny=cy;k.x=nx;k.y=ny;}
-function hurt(d){const sh=st.shield||0;if(sh>0){const a=Math.min(sh,d);st.shield=sh-a;d-=a;}st.hp-=d;}
+function hurt(d){st.taken=(st.taken||0)+d;const sh=st.shield||0;if(sh>0){const a=Math.min(sh,d);st.shield=sh-a;d-=a;}st.hp-=d;}
 function sinkShip(e){meta.stats.sunk++;st.wrecks.push({x:e.x,y:e.y,h:e.h,d:e.d,type:e.type,t:0});play('splash');
  for(let i=0;i<7;i++){const a=Math.random()*6.28,v=30+Math.random()*50;part({kind:'plank',x:e.x,y:e.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:e.d.r*0.35,max:1.4,rot:a});}
  for(let i=0;i<e.d.coins;i++){const cx=Math.max(20,Math.min(380,e.x+Math.random()*30-15));dropCoin(cx,coastY(cx)+14+Math.random()*8);}}
@@ -823,7 +832,9 @@ function dawn(){st.phase='day';st.t=0;st.masonN=0;st.dayLen=CFG.day*sea().day;if
 
 /* ---------- stars and the harbour ---------- */
 let lastResult=null;
-function cleared(){st.over=true;const frac=st.hp/st.maxHp,stars=1+(frac>=0.5?1:0)+(frac>=0.85?1:0);
+/* stars: how much damage the tower took over the whole headland (shield included), scaled to the number of nights. Repairs keep you alive but don't erase it */
+const starsFor=()=>{const per=(st.taken||0)/(st.maxHp*NN()/3);return 1+(per<0.75?1:0)+(per<0.25?1:0);};
+function cleared(){st.over=true;const frac=st.hp/st.maxHp,stars=starsFor();
  const done=meta.island;meta.island++;meta.stars+=stars;meta.earned+=stars*sea().starX;meta.lossL=null;meta.streakL=0;meta.streakN=0;meta.stats.wins++;meta.best[done]=Math.max(meta.best[done]||0,stars);
  const fin=done===FINALE&&!meta.finale;if(fin)meta.finale=true;saveMeta();clearRun();play('win');lastResult={win:true,L:done,stars,frac};rndEnd(true,{stars});
  meta.beamLearned=true;saveMeta();
@@ -1175,6 +1186,36 @@ function buildLandAt(cvs,cx2,LZ){const k=dpr*S*LZ;cvs.width=Math.max(1,Math.roun
   ctx.fillStyle='#7a5231';ctx.fillRect(c.x-4,c.y,8,12);ctx.fillStyle='#9fd0e6';ctx.fillRect(c.x-15,c.y-3,7,6);ctx.fillRect(c.x+8,c.y-3,7,6);}
  decoTop(G.map);
  ctx=main;}
+/* ---------- build spots: tidy display ----------
+   Hidden at night. Near the keeper: a full square for a first build, a small chip for an upgrade.
+   Further away: just a coin dot. Only one spot glows: the nearest one you can afford (where the arrow points). */
+const PAD_NEAR=120;let padBest=null;
+function padShown(p){return unlocked(p)&&padOpen(p)&&!(p.build>0)&&!p.lock;}
+function padViewUpdate(dt){const k=st.keeper,day=st.phase==='day'&&!st.over;let bd=1e9;padBest=null;
+ for(const p of pads){const pp=padPos(p),d=Math.hypot(pp.x-k.x,pp.y-k.y),show=padShown(p);
+  const near=show&&day&&!k.inTower&&(tutOn()||d<PAD_NEAR||p.paid>0);p.vis=(p.vis||0)+((near?1:0)-(p.vis||0))*Math.min(1,dt*9);
+  p.dot=(p.dot||0)+((show&&day?1:0)-(p.dot||0))*Math.min(1,dt*6);
+  if(show&&day&&st.carried>=cost(p)-p.paid&&d<bd){bd=d;padBest=p;}}}
+function drawPad(p,pass){const v=p.vis||0,dv=p.dot||0;if(dv<0.02)return;const pp=padPos(p),can=st.carried>=cost(p)-p.paid&&st.phase==='day',first=!p.level||p.type==='mason';
+ const fr=p.paid/cost(p);
+ if(v<0.15){/* far: a small marker */if(pass)return;const a=dv*(1-v/0.15)*(can?1:0.7),r=can?5:4;ctx.save();ctx.globalAlpha=a;ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(pp.x,pp.y+3,r+1,2.5,0,0,7);ctx.fill();
+  /* a small hollow square, so it never reads as a coin to pick up */ctx.fillStyle='rgba(20,30,20,.45)';rr(ctx,pp.x-r-1,pp.y-r-1,2*r+2,2*r+2,3);ctx.fill();ctx.strokeStyle=can?'#f6c343':'rgba(246,195,67,.6)';ctx.lineWidth=1.6;rr(ctx,pp.x-r-1,pp.y-r-1,2*r+2,2*r+2,3);ctx.stroke();ctx.restore();return;}
+ const a=Math.min(1,(v-0.15)/0.5)*dv,glow=p===padBest&&!meta.rm;
+ ctx.save();ctx.globalAlpha=a*(can||p.paid>0?1:0.75);
+ if(first){const s=pp.s*(0.85+0.15*v);
+  if(!pass){ctx.fillStyle='rgba(20,30,20,.35)';rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.fill();
+   if(p===padBest){ctx.save();ctx.shadowColor='rgba(246,195,67,.95)';ctx.shadowBlur=glow?8+5*Math.sin(clock*5):8;ctx.strokeStyle='rgba(246,195,67,.9)';ctx.lineWidth=3;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();ctx.restore();}
+   if(fr>0){ctx.save();rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.clip();ctx.fillStyle='rgba(246,195,67,.6)';ctx.fillRect(pp.x-s/2,pp.y+s/2-s*fr,s,s*fr);ctx.restore();}
+   if(p.type==='mason'){ctx.strokeStyle='#f6c343';ctx.lineWidth=2.5;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();}
+   else{ctx.setLineDash([5,4]);ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();ctx.setLineDash([]);}}
+  else{icon(p.type,pp.x,pp.y-8,1,'#fff');ctx.font=`800 ${fs(13)}px Nunito,system-ui,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#f6c343';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.45)';const tx=String(cost(p)-p.paid);ctx.strokeText(tx,pp.x+4,pp.y+9);ctx.fillText(tx,pp.x+4,pp.y+9);ctx.beginPath();ctx.arc(pp.x-9,pp.y+9,3.5,0,7);ctx.fill();}}
+ else{/* upgrade: a compact chip, icon and price */const w=48,h=22,x=pp.x-w/2,y=pp.y-h/2;
+  if(!pass){ctx.fillStyle='rgba(20,30,20,.5)';rr(ctx,x,y,w,h,h/2);ctx.fill();
+   if(fr>0){ctx.save();rr(ctx,x,y,w,h,h/2);ctx.clip();ctx.fillStyle='rgba(246,195,67,.6)';ctx.fillRect(x,y,w*fr,h);ctx.restore();}
+   if(p===padBest){ctx.save();ctx.shadowColor='rgba(246,195,67,.95)';ctx.shadowBlur=glow?7+4*Math.sin(clock*5):7;ctx.strokeStyle='rgba(246,195,67,.95)';ctx.lineWidth=2.5;rr(ctx,x,y,w,h,h/2);ctx.stroke();ctx.restore();}
+   else{ctx.strokeStyle='rgba(246,195,67,.7)';ctx.lineWidth=1.5;rr(ctx,x,y,w,h,h/2);ctx.stroke();}}
+  else{icon(p.type,x+12,pp.y,0.7,'#fff');ctx.font=`800 ${fs(11)}px Nunito,system-ui,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#f6c343';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.45)';const tx=String(cost(p)-p.paid);ctx.strokeText(tx,x+w-15,pp.y+0.5);ctx.fillText(tx,x+w-15,pp.y+0.5);}}
+ ctx.restore();}
 function draw(){
  const sh=st.shake>0&&!meta.rm?st.shake*10:0,ox=(Math.random()-0.5)*sh,oy=(Math.random()-0.5)*sh;
  const K=dpr*S;applyCam(ctx,K,ox,oy);
@@ -1192,14 +1233,7 @@ function draw(){
  // build spots
  for(const p of pads){if(p.build>0){const u=1-p.build/1.4;for(let i=0;i<3;i++){const a=clock*6+i*2.1;ctx.fillStyle=`rgba(230,220,200,${0.5*(1-u)})`;ctx.beginPath();ctx.arc(p.x+Math.cos(a)*16,p.y+6+Math.sin(a)*5,4+u*4,0,7);ctx.fill();}
   ctx.save();ctx.translate(p.x+14,p.y-18);ctx.rotate(Math.sin(clock*18)*0.6);ctx.fillStyle='#5b3d22';ctx.fillRect(-1,0,2,9);ctx.fillStyle='#8c939b';ctx.fillRect(-4,-2,8,4);ctx.restore();}}
- for(const p of pads){if(!unlocked(p)||!padOpen(p)||p.build>0||p.lock)continue;const pp=padPos(p),s=pp.s,can=st.carried>=cost(p)-p.paid&&st.phase==='day';
-  ctx.globalAlpha=can||p.paid>0?1:0.62;
-  ctx.fillStyle='rgba(20,30,20,.35)';rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.fill();
-  if(can){ctx.save();ctx.shadowColor='rgba(246,195,67,.95)';ctx.shadowBlur=meta.rm?8:8+5*Math.sin(clock*5);ctx.strokeStyle='rgba(246,195,67,.9)';ctx.lineWidth=3;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();ctx.restore();}
-  const fr=p.paid/cost(p);if(fr>0){ctx.save();rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.clip();ctx.fillStyle='rgba(246,195,67,.6)';ctx.fillRect(pp.x-s/2,pp.y+s/2-s*fr,s,s*fr);ctx.restore();}
-  if(p.level||p.type==='mason'){ctx.strokeStyle='#f6c343';ctx.lineWidth=2.5;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();}
-  else{ctx.setLineDash([5,4]);ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=2;rr(ctx,pp.x-s/2,pp.y-s/2,s,s,8);ctx.stroke();ctx.setLineDash([]);}
-  ctx.globalAlpha=1;}
+ for(const p of pads)drawPad(p,0);
  // buildings
  for(const p of pads){if(p.level<1)continue;ctx.save();if(p.pop>0&&!meta.rm){const q=Math.sin((1-p.pop/0.45)*Math.PI);ctx.translate(p.x,p.y+10);ctx.scale(1-0.12*q,1+0.22*q);ctx.translate(-p.x,-(p.y+10));}
   if(p.type==='jetty'){ctx.fillStyle='rgba(0,0,0,.18)';ctx.fillRect(p.x-13,p.y+8,28,4);ctx.fillStyle='#8a5a33';ctx.fillRect(p.x-12,p.y-8,24,16);ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.strokeRect(p.x-12,p.y-8,24,16);ctx.fillStyle='#5b3d22';ctx.beginPath();ctx.moveTo(p.x-15,p.y-7);ctx.lineTo(p.x,p.y-17);ctx.lineTo(p.x+15,p.y-7);ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#3a2716';ctx.fillRect(p.x-4,p.y-1,8,9);}
@@ -1308,7 +1342,7 @@ function draw(){
  for(const s of st.shots){ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(s.x,s.y,3,1.5,0,0,7);ctx.fill();ctx.fillStyle='#1e1e22';ctx.beginPath();ctx.arc(s.x,s.y-(s.z||0),3.2,0,7);ctx.fill();ctx.fillStyle='rgba(255,255,255,.4)';ctx.beginPath();ctx.arc(s.x-1,s.y-(s.z||0)-1,1,0,7);ctx.fill();}
  for(const s of st.eshots){const u=Math.min(1,s.t/s.T),x=s.sx+(s.tx-s.sx)*u,y=s.sy+(s.ty-s.sy)*u,z=Math.sin(u*Math.PI)*22;ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(x,y,2.5,1.3,0,0,7);ctx.fill();ctx.fillStyle='#3a1f1f';ctx.beginPath();ctx.arc(x,y-z,2.8,0,7);ctx.fill();ctx.fillStyle='rgba(255,120,60,.6)';ctx.beginPath();ctx.arc(x,y-z,1.2,0,7);ctx.fill();}
  // lighthouse health, above the tower
- {const f=Math.max(0,st.hp/st.maxHp),w=56,x=G.lx-w/2,y=G.ly-90-4*lv-(lv>=4?10:0);const col=f>0.6?'#4cc36b':f>0.3?'#f0b429':'#e5484d';
+ if(st.phase==='night'||st.hp<st.maxHp-0.5||(st.shield||0)>0.5||st.over){const f=Math.max(0,st.hp/st.maxHp),w=56,x=G.lx-w/2,y=G.ly-90-4*lv-(lv>=4?10:0);const col=f>0.6?'#4cc36b':f>0.3?'#f0b429':'#e5484d';
   ctx.fillStyle='rgba(0,0,0,.55)';rr(ctx,x-2,y-2,w+4,10,4);ctx.fill();ctx.fillStyle=col;rr(ctx,x,y,Math.max(2,w*f),6,3);ctx.fill();
   if(st.hitFlash>0){ctx.fillStyle=`rgba(255,255,255,${st.hitFlash*2.4})`;rr(ctx,x,y,w,6,3);ctx.fill();}
   const shf=(st.shield||0)/st.maxHp;if(shf>0){ctx.fillStyle='rgba(0,0,0,.55)';rr(ctx,x-2,y-8,w*SHIELD_MAX*2+4,6,3);ctx.fill();ctx.fillStyle='#6fc3ff';rr(ctx,x,y-7,Math.max(2,w*shf*2),4,2);ctx.fill();}
@@ -1317,12 +1351,7 @@ function draw(){
  for(const p of pads){if(!p.dwell||p.dwell>=0.45)continue;const pp=padPos(p),f=p.dwell/0.45;ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.beginPath();ctx.arc(pp.x,pp.y,pp.s*0.72,-Math.PI/2,-Math.PI/2+f*Math.PI*2);ctx.stroke();}
  // labels
  ctx.textAlign='center';ctx.textBaseline='middle';
- for(const p of pads){if(!unlocked(p)||!padOpen(p)||p.build>0||p.lock)continue;const pp=padPos(p),big=pp.s>40,can=st.carried>=cost(p)-p.paid&&st.phase==='day';ctx.globalAlpha=can||p.paid>0?1:0.62;
-  icon(p.type,pp.x,pp.y-(big?8:6),big?1:0.8,'#fff');
-  ctx.font=`800 ${fs(big?13:11)}px Nunito,system-ui,sans-serif`;ctx.fillStyle='#f6c343';ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.45)';const tx=String(cost(p)-p.paid);ctx.strokeText(tx,pp.x+4,pp.y+(big?9:7));ctx.fillText(tx,pp.x+4,pp.y+(big?9:7));
-  ctx.beginPath();ctx.arc(pp.x-(big?9:8),pp.y+(big?9:7),3.5,0,7);ctx.fill();
-  if(p.level){const bx=pp.x+pp.s/2-1,by=pp.y-pp.s/2+1,br=fs(12)*0.62;ctx.fillStyle='#f6c343';ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;ctx.beginPath();ctx.arc(bx,by,br,0,7);ctx.fill();ctx.stroke();ctx.font=`800 ${fs(10)}px Nunito,system-ui,sans-serif`;ctx.fillStyle='#1a1204';ctx.fillText(String(p.level+1),bx,by+0.5);}
-  ctx.globalAlpha=1;}
+ for(const p of pads)drawPad(p,1);
  for(const n of st.nums){ctx.font=`800 ${fs(12)}px Nunito,system-ui,sans-serif`;ctx.globalAlpha=Math.max(0,1-n.t/0.9);ctx.lineWidth=3;ctx.strokeStyle='rgba(0,0,0,.6)';ctx.strokeText(n.txt,n.x,n.y-n.t*22);ctx.fillStyle=n.col;ctx.fillText(n.txt,n.x,n.y-n.t*22);ctx.globalAlpha=1;}
  const k=st.keeper;if(!k.inTower&&st.fish>=8)pill(k.x,k.y-50,'FULL','#ff8a70');
  // next-job pointer
@@ -1403,6 +1432,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

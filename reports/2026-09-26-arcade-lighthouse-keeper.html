@@ -157,35 +157,35 @@ const ET={skiff:CFG.skiff,fog:CFG.fog,boss:CFG.boss};
 const MAPS=[null,
  {pal:{g:['#86b865','#679a4c'],sand:'#e6cc95',sand2:'#d9bb80'},edge:'chalk',deco:['gorse'],
   slots:{canL:[-92,.353],canR:[92,.353],canC:[0,.13]}},
- {shape:{rx:170,wob:[[.05,3,1]]},pal:{g:['#9fae70','#6f8750'],sand:'#eedaa8',sand2:'#dcc48e',sea:['#0b2f3e','#145463','#227381','#3a9194']},deco:['dunes','marsh','seahenge'],
+ {mk:300,cot:76,trade:'The market stall is at the east end, beside the second boat spot. That second boat earns far more here than the first.',shape:{rx:170,wob:[[.05,3,1]]},pal:{g:['#9fae70','#6f8750'],sand:'#eedaa8',sand2:'#dcc48e',sea:['#0b2f3e','#145463','#227381','#3a9194']},deco:['dunes','marsh','seahenge'],
   slots:{canL:[-100,.3],canR:[96,.33],canC:[10,.14]},rocks:[[30,-34],[372,-40]]},
- {shape:{rx:186,ry:.86,wob:[[.07,4,2.2]]},pal:{g:['#8d9f5e','#5e7a45'],sand:'#d6c294',sand2:'#bda876',sea:['#0c2e3f','#15505e','#256f78','#4a8f8c']},edge:'wet',deco:['marsh','wreck'],
+ {chD:2,chC:1.3,trade:'The old wreck sheds cargo: more chests wash up every dawn, scattered wide. The beach dog pays for itself quickly.',shape:{rx:186,ry:.86,wob:[[.07,4,2.2]]},pal:{g:['#8d9f5e','#5e7a45'],sand:'#d6c294',sand2:'#bda876',sea:['#0c2e3f','#15505e','#256f78','#4a8f8c']},edge:'wet',deco:['marsh','wreck'],
   slots:{canL:[-70,.28],canR:[112,.3],canC:[-12,.13]},from:[[1,'t',20,380]],rocks:[[120,-26],[300,-30]]},
- {shape:{cx:190,sk:.2,wob:[[.04,5,0]]},pal:{g:['#79a85a','#4a7738'],sand:'#f1dca4',sand2:'#dfc486'},deco:['huts','pines'],
+ {mk:306,cot:70,trade:'The first boat lands at the far west and the market is in the east. A long walk with every crate, so the fish cart earns its keep.',shape:{cx:190,sk:.2,wob:[[.04,5,0]]},pal:{g:['#79a85a','#4a7738'],sand:'#f1dca4',sand2:'#dfc486'},deco:['huts','pines'],
   slots:{canL:[66,.26],canR:[-92,.34],canC:[16,.12],canD:[124,.46]},from:[[3,'t',20,380],[2,'r',.2,.75]],jet:[40,374],
   here:'Ships come in from the east as well as the north, and there is a fourth cannon spot on the east flank.'},
- {shape:{cx:215,rx:128,ry:1.14,sk:-.15},pal:{g:['#94ab6c','#6c8a4e'],sand:'#bdb5a8',sand2:'#9c9488',sea:['#0a2b44','#124f71','#1f6e8e','#3a89a2']},edge:'shingle',deco:['seals','lifeboat','marsh'],
+ {fish:[1.3,0.75],trade:'Poor fishing on the west side of the spit, rich on the east. The second boat brings in nearly twice as much as the first.',shape:{cx:215,rx:128,ry:1.14,sk:-.15},pal:{g:['#94ab6c','#6c8a4e'],sand:'#bdb5a8',sand2:'#9c9488',sea:['#0a2b44','#124f71','#1f6e8e','#3a89a2']},edge:'shingle',deco:['seals','lifeboat','marsh'],
   slots:{canL:[-38,.3],canR:[44,.3],canC:[0,.1],canD:[-92,.52]},from:[[3,'t',120,300],[2,'l',.25,.8]],jet:[40,370],rocks:[[40,-30],[372,-24],[300,-60]],
   here:'A long, narrow spit. Ships gather in the middle and slip in from the west, so short walks and a crowded point.'},
- {shape:{rx:188,ry:.8,wob:[[.09,5,.6]]},pal:{g:['#7aa95b','#5a8a45'],sand:'#c7b99f',sand2:'#a89a80'},edge:'shingle',deco:['crabboats','flint'],
+ {px:1,trade:'A crab-boat town: every crate sells for a coin more. Market upgrades and a second boat pay off well.',shape:{rx:188,ry:.8,wob:[[.09,5,.6]]},pal:{g:['#7aa95b','#5a8a45'],sand:'#c7b99f',sand2:'#a89a80'},edge:'shingle',deco:['crabboats','flint'],
   slots:{canL:[-110,.3],canR:[110,.3],canC:[0,.15],canD:[-40,.3]},jet:[32,368],from:[[1,'t',20,90],[1,'t',310,380],[.6,'t',150,250]],
   here:'A broad, low beach. Ships hug both flanks, so the cannon spots out wide matter more than the one on the point.'},
- {shape:{cx:232,rx:160,wob:[[.04,6,1]]},pal:{g:['#7cb05f','#5c9046'],sand:'#e3c98e',sand2:'#cdb176',sea:['#082a4a','#0f4d7c','#1c6c9a','#2f88ad']},deco:['pier','church','terrace'],
+ {fish:[0.85,0.85],mer:1.5,trade:'Rich water off the pier: boats come back faster, and merchants pay half as much again for a safe passage home.',shape:{cx:232,rx:160,wob:[[.04,6,1]]},pal:{g:['#7cb05f','#5c9046'],sand:'#e3c98e',sand2:'#cdb176',sea:['#082a4a','#0f4d7c','#1c6c9a','#2f88ad']},deco:['pier','church','terrace'],
   slots:{canL:[-110,.35],canR:[64,.3],canC:[-18,.12]},from:[[3,'t',120,390],[2,'l',.15,.7]],jet:[44,380],rocks:[[384,-34],[250,-60]],
   here:'The point sits east of the pier. Ships swing round the pier from the west, a long walk from the east jetty.'},
- {ease:0.88,shape:{cx:182,wob:[[.12,4,2],[.05,9,0]]},pal:{g:['#89a85c','#607f42'],sand:'#dcc08a',sand2:'#c6a672',clay:['#c98d52','#a8693a'],sea:['#123248','#1d5170','#2d6f8c','#4b8ba0']},edge:'clay',deco:['slump','flint'],weather:'drizzle',
+ {ease:0.88,chD:-1,chC:1.6,mk:120,trade:'Fewer chests wash up on the clay, but each holds more. The market sits close to the first boat, so the cart matters less here.',shape:{cx:182,wob:[[.12,4,2],[.05,9,0]]},pal:{g:['#89a85c','#607f42'],sand:'#dcc08a',sand2:'#c6a672',clay:['#c98d52','#a8693a'],sea:['#123248','#1d5170','#2d6f8c','#4b8ba0']},edge:'clay',deco:['slump','flint'],weather:'drizzle',
   slots:{canL:[78,.3],canR:[-100,.36],canC:[0,.14],canD:[132,.5]},jet:[46,374],from:[[3,'t',20,380],[2,'r',.2,.8]],
   here:'Crumbling coves on a wet day. Ships round the eastern cove, and a fourth cannon spot sits out on the east edge.'},
- {shape:{cx:212,sk:-.24,wob:[[.07,6,1.4]]},pal:{g:['#8aa55c','#63803f'],sand:'#d6bb88',sand2:'#bb9d6c',clay:['#b87a45','#8f5a30'],sea:['#16293a','#223f55','#335b72','#527a8e']},edge:'clay',deco:['groynes','ruin','fields'],weather:'drizzle',
+ {mk:300,cot:70,fish:[1.15,1],trade:'The market stands out east on the cliff, a long walk from the first boat in the west. Build the cart early, or lean on the second boat.',shape:{cx:212,sk:-.24,wob:[[.07,6,1.4]]},pal:{g:['#8aa55c','#63803f'],sand:'#d6bb88',sand2:'#bb9d6c',clay:['#b87a45','#8f5a30'],sea:['#16293a','#223f55','#335b72','#527a8e']},edge:'clay',deco:['groynes','ruin','fields'],weather:'drizzle',
   slots:{canL:[-82,.28],canR:[92,.36],canC:[-30,.1],canD:[-128,.5]},jet:[34,360],from:[[3,'t',20,380],[2,'l',.2,.8]],
   here:'The west side stands tallest and ships come at it from the west. The far west spot is exposed, but it covers the approach.'},
- {shape:{rx:148,ry:1.1,wob:[[.05,4,.3]]},pal:{g:['#abb573','#7e9152'],sand:'#f2dfb0',sand2:'#dcc38e'},edge:'dune',deco:['dunes','seals','heath'],
+ {chD:1,chC:1.2,fish:[1.15,1.15],trade:'Tall dunes and a wide beach: lean fishing, but more chests, spread far apart. A good beach for the dog.',shape:{rx:148,ry:1.1,wob:[[.05,4,.3]]},pal:{g:['#abb573','#7e9152'],sand:'#f2dfb0',sand2:'#dcc38e'},edge:'dune',deco:['dunes','seals','heath'],
   slots:{canL:[-58,.3],canR:[62,.3],canC:[0,.1],canD:[-116,.44]},from:[[2,'t',60,340],[1,'l',.2,.75],[1,'r',.2,.75]],
   here:'A tall, narrow point between big dunes. Ships come from both sides at once, so no single cannon covers everything.'},
- {shape:{cx:176,rx:162,wob:[[.05,5,2]]},pal:{g:['#7caf5e','#5a8c45'],sand:'#e8cf98',sand2:'#d2b57c'},deco:['river','harbourlight','terrace'],
+ {px:1,fish:[1,0.8],trade:'The harbour pays a coin more a crate, and the river mouth makes the second boat quick.',shape:{cx:176,rx:162,wob:[[.05,5,2]]},pal:{g:['#7caf5e','#5a8c45'],sand:'#e8cf98',sand2:'#d2b57c'},deco:['river','harbourlight','terrace'],
   slots:{canL:[70,.28],canR:[-90,.33],canC:[0,.12],canD:[108,.52]},from:[[3,'t',20,360],[2,'r',.15,.6]],jet:[40,330],cot:282,wx1:350,rocks:[[30,-34]],
   here:'The river mouth cuts off the east side. Ships follow the channel in from the east.'},
- {shape:{cx:214,sk:.26,wob:[[.04,7,0]]},pal:{g:['#86b265','#62904a'],sand:'#c9c7bd',sand2:'#a9a79d',sea:['#252a55','#34507f','#4f7ea3','#86aebb']},edge:'wall',deco:['turbine','dial','gorse'],
+ {mer:1.5,chC:1.2,trade:'The last port: merchants pay half as much again, and chests are a little richer.',shape:{cx:214,sk:.26,wob:[[.04,7,0]]},pal:{g:['#86b265','#62904a'],sand:'#c9c7bd',sand2:'#a9a79d',sea:['#252a55','#34507f','#4f7ea3','#86aebb']},edge:'wall',deco:['turbine','dial','gorse'],
   slots:{canL:[80,.28],canR:[-72,.3],canC:[20,.1],canD:[120,.52]},jet:[46,378],from:[[2,'t',20,380],[2,'r',.15,.8]],
   here:'The most easterly point. Half the fleet comes straight out of the sunrise, from the east.'}];
 const mapOf=L=>L<=FINALE?MAPS[L]:MAPS[2+((L-FINALE-1)%11)];
@@ -203,10 +203,10 @@ const PADS=[
  {id:'jetty2',type:'jetty',at:()=>{const x=(curMap().jet||[0,354])[1];return{x,y:coastY(x)+30};},cost:12,req:'canL',minL:2},
  {id:'canC',type:'cannon',at:()=>slotAt('canC'),cost:20,req:'canR'},
  {id:'canD',type:'cannon',at:()=>slotAt('canD'),cost:16,req:'canR'},
- {id:'dog',type:'dog',at:()=>({x:G.cottage.x-54,y:G.cottage.y+6}),cost:15,req:'jetty1',minL:3},
- {id:'cart',type:'cart',at:()=>({x:150,y:Math.min(H-128,G.band+56)+6}),cost:20,req:'jetty2',minL:3},
+ {id:'dog',type:'dog',at:()=>({x:G.cottage.x+(G.cottage.x<200?54:-54),y:G.cottage.y+6}),cost:15,req:'jetty1',minL:3},
+ {id:'cart',type:'cart',at:()=>{const m=curMap().mk||92;return{x:m+(m<200?58:-58),y:Math.min(H-128,G.band+56)+6};},cost:20,req:'jetty2',minL:3},
  {id:'mason',type:'mason',at:()=>({x:G.lx+58,y:G.ly+40}),cost:0,req:'canL',minL:2},
- {id:'market',type:'market',at:()=>({x:92,y:Math.min(H-128,G.band+56)}),cost:6,req:null,start:1},
+ {id:'market',type:'market',at:()=>({x:curMap().mk||92,y:Math.min(H-128,G.band+56)}),cost:6,req:null,start:1},
 ];
 function resize(){const r=stage.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);const old=G.cy!==undefined?{cy:G.cy,ry:G.ry,band:G.band,H}:null;
  cv.width=Math.max(1,Math.round(r.width*dpr));cv.height=Math.max(1,Math.round(r.height*dpr));fog.width=Math.max(1,Math.round(r.width*dpr*FOGS));fog.height=Math.max(1,Math.round(r.height*dpr*FOGS));landDirty=true;
@@ -395,16 +395,16 @@ function newIsland(fresh,snap){
  if(snap){applySnap(snap);resumed='retry';}
  else if(!fresh&&!SIM){try{const o=JSON.parse(localStorage.getItem(RUNKEY));if(o&&o.L===L){applySnap(o);resumed=true;}}catch(e){}}
  if(!resumed){meta.stats.attempts++;saveMeta();}
- if(!resumed)washChests(CFG.chests0,Math.round(CFG.chestCoins+(L-1)*1.0));
+ if(!resumed){const M=mapOf(L);washChests(Math.max(1,CFG.chests0+(M.chD||0)),Math.round((CFG.chestCoins+(L-1)*1.0)*(M.chC||1)));}
  if(awayHrs>=0.05&&!SIM){const boats=pads.filter(p=>p.type==='jetty'&&p.level>0).reduce((a,p)=>a+p.level,0),help=pads.filter(p=>(p.type==='dog'||p.type==='cart')&&p.level>0).length;
   const rate=(8+10*boats+6*help)*(1+0.15*meta.up.net);pendingBonus=Math.floor(awayHrs*rate);if(pendingBonus>0)awayCard(pendingBonus,awayHrs,boats,help);awayHrs=0;}
  const away='';
  if(resumed==='retry'){}
  else if(resumed)toast('Welcome back',away||'Picking up where you left off');
- else{toast(hName(L),(L<=FINALE?'Headland '+L+' of '+FINALE+'. ':'')+beachOf(L).tip);if(mapOf(L).here)toast('This beach',mapOf(L).here);
+ else{toast(hName(L),(L<=FINALE?'Headland '+L+' of '+FINALE+'. ':'')+beachOf(L).tip);if(mapOf(L).here)toast('This beach',mapOf(L).here);if(mapOf(L).trade)toast('Trade here',mapOf(L).trade);
   if(L===1&&!meta.tutDone)msgClear();}
  if(st.assist>0)toast('Calmer seas','After '+meta.streakN+' tries here, ships are '+Math.round(st.assist*100)+'% weaker so you can get past this headland.');
- pendingBonus=0;if(!awayOpen)$('modal').hidden=true;
+ pendingBonus=0;lockUnderKeeper();if(!awayOpen)$('modal').hidden=true;
  cam.x=200;cam.y=H/2;cam.z=1;cam.mode='night';cam.tr=null;
  rndArm(resumed);
 }
@@ -443,7 +443,7 @@ const burnNow=()=>burnL(lampLvl())*(lampSpec()==='focus'?1.5:1);
 function chooseSpec(p){const o=SPECS[p.type];if(!o)return;if(SIM){p.spec=o[Math.random()<0.5?0:1].id;return;}
  $('card').innerHTML=`<h2>Choose a speciality</h2><p>Your ${padInfo(p).t.toLowerCase()} has reached level 3. Pick how it works from now on.</p>`+o.map(x=>`<button class="btn" data-s="${x.id}"><span>${x.name}<small>${x.d}</small></span></button>`).join('');
  $('card').querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{p.spec=b.dataset.s;$('modal').hidden=true;last=performance.now();toast(o.find(x=>x.id===p.spec).name,o.find(x=>x.id===p.spec).d);}));$('modal').hidden=false;}
-const tripT=l=>CFG.trip/(1+0.35*(l-1))/(1+0.15*meta.up.net),cratesPer=(l,p)=>(p&&p.spec==='night'?1:l>=3?2:1)+(l>=5?1:0),priceL=l=>Math.round(CFG.cratePrice+CFG.priceStep*(l-1));
+const tripT=l=>CFG.trip/(1+0.35*(l-1))/(1+0.15*meta.up.net),cratesPer=(l,p)=>(p&&p.spec==='night'?1:l>=3?2:1)+(l>=5?1:0),priceL=l=>Math.round(CFG.cratePrice+CFG.priceStep*(l-1))+(curMap().px||0),fishMul=p=>((curMap().fish||[1,1])[p.id==='jetty2'?1:0]);
 const canDmg=l=>7*Math.pow(1.45,l-1)*(1+0.15*meta.up.dmg),canRange=l=>170+25*l;
 /* mason: each visit repairs 10% of the tower, or adds 10% shield once it is whole (shield caps at 50%). The price climbs with every visit in a day and with the headland */
 const MASON_STEP=0.1,SHIELD_MAX=0.5,masonCost=()=>Math.round((5+2.5*st.L)*Math.pow(1.4,st.masonN||0));
@@ -462,7 +462,7 @@ function padInfo0(p){const L=p.level,N=L+1,arrow=(a,b)=>L?`${a} → ${b}`:`${b}`
  if(p.type==='mason'){const full=st.hp>=st.maxHp;return{t:'Mason',d:'',s:full?`Adds a shield of ${Math.round(st.maxHp*MASON_STEP)} above full health · price rises each visit today`:`Repairs ${Math.round(st.maxHp*MASON_STEP)} tower health · price rises each visit today`};}
  if(p.type==='dog')return{t:'Beach dog',d:'',s:L?`Carries ${dogCap(L)} → ${dogCap(N)} · digs up ${dogDig(L)} → ${dogDig(N)} coins`:`Digs up coins, opens far chests, fetches day and night`};
  if(p.type==='cart')return{t:'Fish cart',d:'',s:L?`Carries ${cartCap(L)} → ${cartCap(N)} crates · faster`:`Hauls ${cartCap(1)} crates at a time to the market`};
- if(p.type==='jetty')return{t:'Fishing boat',d:'Sails out by day and lands crates of fish here. Carry the crates to the fish market to sell them.',s:(L?`Trip ${tripT(L).toFixed(1)}s → ${tripT(N).toFixed(1)}s`:`A trip every ${tripT(1).toFixed(1)}s`)+(N>=5?`  ·  ${cratesPer(5,p)} crates per trip`:N>=3?'  ·  2 crates per trip':'')};
+ if(p.type==='jetty')return{t:'Fishing boat',d:'Sails out by day and lands crates of fish here. Carry the crates to the fish market to sell them.',s:(L?`Trip ${(tripT(L)*fishMul(p)).toFixed(1)}s → ${(tripT(N)*fishMul(p)).toFixed(1)}s`:`A trip every ${(tripT(1)*fishMul(p)).toFixed(1)}s`)+(N>=5?`  ·  ${cratesPer(5,p)} crates per trip`:N>=3?'  ·  2 crates per trip':'')};
  if(p.type==='market')return{t:'Fish market',d:'Walk up to the stall with crates of fish to sell them. Upgrading raises the price.',s:`${priceL(L)} → ${priceL(N)} coins per crate`};
  if(p.type==='cannon')return{t:'Cannon',d:'Fires at any ship that is lit up. Ships inside the beam take 50% extra damage.',s:'Damage '+arrow(Math.round(canDmg(L)),Math.round(canDmg(N)))+'  ·  Range '+arrow(canRange(L),canRange(N))};
  const a=L+1,b=L+2,deg=l=>Math.round(beamHalfL(l)*2*57.3);
@@ -687,7 +687,7 @@ function update(dt){
   if(p.level<1)continue;
   if(p.type==='jetty'){const b=st.boats[p.id]||(st.boats[p.id]={u:0,out:false,wait:1.5});
    if(!b.out){if(st.phase==='day'||p.spec==='night'){b.wait-=dt;if(b.wait<=0){b.out=true;b.u=0;}}}
-   else{b.u+=dt/(tutOn()&&!st.tutF.crate?4:tripT(p.level));if(b.u>=1){b.out=false;b.u=0;b.wait=0.8;const s=jettySide(p);
+   else{b.u+=dt/(tutOn()&&!st.tutF.crate?4:tripT(p.level)*fishMul(p));if(b.u>=1){b.out=false;b.u=0;b.wait=0.8;const s=jettySide(p);
      for(let i=0;i<cratesPer(p.level,p);i++)if(st.crates.filter(c=>c.pad===p.id).length<6){let cx,cy,tries=0;do{cx=p.x+s*(18+Math.random()*22);cy=p.y-6+Math.random()*16;}while(!walkable(cx,cy)&&tries++<10);if(walkable(cx,cy))st.crates.push({x:cx,y:cy,pad:p.id,age:0});}
      {const pp=p,n=st.crates.filter(c=>c.pad===p.id).length;if(!tutOn()&&!st.tutF.crate)sign('crate',()=>{const c=st.crates.find(c=>c.pad===pp.id);return c;},'Your boat landed fish','Walk over the crate to pick it up, then sell it at the market stall for coins.');
       if(n>=6)sign('jettyFull',()=>({x:pp.x,y:pp.y-10}),'The boat has stopped fishing','It waits when 6 crates pile up on its beach. Carry them to the market to get it going again.');}
@@ -740,7 +740,7 @@ function update(dt){
     /* beyond the beam's reach (e.g. after a resize or a resumed save): sail in on its own, and the dark doesn't count yet */
     if(!m.beam&&Math.hypot(m.x-G.ox,m.y-G.oy)>450){m.x+=dx/d*24*dt;m.y+=dy/d*24*dt;}
     else if(m.beam){m.x+=dx/d*34*dt;m.y+=dy/d*34*dt;m.lost=Math.max(0,m.lost-dt*0.5);}else{m.lost+=dt;m.x+=dx/d*3*dt;m.y+=dy/d*3*dt;}
-    if(d<8){m.state='safe';m.t=0;st.tutF.merchant=true;const n=Math.round(10*Math.sqrt(st.L));for(let i=0;i<n;i++){const cx=Math.max(20,Math.min(380,m.tx+Math.random()*30-15));dropCoin(cx,coastY(cx)+16+Math.random()*8);}meta.stats.saved++;play('win');toast('Merchant home safe','It paid '+n+' coins. They are on the beach by the jetty.');}
+    if(d<8){m.state='safe';m.t=0;st.tutF.merchant=true;const n=Math.round(10*Math.sqrt(st.L)*(curMap().mer||1));for(let i=0;i<n;i++){const cx=Math.max(20,Math.min(380,m.tx+Math.random()*30-15));dropCoin(cx,coastY(cx)+16+Math.random()*8);}meta.stats.saved++;play('win');toast('Merchant home safe','It paid '+n+' coins. They are on the beach by the jetty.');}
     else if(m.lost>14){m.state='gone';m.t=0;st.tutF.merchant=true;meta.stats.turned++;toast('The merchant turned back','It gave up after too long in the dark. Flick the beam back to it every few seconds.');}
     /* never sail over the headland: slide along the shore instead */
     if(m.state==='lost'){const cy=coastY(m.x)-16;if(m.y>cy&&Math.abs(m.tx-m.x)>20)m.y=Math.max(cy,Math.min(m.y,m.ty));}}}
@@ -827,9 +827,11 @@ function openChest(c){if(c.open)return;c.open=true;c.t=0;play('chest');c.lidT=0;
  for(let i=0;i<c.coins;i++){const a=Math.random()*6.28,r=14+Math.random()*16;dropCoin(c.x+Math.cos(a)*r,c.y+6+Math.sin(a)*r*0.7,{x:c.x,y:c.y-8},0.12+i*0.03);}
  st.fx.push({kind:'ring',x:c.x,y:c.y,t:0});}
 function dropCoin(x,y,from,delay){st.coins.push({x,y,age:-(delay||0),ph:Math.random()*6,fx:from?from.x:x,fy:from?from.y:y});}
-function dawn(){st.phase='day';st.t=0;st.masonN=0;st.dayLen=CFG.day*sea().day;if(tutOn()){meta.tutDone=true;saveMeta();toast('You are the keeper now','Fish and build by day, light the lamp at night. Tap the game to pause.');}st.keeper.inTower=false;st.keeper.x=G.lx;st.keeper.y=G.ly+24;dial=null;aimId=null;
+/* the keeper appears on a spot (dawn by the tower, a resumed save): don't let it start taking coins until he steps off */
+function lockUnderKeeper(){const k=st.keeper;for(const p of pads){const pp=padPos(p);if(Math.abs(k.x-pp.x)<pp.s/2+6&&Math.abs(k.y-pp.y)<pp.s/2+6){p.lock=true;p.dwell=0;}}}
+function dawn(){st.phase='day';st.t=0;st.masonN=0;st.dayLen=CFG.day*sea().day;if(tutOn()){meta.tutDone=true;saveMeta();toast('You are the keeper now','Fish and build by day, light the lamp at night. Tap the game to pause.');}st.keeper.inTower=false;st.keeper.x=G.lx;st.keeper.y=G.ly+24;dial=null;aimId=null;lockUnderKeeper();
  if(st.night>=NN()){cleared();return;}
- st.hp=Math.min(st.maxHp,st.hp+st.maxHp*0.25);washChests(CFG.chestsDawn,Math.round(6*Math.sqrt(st.L)));saveRun();
+ st.hp=Math.min(st.maxHp,st.hp+st.maxHp*0.25);{const M=curMap();washChests(Math.max(1,CFG.chestsDawn+(M.chD||0)),Math.round(6*Math.sqrt(st.L)*(M.chC||1)));}saveRun();
  if(!sign('dawn',()=>{const c=st.chests.find(c=>!c.open);return c?{x:c.x,y:c.y}:null;},'Dawn: chests washed up','The tide brings new chests every morning. Walk onto them for coins, then build before night '+(st.night+1)+' of '+NN()+'.'))toast('Dawn','Night '+(st.night+1)+' of '+NN()+' comes next. The tower mended a quarter of its damage.');}
 
 /* ---------- stars and the harbour ---------- */
@@ -850,7 +852,7 @@ function buy(k){if(meta.up[k]<5&&meta.stars>=upCost(k)){meta.stars-=upCost(k);me
 function harbour(title,stars,text,next,retry,nextL,coins){if(SIM)return;
  const starRow=`<span class="stars">${[0,1,2].map(i=>i<stars?'★':'<span class="off">★</span>').join('')}</span>`,coinRow=`<span><i class="coin" style="width:15px;height:15px;vertical-align:-2px"></i> ${coins||0} coins</span>`;
  const bL=nextL||st.L,bi=beachOf(bL),win=!!nextL;
- const beach=`<div class="beach"><div class="k">${win?'Next':'This headland'} · ${bL<=FINALE?'headland '+bL+' of '+FINALE:'open sea'}</div><h3>${hName(bL)}</h3><p class="fl">${bi.fl}</p>${win?`<p class="nw">New here: <i>${bi.nw}</i></p>`:''}${mapOf(bL).here?`<p class="tp" style="margin:0 0 6px"><b>This beach:</b> ${mapOf(bL).here}</p>`:''}<p class="tp"><b>Tip:</b> ${bi.tip}</p></div>`;
+ const beach=`<div class="beach"><div class="k">${win?'Next':'This headland'} · ${bL<=FINALE?'headland '+bL+' of '+FINALE:'open sea'}</div><h3>${hName(bL)}</h3><p class="fl">${bi.fl}</p>${win?`<p class="nw">New here: <i>${bi.nw}</i></p>`:''}${mapOf(bL).here?`<p class="tp" style="margin:0 0 6px"><b>This beach:</b> ${mapOf(bL).here}</p>`:''}${mapOf(bL).trade?`<p class="tp" style="margin:0 0 6px"><b>Trade:</b> ${mapOf(bL).trade}</p>`:''}<p class="tp"><b>Tip:</b> ${bi.tip}</p></div>`;
  const render=()=>{$('card').innerHTML=`<h2>${title}</h2><div class="results">${starRow}${coinRow}</div>${text?`<p>${text}</p>`:''}${beach}`+
   (retry?`<button class="btn primary" id="retry">Retry the last night with your base</button><button class="btn" id="go" style="justify-content:center">${next}</button>`:`<button class="btn primary" id="go">${next}</button>`)+
   `<button class="btn nav" id="hb"><span>Harbour<small>Spend stars on upgrades · coast chart</small></span><span class="price">★ ${meta.stars}</span></button><a class="link home" href="../games.html">&larr; Digi Games</a>`;
@@ -1434,6 +1436,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

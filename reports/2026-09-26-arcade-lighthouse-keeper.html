@@ -437,7 +437,7 @@ const beamHalfL=l=>0.15+0.05*l,lampRL=l=>80+18*l,burnL=l=>4+3*l;
 const SPECS={cannon:[{id:'chain',name:'Chain shot',d:'Hits slow ships by a third for 1.5 seconds'},{id:'long',name:'Long gun',d:'40 more range and 20% more damage'}],
  lamp:[{id:'focus',name:'Focused beam',d:'Beam 25% narrower but burns 50% harder'},{id:'wide',name:'Wide sweep',d:'Beam 30% wider, easier to cover ships'}],
  jetty:[{id:'trawl',name:'Trawler',d:'Lands 2 crates every trip, by day'},{id:'night',name:'Night fisher',d:'1 crate a trip, but keeps fishing all night. Pair it with a Night porter cart'}],
- cart:[{id:'quick',name:'Quick hands',d:'Walks 40% faster and carries 2 more crates'},{id:'porter',name:'Night porter',d:'Keeps hauling and selling crates all night, straight into your purse'}]};
+ cart:[{id:'quick',name:'Quick hands',d:'Walks 40% faster and carries 2 more crates'},{id:'porter',name:'Night porter',d:'Keeps hauling and selling crates all night. The coins pile up at the market for the dog, or for you at dawn'}]};
 const lampSpec=()=>pads.find(p=>p.id==='lamp').spec;
 const beamHalf=()=>beamHalfL(lampLvl())*(lampSpec()==='focus'?0.75:lampSpec()==='wide'?1.3:1),lampR=()=>lampRL(lampLvl());
 const burnNow=()=>burnL(lampLvl())*(lampSpec()==='focus'?1.5:1);
@@ -798,7 +798,7 @@ function updateHelpers(dt){const k=st.keeper,day=st.phase==='day';
  const cp=pads.find(p=>p.id==='cart');
  if(cp&&cp.level>0){const c=st.cart||(st.cart={x:cp.x,y:cp.y-6,state:'idle',load:0,f:1});const v=cartSpd(cp.level)*(cp.spec==='quick'?1.4:1),cap=cartCap(cp.level)+(cp.spec==='quick'?2:0),mk=market(),works=day||cp.spec==='porter';
   if(!works&&c.state!=='sell'){if(c.tgt){c.tgt.claim=false;c.tgt=null;}if(c.load)c.state='sell';else moveTo(c,{x:cp.x,y:cp.y-6},v,dt);}
-  else if(c.state==='sell'){if(moveTo(c,{x:mk.x+26,y:mk.y+6},v,dt)){const pr=priceL(mk.level)*c.load;if(!day&&pr){st.carried+=pr;num(mk.x,mk.y-26,'+'+pr,'#f6c343');}else for(let i=0;i<pr;i++){const a=Math.random()*6.28;dropCoin(mk.x+Math.cos(a)*(12+Math.random()*14),mk.y+14+Math.sin(a)*8);}if(c.load)play('sell');c.load=0;c.state='idle';}}
+  else if(c.state==='sell'){if(moveTo(c,{x:mk.x+26,y:mk.y+6},v,dt)){const pr=priceL(mk.level)*c.load;for(let i=0;i<pr;i++){const a=Math.random()*6.28;dropCoin(mk.x+Math.cos(a)*(12+Math.random()*14),mk.y+14+Math.sin(a)*8);}if(c.load)play('sell');c.load=0;c.state='idle';}}
   else{if(!c.tgt||!st.crates.includes(c.tgt)){c.tgt=null;let bd=1e9;for(const cr of st.crates){if(cr.claim)continue;const dd=Math.hypot(cr.x-c.x,cr.y-c.y);if(dd<bd){bd=dd;c.tgt=cr;}}if(c.tgt)c.tgt.claim=true;else if(c.load)c.state='sell';}
    if(c.tgt&&moveTo(c,c.tgt,v,dt)){st.crates=st.crates.filter(x=>x!==c.tgt);c.tgt=null;c.load++;play('thud');if(c.load>=cap)c.state='sell';}
    if(!c.tgt&&!c.load&&c.state==='idle')moveTo(c,{x:cp.x,y:cp.y-6},v,dt);}}}
@@ -1442,6 +1442,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

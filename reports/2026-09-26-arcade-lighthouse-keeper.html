@@ -26,6 +26,8 @@ body{margin:0;background:var(--night);color:var(--ink);font-family:Nunito,system
 #stage{position:relative;height:100%;height:100dvh;max-width:480px;margin:0 auto;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;background:var(--sea)}
 canvas{display:block;width:100%;height:100%;touch-action:none}
 :root{--st:env(safe-area-inset-top,0px);--sl:env(safe-area-inset-left,0px);--sr:env(safe-area-inset-right,0px)}
+#menu{position:absolute;right:calc(4px + var(--sr));top:calc(2px + var(--st));width:44px;height:44px;display:flex;align-items:center;justify-content:center;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#menu i{display:block;width:4px;height:14px;border-radius:1px;background:var(--ink)}
 #hud{position:absolute;left:calc(10px + var(--sl));top:calc(9px + var(--st));pointer-events:none;color:rgba(244,236,216,.78);text-shadow:0 1px 3px rgba(0,0,0,.55)}
 #prog{position:absolute;left:0;right:0;top:var(--st);height:3px;background:rgba(8,20,33,.25);pointer-events:none}#prog i{display:block;height:100%;width:0;background:#f6c343;opacity:.7;transition:background .6s}
 #flash{position:absolute;left:50%;top:calc(12px + var(--st));transform:translateX(-50%);font:800 13px Nunito,system-ui,sans-serif;color:var(--ink);background:rgba(8,20,33,.55);border-radius:20px;padding:4px 12px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .35s}
@@ -44,14 +46,14 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 #phase{display:flex;align-items:center;gap:8px}
 #bell{position:absolute;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font:800 15px Nunito,system-ui,sans-serif;color:#1a1204;background:linear-gradient(90deg,#fff1c4 0 var(--p,0%),var(--gold) var(--p,0%));border:0;border-radius:12px;padding:13px 18px;min-height:48px;touch-action:none;-webkit-touch-callout:none;box-shadow:0 3px 0 #a67c14;cursor:pointer;white-space:nowrap}
 #bell:focus-visible,.btn:focus-visible,#menu:focus-visible{outline:3px solid #fff;outline-offset:2px}
-#tut{position:absolute;left:50%;top:calc(34px + var(--st));transform:translateX(-50%);width:min(340px,calc(100% - 24px));display:flex;align-items:center;gap:10px;background:#f6c343;color:#1a1204;border-radius:12px;padding:7px 8px 7px 12px;font-weight:800;font-size:14px;box-shadow:0 3px 0 #a67c14}
+#tut{position:absolute;left:50%;top:calc(52px + var(--st));transform:translateX(-50%);width:min(340px,calc(100% - 24px));display:flex;align-items:center;gap:10px;background:#f6c343;color:#1a1204;border-radius:12px;padding:7px 8px 7px 12px;font-weight:800;font-size:14px;box-shadow:0 3px 0 #a67c14}
 #tut .tn{font-size:11px;font-weight:800;opacity:.7;white-space:nowrap}
 #tut .h{flex:1}
 #tut button{pointer-events:auto;background:rgba(26,18,4,.12);border:0;border-radius:8px;color:#1a1204;font:800 12px Nunito,system-ui,sans-serif;padding:8px 10px;min-height:36px;cursor:pointer}
-#stage.tutOn #info{top:calc(84px + var(--st))}#stage.tutOn #toast{top:calc(132px + var(--st))}#stage.tutOn #tip{display:none}#stage.tutOn #flash{opacity:0!important}
+#stage.tutOn #info{top:calc(102px + var(--st))}#stage.tutOn #toast{top:calc(150px + var(--st))}#stage.tutOn #tip{display:none}#stage.tutOn #flash{opacity:0!important}
 .seg{display:flex;gap:6px;margin:8px 0 2px}.seg button{flex:1;margin:0;justify-content:center;flex-direction:column;align-items:center;text-align:center}.seg button.on{background:var(--gold);color:#1a1204;border:0}
-#tip{position:absolute;left:50%;top:calc(40px + var(--st));transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 10px;pointer-events:none;white-space:nowrap;transition:opacity .4s}
-#info{position:absolute;left:50%;transform:translateX(-50%);width:min(320px,calc(100% - 24px));top:calc(40px + var(--st));background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 10px;pointer-events:none;font-size:12px;line-height:1.3}
+#tip{position:absolute;left:50%;top:calc(52px + var(--st));transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 10px;pointer-events:none;white-space:nowrap;transition:opacity .4s}
+#info{position:absolute;left:50%;transform:translateX(-50%);width:min(320px,calc(100% - 24px));top:calc(52px + var(--st));background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 10px;pointer-events:none;font-size:12px;line-height:1.3}
 #info .cost.short{color:#c9c2b0}
 #info b{font-size:13px;font-weight:800}
 #info .cost{float:right;color:var(--gold);font-weight:800;font-size:13px}
@@ -60,7 +62,7 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 #toast{position:absolute;left:50%;top:calc(118px + var(--st));transform:translateX(-50%);text-align:center;pointer-events:none;transition:opacity .5s;width:86%}
 #toast h2{font-family:"Bree Serif",Georgia,serif;font-weight:400;font-size:28px;margin:0;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 #toast p{margin:4px 0 0;font-weight:700;font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,.8)}
-#toast.banner{top:calc(40px + var(--st));width:max-content;max-width:calc(100% - 24px);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 12px}
+#toast.banner{top:calc(52px + var(--st));width:max-content;max-width:calc(100% - 24px);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 12px}
 #toast.banner h2{font-family:Nunito,system-ui,sans-serif;font-weight:800;font-size:14px;text-shadow:none}
 #toast.banner p{font-size:12px;margin-top:1px;text-shadow:none;font-weight:600}
 .note{font-size:12px;opacity:.7;margin:12px 0 0}
@@ -119,7 +121,7 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
   <div id="prog" aria-hidden="true"><i id="progF"></i></div>
   <div id="hud"><div id="wal" aria-label="Coins carried"><i class="coin"></i><b id="walN">0</b><span id="walF"></span></div></div>
   <div id="flash" role="status" aria-live="polite"></div>
-  <button id="menu" class="sr" type="button">Pause (tap the game or press Esc)</button>
+  <button id="menu" type="button" aria-label="Pause (or press Esc)"><i aria-hidden="true"></i><i aria-hidden="true"></i></button>
   <div id="toast"><h2></h2><p></p></div>
   <div id="tip">Drag anywhere to walk</div>
   <div id="tut" hidden><span class="tn" id="tutN"></span><span class="h" id="tutH"></span><button type="button" id="tutSkip">Skip</button></div>
@@ -179,9 +181,9 @@ const MAPS=[null,
  {mk:300,cot:70,fish:[1.15,1],trade:'The market stands out east on the cliff, a long walk from the first boat in the west. Build the cart early, or lean on the second boat.',shape:{cx:212,sk:-.24,wob:[[.07,6,1.4]]},pal:{g:['#8aa55c','#63803f'],sand:'#d6bb88',sand2:'#bb9d6c',clay:['#b87a45','#8f5a30'],sea:['#16293a','#223f55','#335b72','#527a8e']},edge:'clay',deco:['groynes','ruin','fields'],weather:'drizzle',
   slots:{canL:[-82,.28],canR:[92,.36],canC:[-30,.1],canD:[-128,.5]},jet:[34,360],from:[[3,'t',20,380],[2,'l',.2,.8]],
   here:'The west side stands tallest and ships come at it from the west. The far west spot is exposed, but it covers the approach.'},
- {chD:1,chC:1.2,fish:[1.15,1.15],trade:'Tall dunes and a wide beach: lean fishing, but more chests, spread far apart. A good beach for the dog.',shape:{rx:148,ry:1.1,wob:[[.05,4,.3]]},pal:{g:['#abb573','#7e9152'],sand:'#f2dfb0',sand2:'#dcc38e'},edge:'dune',deco:['dunes','seals','heath'],
-  slots:{canL:[-58,.3],canR:[62,.3],canC:[0,.1],canD:[-116,.44]},from:[[2,'t',60,340],[1,'l',.2,.75],[1,'r',.2,.75]],
-  here:'A tall, narrow point between big dunes. Ships come from both sides at once, so no single cannon covers everything.'},
+ {chD:1,chC:1.2,fish:[1.15,1.15],trade:'Tall dunes and a wide beach: lean fishing, but more chests, spread far apart. A good beach for the dog.',shape:{rx:170,ry:1.1,wob:[[.05,4,.3]]},pal:{g:['#abb573','#7e9152'],sand:'#f2dfb0',sand2:'#dcc38e'},edge:'dune',deco:['dunes','seals','heath'],
+  slots:{canL:[-58,.3],canR:[62,.3],canC:[0,.1],canD:[-116,.44]},from:[[3,'t',90,310],[.5,'l',.2,.75],[.5,'r',.2,.75]],sideN:2,
+  here:'A tall point between big dunes. Most ships come from the north; from night 2 a few slip round both sides, so keep the beam moving.'},
  {px:1,fish:[1,0.8],trade:'The harbour pays a coin more a crate, and the river mouth makes the second boat quick.',shape:{cx:176,rx:162,wob:[[.05,5,2]]},pal:{g:['#7caf5e','#5a8c45'],sand:'#e8cf98',sand2:'#d2b57c'},deco:['river','harbourlight','terrace'],
   slots:{canL:[70,.28],canR:[-90,.33],canC:[0,.12],canD:[108,.52]},from:[[3,'t',20,360],[2,'r',.15,.6]],jet:[40,330],cot:282,wx1:350,rocks:[[30,-34]],
   here:'The river mouth cuts off the east side. Ships follow the channel in from the east.'},
@@ -221,10 +223,16 @@ function layout(){landDirty=true;seaDirty=true;const M=curMap(),sh=M.shape||{};G
  coast=[];for(let x=0;x<=400;x+=5)coast.push([x,coastY(x)]);
  G.cottage={x:M.cot||320,y:Math.min(H-120,G.band+58)};
  pads.forEach(p=>{const q=p.at();p.x=q.x;p.y=q.y;});
+ /* keep build spots apart: each spot's pay zone reaches 26 units from its centre (21 for an upgrade chip), so nudge a later spot sideways (or down) until it clears the ones before it */
+ const Z=52,clash=(p,i)=>pads.slice(0,i).find(o=>Math.abs(o.x-p.x)<Z&&(Math.abs(o.y-p.y)<Z||(o.type!=='lamp'&&Math.abs(o.y+32-p.y)<48)));/* the 32 below is where an earlier spot's upgrade chip usually sits */
+ const MOVES=[];for(let r=6;r<=72;r+=6)for(const [dx,dy] of [[r,0],[-r,0],[0,r],[r,r],[-r,r],[0,-r]])MOVES.push([dx,dy]);
+ pads.forEach((p,i)=>{if(p.type==='lamp'||p.type==='market'||!clash(p,i))return;const x0=p.x,y0=p.y;
+  for(const [dx,dy] of MOVES){p.x=x0+dx;p.y=y0+dy;if(p.x>22&&p.x<378&&walkable(p.x,p.y-12)&&walkable(p.x,p.y+12)&&Math.hypot(p.x-G.lx,(p.y-G.ly)*1.3)>40&&!clash(p,i))return;}p.x=x0;p.y=y0;});
  /* where the upgrade square goes once a building stands: below it, unless that lands on the tower, off the land or on another spot */
  const tower=(x,y)=>Math.abs(x-G.lx)<40&&y>G.ly-140&&y<G.ly+26;
- pads.forEach(p=>{p.ux=0;p.uy=32;if(p.type==='lamp')return;const ok=(dx,dy)=>{const x=p.x+dx,y=p.y+dy;return walkable(x,y-10)&&walkable(x,y+10)&&!tower(x,y)&&pads.every(o=>o===p||Math.hypot(o.x-x,o.y-y)>40);};
-  for(const [dx,dy] of [[0,32],[p.x<G.lx?-46:46,6],[p.x<G.lx?46:-46,6],[0,-34]])if(ok(dx,dy)){p.ux=dx;p.uy=dy;break;}});}
+ pads.forEach(p=>{p.ux=undefined;p.uy=undefined;});
+ pads.forEach(p=>{p.ux=0;p.uy=32;if(p.type==='lamp')return;const ok=(dx,dy)=>{const x=p.x+dx,y=p.y+dy;return walkable(x,y-10)&&walkable(x,y+10)&&!tower(x,y)&&pads.every(o=>o===p||(Math.abs(o.x-x)>=48||Math.abs(o.y-y)>=48)&&(o.ux===undefined||Math.abs(o.x+o.ux-x)>=42||Math.abs(o.y+o.uy-y)>=42));};
+  const sd=p.x<G.lx?-1:1;for(const [dx,dy] of [[0,32],[sd*46,6],[-sd*46,6],[0,-34],[sd*40,32],[-sd*40,32],[sd*56,-8],[-sd*56,-8],[0,48]])if(ok(dx,dy)){p.ux=dx;p.uy=dy;break;}});}
 
 /* ---------- camera: close in on the keeper by day, frame the whole headland at night ----------
    Screen units are CSS px / S, so the screen is always 400 units wide and H tall, and at zoom 1 centred on (200, H/2)
@@ -424,8 +432,9 @@ function snapState(){const n=st.phase==='night';return{L:st.L,night:n?st.night-1
 function retryNight(cp){newIsland(true,cp);st.t=Math.max(0,st.dayLen-8);st.cp=cp;toast('Night '+NN()+' again','Your buildings are as you left them. Dark falls in 8 seconds, so spend any coins now.');}
 function saveRun(){if(SIM||!st||st.over)return;try{localStorage.setItem(RUNKEY,JSON.stringify(snapState()))}catch(e){}}
 function clearRun(){if(SIM)return;try{localStorage.removeItem(RUNKEY)}catch(e){}}
+/* chests wash up on the beach line first; if a crowded beach has no room, they land further up the sand and a little closer together, so every beach gets the chests its trade promises */
 function washChests(n,coins){for(let i=0;i<n;i++){let x,y,ok=false,tries=0;
-  while(!ok&&tries++<40){x=24+Math.random()*352;y=coastY(x)+16+Math.random()*6;ok=walkable(x,y+4)&&pads.every(p=>{const q=padPos(p);return Math.hypot(p.x-x,p.y-y)>44&&Math.hypot(q.x-x,q.y-y)>40;})&&Math.hypot(G.lx-x,G.ly-y)>40&&st.chests.every(c=>Math.hypot(c.x-x,c.y-y)>50);}
+  while(!ok&&tries++<80){const wide=tries>30,wider=tries>60;x=24+Math.random()*352;y=coastY(x)+16+Math.random()*(wider?90:wide?70:6);ok=walkable(x,y+4)&&pads.every(p=>{if(p.minL&&st.L<p.minL)return true;const q=padPos(p);return Math.hypot(p.x-x,p.y-y)>44&&Math.hypot(q.x-x,q.y-y)>40;})&&Math.hypot(G.lx-x,G.ly-y)>40&&st.chests.every(c=>Math.hypot(c.x-x,c.y-y)>(wider?28:wide?34:50));}
   if(ok)st.chests.push({x,y,coins,open:false,t:0});}}
 /* rounds per headland grow along the coast */
 const nightsOf=L=>L>=9?5:L>=4?4:3,NN=()=>nightsOf(st.L);
@@ -493,10 +502,11 @@ cv.addEventListener('pointermove',e=>{const q=toScr(e),tp=taps[e.pointerId];if(t
  else if(aimId===e.pointerId)setAim(toWorld(e));
  else if(dial&&dial.id===e.pointerId){st.aim=dial.a0+(q.x-dial.x0)*({slow:0.010,normal:0.014,fast:0.019}[meta.sens]||0.014);clampAim();st.aimed=true;}
  else if(e.pointerType==='mouse'&&st.phase==='night'&&!joy&&!e.buttons){const p=toWorld(e);if(inSea(p))setAim(p);}});
-const up=e=>{const tp=taps[e.pointerId];delete taps[e.pointerId];downN=Math.max(0,downN-1);
+const up=e=>{const tp=taps[e.pointerId],seaTap=aimId===e.pointerId;delete taps[e.pointerId];downN=Math.max(0,downN-1);
  const isTap=tp&&e.type==='pointerup'&&tp.solo&&performance.now()-tp.t0<TAP_MS&&tp.moved<TAP_PX;
  if(joy&&joy.id===e.pointerId)joy=null;if(dial&&dial.id===e.pointerId)dial=null;if(aimId===e.pointerId)aimId=null;
- if(isTap&&!st.over){if(st.phase==='night'){st.aim=tp.aim0;st.aimed=tp.aimed0;}if(signCur)signDismiss('tap');else openMenu('tap');}};
+ /* at night a tap on the sea points the beam there (it never pauses); the pause button is always on screen */
+ if(isTap&&!st.over){if(st.phase==='night'&&seaTap){if(signCur)signDismiss('tap');return;}if(st.phase==='night'){st.aim=tp.aim0;st.aimed=tp.aimed0;}if(signCur)signDismiss('tap');else openMenu('tap');}};
 cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 addEventListener('keydown',e=>{const kk=e.key.toLowerCase();if((kk==='escape'||kk==='p')&&$('modal').hidden){openMenu('key');return;}keys[kk]=true;audioInit();});addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false;});
 const earlyBonus=()=>Math.floor(Math.max(0,st.dayLen-st.t-3)/7);
@@ -575,7 +585,7 @@ function openMenu(via){if(!st||st.over||!$('modal').hidden||awayOpen)return;joy=
  new MutationObserver(()=>{if(!mo.hidden)arm(300);}).observe($('card'),{childList:true});
  for(const ev of ['click','pointerdown','pointerup','touchend'])mo.addEventListener(ev,e=>{if(performance.now()<guard){e.stopPropagation();if(ev==='click'||ev==='touchend')e.preventDefault();}},true);}
 $('sign').addEventListener('click',()=>signDismiss('tap'));
-$('tutSkip').addEventListener('click',()=>{meta.tutDone=true;saveMeta();toast('Tutorial skipped','Tap the game to pause. The guided start can be replayed from there.');});
+$('tutSkip').addEventListener('click',()=>{meta.tutDone=true;saveMeta();toast('Tutorial skipped','The guided start can be replayed from the pause menu.');});
 $('menu').addEventListener('click',()=>{audioInit();openMenu('button');});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){saveRun();openMenu('hidden');try{if(SND.ac)SND.ac.suspend();}catch(e){}}else{try{if(SND.ac)SND.ac.resume();}catch(e){}last=performance.now();}});
 addEventListener('pagehide',saveRun);addEventListener('blur',()=>{if(!SIM&&st&&!st.over)openMenu('blur');});
@@ -622,9 +632,10 @@ function spawn(type){
  if(type==='merchant'){spawnMerchant();return;}
  const d=ET[type];let x=LANES[Math.floor(Math.random()*LANES.length)]+(Math.random()*30-15),y=-30,tx=null;
  /* this beach's approach: pick a source by weight; side ships enter from the edge and head for that flank */
- const fr=G.map.from;if(fr&&type!=='boss'){let r=Math.random()*fr.reduce((a,f)=>a+f[0],0),f=fr[0];for(const q of fr){r-=q[0];if(r<=0){f=q;break;}}
+ /* sideN: side approaches only open from that night on (Winterton: night 1 is all from the north) */
+ const fr=G.map.from&&G.map.from.filter(f=>f[1]==='t'||!(G.map.sideN&&st.night<G.map.sideN));if(fr&&fr.length&&type!=='boss'){let r=Math.random()*fr.reduce((a,f)=>a+f[0],0),f=fr[0];for(const q of fr){r-=q[0];if(r<=0){f=q;break;}}
   if(f[1]==='t')x=f[2]+Math.random()*(f[3]-f[2]);
-  else{const top=G.cy-G.ry,sd=f[1]==='l'?-1:1;x=sd<0?-30:430;y=Math.max(20,top*(f[2]+Math.random()*(f[3]-f[2])));tx=G.cx+sd*G.rx*(0.45+Math.random()*0.35);}}
+  else{const top=G.cy-G.ry,sd=f[1]==='l'?-1:1;x=sd<0?-30:430;y=Math.max(20,top*(f[2]+Math.random()*(f[3]-f[2])));const si=G.map.sideIn||[0.45,0.8];tx=G.cx+sd*G.rx*(si[0]+Math.random()*(si[1]-si[0]));}}
  if(tutOn()&&!st.tutF.lit&&!st.enemies.length&&type==='skiff'){x=Math.random()<0.5?80:320;y=Math.min(260,coastY(x)-120);tx=null;}
  if(tx===null)tx=x+(G.cx-x)*0.35;tx=Math.max(16,Math.min(384,tx));const ty=coastY(tx)-10;
  const bm=type==='boss'&&st.L===1?0.6:1;const e={type,x,y,hp:d.hp*st.hpMul*bm,max:d.hp*st.hpMul*bm,d,tx,ty,atk:false,lit:false,beam:false,fire:0.6,h:Math.PI/2,burnAcc:0,burnT:0,smokeT:0};st.enemies.push(e);
@@ -673,11 +684,12 @@ function update(dt){
  st.crates=st.crates.filter(c=>!c.dead);
  const mk=market();st.sellT-=dt;
  if(!k.inTower&&st.fish>0&&Math.hypot(k.x-mk.x,k.y-mk.y)<30&&st.sellT<=0){st.sellT=0.18;st.fish--;st.tutF.sold=true;const pr=priceL(mk.level);st.carried+=pr;num(mk.x,mk.y-26,'+'+pr,'#f6c343');play('sell');}
- // build spots
+ // build spots: only the nearest open spot under the keeper takes coins, so overlapping spots never both build (the info strip shows the same one)
+ let payPad=null;{let nd=1e9;if(!k.inTower)for(const p of pads){if(!unlocked(p)||!padOpen(p)||p.build>0||p.lock)continue;const pp=padPos(p);if(Math.abs(k.x-pp.x)<pp.s/2+4&&Math.abs(k.y-pp.y)<pp.s/2+4){const d=Math.hypot(k.x-pp.x,k.y-pp.y);if(d<nd){nd=d;payPad=p;}}}}
  for(const p of pads){if(!unlocked(p))continue;
   if(p.lock&&!(p.build>0)){const pp=padPos(p);if(k.inTower||Math.abs(k.x-pp.x)>=pp.s/2+4||Math.abs(k.y-pp.y)>=pp.s/2+4)p.lock=false;}
   if(p.build>0){p.build-=dt;if(p.build<=0)p.pop=0.45;}if(p.pop>0)p.pop-=dt;if(p.recoil>0)p.recoil-=dt;
-  if(padOpen(p)){const pp=padPos(p),near=!k.inTower&&Math.abs(k.x-pp.x)<pp.s/2+4&&Math.abs(k.y-pp.y)<pp.s/2+4,on=near&&st.carried>0&&!(p.build>0)&&!p.lock;
+  if(padOpen(p)){const pp=padPos(p),near=!k.inTower&&Math.abs(k.x-pp.x)<pp.s/2+4&&Math.abs(k.y-pp.y)<pp.s/2+4,on=near&&p===payPad&&st.carried>0&&!(p.build>0)&&!p.lock;
    if(p.lock&&!near&&!(p.build>0))p.lock=false;
    p.dwell=on&&k.mv<0.12?(p.dwell||0)+dt:0;
    if(p.dwell>0.45){p.t+=dt;
@@ -834,7 +846,7 @@ function openChest(c){if(c.open)return;c.open=true;c.t=0;play('chest');c.lidT=0;
 function dropCoin(x,y,from,delay){st.coins.push({x,y,age:-(delay||0),ph:Math.random()*6,fx:from?from.x:x,fy:from?from.y:y});}
 /* the keeper appears on a spot (dawn by the tower, a resumed save): don't let it start taking coins until he steps off */
 function lockUnderKeeper(){const k=st.keeper;for(const p of pads){const pp=padPos(p);if(Math.abs(k.x-pp.x)<pp.s/2+6&&Math.abs(k.y-pp.y)<pp.s/2+6){p.lock=true;p.dwell=0;}}}
-function dawn(){st.phase='day';st.t=0;st.masonN=0;st.dayLen=CFG.day*sea().day;if(tutOn()){meta.tutDone=true;saveMeta();toast('You are the keeper now','Fish and build by day, light the lamp at night. Tap the game to pause.');}st.keeper.inTower=false;st.keeper.x=G.lx;st.keeper.y=G.ly+24;dial=null;aimId=null;lockUnderKeeper();
+function dawn(){st.phase='day';st.t=0;st.masonN=0;st.dayLen=CFG.day*sea().day;if(tutOn()){meta.tutDone=true;saveMeta();toast('You are the keeper now','Fish and build by day, light the lamp at night. The button at the top right pauses.');}st.keeper.inTower=false;st.keeper.x=G.lx;st.keeper.y=G.ly+24;dial=null;aimId=null;lockUnderKeeper();
  if(st.night>=NN()){cleared();return;}
  st.hp=Math.min(st.maxHp,st.hp+st.maxHp*0.25);{const M=curMap();washChests(Math.max(1,CFG.chestsDawn+(M.chD||0)),Math.round(6*Math.sqrt(st.L)*(M.chC||1)));}saveRun();
  if(!sign('dawn',()=>{const c=st.chests.find(c=>!c.open);return c?{x:c.x,y:c.y}:null;},'Dawn: chests washed up','The tide brings new chests every morning. Walk onto them for coins, then build before night '+(st.night+1)+' of '+NN()+'.'))toast('Dawn','Night '+(st.night+1)+' of '+NN()+' comes next. The tower mended a quarter of its damage.');}
@@ -1429,7 +1441,7 @@ function hud(dt){const left=threatsLeft(),night=st.phase==='night';
  {const tc=tutCur(),el=$('tut');stage.classList.toggle('tutOn',!!tc);el.hidden=!tc;if(tc){const tx=`Step ${tc.i+1} of ${tc.n}`;if($('tutN').textContent!==tx)$('tutN').textContent=tx;if($('tutH').textContent!==tc.h)$('tutH').textContent=tc.h;}
   if(tc&&tc.i===5){bellEl.style.boxShadow=meta.rm?'0 0 0 4px #fff':`0 0 0 ${3+2*Math.sin(clock*6)|0}px #fff, 0 3px 0 #a67c14`;}else bellEl.style.boxShadow='';}
  const tip=$('tip');let t='';
- if(!html&&!st.over&&!msgCur){if(st.phase==='day'&&st.L===1&&pads[0].level===0)t=st.chests.some(c=>!c.open)?'Drag anywhere to walk · follow the arrow · tap to pause':'Stand still on the boat spot to build it';
+ if(!html&&!st.over&&!msgCur){if(st.phase==='day'&&st.L===1&&pads[0].level===0)t=st.chests.some(c=>!c.open)?'Drag anywhere to walk · follow the arrow':'Stand still on the boat spot to build it';
   else if(st.fish>0&&st.phase==='day'&&Math.hypot(st.keeper.x-market().x,st.keeper.y-market().y)>60)t='Fish only pays once sold: take your crates to the market';
   }
  tip.textContent=t;tip.style.opacity=t?1:0;}
@@ -1443,6 +1455,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

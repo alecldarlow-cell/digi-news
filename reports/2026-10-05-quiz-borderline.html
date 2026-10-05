@@ -94,7 +94,7 @@ a{color:inherit}
 #pts{font-family:var(--serif);font-size:22px;min-width:64px;text-align:right}
 #pts small{font-family:var(--sans);font-size:12px;color:var(--ink2);margin-left:3px}
 #sheet{flex:1}
-#nameplate{position:absolute;top:14px;left:18px;right:18px;font-family:var(--serif);font-style:italic;font-size:clamp(28px,8.5vw,40px);line-height:1;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;text-shadow:0 0 8px var(--sea),0 0 3px var(--sea)}
+#nameplate{position:absolute;top:12px;left:12px;max-width:calc(100% - 24px);padding:6px 8px 7px;border-radius:3px;background:rgba(207,230,232,.92);font-family:var(--serif);font-style:italic;font-size:clamp(28px,8.5vw,40px);line-height:1;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;text-shadow:0 0 8px var(--sea),0 0 3px var(--sea)}
 #nameplate small{display:block;font-family:var(--sans);font-style:normal;font-size:14px;margin-top:6px;color:var(--ink2)}
 .revealed #nameplate{opacity:1;transform:none}
 #scale{position:absolute;left:18px;bottom:14px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink2)}
@@ -341,8 +341,9 @@ function makeQuiz(mode,seedStr){
 }
 
 /* ---------- state ---------- */
-let quiz=null, screen='home', paused=false, locked=false, last=0, ending=false;
-function show(id){screen=id;for(const s of document.querySelectorAll('.screen'))s.classList.toggle('on',s.id===id);}
+let homePick=null;
+let quiz=null, view='home', paused=false, locked=false, last=0, ending=false;
+function show(id){view=id;for(const s of document.querySelectorAll('.screen'))s.classList.toggle('on',s.id===id);}
 
 /* ---------- map drawing ---------- */
 const VB={w:600,h:600,x:0,y:0};
@@ -363,6 +364,8 @@ function graticule(c,g){
   for(let P=Math.ceil(pa/step)*step;P<=pb;P+=step){const y=yOf(P);el('line',{x1:x0,x2:x1,y1:y,y2:y},g);
     const t=el('text',{x:x0+14,y:y-7,class:'gl'},g);t.textContent=P===0?'0°':Math.abs(P)+'°'+(P>0?'N':'S');}
 }
+function refit(svg,c,pb){if(!svg.querySelector('.land'))return;fitBox(svg,pb);graticule(c,svg.querySelector('.grat'));
+  svg.querySelector('.land').style.strokeWidth=(1.9/(VB.px||0.5))+'px';}
 function drawLand(svg,c,animate,pb){
   svg.innerHTML='';fitBox(svg,pb);
   const g=el('g',{class:'grat'},svg);graticule(c,g);
@@ -405,12 +408,12 @@ function renderHome(){
   if(st>1&&d)$('dailyStatus').textContent+=` Streak: ${st} days.`;
   $('atlasCount').textContent=foundCount()+'/'+C.length;
   const rb=$('resumeBtn');
-  if(save.quiz&&save.quiz.qs){rb.hidden=false;rb.textContent=`Resume ${save.quiz.mode==='daily'?"today's ten":'explore'}, question ${Math.min(NQ,save.quiz.ans.length+1)} of ${NQ}`;}else rb.hidden=true;
+  if(save.quiz&&save.quiz.qs){rb.hidden=false;rb.textContent=`Resume ${save.quiz.mode==='daily'?"today's ten":'your quiz'}: question ${Math.min(NQ,save.quiz.ans.length+1)} of ${NQ}`;}else rb.hidden=true;
   // a specimen from the reader's own atlas, never one from today's ten
   const todays=new Set(makeQuiz('daily','daily-'+t).qs.map(q=>q.c));
   const mine=C.filter(c=>save.found[c.id]&&!todays.has(c.i));
   const pick=mine.length?mine[hashStr(t+mine.length)%mine.length]:C.find(c=>c.n==='Iceland'&&!todays.has(c.i))||C.find(c=>c.n==='Italy');
-  $('specimen').textContent=pick.n;
+  $('specimen').textContent=pick.n;homePick=pick;
   drawLand($('homeMap'),pick,true,0.34);
   toggles($('homeToggles'));
 }
@@ -510,13 +513,13 @@ function renderAtlas(){
 }
 
 /* ---------- pause ---------- */
-function openPause(){if(screen!=='quiz'||paused)return;paused=true;toggles($('pauseToggles'));$('pause').classList.add('on');persist();setTimeout(()=>{try{$('resumePause').focus();}catch(e){}},30);}
+function openPause(){if(view!=='quiz'||paused)return;paused=true;toggles($('pauseToggles'));$('pause').classList.add('on');persist();setTimeout(()=>{try{$('resumePause').focus();}catch(e){}},30);}
 function closePause(){paused=false;$('pause').classList.remove('on');last=performance.now();}
 
 /* ---------- active-time clock (excludes paused and hidden time) ---------- */
 function loop(now){
   const dt=Math.min(0.25,Math.max(0,(now-last)/1000));last=now;
-  if(screen==='quiz'&&!paused&&!document.hidden&&quiz){if(rnd.open)rnd.secs+=dt;quiz.secs+=dt;}
+  if(view==='quiz'&&!paused&&!document.hidden&&quiz){if(rnd.open)rnd.secs+=dt;quiz.secs+=dt;}
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(t=>{last=t;loop(t);});
@@ -535,29 +538,28 @@ $('quitBtn').addEventListener('click',abandon);
 $('againBtn').addEventListener('click',()=>{goFS();audio();startQuiz('explore','retry');});
 $('menuBtn').addEventListener('click',()=>{show('home');renderHome();});
 document.addEventListener('keydown',e=>{
-  if(screen!=='quiz')return;
+  if(view!=='quiz')return;
   if(e.key==='Escape'){paused?closePause():openPause();return;}
   if(paused)return;
   if(!locked&&/^[1-4]$/.test(e.key))answer(+e.key-1);
   else if(locked&&(e.key==='Enter'||e.key===' ')){e.preventDefault();next();}
   else if(!locked&&e.key.toLowerCase()==='m')useHint();
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden){if(screen==='quiz')openPause();persist();}else last=performance.now();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(view==='quiz')openPause();persist();}else last=performance.now();});
 window.addEventListener('pagehide',persist);
 let rsT=0;window.addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(()=>{
-  if(screen==='quiz'&&quiz&&quiz.i<NQ){const c=C[quiz.qs[quiz.i].c];drawLand($('qmap'),c,false);scaleBar(c);}
-  else if(screen==='home')renderHome();},120);});
+  if(view==='quiz'&&quiz&&quiz.i<NQ){const c=C[quiz.qs[quiz.i].c];refit($('qmap'),c);scaleBar(c);}
+  else if(view==='home'&&homePick)refit($('homeMap'),homePick,0.34);},120);});
 
 /* ---------- test hook (site contract §5.5) ---------- */
 if(window.__DGTEST===true){window.__dg={
-  end(win){if(screen==='results'||ending)return;if(!quiz)startQuiz('explore','new');
+  end(win){if(view==='results'||ending)return;if(!quiz)startQuiz('explore','new');
     while(quiz&&quiz.i<NQ){const q=quiz.qs[quiz.i];if(!locked){const k=q.o.findIndex(ci=>win?ci===q.c:ci!==q.c);answer(k,true);}locked=true;quiz.i++;locked=false;}
     finish();},
-  answer:k=>answer(k), next:()=>next(), state:()=>({screen,quiz,save,rnd,locked}), data:C, makeQuiz
+  answer:k=>answer(k), next:()=>next(), state:()=>({screen:view,quiz,save,rnd,locked}), data:C, makeQuiz
 };}
 
 renderHome();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

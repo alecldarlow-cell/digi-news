@@ -326,12 +326,43 @@ const foundCount=()=>C.filter(c=>save.found[c.id]).length;
 function el(tag,attrs,parent){const e=document.createElementNS(SVGNS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
 
 /* ---------- building a quiz ---------- */
+/* Daily schedule: each difficulty group is dealt like a shuffled deck, so every country in it
+   comes up once before any repeats (easy every 15 days, medium 23, hard 10). Where one deck
+   ends and the next begins, nothing from the last 3 days of the old deck appears in the first
+   3 days of the new one. 5 Oct 2026 (launch day) keeps its original draw. */
+const DECK_START='2026-10-06', GAP=3;
+const PER={1:3,2:4,3:3};
+const TIER={1:[],2:[],3:[]};C.forEach(c=>TIER[c.t].push(c.i));
+const dayNum=s=>Math.round((Date.parse(s+'T12:00:00Z')-Date.parse(DECK_START+'T12:00:00Z'))/864e5);
+function rawDeck(t,n){return shuffle(TIER[t].slice(),rng(hashStr('deck-'+t+'-'+n)));}
+function deckTail(t,n){                              // the last GAP days of deck n (never moved by fixing)
+  const k=PER[t],L=Math.floor(TIER[t].length/k);return (n===0?deck(t,0):rawDeck(t,n)).slice((L-GAP)*k,L*k);}
+function deck(t,n){
+  const k=PER[t],L=Math.floor(TIER[t].length/k);let d=rawDeck(t,n);
+  if(n===0){                                         // launch day's countries go to the back of the first deck
+    const launch=new Set(legacyDaily('2026-10-05'));const keep=d.slice(0,L*k).filter(i=>!launch.has(i)),moved=d.slice(0,L*k).filter(i=>launch.has(i));
+    const extra=d.slice(L*k);while(moved.length&&extra.length&&!launch.has(extra[0])){keep.push(extra.shift());}
+    return [...keep.slice(0,L*k-moved.length),...moved,...keep.slice(L*k-moved.length),...extra].filter((x,j,a)=>a.indexOf(x)===j);}
+  const prev=new Set(deckTail(t,n-1));
+  const spare=[];for(let j=GAP*k;j<d.length;j++)if(j<(L-GAP)*k||j>=L*k)spare.push(j);
+  for(let j=0;j<GAP*k;j++)if(prev.has(d[j])){const s=spare.findIndex(x=>!prev.has(d[x]));if(s<0)break;const x=spare.splice(s,1)[0];[d[j],d[x]]=[d[x],d[j]];}
+  return d;}
+function scheduled(date){                            // the day's ten country indexes, easy → hard
+  const day=dayNum(date);const out=[];
+  for(const t of [1,2,3]){const k=PER[t],L=Math.floor(TIER[t].length/k),n=Math.floor(day/L),pos=day-n*L;out.push(...deck(t,n).slice(pos*k,pos*k+k));}
+  return out;}
+function legacyDaily(date){const r=rng(hashStr('daily-'+date));const used=new Set();const out=[];
+  for(const t of PLAN){const pool=C.filter(c=>c.t===t&&!used.has(c.i));const c=pool[Math.floor(r()*pool.length)];used.add(c.i);out.push(c.i);
+    const near=C.filter(o=>o.i!==c.i).map(o=>[gdist(c,o),o.i]).sort((a,b)=>a[0]-b[0]).slice(0,8).map(x=>x[1]);shuffle([c.i,...shuffle(near,r).slice(0,3)],r);}
+  return out;}
 function makeQuiz(mode,seedStr){
   const r=rng(hashStr(seedStr));const used=new Set();const qs=[];
-  for(const t of PLAN){
+  const date=mode==='daily'?seedStr.slice(6):null;
+  const fixed=date&&date>=DECK_START?scheduled(date):null;
+  for(const [qi,t] of PLAN.entries()){
     let pool=C.filter(c=>c.t===t&&!used.has(c.i));
     if(mode==='explore'){const fresh=pool.filter(c=>!save.found[c.id]);if(fresh.length&&r()<0.75)pool=fresh;}
-    const c=pool[Math.floor(r()*pool.length)];used.add(c.i);
+    const c=fixed?C[fixed[qi]]:pool[Math.floor(r()*pool.length)];used.add(c.i);
     // three wrong answers drawn from the nearest neighbours, so the map knowledge matters
     const near=C.filter(o=>o.i!==c.i).map(o=>[gdist(c,o),o.i]).sort((a,b)=>a[0]-b[0]).slice(0,8).map(x=>x[1]);
     const opts=shuffle([c.i,...shuffle(near,r).slice(0,3)],r);
@@ -561,6 +592,5 @@ if(window.__DGTEST===true){window.__dg={
 
 renderHome();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

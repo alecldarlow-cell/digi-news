@@ -119,7 +119,7 @@ function mtimeDate(p) {
 // The front-page chips are only useful if one beat has exactly one label.
 // Canonical list; anything not in it is kept verbatim and reported, so a
 // genuinely new beat is never silently mangled into the wrong bucket.
-const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword', 'Word', 'Arcade', 'Strategy', 'Quiz'];
+const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World', 'Logic', 'Crossword', 'Word', 'Arcade', 'Strategy', 'Quiz', 'Geography'];
 const TOPIC_ALIASES = {
   'politics': 'UK politics', 'westminster': 'UK politics', 'uk politics': 'UK politics',
   'economics': 'Economy', 'economy': 'Economy', 'money': 'Economy', 'business': 'Economy',
@@ -135,6 +135,7 @@ const TOPIC_ALIASES = {
   'logic': 'Logic', 'lexidoku': 'Logic', 'doku': 'Logic',
   'crossword': 'Crossword', 'mini': 'Crossword',
   'word': 'Word', 'link': 'Word',
+  'geography': 'Geography', 'geo': 'Geography', 'borders': 'Geography',
   // Digi Games beats.
   'arcade': 'Arcade', 'action': 'Arcade', 'idle': 'Arcade',
   'strategy': 'Strategy', 'tactics': 'Strategy',
@@ -200,6 +201,16 @@ function puzzleMask(html, rel, warnings) {
   // the grouping travels: a Link has no per-puzzle shape to leak, so every Link
   // tile is deliberately identical and identifies the TYPE, not the puzzle.
   // Checked before the grid probe so a Link never trips the no-grid warning.
+  //
+  // Borders has no grid either: ten country outlines. Its card uses the fixed
+  // dn:thumb every Borders file carries (one type tile, never a day's country,
+  // so a card can't spoil an answer). No mask, and no warning, once the puzzle
+  // object is confirmed to hold ten questions.
+  if (/\bconst PUZZLE=\{id:"DP\u00b7BORD\u00b7/.test(html)) {
+    const qs = (html.match(/"o":\[/g) || []).length;
+    if (qs !== 10) warnings.push(`${rel} — Borders puzzle parsed as ${qs} question(s), expected 10`);
+    return '';
+  }
   const lg = html.match(/\bgroups\s*:\s*\[[\s\S]*?\n\s*\],/);
   if (lg) {
     const members = lg[0].match(/\bmembers\s*:\s*\[[^\]]*\]/g) || [];

@@ -105,7 +105,7 @@
               return {
                 path: dir+'/'+f.name,
                 kind: dir==='games' ? 'game'
-                    : (dir==='puzzles' || /-(logic|crossword|word)-/i.test(f.name)) ? 'puzzle' : 'report',
+                    : (dir==='puzzles' || /-(logic|crossword|word|geo)-/i.test(f.name)) ? 'puzzle' : 'report',
                 topic: m ? titleCase(m[2]) : (dir==='puzzles'?'Puzzle':'Data'),
                 headline: m ? titleCase(m[3]) : titleCase(f.name.replace(/\.html?$/i,'')),
                 standfirst: '',

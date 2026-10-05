@@ -372,7 +372,7 @@
     ['sources','Sources opened','Taps on links to other websites from an article, mostly its footnoted sources.',''],
     ['started','Started','A puzzle page load where the player tapped or typed in the puzzle at least once.','Opening a puzzle without touching it is not a start.'],
     ['solved','Solved','The puzzle’s result box appeared with a winning title, without “Reveal all” having been used.','Share is solved ÷ started.'],
-    ['failed','Failed','The result box appeared with a losing title (Sweep “Boom.”, Link “So close.”).','Only some types can be failed.'],
+    ['failed','Failed','The result box appeared with a losing title (Sweep “Boom.”, Link and Borders “So close.”).','Only some types can be failed.'],
     ['revealed','Revealed','The player used “Reveal all” before the result box appeared.',''],
     ['abandoned','Abandoned','Started, but no result by the time the page was last seen.','Includes puzzles left open in a tab to finish later.'],
     ['solvetime','Solve time','The time shown on the puzzle’s own result box for solved puzzles (median).','Falls back to seconds since the first tap if the box shows no time.'],
@@ -404,8 +404,8 @@
   var FEED = {};
   function title(path){ var f=FEED[path]; if(f) return f.headline; var m=String(path).replace(/^reports\//,'').replace(/\.html$/,'').replace(/^\d{4}-\d{2}-\d{2}-/,''); return m.replace(/-/g,' '); }
   function pubDate(path){ var f=FEED[path]; if(f&&f.date) return f.date; var m=String(path).match(/(\d{4}-\d{2}-\d{2})/); return m?m[1]:''; }
-  var TYPE_NAMES = {'crossword-mini':'Mini crossword','logic-doku':'Doku','logic-path':'Path','logic-sweep':'Sweep','word-link':'Link'};
-  function ptype(path){ var m=String(path).match(/(crossword-mini|logic-doku|logic-path|logic-sweep|word-link)/); return m?m[1]:''; }
+  var TYPE_NAMES = {'crossword-mini':'Mini crossword','logic-doku':'Doku','logic-path':'Path','logic-sweep':'Sweep','word-link':'Link','geo-borders':'Borders'};
+  function ptype(path){ var m=String(path).match(/(crossword-mini|logic-doku|logic-path|logic-sweep|word-link|geo-borders)/); return m?m[1]:''; }
 
   /* ---------------- sortable tables ---------------- */
   // cols: [{key, label, def, left, fmt(row)->html, sort(row)->value}]

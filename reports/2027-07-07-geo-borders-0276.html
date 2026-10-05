@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Borders — Digi Puzzles</title>
+<meta name="dn:headline"   content="Borders 0276">
+<meta name="dn:standfirst" content="Ten country outlines, one at a time. Name each from four choices, easiest first. Seven to pass.">
+<meta name="dn:date"       content="2027-07-07">
+<meta name="dn:kind"       content="puzzle">
+<meta name="dn:topic"      content="Geography">
+<meta name="dn:read"       content="~3 min">
+<meta name="dn:thumb"      content="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI0NGRTZFOCIvPjxwYXRoIGQ9Ik0zMCAwVjEyME0wIDMwSDEyME02MCAwVjEyME0wIDYwSDEyME05MCAwVjEyME0wIDkwSDEyMCIgc3Ryb2tlPSIjQTlEMEQ1IiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIHN0cm9rZS1kYXNoYXJyYXk9IjIgMyIvPjxwYXRoIGQ9Ik0yOCAzNEw0MSAyN0w1NSAzMUw2NiAyMkw4MyAyOEw5MiA0MUw4OCA1NUw5NyA2Nkw5MCA4M0w3NCA5Mkw2MSA4N0w0NyA5NUwzMyA4NkwzNiA3MUwyNCA2MEwzMCA0N1oiIGZpbGw9IiNGQUZCRjciIHN0cm9rZT0iIzFGM0E0QSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSI1IDQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48Y2lyY2xlIGN4PSI2MiIgY3k9IjU4IiByPSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiNDMjQ1M0QiIHN0cm9rZS13aWR0aD0iMS44Ii8+PGNpcmNsZSBjeD0iNjIiIGN5PSI1OCIgcj0iMi42IiBmaWxsPSIjQzI0NTNEIi8+PC9zdmc+Cg==">
+<meta name="theme-color" content="#E3ECE8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+:root{
+  --bg:#E3ECE8; --sea:#CFE6E8; --grat:#A9D0D5; --ink:#1F3A4A; --ink2:#4E6673;
+  --paper:#FAFBF7; --pin:#C2453D; --pinT:#F4D6D1; --ok:#2E7A50; --okT:#D2EAD9;
+  --serif:"Instrument Serif","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:Archivo,"Helvetica Neue",Arial,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink)}
+body{font-family:var(--sans);font-size:16px;line-height:1.4;-webkit-tap-highlight-color:transparent;overflow:hidden;
+  -webkit-user-select:none;user-select:none;touch-action:manipulation}
+button{font:inherit;color:inherit}
+a{color:inherit}
+.screen{position:fixed;inset:0;height:100dvh;display:none;
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.screen.vis{display:block}
+.wrap{max-width:560px;height:100%;margin:0 auto;padding:10px 16px 16px;display:flex;flex-direction:column;gap:12px;min-height:0}
+.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.scroll .wrap{height:auto;min-height:100%}
+
+/* buttons: printed-card feel, a hard ink offset instead of a soft shadow */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:10px 16px;border-radius:8px;
+  background:var(--paper);border:1.5px solid var(--ink);box-shadow:0 3px 0 var(--ink);cursor:pointer;
+  font-weight:600;font-size:17px;font-stretch:90%;text-decoration:none;transition:transform .08s,box-shadow .08s,background .2s,opacity .2s}
+.btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.quiet{box-shadow:none;border-color:var(--ink2);color:var(--ink2);font-weight:500}
+.btn.quiet:active{transform:none;background:#EEF2EE}
+:focus-visible{outline:3px solid var(--pin);outline-offset:2px}
+.back{display:inline-flex;align-items:center;min-height:44px;font-size:15px;text-decoration:none;color:var(--ink2)}
+.back:hover{text-decoration:underline}
+
+/* the map sheet: sea tint, double neatline like an atlas plate */
+.sheet{position:relative;background:var(--sea);border:1.5px solid var(--ink);border-radius:3px;overflow:hidden;min-height:0}
+.sheet::after{content:"";position:absolute;inset:5px;border:.75px solid var(--ink);opacity:.45;pointer-events:none}
+.sheet svg.mapsvg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.grat line{stroke:var(--grat);stroke-width:1.6;stroke-dasharray:5 7}
+.gl{font-family:var(--serif);font-style:italic;font-size:22px;fill:var(--ink2);opacity:0;transition:opacity .6s}
+.revealed .gl{opacity:.85}
+.land{stroke:var(--ink);stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill-rule:nonzero}
+.draw .land{transition:stroke-dashoffset 1.3s cubic-bezier(.5,.1,.3,1),fill-opacity .6s .9s}
+
+/* home */
+.top{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.title{font-family:var(--serif);font-weight:400;font-size:clamp(54px,17vw,80px);line-height:.9;margin:2px 0 0;letter-spacing:-.01em}
+.bar{display:flex;align-items:flex-end;gap:0;margin-top:2px}
+.bar i{display:block;width:34px;height:7px;border:1.25px solid var(--ink);margin-left:-1.25px}
+.bar i:nth-child(odd){background:var(--ink)}
+.bar span{font-family:var(--serif);font-style:italic;font-size:15px;margin-left:8px;line-height:1;color:var(--ink2)}
+.lede{margin:0;font-size:16px;color:var(--ink2);max-width:34ch}
+#dailyCard{flex:1;display:block;width:100%;padding:0;text-align:left;cursor:pointer;min-height:220px;box-shadow:0 3px 0 var(--ink)}
+#dailyCard:active{transform:translateY(3px);box-shadow:none}
+.cardtxt{position:absolute;left:0;right:0;bottom:0;padding:14px 18px 16px;background:linear-gradient(transparent,rgba(207,230,232,.95) 38%)}
+.cardtxt b{display:block;font-family:var(--serif);font-weight:400;font-size:34px;line-height:1}
+.cardtxt small{display:block;padding-right:110px;margin-top:4px;font-size:15px;color:var(--ink2)}
+.cardtxt .go{position:absolute;right:18px;bottom:18px;background:var(--ink);color:var(--paper);border-radius:6px;padding:9px 16px;font-weight:600;font-stretch:90%}
+.specimen{position:absolute;top:14px;left:18px;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink2)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.atlasbtn small{font-weight:500;color:var(--ink2);font-stretch:100%}
+.toggles{display:flex;flex-wrap:wrap;gap:8px}
+.tog{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;border-radius:22px;border:1.25px solid var(--ink2);background:transparent;cursor:pointer;font-size:14px;color:var(--ink2)}
+.tog::before{content:"";width:26px;height:15px;border-radius:8px;background:#C3CEC9;box-shadow:inset 0 0 0 2px #C3CEC9;transition:background .2s}
+.tog[aria-checked="true"]{color:var(--ink);border-color:var(--ink)}
+.tog[aria-checked="true"]::before{background:var(--ink);box-shadow:inset 13px 0 0 2px var(--ink),inset 11px 0 0 6px var(--paper)}
+.tog[aria-checked="false"]::before{box-shadow:inset 0 0 0 2px #C3CEC9,inset -11px 0 0 6px var(--paper)}
+
+/* quiz */
+.qtop{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:12px;min-height:44px}
+.iconbtn{width:44px;height:44px;border-radius:8px;border:1.5px solid var(--ink);background:var(--paper);display:grid;place-items:center;cursor:pointer;padding:0}
+.iconbtn svg{width:16px;height:16px}
+#ticks{display:flex;gap:4px}
+#ticks i{flex:1;height:7px;border-radius:2px;border:1.25px solid var(--ink2);opacity:.6}
+#ticks i.cur{opacity:1;border-color:var(--ink);border-width:2px}
+#ticks i.ok{background:var(--ok);border-color:var(--ok);opacity:1}
+#ticks i.bad{background:var(--pin);border-color:var(--pin);opacity:1}
+#pts{font-family:var(--serif);font-size:22px;min-width:64px;text-align:right}
+#pts small{font-family:var(--sans);font-size:12px;color:var(--ink2);margin-left:3px}
+#sheet{flex:1}
+#nameplate{position:absolute;top:12px;left:12px;max-width:calc(100% - 24px);padding:6px 8px 7px;border-radius:3px;background:rgba(207,230,232,.92);font-family:var(--serif);font-style:italic;font-size:clamp(28px,8.5vw,40px);line-height:1;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;text-shadow:0 0 8px var(--sea),0 0 3px var(--sea)}
+#nameplate small{display:block;font-family:var(--sans);font-style:normal;font-size:14px;margin-top:6px;color:var(--ink2)}
+.revealed #nameplate{opacity:1;transform:none}
+#scale{position:absolute;left:18px;bottom:14px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink2)}
+#scale .segs{display:flex;margin-bottom:3px}
+#scale .segs i{height:6px;border:1.25px solid var(--ink);margin-left:-1.25px;background:var(--paper)}
+#scale .segs i:nth-child(odd){background:var(--ink)}
+#scale .lab{display:flex;justify-content:space-between}
+#inset{position:absolute;right:12px;bottom:12px;width:44%;max-width:210px;background:var(--paper);border:1.25px solid var(--ink);border-radius:2px;padding:4px;opacity:0;transform:scale(.92);transform-origin:100% 100%;transition:opacity .35s,transform .35s;pointer-events:none}
+#inset.on{opacity:1;transform:none}
+#inset svg{display:block;width:100%;height:auto}
+.dot{fill:var(--pin)}
+.ring{fill:none;stroke:var(--pin);stroke-width:3}
+#inset.on .ring{animation:ping 1.6s ease-out 2}
+@keyframes ping{0%{r:6;opacity:1}100%{r:26;opacity:0}}
+#coach{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 36px);background:var(--paper);border:1.25px solid var(--ink);border-radius:6px;padding:8px 12px;font-size:14px;text-align:center;transition:opacity .3s}
+#coach.off{opacity:0;pointer-events:none}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:58px;font-size:17px;line-height:1.15;font-stretch:82%;padding:8px 10px;text-align:center}
+.opt.right{background:var(--okT);border-color:var(--ok);box-shadow:0 3px 0 var(--ok);color:#173F2A}
+.opt.wrong{background:var(--pinT);border-color:var(--pin);box-shadow:0 3px 0 var(--pin);color:#5E1E18}
+.opt.dim{opacity:.45}
+.locked .opt{pointer-events:none}
+.qfoot{display:grid;min-height:52px}
+.qfoot>*{grid-area:1/1}
+#hintBtn[disabled]{opacity:.5}
+
+/* results */
+.kick{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink2);margin:6px 0 0}
+.big{font-family:var(--serif);font-weight:400;font-size:clamp(64px,22vw,104px);line-height:.9;margin:0}
+.verdict{font-size:18px;margin:0}
+.sub{margin:0;color:var(--ink2)}
+.stars{display:inline-flex;gap:4px;vertical-align:-3px;margin-left:6px}
+.stars svg{width:20px;height:20px}
+.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.tile{position:relative;aspect-ratio:1;background:var(--sea);border:1.25px solid var(--ink);border-radius:3px;overflow:hidden}
+.tile svg{width:100%;height:100%;display:block}
+.tile .land{stroke-width:6}
+.tile .mark{position:absolute;right:3px;top:3px;width:16px;height:16px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700;line-height:1}
+.tile .mark.ok{background:var(--ok)}
+.tile .mark.bad{background:var(--pin)}
+.cap{font-size:12px;line-height:1.15;text-align:center;margin-top:4px;font-stretch:85%;overflow-wrap:anywhere}
+.endbtns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+
+/* atlas */
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px}
+.tile.ghost{background:transparent;border-style:dashed;border-color:var(--ink2)}
+.tile.ghost .land{fill:none;stroke:var(--ink2);stroke-width:5;stroke-dasharray:10 10;opacity:.55}
+.cap.q{color:var(--ink2)}
+.prog{height:8px;border:1.25px solid var(--ink);border-radius:2px;background:var(--paper);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--ink)}
+
+/* pause */
+#pause{position:fixed;inset:0;background:rgba(31,58,74,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:5}
+#pause.on{display:flex}
+.dialog{width:100%;max-width:380px;background:var(--paper);border:1.5px solid var(--ink);border-radius:8px;box-shadow:0 4px 0 var(--ink);padding:20px;display:flex;flex-direction:column;gap:12px}
+.dialog h2{font-family:var(--serif);font-weight:400;font-size:36px;margin:0;line-height:1}
+.dialog .toggles{flex-direction:column;align-items:stretch}
+
+.rm *,.rm *::before,.rm *::after{transition:none!important;animation:none!important}
+@media (prefers-reduced-motion: reduce){ .btn,.opt{transition:none} }
+@media (min-height:760px){ .opt{min-height:62px} }
+
+/* ---- Borders (puzzle) additions ---- */
+.dateline{margin:6px 0 0;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink2)}
+#playCard{flex:1;display:block;width:100%;padding:0;text-align:left;cursor:pointer;min-height:220px;box-shadow:0 3px 0 var(--ink)}
+#playCard:active{transform:translateY(3px);box-shadow:none}
+#playCard .world{position:absolute;left:6%;right:6%;top:14%;width:88%;height:auto}
+.stats{display:flex;gap:22px;margin:2px 0 0}
+.stats div{display:flex;flex-direction:column}
+.stats b{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1}
+.stats span{font-size:13px;color:var(--ink2)}
+.endbtns a.btn{text-align:center}
+.small{font-size:14px;color:var(--ink2);margin:0}
+.small a{color:var(--ink)}
+footer{margin-top:auto;padding-top:8px;font-size:11px;color:var(--ink2);opacity:.75;text-align:center}
+#err .wrap{justify-content:center}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<section id="home" class="screen" aria-label="Borders">
+ <div class="wrap">
+  <div class="top"><a class="back" href="../puzzles.html">← Digi Puzzles</a></div>
+  <div>
+   <h1 class="title">Borders</h1>
+   <div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i><span id="numLabel"></span></div>
+   <p class="dateline" id="dateLine"></p>
+  </div>
+  <button id="playCard" class="sheet" aria-label="Play today's ten">
+   <svg class="world" id="homeWorld" aria-hidden="true"></svg>
+   <span class="cardtxt"><b>Today's ten</b><small id="playStatus">Ten country outlines, easiest first. Name seven to pass.</small><span class="go" id="playGo">Play</span></span>
+  </button>
+  <div class="toggles" id="homeToggles"></div>
+  <footer>BORDERS · SHELL v1 · gated at build, and again on load</footer>
+ </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="screen" aria-label="Quiz">
+ <div class="wrap">
+  <div class="qtop">
+   <button class="iconbtn" id="pauseBtn" aria-label="Pause"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" fill="currentColor"/></svg></button>
+   <div id="ticks" aria-hidden="true"></div>
+   <div id="pts" aria-live="polite">0<small>pts</small></div>
+  </div>
+  <div id="sheet" class="sheet">
+   <svg class="mapsvg" id="qmap" role="img" aria-label="Country outline"></svg>
+   <div id="nameplate" aria-live="polite"></div>
+   <div id="scale" aria-hidden="true"></div>
+   <div id="inset" aria-hidden="true"></div>
+   <div id="coach" class="off">Which country is this? “Show on map” helps, for half points.</div>
+  </div>
+  <div id="opts"></div>
+  <div class="qfoot">
+   <button id="hintBtn" class="btn quiet">Show on map (half points)</button>
+   <button id="nextBtn" class="btn primary" hidden>Next</button>
+  </div>
+ </div>
+</section>
+
+<!-- RESULT (the result box the site tracker watches: it gains "on" once, when a ten is finished) -->
+<section id="winModal" class="screen scroll modal" aria-label="Result">
+ <div class="wrap">
+  <div class="top"><a class="back" href="../puzzles.html">← Digi Puzzles</a></div>
+  <p class="kick" id="rKick"></p>
+  <h2 class="big" id="rBig"></h2>
+  <p class="verdict"><span id="winTitle"></span><span id="rStars"></span></p>
+  <div class="stats">
+   <div><b id="winTime">0:00</b><span>time</span></div>
+   <div><b id="rPts">0</b><span>points</span></div>
+   <div><b id="rStreak">0</b><span>day streak</span></div>
+  </div>
+  <p class="sub" id="rSub"></p>
+  <div class="strip" id="rStrip"></div>
+  <div class="endbtns">
+   <a class="btn primary" href="../puzzles.html">More puzzles</a>
+   <a class="btn" href="2026-10-05-quiz-borderline.html">Explore more outlines</a>
+  </div>
+  <p class="small">Every country you name here is added to your atlas in Borderline, on Digi Games.</p>
+ </div>
+</section>
+
+<!-- GATE FAILURE -->
+<section id="err" class="screen" aria-label="Puzzle unavailable">
+ <div class="wrap">
+  <div class="top"><a class="back" href="../puzzles.html">← Digi Puzzles</a></div>
+  <h2 class="big" style="font-size:48px">This puzzle can't be shown</h2>
+  <p class="sub">It failed its own checks when it loaded, so it has been held back. Today's other puzzles are on the Digi Puzzles page.</p>
+  <p class="small" id="errList"></p>
+ </div>
+</section>
+
+<!-- PAUSE -->
+<div id="pause" role="dialog" aria-modal="true" aria-label="Paused">
+ <div class="dialog">
+  <h2>Paused</h2>
+  <button id="resumePause" class="btn primary">Resume</button>
+  <div class="toggles" id="pauseToggles"></div>
+  <button id="quitBtn" class="btn quiet">Back to start</button>
+ </div>
+</div>
+
+<script>
+'use strict';
+/* ================= puzzle: one dated ten, stamped at build ================= */
+const PUZZLE={id:"DP·BORD·0276",date:"2027-07-07",band:"standard",qs:[{"n":"Japan","i":76,"t":1,"lo":137.69,"la":37.48,"km":3.9215,"x":257,"y":41.7,"d":"M401 156l5-1 0 21 0 3 8 9 4 15 0 11-2 9-5 4-3 6-2 10-8 2-3 6-1 5 3 14-1 10-6 11-4 14 7 14-5 2-4 4-3 9-9 8-3-2 0-9 7-8-5-3-1 1-5 7 3 4-2 3-4-4-6 0-2 2-1 10-4 6-4-2 1-7 3-2-4-2-4 1-8 13-15-2-11 2 5-3 0-2-5 0-2-2-1 4 0-9-3 0-2 1-4 9 8 6 0 3-12 4-10 17-5 2-5-2-7-12-1-8 5-3 2-6-8 0-7-4-11 2-6 5-12 2-7 4-3-1-8 3-5-3-3 0-3 14-9-6-12 3-4-2-3 1-1-8 3-3 8-1 20-17 10-11 5-2 8-1 2 2 14-1 27-7 2 1-1 4 2 1 8 1 5-3 4-4-1-6 1-4 14-17 1-13 2-5 11-4 0 2-9 9 2 3 0 5 5 2 3 0 3-5 19-8 7-7 5-11 12-8 3-10 6-11 6-22-2-7-5-2 3-3 3-7-2-8 1-4 7-5 0-9 2-2 5 1 3 11 3-3 6 1 1-1 2-6-2-4-9 3 2-10 5 1zM459 72l7 1 8 4 5 1 15-12-5 14 0 6 5 12 3 0 4-3 4 0-8 6-3 0-10 6-6 1-10 0-5 3-12 14-5 12-16-7-15-10-10 1-9 6-7-6-5-1-3 4 0 4 4 5 5 1 9 9-3 2-8-2-6 9-7 2-2-4 3-10-1-5-5-6 0-9 13-12 1-3-2-7 2-2 7 4 8 1 4 0 1-3 1-11 5-12 3-14 0-8-4-14 2-7 6-4 21 27 20 17zM175 377l4 1 5-2 2 1 1 3-4 6 8 0-1 4 4 5-8 13-8 28-6-1 1 5-9 6 2-7-2-8 2-1 0-2-3-1-2 4-1 5 3 3-1 3-9-3-1-3 3-2 1-4-3-4 0-9 4-3 6-11-3-1 1-4-4-7-3-3-3 2 1 7 4 0 0 4-2 1-4-3-7 6 1-4-3-4 0-5 4 4 3 1-2-4-7-6 1-3 5 1-1-4 13-5 2-5 4-2 7 1 2 5zM246 359l7 1 1 10 1 1-8 6-5 10-5-6-7-2-8 5-7 13-4 3-3 0 1-4-5-1-1-3 2-7-3-1 1-2-9 2 14-9 3-9 3-2 5 4 7-1 4-3-1-4 8-3 6 1zM336 260l-3 0 3-4-2-1 0-2 6-7-1 7 2 0-2 5zM150 414l-2 1-1-2 2-7 3-1 1 6zM259 358l-2 3-4-3 4-5 4-2-2 4zM162 466l-4 0-1-4 2-2 4 3zM170 462l-2 0 0-1 4-10-1 8zM135 357l-1 1-2-2 1-6 3-2 1 4-3 3zM118 399l4 1 1 3-3 1-2-2zM132 363l-1 1-1-2 1-5 2 3zM128 397l-2-2 2-5 2 3-2 2zM224 306l-3 0-1-3 3-1 1 2zM157 409l-3-1 3-2 2 0-1 2zM403 40l-4-1 1-3 3 4zM199 368l4 1-2 1-3 0 0-2zM137 387l-3 1 2-4 3-1-2 3zM362 135l-1-4 2-1-1 4zM144 373l-3 0 1-3 1 1zM246 353l-2 2-2-3 5 0zM397 34l0 2-2-7 2 3zM361 346l-1 1-1-2 1 0zM136 519l-2 2-4-4 11-6 1 2-6 4zM126 531l-2 0 0-5 2 4zM133 521l-2 0-1-2 2 1zM109 558l-9 5 1 3-2 2 0 3-3 1 1-9 5-4-1-2 5 1 3-6 2 2-1 2z","K":1289.19,"tx":321.3,"ty":1180.6,"o":["Japan","Vietnam","Mongolia","South Korea"]},{"n":"Australia","i":6,"t":1,"lo":134.3,"la":-25.76,"km":7.493,"x":258.4,"y":102.9,"d":"M433 69l-1 5 4 4 4 24 3 1 7-3 2 4 9 6 2 20 4 7 2 0 3 10-1 9 4 4 0 6 10 6 4 0 5 6 13 7 2 3-2-1-1 2 7 8 7 19 1-1 2 2 0-3 2-2 6 6 0-3 2 0 2 16 4 4 9 5 15 20 0 3 3 4-1 19 6 16 1 6-8 29-1 14-5 9-1 7-4 5-5 2-7 11 0 5-2 2 1 0-5 8-1 8-8 13-3 29-6 4-22 3-13 12-9 1 2 3 1-1 0 5-4-5-3 1-2-4-5-2 2-3-1-2-2 0-5 4-3-3 3 1 2-5-3-3-6 4 3 1-15 11-14-8-10-2-2 2-2 0-5-5-9-3-8-11 1-10-2-5-10-13 3-1 2 2-1-4-10 4-4 0 4-10 0-4-6-10-5 16-11 2 2-6 5 0 2-12 5-9-1-6 2-2-3-8 1 4-8 13-11 6-7 10 1 6-2-2-2 1-7-6 1-2 3 2-3-10-7-11-5-2-3-6 2-1 0-3-8-5-6 0-6-4-7 1-14-8-5 1-25 2-21 9-19 0-16 10-7 2-9 14-18 1-2-1-8-1-21 2-6 7-7 1-10 9-4 1-18-1-7-4-5-6-8-2 0-12 5 2 4-7 0-24-8-18-3-22-9-16-2-11-11-17 2 1 0-3 3 7 3-1 1-2-7-9 1-2 4 3 0 5 2-2 1 5 2 1 1-2 0-6-10-21 1-8 3-7 1-7-2-4 5-11 1 0 0 8 4-2 4-7 10-5 17-12 9 1 18-6 5-4 6 0 19-6 5-4 6-12 7-5-3-9 3-6 8-8 8 15 1-7 3 1 1-3-6-6 2-1 0-2 2-1 1 3 3-2 10 2-5-1 3-6-2 1-2-3 1-3 2 0 1-3 5 2 1-2-3 0-1-2 3-2 4 1-2-5 5-3 1-4 0 4 3-1 0 2 2-1 1-7 2 2 2-2 3 2 4-6 7 4 10 10-1 8 1-1 1 1 0-4 4-3 7 1 2 4 1-4 5 4 0-4 2-1-3-2 1-1-4-3 5-5 1-6 6-4-1-4 3-4 3-1 0-3 3 2 0-3 6-4 2 3 11-1 2 2 1-3 3 0-1-6-3-2-5-1-3-2 2-2 2 2 3-1 4 4 4-2 3 4 16 5 5-1 4 3 2 1 10-6-3 5 3 0 2 3 2 0 0-4 4-2 5 5-5 6 1 3-2 3-2-1-5 2 0 9-7 11 0 3 11 9 6 1 1 3 3 0 9 5 8 7 10 2 3 6 11 5 6-1 4-3 8-18 3-14-2-18 2-7 0-5 4-2-3-6 2-5 1 1 3-15 4-3 2 0-1 2 4 6 0 7 3 1zM457 506l4 0 13 7 6-2 2 2 1-3 7 0 2-3 3 0 2-1 3 1 2 24-2-4-3 5-1 17-2 1-1-2-1-2 2-2-3-1-1 3-2-4-1 8-3-1 1 2-3 6-4-2-7 1-1-3 3-2-4 0-6-7-3-12 3 4 1-2-3-4-1 1 0-3-6-11-2-8 1-5 1 1zM265 61l8-3 4 4-8 6-6-4-2-5 3 1zM358 420l4 0 3 2-6 1-3 2-3-1-6 1-3-3 1-2 9-2 4 0 0 2zM346 94l2 0-1 4 2 1 0 2-8-1 1-5 4-2zM565 264l-2-3 1-5 3-3-1-3 1-1 1 5-3 9zM263 65l2 2-8 0 3-7 2 4zM497 488l4 4 0 3-3 2-4-7 2-3zM443 494l-2-4 2-5 2 6-1 2zM383 133l-4 2 2-4 4-1 1 2-2 0zM32 269l-3-4-1-4 3 7zM501 497l2 3-1 1-5-2 3-1zM474 156l0 3-2-3 2 0zM291 60l-1-4 1-1 1 3zM571 289l-2 5 0-3 2-2zM488 553l0 2-3-1 2-3 1 1zM489 550l-1-1 0-2 1 1z","K":765.72,"tx":313.9,"ty":-92.1,"o":["Brunei","Malaysia","Australia","Papua New Guinea"]},{"n":"France","i":53,"t":1,"lo":2.57,"la":46.51,"km":2.0145,"x":151.9,"y":33.1,"d":"M498 237l-4 2-3 5-3 2-5 0-3-3-6 2-3 3 4 4-13 16-8 5-2 11-9 8-4 8 3 4-1 6-5 3 0 4 1 0 8-2 2-4-1-4 7-6 13 2 2 7-2 6 10 13-9 6 0 4 14 19-3 8-9 6-6 0-2 1 0 3 4 8 10 5 1 5-7 12 2 9 16 10 12-1 2 4-8 12 1 5-4 0-8 6-18 15-2 5-3 4-18 6-11-1-6-4-10-3-3-6-9-1-1-4-13 4-19-6-6-6-5 2-5 5-20 14-8 14 1 17 5 8-12-1-9 3 0 3-17-4-7 3-4-3-8-4 1-3-1-3-8-2-3 3-3-5-22-8-4 0-1 8-4 0-10 0-3-2-9 2-10-7-10 1-7-7-7 0-9-4-4-2-1-2-2 3-2 0-2-2 2-9-13-4-1-4 6-2 5-6 6-25 4-28 2-6 4-1-3-4-3 5 2-26 4-20 10 8 5 15 5 5-4-5-5-20-16-13 0-3 7 1-3-10-2-21-9-2-15-9-10-17-2-6 3-6-2-4-5-3 4-6 3 0 11 3-9-5-14 1-6-2-1-3 4-6-5-3-8 1-1-1 2-4-2-1-7 1-4-1-3-4-11-1-2-2-15-5-16 1-4-9-10-4 2-2 9-3 2-2-7-3-2-4 13-1-6-3-12 0-2-5 2-5 7-5 18-5 13 0 9-6 9-2 9 3 12 15 9-6 14 0 3 3 3-6 4 4 17-2-4-2-4-6 0-23-9-17-2-6 0-6 11 1 8-2 4 2 1 11 4 6 23 2 14 3 11-6 11-3 1-1-6 0-6-2-1-3 3-9 16-9 24-8 6-5 7-10-1-3 1-26 3-9 10-6 23-7 3 9 0 5 6 7 3 2 10-4 5 7 1 8 12 3 4 11 2-3 8 1 4 1 5 4-2 6 2 3-1 7 8 2 7-1 4-2 2-6 4-3 2 1-3 10 3 10 5 1 10 6 9 10 11-2 8 5 9-2 11 5 8 14 6-3 4 2 1 4 16-3 6 6 20 5 0 5-11 14-5 21-4 7-3 27 1 4zM569 495l-1 8 3 5 1 20-6 12-1 13-7 15-14-11 3-5-7-3 1-9-5 0 3-8-4-4-1-3 4-3-4-4 6-10 4-3 9-2 3-4 6 2 1-1 2-16 2 0 1 2 1 6zM164 330l-1 5-6-8-1-5 4 3z","K":2177,"tx":306.7,"ty":2298.1,"o":["France","Switzerland","Italy","Luxembourg"]},{"n":"Dominican Republic","i":41,"t":2,"lo":-70.51,"la":18.9,"km":0.708,"x":92.2,"y":59.8,"d":"M62 416l1-26 4-10-4-12-16-11-19-29 2-2 18 0 6-5 12-14 3-11-1-8-8-10-4-11 23-22 1-11-15-14-1-6 7-15 0-10-7-32-3-5 6-3 10-17 8-5 9-3 17 0 23 8 7 0 42-11 18 5 22 14 8 3 29 1 20 15 16 6 10 0 17-6 8 1 10 12 2 19 8 16 13 11 61-4 14 8-4 8-10 4-41-1-3 7 0 7 17 1 34 9 56 10 33 13 45 37 6 9-3 12-13 19-7 6-11 3-7 8-7 13-4 1-5 0-8-8-7-11-17-11-20 2-30-7-18 3-18 1-38-5-19 5-18 6-24 20-44 5-13-8-12-11-17-1-25 8-15 3-6 4-2 4 0 15-3 9-24 34-19 32-7 2-12-14-7-5-9-3-4-7 0-11-3-10-5-8z","K":8513.22,"tx":249.9,"ty":3141.5,"o":["Trinidad and Tobago","Dominican Republic","Haiti","Bahamas"]},{"n":"Somalia","i":134,"t":2,"lo":45.83,"la":6.05,"km":2.7985,"x":188.1,"y":72.2,"d":"M409 57l18-3 10-4 18-4 15-8 6-8 6-2 19 6-7 20 2 28-2 6-2 2 6-1 0-3 7 3 1 2 0 1-7-1-11 3-4 37-16 23-13 26-10 9-7 20-17 28-6 14-1 10-16 27-17 21-10 18-43 48-33 32-9 7-36 19-23 17-24 21-69 72-10 19-7 10-1-5-21-28 0-146 14-15 27-37 30-6 4-2 5-8 5-4 18-8 17-4 36 2 49-53 71-70-39 0-117-40-25-19-8-16-5-2-9-11-7-17 23-35 8 6 7 12 9 10 21 15 22-1 16-8 19-8 29 4 34-17 12 2 12-1 22-7 13 2z","K":2263.82,"tx":286.3,"ty":505,"o":["Kenya","Tanzania","Somalia","Eritrea"]},{"n":"Uganda","i":155,"t":2,"lo":32.37,"la":1.27,"km":1.1635,"x":177,"y":76.8,"d":"M456 527l-295 0-21 7-22 0-25 28-17 10-4-2-4-9-2-2-23 5-2-39 8-42-1-9 8-52 6-6 15-32-1-17 2-14 10-4 13-10 5-13 8-8 15-5 44-42 30-35 2-10-9-11-10-2-11-11-13 0-9-5 0-7 11-35-2-7-7-7 2-12 5-11 8-12-2-6-5-2 9-14 11-8 10-6 7 0 25 10 6 0 8-2 16-10 8 9 6 10 18 8 2-1 4-7 13-10 48-9 15-7 15 10 32 2 8-6 39-39 15 32 5 2-2 5 10 8 12 4 4 4 1 4-5 18 5 24 7 4 7 19 14 10 7 19 5 3 4 11-2 6 7 33 1 33-1 8-17 25 2 13-19 8-12 11-7 17-11 13-2 4-10 8-12 29-9 12-2 18 0 37-2 41z","K":5473.41,"tx":309.4,"ty":431.6,"o":["Tanzania","Rwanda","Kenya","Uganda"]},{"n":"Romania","i":123,"t":2,"lo":24.98,"la":45.85,"km":1.3475,"x":168.7,"y":33.7,"d":"M486 346l6 9 8 4 18 5 1-1 0-5 6 2 19-10 11-1 9 4 8 9-4 23-4 11-30 7 2-3-2-11 3-4-7-1-5 6 2 9-4 7-3 12 5 0-2 5-9 11-3 6 1 25-4 19-13 0-8-2-10-4-10-13-8 2-4-3-14-2-19-12-35 7-16 6-16 11-6 8-8 5-11 3-19-1-42-9-12 3-57-9-18 3-3-2 0-7 9-8 0-2-18-13-2-4-8-7-2-5 0-4 3-4 4-2 4 0 2-1 0-3-13-8-9 2-8 10-7 1-3-6-7-4-16-3-2-4-4-3-10-3 0-3 9-1 1-2 0-1-9-5-1-2 4-2 4-10-4-3-11-4-5-4-7-3-14-13 0-22-4 1-8-11-12-9-7-11 2-2 13-3 6 3 6-3 3-6 4-1 12 1 5-3 4-9 4-2-1-6 4-10 10-8-1-4 10-18 1-7 7-8 5-14 7-8 0-9 7-6 10-13 11-4 7 1 15-16 11-5 5-7 3 0 12 8 15 0 19 5 4-1 6 4 18-4 5 2 18 18 11-3 5-6 17-8 40-7 7-10 2-8 23-5 11 4 4 5 10 17 11 27 7 9 9 17 9 10 5 9 12 12 10 28-1 11 1 5-7 26-1 13 3 27-5 4 5 7z","K":3293.25,"tx":300.5,"ty":3285.8,"o":["Slovakia","Romania","North Macedonia","Moldova"]},{"n":"Mozambique","i":100,"t":2,"lo":35.6,"la":-17.2,"km":3.394,"x":179.3,"y":94.6,"d":"M167 418l36-37-2-5 3-7 1-9 5-5 11-18 0-3-7-17 2-9-5-5 1-4 5-3 4-13-1-36-3-12 2-6-6-1-4-3-12-4-9-1-8-7-9-2-5-4-26-2-1-15-5-17 93-31 14 18 23-5 4 6 1 17 0 5-9 19 5 7 1 6 15 16 5 2 1 2-2 4 1 3 6 1 0-11-3-8 6-13 12-3 2-12 0-14 2-12-1-7-19-25-11-11-7-2-3-4-3-23-4-16 8-17 7-2 23 1 7-4 4 0 12 8 12-1 9-4 13 5 11-4 6-9 8-1 10 4 9-6 17-3 20-10 15-11 5 6-4 4 3 2-2 3 1 4-5 9 2 3-1 7 3 11-1 16 3 4-1 6-3 3 0 3 4 0 0 36 4 3-2 6 0 5 3-4 1 0 2 9-4 7 0 5-3 1 1 5-3 7-14 16-4 8-6 3 2 4-19 12-5 6-13 2-16 7-20 10-18 14-1 5-12 13-4 8-2 1-2-3-1 5-3-1-9 5-15 17-13 10-3 1-7-4 4 4-2 22 9 11 4 13 0 6 5 9 2 13-1 12 2 2 3-11 2 6-1 12 2 10-6 29 3 2 0-3 2 2-1 8-8 13-8 7-51 21-13 8-5 5-6 13 8 9 3-6-2 27-24-1-2-28-3-3-1-6 2-5 0-40-6-20-8-14-8-35zM272 77l-1-1-2 2 3 1zM275 81l1-3-2-1-1 4z","K":1793.22,"tx":302.2,"ty":-301.3,"o":["Tanzania","Mozambique","Malawi","Zambia"]},{"n":"Kyrgyzstan","i":81,"t":3,"lo":74.51,"la":41.47,"km":1.687,"x":206.9,"y":37.9,"d":"M113 366l17-3 11 5 5 0 4 4 7-5 6-2 8-12 5-1 1 2 5 2 3-4-2-4 2-4 10 4 3-2 5-6 18-11-7-3-6 1-11-2-7-7-7-4-9 1-1-10-3-1-3 2-8-2-1-8-3-6-5-3-2-6-3 3 1 4-2 7-4 2-4-3-1 15-5-2-9 0-16-7-5-13-2 0-9 3-14-9 0-2 13-10 9-10 9-3 2-7 19-9-1-3-9-5-4 2-3-3 0-3 5-8 2-5 7-9 4-4 8-4 5 2 15-4 22 4 24 8 5 5 21 4 6 6 4 1-3-13 7-27 2-3 14-6 3-4 10 0 3-3 30 17 27 10 13 1 8-8 35 1 24-3 12 4 28 1 11 2 25 0 18 6 12 0 2 1 1 6 12 13 3 1 21 3 14 15 2 9-1 2-19 2-4 7-23 7-42 24-4 3-1 6-11 14-15 1-12 4-29-3-4 1-4 3-8 13-4 13-5 9-8 6-3-5-5 3-7 1-7 4-10 0-4-20-3-1-14 10-12 2-8-3-2 4 2 7-8 1-13 11-21 6-8 16 4 14-4 5-5 2-13 0-11 6-7 1-26-1-11 2-6 8-9-9-13 5-3-2 1-7-12-4 1-5-2-3-20 7-3 5-10 2-4-2-6-9-5-2-13 3-4-3-1 2-9 0-18-1-6 3-9 0-1-9-2-6 2-10 2-3 6 4 2-1 0-7 3-5 21-6 24 10 3 6 6-3 1-6 15-6 1-3zM126 389l-2-6 3-4-8-2-3-5-2 4 0 3 4 3-2 6 7 1zM154 385l0-3-6 3 5 3zM101 393l-2-2-9-2 4 6 2 0z","K":2829.39,"tx":288.7,"ty":2540.3,"o":["Kyrgyzstan","Iran","Pakistan","Nepal"]},{"n":"Sierra Leone","i":130,"t":3,"lo":-11.79,"la":8.56,"km":0.6315,"x":140.2,"y":69.7,"d":"M562 295l-6 30-7 22-5 5-23 6-9 9-13 55-8 4-32 35-22 13-15 12-14 14-17 15-20 24-13 25-9 8-7-7-33-25-33-17-73-27-25-8 2-10 8-18-14-21 6-16-6 0-10 10-23-3-14-13-12-5-6-7-7-35-6-16-10-9-23-3-9-21-12-16 2-11 10 1 8 7 12 3 16-18 14-9 4-9-2-5-9 8-23-2-6 6-11 3-8-22 1-12 3-14 24-2 2-4-17-3-20-16-4-11 10-3 18 4 18-10 5-8 7-21 22-6 13-13 13-20 6-13 8-13 2-7 6-5 10-28 12-7 27-5 24 9 38-8 2-12 111-1 12 3 4 10 11 14 12 10 32 48 30 35 1 10-11 24 0 5 4 3 19 4 2 33 9 19 9 13 0 5-22 23-8 22-7 12 5 2 5-1 17 2 11-8 18-21 6-2zM172 479l-3 5-11-12-60-17 16-9 42-2 12 5 6 4 2 9z","K":9975.94,"tx":299.2,"ty":1777.4,"o":["Guinea","Liberia","Sierra Leone","Burkina Faso"]}]};
+/* outlines: Natural Earth 1:50m, pre-projected (Mercator centred on each country), 600 box.
+   q = {n name, i index in the Borderline atlas, t tier, lo, la, km per unit, x, y inset pin,
+        d path, K, tx, ty, o four option names in display order} */
+const WORLD={"w":"M233 303l0 1-7-1 5 0 0-1zM248 300l3 3-7 1-5-1 3-1 2-2 2 0zM178 291l4 1-5-1-3 0 2-1zM215 289l0 2-2 0-4 0-2-1 4-1-1-3 1 0 3 2zM111 308l-1 0 9-1 17 2 15 0-15-2-3-2-7-1 7 0 3 0-2-1-17-3-2-2 9 1 4-1-2-2 1 0 10-2 19 1 6-2 3 2 15 1-7-4 10 1 8 0 0-1 17 2 8-2 1-1-3-4-1-5 4-3 6-3 1 1-5 2-1 1 1 1-2 1-1 2 7 5 3 4-3 3-6 2-8 0 6 2-5 0 5 3 22 4 8-2 8 0 15-2-2-1-6 0-1-2 20-4 2-1-1-2 7-3 4 0 0-1 9 1 10-3 3 2 4-2 17 1 6-1 3-2 6 2 22-6 2 0 6 3 3-1 6 1 0 2-3 2 1 1-2 1 2 1 7-4 5 0 9-4 5 0 2-2 1 2 8 0 5 0 6-3 3 2 11-1 1 1 5 1 6-1 15-1 2-1-1 2 1 0 11 0 0 2 2 1 6 0 4 2 2 1 6 1 3 1-18 7-3 3 2 0-1 1-7 0-6 3 0 2 3 1-1 0 9 1-24 4-330 0zM203 260l5 1-1 1-2-1-1 2-2 0-9-5 6 2 1-3 2 1zM215 254l1 2-3 1-1-1 1-1 1 0zM403 252l-2 0 0-2 2 1zM523 235l4 0-3 5-3 0 1-5zM565 235l0 1 1-1 0 1-5 5-3 1-6 4-3-1 16-11zM573 226l0 2 1-1 0 2 3 0-10 8 2-4-1-1 4-4-1-5 2 1zM572 199l-1 0-1-1-2-3 4 3zM383 182l0 4-1 0-5 16-1 2-3 1-2-1-1-4 3-6-1-4 1-3 3-1 3-2 2-5 1 2zM537 183l1 1 1-1 1 2 0 8 3 2 1 4 1 0 0 2 2 5-1 4-3 7-10 11-7 4-2-2 1-1-3 2-4-1 0-4-2-1 1-2-3 1 4-4-5 4 0-1-1-4-3-2-9 1-5 4-6 0-4 2-2 0-2-2 2-4 0-12 0 1 0-1 1 1 0-4 2-5 0 2 5-4 7-2 4-6 1 1 1 0-1-1 5-5 2 0 2 2 2 0 2-5 3-1-1-1 6 2 2-1 1 1-4 5 7 5 4-5 2-8 1 5zM506 176l-1 0 1-2 6-2-4 2zM504 172l0 1-5 0 2-1 2 0zM481 169l3 0 0-1 8 4-2 1-13-3-2-1 1-2 4 1zM553 167l-3 1-3-1 3-1 0 1 1 0 1-3 2 0 0 1zM517 162l1 1-5 0 0-2 3 0zM524 158l0 3 2 1 1-2 4-1 10 4 2 4 3 1 0 1-2 0 1 1 5 6-5 0-2-4-2-1-3 1 0 1-1 1-6-2-2 0 2-2-1-4-7-3-2 1-1-3 3-1-3 0-2-2 3-1 2 1zM509 153l-3 3-6 0 0 1 2 2 4-2-4 3 3 6-2 0 1-1-2 0 0-4-2 1 0 5-1 0 0-4-1-2 2-6 1-2 6 1 1-1zM514 154l-1 4-1-4 1-2 1 1zM476 167l-2 0-3-3-7-12-5-7 3 1 6 6 3 1 2 3-1 1 5 5-1 2zM496 152l2 2-2 0-3 10-9-2-1-3-1-2 0-4 1-1 2 0 1-1 2-1 6-7 4 3-3 4 2 2zM510 140l0 2 0 2-1-2-1 1 1 2-2-1 0-2-2-1-2 1 2-3 1 1 2-1 0-2 2 2zM435 144l-1 0-1-1 0-6 3 4 0 3zM506 136l-2 3-1-2 1-2 1 0 0 1 1-2zM497 138l-2 2 3-6 0 2-1 1zM508 133l0 2-1-1 1 2-1 0-1-2 1-1-1-1 1 0zM499 120l1 0 1 3-1 2 1 3 4 1 0 3-2-2 0 1-4-2 1-1-2-1-1-3 1 1 0-5zM181 118l5 0 2 2-1 1-3-1-1 2-2-1-2 0-1-1 3 0-1-2zM481 120l-1 1-2-1 0-1 3-2 0 2zM170 112l3 1 6 4-6 1 1-1-2-3-5-1 0-1-5 2 3-2 4-1zM497 112l0 2-2-4 1-3 1 2zM512 90l0 2-1-1-1 2-1-1 0-2 2-1zM337 87l4 1-2 0-2 0zM324 82l0 3-5-2 0-1 4 0zM314 76l1 4-1 1-2-4 1 0zM519 84l1 4-4 1-2 2-2-2-6 1 2 2 0 4-4-4 4-5 4 0 1-3 1 1 2-3-1-6 1 0 2 3 0 3zM517 71l2-1 1 2-2 1 0 2-3-2 0 3-1 0-2-2 0-2 2 0-1-4 2 2zM118 62l-3 0-2-3 4 0 1 2zM218 58l-1 2 1-1 1 1-1 0 4 1-1 1 1 0 0 2-1 2-2 0 1-2-2 1-1 0 1-1-1 0-5 0 5-6 2-1zM111 52l2 0-3 4 0-3 1-1zM509 58l4 4-3-1 1 3 3 3-2-1 0 1-8-11-1-4 4 4zM290 55l-4 1 1-2-1-2 3-2 3 1-1 3zM296 44l-2 2 3 0-1 3 1 0 4 5 1 1 0 2-10 3 0-1 3-2-3-1 2-1-1-2 3 0 0-1-3-1 0-2-1 1-1-3 2-3 1 0zM189 32l5 3-2 1-2-2-4 2 0-1-2 0 4-3zM281 30l0 1 1 2-7 2-5 0 1-1-2-1 2-1-3 0 1-1 4 1 6-2zM202 29l-1 0 1-1 2 0-1 1zM375 76l2 2-1 0-1 3 1 2 3 2 5-1-1-3-2-2 0-2 3 0-2-2-1 0 0 1-1-3-2 0-2-3 1 0 0-1 3 0-1-3-3-1-3 1-3 4 4 5zM536 33l-3 0 7 4-3 0-3 2-1 3-3-2-3 2-4 0 1 3 3 1 3 5-2 1 1 2-2 0 1 2 0 2-10-11-1-2 2 0 2-6-1-2-1 0 0 2-1 1-4-2-2 1-1 3 2 1-5 1-1-2-2 0-1 1-9 0-3 8 5 2 0-1 2 0 4 2 3 9-2 9-1 1-3-1-2 3 1 2-3 2 6 6 0 3-3 1-2-4 1 0-5-3 0-3-2 0-4 2 0-3-1-1-4 4 4 3 1-1 3 1 1 1-2 0-2 3 6 7 1 1-1 1 2 1 0 3-1 1-2 7-4 3-7 3 0 2-1 0-1-2-2-1-4 4 0 1 6 8 2 6-1 2-5 4-1-2-2-2-2-3-3 0 0-2-2 0 0 8 1 0 1 4 4 3 3 9-1 0-4-3-3-7-2-4-1 1 1-7-4-11-3 3-2-1 0-4-6-9-2 0 0 2-5 0-1 3-2 1-4 6-3 1 0 11-3 5-8-16-3-10-3 1-2-3 0-1-6-5-8 1-6-2-2-2-3 1-2-1-3-2-3-4-2-1-1 1 1 3 3 3 1 4 0-2 1 0 1 4 4-1 3-4 1 4 3 1 2 3-2 4 0 2-4 4-5 1 0 2-6 3-8 3-2-8-6-9-2-5-6-8 0-3-2 4-2-5 6 12 0 1 2 2 1 7 2 1 2 4 7 7-1 1 3 3 11-3 0 2-5 13-13 13-2 4-1 2 2 2-1 3 2 5 0 9-2 2-4 2-4 4 1 8-5 4-1 6-7 7-4 3-5 0-5 1-2-1 0-5-5-9-1-9-4-8 0-5 4-9-3-11-5-8 1-8-2-3-4 1-3-4-3 0-7 3-5-1-5 2-8-6-4-7-2-2-1-3-1-2 2-3 0-4-1-7 5-9 8-7 0-5 4-3 2-3 6 1 5-3 13-1 1 1 1 0-1 6 8 3 1 1 5 2 2-1 0-2 2-2 12 4 3-1 2 1 3 0 1-1 2-6-1-4-5 1-2-1-3 1-3-1-2-3 0-1-1-1 2-2 2 0 1-2 3 1 3-2 8 2 4-1 0-2-8-5 2-2-1-1 2-1-6 2 3 2-4 1-2-2 1-1-4-1-2 3-1 0-1 5 2 3-4 1 0-1-2 0-2 0 2 1-1 1-2-1 0 3 2 1 0 1-1 0 0 1-1 0 1 2-2-1-4-7 0-3-10-7-2 0 1 3 9 7 0 1-2-1-1 1 1 2-1 1-1-3-6-4-3-4-2-1-3 3-5 0 0 2-4 2-1 3 0 1-3 4-4 0-1 1-2-1-4 0 0-3-1-1 2-4-1-4 2-2 9 1 1-5-2-3-3-1 0-1 5 0-1-2 2 1 3-2 0-1 4-1 1-3 5-1 1-1-2-3 1-2 3-2-1 2 1 1-1 2 2 2 2-1 2 2 5-2 3 0 2-1 0-4 1-1 3 2 0-3-2-1 8-2-2 0-7 1-2-2 0-4 4-3-2-2-2 1-1 2-4 3-1 2 3 2-3 3-1 4-1 0-1 2-2 0-4-8-2 2-4 0-1-6 7-4 5-6 5-3 11-2 4 1-1 0 1 1 1 0 12 3 1 2-1 1-9-1 2 1 1 3 3 1-1-2 1 0 3 1 1-1-1-1 3-2 2 1 1-1-3-3 4 0 1 1-2 1 1 0 1 1 8-4 1 0-1 1 7-1 1 1 1-1-1-1 11 3 1-1-4-2-1-2 2-3 4 1 0 1 5 5-2 4 2 0 2-3-1-2-2-1 0-2-3-1 2-1-1-1 4 3-1-2 1 0 6 1-3-3 7-1-2-1 1-1 15-2 0-1 2 0 5 1 4 0 5 1 1 1-4 2 18 2-1-1 5 0 10 4-1-1 10 0-2-1 1-1 12 1 6 2 8 0 5 2 8 0 4 2 1-1-2-2 11 1 3 1 8 7zM72 26l3 3-1 2 1-2 3 1 1 1-4 1-3 2-3-1 1-1-3 0 1-1-4 2 8-7zM179 26l-5-1 3-1 2 1zM186 25l-1 2 2-1 1 1-1 1 1 1 5-4 3 0 1 1-2 2 1 0-4 2-3 0-4 3-10 5-5 5 2 1-1 3 2-1 7 4 4 0-2 4 2 3 3-2 0-4 6-3 0-3-1-1 2-2 1-5 6 0 2 2 3 1-1 3 1 2 6-4 2 6-1 1 6 3 0 2 1 1 0 2-8 3-9 0-9 7 5-3 6-2 1 1-2 1 0 4 4 0 2-2 1 2-10 5-1 0 0-2 3-2-4 1-6 4-1 1 1 1-6 2 3 0-3 0-3 4 0-1 0 2-2 2 0-4 0 2-1 0 1 1-1 4-10 8 0 9-1 3-1 0-1-1-1-6-1-2-2 1-2-2-4 0-1 2-1 1-6-1-6 3-3 11 1 6 3 2 6-2 2-4 5-1-4 11 6 0 2 2-1 8 2 4 3 0 2-2 4 2 2-1 2-3 2-1 3-2 1 1-1 1 0 5 1-2 0-2 2-1 0-1 3 3 3-1 2 2 1-2 4 0-1 1 0 1 3 1 0 1 3 2 3 3 5 1 5 3 2 5-1 3 3 0 0 2 1-1 5 2 1 2 7 1 5 3 3 2 1 3 0 3-6 8 0 9-3 8-1 2-5 1-4 3-1 2 0 5-7 12-3 0-4-1 3 4 0 4-7 1 1 4-5 0 1 2 3 1-3 2 1 3-3 1 0 1 4 2 0 2-4 5 3 3-4 1 0 2-6-3-3-7 1-3-3-1 1-2 0-3 2 1-1-4-1-1 0 3-1 0 0-8-1-4 1-9-1-7 0-15-1-6-10-7-8-14-2-2-1-3 3-4-2-1 0-2 2-3 2-2 3-4-2-9-2-1-2 1 1 1-1 1-1-1-4-1-2-3 0 1-1-1 0-2-3-4 0-1-6-1-5-4-3 1-11-5-3-4 1-4-4-6 0-2-4-5 0-4-1-1-1-1-1 4 5 13-1 1-3-4 1-2-4-4 2-1-2-2 0-7-2-2-2-1-2-8 0-3 5-10 2-5 2 0 0 2 2-4-5-3 1-3-1-1 0-1-1-4 0-4-3 0-3-3-7-2-9 3 4-4-19 10-11 2 15-5 3-3-7 1 1-3-2 1-1-1 2-3 4-2 6-1 2-2-6 1-2-1 0-1 6-2 1 0-1 1 3 0-2-4 9-3 9-2 2 1 12 1 7 2 13-2 1 1 3-1-1 1 4 0 7 1 1 1-2 1 6 0 1 1 3-2 2-1 5 2 4 0 2-1 1 0-1 2 5-3-2-2 4-3 2 1 0 2-1 1zM161 20l-1 0 3 0 1 1 2-1 0 2 2-2 2 0 1 0-1 3 3 1-2 1-1 2-4-1-10 1-3-1 0-1 6-1-6 0 3-2-4 0 8-3zM207 20l-4 0-1-1 3 0zM195 19l0 1 5-1 1 1 0 1 4-1 3 2 3 0 4 2 0 2-2 1 7 3-4 3-2-3-2 1-1 1 3 2 0 2-1 1-4-2 2 3-6-2-3-3-5 1 1-2 5 0 4-4-4-2 1 0-3-2-3 1-10-2 2 0-1 0 2-3 5-2zM179 18l3 1-2 1 2 0-1 2-4 0-3-2 3 0 0-1zM186 20l-3 1 2-3 6 0-3 2zM151 22l-4 1-2-1 5-3 0-1 8 0 2 1-9 3zM472 16l1 1-6 0-4-2 4 0zM185 14l-2 3-5-1 1-1 5-1zM172 15l3 0-2 2-10 1 4-2-7 0 4-2 6 2 0-2 3 0zM372 23l-8-1 0-2 2-1-1 0 2-2-1-1 6-1 9-1-11 4-2 3 1 1zM189 13l4 1 0 1 1 1 11 0-3 1-10 0-3 0 1-2-4-1 1-1zM165 13l-3 1-7 1 8-2zM185 12l-6 0 2-1-1-1 5 1zM421 12l-6 0 1-2 5 1zM321 10l4 1-3 0-2 3-1 0-7-4 7-1zM329 9l2 0-5 1-7-1 7-1zM357 9l-3 0-4 0 8-1zM414 11l-6 0-6-2 4-1 7 2zM201 10l1 0-7 2-2 0-1-1 2-1-2 0-1-1 7-1 3 1zM226 5l7 1-8 1 3 0-8 3-7 0 1 0-1 1-6 2 2 1-4 1-10-1 3-1 0-1 3 1-2-1 4-2-1-1 6 0-6 0-3-2 25-2zM271 5l6 1-11 1 9 0 1 0-2 1 9-1 3 1-9 1 3 0-3 2 0 2 1 1-3 0 2 1 0 1-2 0 2 2-3 0 1 0 0 1-4 0 2 2-3 0 3 1 0 1-2 1-3-2 1 1-2 1 5 0-7 3-6 1-3 2-8 2-5 5 0 1-2 3-6-1-3-5-1-6 5-4-5 0 1-2 4 1-5-2 2-2-3-4-11-1-2-1 5-1-7-1 10-2 1 0-3-1 8-2 14-1 6 1-2-1 14-1z","s":"M135 0l330 0 25 4 16 7 25 18 21 19 18 21 14 22 9 22 5 21 2 22-2 22-5 21-9 22-14 22-18 21-21 19-25 18-16 7-25 4-330 0-25-4-16-7-25-18-21-19-18-21-14-22-9-22-5-21-2-22 2-22 5-21 9-22 14-22 18-21 21-19 25-18 16-7 25-4z","wh":156};
+const NQ=10, PASS=7, PLAN=[1,1,1,2,2,2,2,2,3,3], ATLAS_TOTAL=168;
+const $=id=>document.getElementById(id);
+const SVGNS='http://www.w3.org/2000/svg';
+
+/* ---------- ship gate: runs before anything is drawn ---------- */
+/*@GATE*/
+function GATE(P,metaDate){
+  const f=[];const num=x=>typeof x==='number'&&isFinite(x);
+  if(!P||typeof P!=='object')return['no puzzle object'];
+  if(!/^DP·BORD·\d{4}$/.test(P.id||''))f.push('id '+P.id);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(P.date||''))f.push('date '+P.date);
+  if(metaDate!=null&&metaDate!==P.date)f.push('dn:date '+metaDate+' != '+P.date);
+  if(!Array.isArray(P.qs)||P.qs.length!==NQ)return f.concat('expected '+NQ+' questions');
+  const names=new Set(),idx=new Set();
+  P.qs.forEach((q,k)=>{
+    const w='q'+(k+1)+' ';
+    if(!q||typeof q.n!=='string'||!q.n)return f.push(w+'no name');
+    if(q.t!==PLAN[k])f.push(w+'tier '+q.t+', plan wants '+PLAN[k]);
+    if(names.has(q.n))f.push(w+'repeats '+q.n);names.add(q.n);
+    if(!Number.isInteger(q.i)||q.i<0||q.i>=ATLAS_TOTAL||idx.has(q.i))f.push(w+'atlas index');idx.add(q.i);
+    for(const k2 of ['lo','la','km','x','y','K','tx','ty'])if(!num(q[k2]))f.push(w+k2);
+    if(typeof q.d!=='string'||!/^M[-0-9MLHVZmlhvz .,]+$/.test(q.d)||q.d.length<40)f.push(w+'outline');
+    if(!Array.isArray(q.o)||q.o.length!==4||new Set(q.o).size!==4||!q.o.includes(q.n)||q.o.some(s=>typeof s!=='string'||!s))f.push(w+'options');
+  });
+  if(typeof WORLD!=='object'||typeof WORLD.w!=='string'||WORLD.w.length<1000)f.push('world inset missing');
+  return f;
+}
+/*@GATE_END*/
+
+/* ---------- save (localStorage, every access guarded) ---------- */
+const KEY='digi-borders-v1', ATLAS_KEY='digi-borderline-v1';
+const coarse=(()=>{try{return matchMedia('(pointer: coarse)').matches}catch(e){return false}})();
+function defaults(){return {v:1,done:{},streak:{last:null,n:0,best:0},cur:null,snd:true,rm:null,fs:coarse,seenCoach:false};}
+let save=defaults();
+function load(){try{const raw=localStorage.getItem(KEY);if(raw){const s=JSON.parse(raw);if(s&&s.v===1)save=Object.assign(defaults(),s);}}catch(e){}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}}
+load();
+/* the shared atlas lives in Borderline's own save; read-modify-write so nothing else in it is touched */
+const slug=n=>n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+function atlasRead(){try{const s=JSON.parse(localStorage.getItem(ATLAS_KEY)||'null');return s&&s.v===1&&s.found&&typeof s.found==='object'?s:null;}catch(e){return null}}
+function atlasAdd(name){try{const s=atlasRead()||(localStorage.getItem(ATLAS_KEY)?null:{v:1,found:{}});if(!s)return false;
+  const id=slug(name),isNew=!s.found[id];s.found[id]=(s.found[id]||0)+1;localStorage.setItem(ATLAS_KEY,JSON.stringify(s));return isNew;}catch(e){return false}}
+const atlasCount=()=>{const s=atlasRead();return s?Object.keys(s.found).filter(k=>s.found[k]).length:0;};
+
+/* ---------- settings: motion, sound, full screen ---------- */
+const sysRM=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}})();
+const reduced=()=>save.rm===null?sysRM:!!save.rm;
+function applyRM(){document.body.classList.toggle('rm',reduced());}
+applyRM();
+const fsOK=(()=>{try{return !!(document.fullscreenEnabled||document.webkitFullscreenEnabled)}catch(e){return false}})();
+const isFS=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+function goFS(){if(!fsOK||!save.fs||isFS())return;try{const el=document.documentElement,rq=el.requestFullscreen||el.webkitRequestFullscreen;if(!rq)return;
+ const lock=()=>{try{if(screen.orientation&&screen.orientation.lock)screen.orientation.lock('portrait').catch(()=>{});}catch(e){}};
+ const p=rq.call(el,{navigationUI:'hide'});if(p&&p.then)p.then(lock,()=>{});else lock();}catch(e){}}
+function exitFS(){try{if(!isFS())return;const x=document.exitFullscreen||document.webkitExitFullscreen;const p=x&&x.call(document);if(p&&p.catch)p.catch(()=>{});}catch(e){}}
+let actx=null;
+function audio(){if(!save.snd)return null;try{if(!actx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;actx=new A();}
+  if(actx.state==='suspended')actx.resume().catch(()=>{});return actx;}catch(e){return null}}
+function tone(f,t,dur,type,g){const a=audio();if(!a)return;try{const o=a.createOscillator(),v=a.createGain(),t0=a.currentTime+t;
+  o.type=type||'sine';o.frequency.setValueAtTime(f,t0);v.gain.setValueAtTime(0.0001,t0);v.gain.exponentialRampToValueAtTime(g||0.18,t0+0.012);
+  v.gain.exponentialRampToValueAtTime(0.0001,t0+dur);o.connect(v).connect(a.destination);o.start(t0);o.stop(t0+dur+0.05);}catch(e){}}
+const sfx={
+  right(){tone(659,0,.35,'triangle',.16);tone(988,.09,.5,'triangle',.14);},
+  wrong(){tone(196,0,.32,'sine',.22);tone(147,.08,.4,'sine',.16);},
+  hint(){tone(523,0,.18,'sine',.08);},
+  pass(){[523,659,784,1047].forEach((f,i)=>tone(f,i*.11,.6,'triangle',.13));},
+  fail(){[392,330,262].forEach((f,i)=>tone(f,i*.14,.5,'sine',.13));}
+};
+function toggles(host){
+  host.innerHTML='';
+  const items=[['Sound',()=>save.snd,v=>{save.snd=v;if(v)audio();}],['Reduced motion',()=>reduced(),v=>{save.rm=v;applyRM();}]];
+  if(fsOK)items.push(['Full screen',()=>!!save.fs,v=>{save.fs=v;if(v)goFS();else exitFS();}]);
+  for(const [label,get,set] of items){const b=document.createElement('button');b.className='tog';b.setAttribute('role','switch');
+    b.textContent=label;b.setAttribute('aria-checked',String(get()));
+    b.addEventListener('click',()=>{set(!get());b.setAttribute('aria-checked',String(get()));persist();});host.appendChild(b);}
+}
+
+/* ---------- helpers ---------- */
+const LANDS=['#F2C4C0','#F3DC8E','#C6DDA0','#D6C8E8','#F4C99A'];
+const colourOf=q=>LANDS[(q.i*7+3)%LANDS.length];          // same colour each country has in Borderline's atlas
+function today(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
+  catch(e){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}}
+function dayBefore(s){const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()-1);return d.toISOString().slice(0,10);}
+function longDate(s){try{return new Intl.DateTimeFormat('en-GB',{timeZone:'UTC',weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date(s+'T12:00:00Z'));}catch(e){return s;}}
+function mmss(s){s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=String(s%60).padStart(2,'0');return h?h+':'+String(m).padStart(2,'0')+':'+x:m+':'+x;}
+function el(tag,attrs,parent){const e=document.createElementNS(SVGNS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+
+/* ---------- state ---------- */
+let P=null, cur=null, view='home', paused=false, locked=false, last=0, ending=false;
+function show(id){view=id;for(const s of document.querySelectorAll('.screen'))s.classList.toggle('vis',s.id===id);}
+
+/* ---------- map drawing ---------- */
+const VB={w:600,h:600,x:0,y:0};
+function fitBox(svg){const r=svg.getBoundingClientRect();const rw=r.width||1,rh=Math.max(1,r.height||1);const ar=rw/rh;
+  const w=Math.max(600,600*ar),h=Math.max(600,600/ar);VB.w=w;VB.h=h;VB.x=(600-w)/2;VB.y=(600-h)/2;VB.px=rw/w;
+  svg.setAttribute('viewBox',`${VB.x} ${VB.y} ${w} ${h}`);}
+function graticule(c,g){
+  g.innerHTML='';
+  const deg=Math.PI/180,spanDeg=VB.w/(c.K*deg);
+  const step=[1,2,5,10,15,20,30,45].find(s=>spanDeg/s<=5.5)||60;
+  const yOf=p=>c.ty-c.K*Math.log(Math.tan(Math.PI/4+p*deg/2));
+  const latOf=y=>(2*Math.atan(Math.exp((c.ty-y)/c.K))-Math.PI/2)/deg;
+  const x0=VB.x,x1=VB.x+VB.w,y0=VB.y,y1=VB.y+VB.h;
+  const l0=c.lo+(x0-c.tx)/(c.K*deg),l1=c.lo+(x1-c.tx)/(c.K*deg);
+  for(let L=Math.ceil(l0/step)*step;L<=l1;L+=step){const x=c.tx+c.K*(L-c.lo)*deg;el('line',{x1:x,x2:x,y1:y0,y2:y1},g);
+    let w=((L+540)%360)-180;const t=el('text',{x:x+6,y:y0+30,class:'gl'},g);t.textContent=w===0?'0°':Math.abs(w)+'°'+(w>0?'E':'W');if(Math.abs(w)===180)t.textContent='180°';}
+  const pa=Math.max(-84,latOf(y1)),pb=Math.min(84,latOf(y0));
+  for(let Q=Math.ceil(pa/step)*step;Q<=pb;Q+=step){const y=yOf(Q);el('line',{x1:x0,x2:x1,y1:y,y2:y},g);
+    const t=el('text',{x:x0+14,y:y-7,class:'gl'},g);t.textContent=Q===0?'0°':Math.abs(Q)+'°'+(Q>0?'N':'S');}
+}
+function refit(svg,c){if(!svg.querySelector('.land'))return;fitBox(svg);graticule(c,svg.querySelector('.grat'));
+  svg.querySelector('.land').style.strokeWidth=(1.9/(VB.px||0.5))+'px';}
+function drawLand(svg,c,animate){
+  svg.innerHTML='';fitBox(svg);
+  const g=el('g',{class:'grat'},svg);graticule(c,g);
+  const p=el('path',{d:c.d,class:'land',fill:colourOf(c)},svg);
+  p.style.strokeWidth=(1.9/(VB.px||0.5))+'px';
+  if(animate&&!reduced()){
+    let len=0;try{len=p.getTotalLength();}catch(e){}
+    if(len>0){svg.classList.remove('draw');p.style.strokeDasharray=len+' '+len;p.style.strokeDashoffset=len;p.style.fillOpacity=0;
+      void p.getBoundingClientRect();svg.classList.add('draw');requestAnimationFrame(()=>{p.style.strokeDashoffset=0;p.style.fillOpacity=1;});}
+  }
+}
+function scaleBar(c){
+  const host=$('scale');host.innerHTML='';
+  const kmPerPx=c.km/(VB.px||1);
+  const target=kmPerPx*110;const mag=Math.pow(10,Math.floor(Math.log10(target)));
+  const nice=[1,2,2.5,5,10].map(m=>m*mag).filter(v=>v<=target).pop()||mag;
+  const px=nice/kmPerPx;const segs=document.createElement('div');segs.className='segs';
+  for(let i=0;i<4;i++){const s=document.createElement('i');s.style.width=(px/4+1.25)+'px';segs.appendChild(s);}
+  const lab=document.createElement('div');lab.className='lab';lab.style.width=px+'px';
+  lab.innerHTML='<span>0</span><span>'+(nice>=1000?nice.toLocaleString('en-GB'):nice)+' km</span>';
+  host.append(segs,lab);
+}
+function worldSVG(s,pin){
+  const h=Math.min(WORLD.wh*2,270);s.setAttribute('viewBox',`0 0 600 ${h}`);s.innerHTML='';
+  el('path',{d:WORLD.s,fill:'#E4F1F1',stroke:'#1F3A4A','stroke-width':1.5},s);
+  el('path',{d:WORLD.w,fill:'#E9DCAE',stroke:'#1F3A4A','stroke-width':1},s);
+  if(pin){el('circle',{cx:pin.x*2,cy:pin.y*2,r:6,class:'ring'},s);el('circle',{cx:pin.x*2,cy:pin.y*2,r:6,class:'dot',stroke:'#fff','stroke-width':2},s);}
+  return s;
+}
+function insetMap(c){$('inset').innerHTML='';$('inset').appendChild(worldSVG(document.createElementNS(SVGNS,'svg'),c));}
+function tileSVG(c){return `<svg viewBox="0 0 600 600" aria-hidden="true"><path class="land" fill="${colourOf(c)}" d="${c.d}"/></svg>`;}
+
+/* ---------- home ---------- */
+function renderHome(){
+  show('home');
+  $('numLabel').textContent='No. '+P.id.slice(-4);
+  $('dateLine').textContent=longDate(P.date);
+  worldSVG($('homeWorld'),null);
+  const c=save.cur&&save.cur.id===P.id?save.cur:null;
+  $('playStatus').textContent=c?`Question ${Math.min(NQ,c.ans.length+1)} of ${NQ}, ${c.pts} points so far.`:'Ten country outlines, easiest first. Name seven to pass.';
+  $('playGo').textContent=c?'Resume':'Play';
+  toggles($('homeToggles'));
+}
+
+/* ---------- quiz flow ---------- */
+function start(){
+  if(save.done[P.id]){showResult(save.done[P.id],false);return;}
+  cur=save.cur&&save.cur.id===P.id&&Array.isArray(save.cur.ans)?save.cur:{id:P.id,i:0,ans:[],pts:0,run:0,secs:0};
+  cur.i=cur.ans.length;cur.hint=false;cur.run=0;for(const a of cur.ans)cur.run=a.ok?cur.run+1:0;
+  save.cur=cur;persist();
+  if(cur.i>=NQ){finish();return;}
+  ending=false;paused=false;show('quiz');showQuestion();
+}
+function buildTicks(){const t=$('ticks');t.innerHTML='';for(let i=0;i<NQ;i++){const e=document.createElement('i');
+  const a=cur.ans[i];if(a)e.className=a.ok?'ok':'bad';else if(i===cur.i)e.className='cur';t.appendChild(e);}}
+function updatePts(){$('pts').innerHTML=cur.pts+'<small>pts</small>';}
+function showQuestion(){
+  const q=P.qs[cur.i];locked=false;cur.hint=false;
+  $('sheet').classList.remove('revealed');$('quiz').classList.remove('locked');
+  $('nameplate').innerHTML='';$('inset').classList.remove('on');
+  drawLand($('qmap'),q,true);scaleBar(q);insetMap(q);
+  const box=$('opts');box.innerHTML='';
+  q.o.forEach((name,k)=>{const b=document.createElement('button');b.className='btn opt';b.textContent=name;
+    b.addEventListener('click',()=>answer(k));box.appendChild(b);});
+  $('hintBtn').hidden=false;$('hintBtn').disabled=false;$('nextBtn').hidden=true;
+  $('coach').classList.toggle('off',!!save.seenCoach);
+  buildTicks();updatePts();last=performance.now();
+}
+function useHint(){if(locked||!cur||cur.hint)return;cur.hint=true;$('inset').classList.add('on');$('hintBtn').disabled=true;sfx.hint();}
+function answer(k){
+  if(locked||!cur||view!=='quiz')return;locked=true;
+  const q=P.qs[cur.i],ok=q.o[k]===q.n;
+  cur.run=ok?cur.run+1:0;
+  const gain=ok?(cur.hint?50:100)+Math.min(50,(cur.run-1)*10):0;cur.pts+=gain;
+  const isNew=ok&&atlasAdd(q.n);
+  cur.ans.push({k,ok,h:!!cur.hint,nw:!!isNew});
+  if(!save.seenCoach){save.seenCoach=true;$('coach').classList.add('off');}
+  save.cur=cur;persist();
+  $('quiz').classList.add('locked');
+  [...$('opts').children].forEach((b,j)=>{if(q.o[j]===q.n)b.classList.add('right');else if(j===k)b.classList.add('wrong');else b.classList.add('dim');});
+  $('nameplate').innerHTML=q.n+'<small>'+(ok?(isNew?'New in your atlas. ':'')+'+'+gain+' points':'Not this time.')+'</small>';
+  $('sheet').classList.add('revealed');$('inset').classList.add('on');
+  $('hintBtn').hidden=true;$('nextBtn').hidden=false;$('nextBtn').textContent=cur.i===NQ-1?'See result':'Next';
+  buildTicks();updatePts();
+  (ok?sfx.right:sfx.wrong)();
+  try{if(!ok&&navigator.vibrate&&!reduced())navigator.vibrate(30);}catch(e){}
+  setTimeout(()=>{try{$('nextBtn').focus({preventScroll:true});}catch(e){}},50);
+}
+function next(){if(!locked||!cur)return;cur.i++;save.cur=cur;persist();if(cur.i>=NQ)finish();else showQuestion();}
+function finish(){
+  if(!cur||ending)return;ending=true;
+  const correct=cur.ans.filter(a=>a.ok).length;
+  const rec={c:correct,p:cur.pts,secs:Math.round(cur.secs),ans:cur.ans.map(a=>({k:a.k,ok:a.ok,h:a.h,nw:a.nw})),on:today()};
+  save.done[P.id]=rec;save.cur=null;
+  const t=rec.on,s=save.streak||{last:null,n:0,best:0};
+  if(s.last!==t){s.n=s.last===dayBefore(t)?s.n+1:1;s.last=t;}
+  s.best=Math.max(s.best||0,s.n);save.streak=s;persist();
+  cur=null;
+  showResult(rec,true);
+  (correct>=PASS?sfx.pass:sfx.fail)();
+}
+function abandon(){closePause();cur=null;renderHome();}
+
+/* ---------- result ---------- */
+function starSVG(on){return `<svg viewBox="0 0 20 20"><path d="M10 1.8l2.5 5.3 5.7.7-4.2 3.9 1.1 5.7L10 14.6l-5.1 2.8 1.1-5.7L1.8 7.8l5.7-.7z" fill="${on?'#1F3A4A':'none'}" stroke="#1F3A4A" stroke-width="1.4" stroke-linejoin="round"/></svg>`;}
+function showResult(rec,fresh){
+  const win=rec.c>=PASS,stars=rec.c>=10?3:rec.c>=9?2:win?1:0;
+  // fill every field first: the tracker reads #winTitle and #winTime the moment "on" lands
+  $('rKick').textContent='Borders '+P.id.slice(-4)+', '+longDate(P.date);
+  $('rBig').textContent=rec.c+' of '+NQ;
+  $('winTitle').textContent=win?'Passed':'So close.';
+  $('rStars').innerHTML=stars?'<span class="stars" aria-label="'+stars+' stars">'+[0,1,2].map(i=>starSVG(i<stars)).join('')+'</span>':'';
+  $('winTime').textContent=mmss(rec.secs);
+  $('rPts').textContent=rec.p;
+  const s=save.streak||{n:0},live=s.last===today()||s.last===dayBefore(today());
+  $('rStreak').textContent=live?s.n:0;
+  const fresh_n=rec.ans.filter(a=>a.nw).length,total=atlasCount();
+  let sub=win?'Seven or more named, so today\'s ten is passed.':'Seven to pass. A new ten arrives tomorrow.';
+  if(fresh_n)sub+=` ${fresh_n} new ${fresh_n===1?'country':'countries'} in your atlas`+(total?` (${total} of ${ATLAS_TOTAL}).`:'.');
+  else if(total)sub+=` Atlas: ${total} of ${ATLAS_TOTAL}.`;
+  if(!fresh)sub='You have played this ten. '+sub;
+  $('rSub').textContent=sub;
+  $('rStrip').innerHTML=P.qs.map((q,i)=>{const a=rec.ans[i];
+    return `<div><div class="tile">${tileSVG(q)}${a?`<span class="mark ${a.ok?'ok':'bad'}">${a.ok?'✓':'✕'}</span>`:''}</div><div class="cap">${q.n}</div></div>`;}).join('');
+  show('winModal');$('winModal').scrollTop=0;
+  if(fresh)$('winModal').classList.add('on');      // only a finished ten, once per page
+}
+
+/* ---------- pause ---------- */
+function openPause(){if(view!=='quiz'||paused)return;paused=true;toggles($('pauseToggles'));$('pause').classList.add('on');persist();setTimeout(()=>{try{$('resumePause').focus();}catch(e){}},30);}
+function closePause(){paused=false;$('pause').classList.remove('on');last=performance.now();}
+
+/* ---------- active-time clock (excludes paused and hidden time) ---------- */
+function loop(now){
+  const dt=Math.min(0.25,Math.max(0,(now-last)/1000));last=now;
+  if(view==='quiz'&&!paused&&!document.hidden&&cur)cur.secs+=dt;
+  requestAnimationFrame(loop);
+}
+
+/* ---------- boot ---------- */
+(function boot(){
+  const md=(document.querySelector('meta[name="dn:date"]')||{}).content||null;
+  const fails=GATE(typeof PUZZLE==='object'?PUZZLE:null,md);
+  if(fails.length){show('err');$('errList').textContent='Failed: '+fails.join('; ');window.__bordersGate=fails;return;}
+  P=PUZZLE;window.__bordersGate=[];
+  $('playCard').addEventListener('click',()=>{goFS();audio();start();});
+  $('hintBtn').addEventListener('click',useHint);
+  $('nextBtn').addEventListener('click',()=>{goFS();next();});
+  $('pauseBtn').addEventListener('click',openPause);
+  $('resumePause').addEventListener('click',()=>{goFS();closePause();});
+  $('quitBtn').addEventListener('click',abandon);
+  document.addEventListener('keydown',e=>{
+    if(view!=='quiz')return;
+    if(e.key==='Escape'){paused?closePause():openPause();return;}
+    if(paused)return;
+    if(!locked&&/^[1-4]$/.test(e.key))answer(+e.key-1);
+    else if(locked&&(e.key==='Enter'||e.key===' ')){e.preventDefault();next();}
+    else if(!locked&&e.key.toLowerCase()==='m')useHint();
+  });
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){if(view==='quiz')openPause();persist();}else last=performance.now();});
+  window.addEventListener('pagehide',persist);
+  let rsT=0;window.addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(()=>{
+    if(view==='quiz'&&cur&&cur.i<NQ){const q=P.qs[cur.i];refit($('qmap'),q);scaleBar(q);}},120);});
+  requestAnimationFrame(t=>{last=t;loop(t);});
+  if(save.done[P.id])showResult(save.done[P.id],false);else renderHome();
+  if(window.__DGTEST===true)window.__dg={state:()=>({view,cur,save,locked,P}),answer:k=>answer(k),next:()=>next(),gate:GATE};
+})();
+</script>
+</body>
+</html>

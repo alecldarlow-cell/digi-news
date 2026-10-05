@@ -457,7 +457,8 @@ const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.ty
 const jettySide=p=>p.x<G.cx?1:-1,jettyTip=p=>({x:p.x,y:coastY(p.x)-40});
 
 /* ---------- what each build spot does ---------- */
-const dogCap=l=>[0,6,10,16,24,32][l],dogSpd=l=>[0,90,110,130,145,160][l],dogDig=l=>[0,2,3,4,6,8][l],DIG_T=6,cartCap=l=>[0,2,3,4,5,6][l],cartSpd=l=>[0,45,60,75,85,95][l];
+/* the dog's upgrades are mostly about how much it carries; it only gets a little quicker */
+const dogCap=l=>[0,10,20,35,55,80][l],dogSpd=l=>[0,95,103,111,119,127][l],dogDig=l=>[0,2,3,4,6,8][l],DIG_T=6,cartCap=l=>[0,2,3,4,5,6][l],cartSpd=l=>[0,45,60,75,85,95][l];
 function padInfo(p){const r=padInfo0(p);if(p.level===2&&SPECS[p.type])r.s+='  ·  then choose a speciality';return r;}
 function padInfo0(p){const L=p.level,N=L+1,arrow=(a,b)=>L?`${a} → ${b}`:`${b}`;
  if(p.type==='mason'){const full=st.hp>=st.maxHp;return{t:'Mason',d:'',s:full?`Adds a shield of ${Math.round(st.maxHp*MASON_STEP)} above full health · price rises each visit today`:`Repairs ${Math.round(st.maxHp*MASON_STEP)} tower health · price rises each visit today`};}
@@ -1442,6 +1443,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

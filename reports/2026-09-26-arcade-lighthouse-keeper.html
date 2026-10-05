@@ -436,7 +436,8 @@ const lampLvl=()=>1+pads.find(p=>p.id==='lamp').level;
 const beamHalfL=l=>0.15+0.05*l,lampRL=l=>80+18*l,burnL=l=>4+3*l;
 const SPECS={cannon:[{id:'chain',name:'Chain shot',d:'Hits slow ships by a third for 1.5 seconds'},{id:'long',name:'Long gun',d:'40 more range and 20% more damage'}],
  lamp:[{id:'focus',name:'Focused beam',d:'Beam 25% narrower but burns 50% harder'},{id:'wide',name:'Wide sweep',d:'Beam 30% wider, easier to cover ships'}],
- jetty:[{id:'trawl',name:'Trawler',d:'Lands 2 crates every trip, by day'},{id:'night',name:'Night fisher',d:'1 crate a trip, but keeps fishing all night'}]};
+ jetty:[{id:'trawl',name:'Trawler',d:'Lands 2 crates every trip, by day'},{id:'night',name:'Night fisher',d:'1 crate a trip, but keeps fishing all night. Pair it with a Night porter cart'}],
+ cart:[{id:'quick',name:'Quick hands',d:'Walks 40% faster and carries 2 more crates'},{id:'porter',name:'Night porter',d:'Keeps hauling and selling crates all night, straight into your purse'}]};
 const lampSpec=()=>pads.find(p=>p.id==='lamp').spec;
 const beamHalf=()=>beamHalfL(lampLvl())*(lampSpec()==='focus'?0.75:lampSpec()==='wide'?1.3:1),lampR=()=>lampRL(lampLvl());
 const burnNow=()=>burnL(lampLvl())*(lampSpec()==='focus'?1.5:1);
@@ -452,16 +453,16 @@ const ECON={market:1},costG=p=>ECON[p.type]?2.3:1.9;
 const cost=p=>p.type==='mason'?masonCost():Math.round(p.base*Math.pow(costG(p),p.level-(p.start||0)));
 const market=()=>pads.find(p=>p.id==='market');
 /* build tiers: level 4 opens from headland 4 and level 5 from headland 7, so later beaches always have something worth saving for */
-const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.type==='mason'?(st.hp<st.maxHp||((st.shield||0)<st.maxHp*SHIELD_MAX&&st.phase==='day'&&st.dayLen-st.t<25)):p.level<maxLvl();
+const capL=L=>3+(L>=4?1:0)+(L>=7?1:0),maxLvl=()=>capL(st?st.L:1),padOpen=p=>p.type==='mason'?(st.hp<st.maxHp||(st.shield||0)<st.maxHp*SHIELD_MAX):p.level<maxLvl();
 const jettySide=p=>p.x<G.cx?1:-1,jettyTip=p=>({x:p.x,y:coastY(p.x)-40});
 
 /* ---------- what each build spot does ---------- */
-const dogCap=l=>[0,6,10,16,24,32][l],dogSpd=l=>[0,90,110,130,145,160][l],dogDig=l=>[0,1,2,3,5,7][l],DIG_T=7,cartCap=l=>[0,2,3,4,5,6][l],cartSpd=l=>[0,45,60,75,85,95][l];
+const dogCap=l=>[0,6,10,16,24,32][l],dogSpd=l=>[0,90,110,130,145,160][l],dogDig=l=>[0,2,3,4,6,8][l],DIG_T=6,cartCap=l=>[0,2,3,4,5,6][l],cartSpd=l=>[0,45,60,75,85,95][l];
 function padInfo(p){const r=padInfo0(p);if(p.level===2&&SPECS[p.type])r.s+='  ·  then choose a speciality';return r;}
 function padInfo0(p){const L=p.level,N=L+1,arrow=(a,b)=>L?`${a} → ${b}`:`${b}`;
  if(p.type==='mason'){const full=st.hp>=st.maxHp;return{t:'Mason',d:'',s:full?`Adds a shield of ${Math.round(st.maxHp*MASON_STEP)} above full health · price rises each visit today`:`Repairs ${Math.round(st.maxHp*MASON_STEP)} tower health · price rises each visit today`};}
  if(p.type==='dog')return{t:'Beach dog',d:'',s:L?`Carries ${dogCap(L)} → ${dogCap(N)} · digs up ${dogDig(L)} → ${dogDig(N)} coins`:`Digs up coins, opens far chests, fetches day and night`};
- if(p.type==='cart')return{t:'Fish cart',d:'',s:L?`Carries ${cartCap(L)} → ${cartCap(N)} crates · faster`:`Hauls ${cartCap(1)} crates at a time to the market`};
+ if(p.type==='cart')return{t:'Fish cart',d:'',s:L?`Carries ${cartCap(L)+(p.spec==='quick'?2:0)} → ${cartCap(N)+(p.spec==='quick'?2:0)} crates · faster`:`Hauls ${cartCap(1)} crates at a time to the market`};
  if(p.type==='jetty')return{t:'Fishing boat',d:'Sails out by day and lands crates of fish here. Carry the crates to the fish market to sell them.',s:(L?`Trip ${(tripT(L)*fishMul(p)).toFixed(1)}s → ${(tripT(N)*fishMul(p)).toFixed(1)}s`:`A trip every ${(tripT(1)*fishMul(p)).toFixed(1)}s`)+(N>=5?`  ·  ${cratesPer(5,p)} crates per trip`:N>=3?'  ·  2 crates per trip':'')};
  if(p.type==='market')return{t:'Fish market',d:'Walk up to the stall with crates of fish to sell them. Upgrading raises the price.',s:`${priceL(L)} → ${priceL(N)} coins per crate`};
  if(p.type==='cannon')return{t:'Cannon',d:'Fires at any ship that is lit up. Ships inside the beam take 50% extra damage.',s:'Damage '+arrow(Math.round(canDmg(L)),Math.round(canDmg(N)))+'  ·  Range '+arrow(canRange(L),canRange(N))};
@@ -673,6 +674,7 @@ function update(dt){
  if(!k.inTower&&st.fish>0&&Math.hypot(k.x-mk.x,k.y-mk.y)<30&&st.sellT<=0){st.sellT=0.18;st.fish--;st.tutF.sold=true;const pr=priceL(mk.level);st.carried+=pr;num(mk.x,mk.y-26,'+'+pr,'#f6c343');play('sell');}
  // build spots
  for(const p of pads){if(!unlocked(p))continue;
+  if(p.lock&&!(p.build>0)){const pp=padPos(p);if(k.inTower||Math.abs(k.x-pp.x)>=pp.s/2+4||Math.abs(k.y-pp.y)>=pp.s/2+4)p.lock=false;}
   if(p.build>0){p.build-=dt;if(p.build<=0)p.pop=0.45;}if(p.pop>0)p.pop-=dt;if(p.recoil>0)p.recoil-=dt;
   if(padOpen(p)){const pp=padPos(p),near=!k.inTower&&Math.abs(k.x-pp.x)<pp.s/2+4&&Math.abs(k.y-pp.y)<pp.s/2+4,on=near&&st.carried>0&&!(p.build>0)&&!p.lock;
    if(p.lock&&!near&&!(p.build>0))p.lock=false;
@@ -767,7 +769,9 @@ function update(dt){
 }
 function signChecks(){if(SIM||st.over||signCur||signQ.length)return;
  if(st.phase==='day'&&!meta.seen.padReady&&!tutOn()){const p=pads.find(p=>unlocked(p)&&padOpen(p)&&!(p.build>0)&&!p.lock&&st.carried>=cost(p)-p.paid);if(p)sign('padReady',()=>{const q=padPos(p);return{x:q.x,y:q.y-q.s/2};},'You can afford this','The square glows when you have the coins. Stand still on it to build.');}
- if(st.phase==='night'&&st.hp<st.maxHp*0.3)sign('lowHp',()=>({x:G.lx,y:G.ly-60}),'The tower is badly hurt','If it reaches zero the light goes out. Keep the beam on the closest ships: they burn and sail at half speed.');}
+ /* low health: a short line at the top of the screen, never a card over the sea you are aiming at */
+ if(st.phase==='night'&&st.hp<st.maxHp*0.3&&!st.lowWarned){st.lowWarned=true;flash('Tower badly hurt · burn the closest ships',3);}
+ if(st.phase==='day')st.lowWarned=false;}
 function moveTo(o,t,v,dt){const dx=t.x-o.x,dy=t.y-o.y,d=Math.hypot(dx,dy);if(d<1)return true;const s=Math.min(d,v*dt);o.x+=dx/d*s;o.y+=dy/d*s;o.f=dx<0?-1:1;o.walk=(o.walk||0)+dt*12;return d<5;}
 function updateHelpers(dt){const k=st.keeper,day=st.phase==='day';
  const dp=pads.find(p=>p.id==='dog');
@@ -792,11 +796,11 @@ function updateHelpers(dt){const k=st.keeper,day=st.phase==='day';
   if(d.digT>0)d.digT-=dt;
   if(d.state==='return'){if(moveTo(d,drop,v,dt)||Math.hypot(d.x-drop.x,d.y-drop.y)<14){if(d.load){st.carried+=d.load;num(drop.x,drop.y-(k.inTower?30:50),'+'+d.load,'#f6c343');play('purse');st.fx.push({kind:'wal',x:drop.x,y:drop.y-30,t:0});}d.load=0;d.state='idle';}}}
  const cp=pads.find(p=>p.id==='cart');
- if(cp&&cp.level>0){const c=st.cart||(st.cart={x:cp.x,y:cp.y-6,state:'idle',load:0,f:1});const v=cartSpd(cp.level),mk=market();
-  if(!day&&c.state!=='sell'){if(c.tgt){c.tgt.claim=false;c.tgt=null;}if(c.load)c.state='sell';else moveTo(c,{x:cp.x,y:cp.y-6},v,dt);}
-  else if(c.state==='sell'){if(moveTo(c,{x:mk.x+26,y:mk.y+6},v,dt)){const pr=priceL(mk.level)*c.load;for(let i=0;i<pr;i++){const a=Math.random()*6.28;dropCoin(mk.x+Math.cos(a)*(12+Math.random()*14),mk.y+14+Math.sin(a)*8);}if(c.load)play('sell');c.load=0;c.state='idle';}}
+ if(cp&&cp.level>0){const c=st.cart||(st.cart={x:cp.x,y:cp.y-6,state:'idle',load:0,f:1});const v=cartSpd(cp.level)*(cp.spec==='quick'?1.4:1),cap=cartCap(cp.level)+(cp.spec==='quick'?2:0),mk=market(),works=day||cp.spec==='porter';
+  if(!works&&c.state!=='sell'){if(c.tgt){c.tgt.claim=false;c.tgt=null;}if(c.load)c.state='sell';else moveTo(c,{x:cp.x,y:cp.y-6},v,dt);}
+  else if(c.state==='sell'){if(moveTo(c,{x:mk.x+26,y:mk.y+6},v,dt)){const pr=priceL(mk.level)*c.load;if(!day&&pr){st.carried+=pr;num(mk.x,mk.y-26,'+'+pr,'#f6c343');}else for(let i=0;i<pr;i++){const a=Math.random()*6.28;dropCoin(mk.x+Math.cos(a)*(12+Math.random()*14),mk.y+14+Math.sin(a)*8);}if(c.load)play('sell');c.load=0;c.state='idle';}}
   else{if(!c.tgt||!st.crates.includes(c.tgt)){c.tgt=null;let bd=1e9;for(const cr of st.crates){if(cr.claim)continue;const dd=Math.hypot(cr.x-c.x,cr.y-c.y);if(dd<bd){bd=dd;c.tgt=cr;}}if(c.tgt)c.tgt.claim=true;else if(c.load)c.state='sell';}
-   if(c.tgt&&moveTo(c,c.tgt,v,dt)){st.crates=st.crates.filter(x=>x!==c.tgt);c.tgt=null;c.load++;play('thud');if(c.load>=cartCap(cp.level))c.state='sell';}
+   if(c.tgt&&moveTo(c,c.tgt,v,dt)){st.crates=st.crates.filter(x=>x!==c.tgt);c.tgt=null;c.load++;play('thud');if(c.load>=cap)c.state='sell';}
    if(!c.tgt&&!c.load&&c.state==='idle')moveTo(c,{x:cp.x,y:cp.y-6},v,dt);}}}
 function drawDog(d){if(!d)return;const wag=Math.sin(clock*14)*0.5,b=Math.abs(Math.sin((d.walk||0)))*1.2;ctx.save();ctx.translate(d.x,d.y);ctx.scale(d.f||1,1);
  ctx.fillStyle='rgba(0,0,0,.22)';ctx.beginPath();ctx.ellipse(0,2,10,3,0,0,7);ctx.fill();ctx.strokeStyle='#2a1d10';ctx.lineWidth=1;
@@ -1321,7 +1325,7 @@ function draw(){
   applyCam(fctx,dpr*S*FOGS,ox,oy);fctx.fillStyle=`rgba(3,8,22,${0.86*st.dk})`;fctx.fillRect(-10,-10,W+20,H+20);
   fctx.globalCompositeOperation='destination-out';
   const hole=(x,y,r,a,k=0)=>{const rg=fctx.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,`rgba(0,0,0,${a})`);rg.addColorStop(k,`rgba(0,0,0,${a})`);rg.addColorStop(1,'rgba(0,0,0,0)');fctx.fillStyle=rg;fctx.beginPath();fctx.arc(x,y,r,0,7);fctx.fill();};
-  hole(G.ox,G.oy,lampR()+30,0.95,0.78);hole(st.keeper.x,st.keeper.y-10,60,0.8);hole(G.cottage.x,G.cottage.y,40,0.5);const mk2=market();hole(mk2.x,mk2.y,40,0.5);
+  hole(G.ox,G.oy,lampR()+30,0.95,0.78);hole(st.keeper.x,st.keeper.y-10,60,0.8);hole(G.cottage.x,G.cottage.y,40,0.5);if(st.cart&&pads.find(p=>p.id==='cart').spec==='porter')hole(st.cart.x,st.cart.y-6,34,0.55);const mk2=market();hole(mk2.x,mk2.y,40,0.5);
   for(const p of pads)if(p.type==='cannon'&&p.level)hole(p.x,p.y,34,0.6);
   if(st.phase==='night'){const h=beamHalf(),rg=fctx.createRadialGradient(G.ox,G.oy,0,G.ox,G.oy,470);rg.addColorStop(0,'rgba(0,0,0,1)');rg.addColorStop(1,'rgba(0,0,0,.55)');
    fctx.fillStyle=rg;fctx.beginPath();fctx.moveTo(G.ox,G.oy);fctx.arc(G.ox,G.oy,470,st.aim-h,st.aim+h);fctx.closePath();fctx.fill();}
@@ -1436,6 +1440,5 @@ addEventListener('resize',resize);
 resize();newIsland(false);requestAnimationFrame(frame);
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

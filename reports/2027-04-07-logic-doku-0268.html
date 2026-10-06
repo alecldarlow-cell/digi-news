@@ -647,6 +647,7 @@ async function checkWin(){
   const done=fillables(P.grid).every(([r,c])=>letterAt(r,c)===P.grid[r][c]);
   if(!done)return;
   solved=true;stopTimer();
+  if(P.id===SAMPLE.id)donePut(P.id,{s:seconds});
   $("#msg").innerHTML=`Solved in <b>${$("#timer").textContent}</b>. Nice.`;
   document.body.classList.add("win");
   await bumpStreak();
@@ -783,6 +784,30 @@ function initAppMode(){
   scheduleFit();
 }
 initAppMode();
+/* ---- digi-done-v1: a finished puzzle reopens finished (digi-doku-v1 → done[id]) ---- */
+const DONE_KEY="digi-doku-v1";
+function doneGet(id){try{const s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");return (s&&s.v===1&&s.done&&s.done[id])||null;}catch(e){return null;}}
+function donePut(id,rec){try{let s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");if(!s||s.v!==1||!s.done||typeof s.done!=="object")s={v:1,done:{}};if(s.done[id])return;rec.d=new Date().toISOString().slice(0,10);s.done[id]=rec;localStorage.setItem(DONE_KEY,JSON.stringify(s));}catch(e){}}
+let doneTried=false;
+function restoreDone(){
+  if(doneTried)return; doneTried=true;
+  if(!P||P.id!==SAMPLE.id)return;
+  const rec=doneGet(P.id); if(!rec)return;
+  for(const t of tiles)t.at=null;
+  for(const [r,c] of fillables(P.grid))if(!isLock(r,c))entries[r][c]="";
+  for(const [r,c] of fillables(P.grid)){
+    if(isLock(r,c))continue;
+    const t=tiles.find(t=>!t.at&&t.ch===P.grid[r][c]);
+    if(!t)return load(curSrc);            // bank can't rebuild it: leave a fresh board
+    t.at=[r,c]; entries[r][c]=t.id;
+  }
+  selTile=null; solved=true; stopTimer(); seconds=Math.max(0,Math.min(359999,Math.floor(+rec.s)||0)); renderTime();
+  paint();
+  $$("#grid .cell").forEach(cell=>{const r=+cell.dataset.r,c=+cell.dataset.c;if(P.grid[r][c]!=="#")cell.classList.add("good");});
+  $("#msg").innerHTML=`Solved in <b>${$("#timer").textContent}</b>. Nice.`;
+  document.body.classList.add("win");
+}
 load(SAMPLE);
+restoreDone();
 </script></div><script src="../dn-track.js" defer></script>
 </body></html>

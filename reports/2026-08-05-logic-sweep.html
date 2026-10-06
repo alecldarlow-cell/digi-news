@@ -546,7 +546,7 @@ async function dig(i){
   paint(); checkWin(); nudge();
 }
 async function lose(i){
-  over=true; won=false; boomed.add(i); stopTimer();
+  over=true; won=false; boomed.add(i); stopTimer(); donePut(P.id,{o:"loss",s:seconds,b:i});
   for(const m of MS)if(m!==i)flagged.add(m);      // show where the others were
   for(let k=0;k<CELLS;k++)if(!MS.has(k))revealed.add(k);
   flagCheck=false; paint();
@@ -573,7 +573,7 @@ $("#hint").onclick=()=>{
 };
 $("#revealAll").onclick=async()=>{
   if(ranked){await recordResult(false);$("#rank").textContent="· replay";}  // giving up is a result
-  startTimer(); over=true; stopTimer();
+  startTimer(); over=true; stopTimer(); donePut(P.id,{o:"gave",s:seconds});
   for(let i=0;i<CELLS;i++){if(MS.has(i))flagged.add(i);else revealed.add(i);}
   flagCheck=false; paint();
   $("#msg").innerHTML="Revealed. The five were always findable.";
@@ -590,7 +590,7 @@ function renderTime(){const m=String(Math.floor(seconds/60)).padStart(2,"0"),s=S
 async function checkWin(){
   if(over)return;
   if(revealed.size!==CELLS-MS.size)return;
-  over=true; won=true; stopTimer();
+  over=true; won=true; stopTimer(); donePut(P.id,{o:"win",s:seconds});
   for(const i of MS)flagged.add(i);
   paint();
   $("#msg").innerHTML=`Swept in <b>${$("#timer").textContent}</b>.${ranked?" Nice.":" Replay — nothing recorded."}`;
@@ -627,6 +627,7 @@ async function initRanked(){
   ranked=!(s&&s.dates&&s.dates.includes(today()));
   $("#rank").textContent=ranked?"":"· replay";
   if(!ranked)$("#msg").textContent="Today's result is already in — this is a replay, and nothing is recorded.";
+  restoreDone();
 }
 async function refreshStreakUI(s){
   s=s||await store(true)||{streak:0,best:0};
@@ -738,6 +739,29 @@ function initAppMode(){
   scheduleFit();
 }
 initAppMode();
+/* ---- digi-done-v1: a finished puzzle reopens finished (digi-sweep-v1 → done[id]) ---- */
+const DONE_KEY="digi-sweep-v1";
+function doneGet(id){try{const s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");return (s&&s.v===1&&s.done&&s.done[id])||null;}catch(e){return null;}}
+function donePut(id,rec){try{let s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");if(!s||s.v!==1||!s.done||typeof s.done!=="object")s={v:1,done:{}};if(s.done[id])return;rec.d=new Date().toISOString().slice(0,10);s.done[id]=rec;localStorage.setItem(DONE_KEY,JSON.stringify(s));}catch(e){}}
+let doneTried=false;
+function restoreDone(){
+  if(doneTried)return; doneTried=true;
+  if(!P||P.id!==SAMPLE.id)return;
+  const rec=doneGet(P.id); if(!rec||!/^(win|loss|gave)$/.test(rec.o))return;
+  if(rec.o==="loss"&&!MS.has(rec.b))return;
+  startDug=true; over=true; won=rec.o==="win"; stopTimer(); seconds=Math.max(0,Math.min(359999,Math.floor(+rec.s)||0)); renderTime();
+  revealed=new Set(); flagged=new Set(); boomed=new Set();
+  for(let k=0;k<CELLS;k++){
+    if(!MS.has(k))revealed.add(k);
+    else if(rec.o==="loss"&&k===rec.b)boomed.add(k);
+    else flagged.add(k);
+  }
+  if(!won)flagCheck=false;
+  paint();
+  if(won){$("#msg").innerHTML=`Swept in <b>${$("#timer").textContent}</b>.`;document.body.classList.add("win");}
+  else if(rec.o==="loss")$("#msg").innerHTML="That was a mine. The grid never needed a guess — the step was there.";
+  else $("#msg").innerHTML="Revealed.";
+}
 load(SAMPLE);
 </script></div><script src="../dn-track.js" defer></script>
 </body></html>

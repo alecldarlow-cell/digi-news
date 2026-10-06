@@ -634,6 +634,7 @@ async function initRanked(){
   $("#rank").textContent=ranked?"":"· replay";
   if(!ranked)setMsg("Today's result is already in — this is a replay, and nothing is recorded.");
   refreshStreakUI(s);
+  restoreDone();
 }
 async function refreshStreakUI(s){
   s=s||await store()||{streak:0,best:0};
@@ -643,6 +644,7 @@ async function refreshStreakUI(s){
 /* ---- celebration (shared) ---- */
 const reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 async function finish(win){
+  donePut(P.id,{o:win?"win":"loss",t:$("#timer").textContent,m:mistakes,r:solved.map(g=>g.rank),g:guesses});
   if(ranked)await recordResult(win);
   if(win)buzz([12,50,12,50,28]);
   if(win&&!reduceMotion){
@@ -737,6 +739,26 @@ function start(){
   sel.clear(); solved=[]; mistakes=0; over=false; won=false; guesses=[]; tried=new Set(); busy=false; newBand=null;
   $("#pid").textContent=P.id; $("#pband").textContent=P.band;
   setMsg(""); render(); stopTimer(); startTimer();
+}
+/* ---- digi-done-v1: a finished puzzle reopens finished (digi-link-v1 → done[id]) ---- */
+const DONE_KEY="digi-link-v1";
+function doneGet(id){try{const s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");return (s&&s.v===1&&s.done&&s.done[id])||null;}catch(e){return null;}}
+function donePut(id,rec){try{let s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");if(!s||s.v!==1||!s.done||typeof s.done!=="object")s={v:1,done:{}};if(s.done[id])return;rec.d=new Date().toISOString().slice(0,10);s.done[id]=rec;localStorage.setItem(DONE_KEY,JSON.stringify(s));}catch(e){}}
+let doneTried=false;
+function restoreDone(){
+  if(doneTried)return; doneTried=true;
+  const rec=doneGet(P.id); if(!rec||!/^(win|loss)$/.test(rec.o)||!Array.isArray(rec.r))return;
+  const order=rec.r.map(k=>P.groups.find(g=>g.rank===k));
+  if(order.length!==P.groups.length||order.some(g=>!g)||new Set(order).size!==order.length)return;
+  const t=(/^\d{1,4}:\d{2}$/.test(String(rec.t))?String(rec.t):null)||"00:00";
+  solved=order; live=[]; sel.clear(); busy=false; newBand=null;
+  mistakes=Math.max(0,Math.min(MAX_MISTAKES,Math.floor(+rec.m)||0));
+  guesses=Array.isArray(rec.g)?rec.g.filter(x=>Array.isArray(x)&&x.every(v=>GLYPH[v])):[];
+  over=true; won=rec.o==="win";
+  clearInterval(tick); $("#timer").textContent=t;
+  render();
+  if(won)setMsg("Linked in "+t+(mistakes?" · "+mistakes+" mistake"+(mistakes>1?"s":""):" · perfect"));
+  else setMsg("Out of mistakes — here's the rest");
 }
 start();
 initRanked();

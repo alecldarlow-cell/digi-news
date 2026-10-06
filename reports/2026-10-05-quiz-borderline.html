@@ -66,8 +66,14 @@ a{color:inherit}
 .bar i:nth-child(odd){background:var(--ink)}
 .bar span{font-family:var(--serif);font-style:italic;font-size:15px;margin-left:8px;line-height:1;color:var(--ink2)}
 .lede{margin:0;font-size:16px;color:var(--ink2);max-width:34ch}
-#dailyCard{flex:1;display:block;width:100%;padding:0;text-align:left;cursor:pointer;min-height:220px;box-shadow:0 3px 0 var(--ink)}
-#dailyCard:active{transform:translateY(3px);box-shadow:none}
+.hero{flex:1;display:block;width:100%;padding:0;text-align:left;cursor:pointer;min-height:200px;box-shadow:0 3px 0 var(--ink)}
+.hero:active{transform:translateY(3px);box-shadow:none}
+.bcard{display:flex;flex-direction:column;justify-content:center;gap:3px;min-height:60px;padding:8px 12px;border:1.5px solid var(--ink);border-radius:8px;
+  background:var(--sea);box-shadow:0 3px 0 var(--ink);color:inherit;text-decoration:none;transition:transform .08s,box-shadow .08s}
+.bcard:active{transform:translateY(3px);box-shadow:none}
+.bcard b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1}
+.bcard small{font-size:13px;line-height:1.2;color:var(--ink2)}
+.row.home2{grid-template-columns:1.55fr 1fr}
 .cardtxt{position:absolute;left:0;right:0;bottom:0;padding:14px 18px 16px;background:linear-gradient(transparent,rgba(207,230,232,.95) 38%)}
 .cardtxt b{display:block;font-family:var(--serif);font-weight:400;font-size:34px;line-height:1}
 .cardtxt small{display:block;padding-right:110px;margin-top:4px;font-size:15px;color:var(--ink2)}
@@ -169,13 +175,13 @@ a{color:inherit}
    <div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i><span>name the country from its outline</span></div>
   </div>
   <button id="resumeBtn" class="btn primary" hidden>Resume quiz</button>
-  <button id="dailyCard" class="sheet" aria-label="Play today's ten">
+  <button id="exploreBtn" class="sheet hero" aria-label="Explore ten outlines">
    <svg class="mapsvg" id="homeMap" aria-hidden="true"></svg>
    <span class="specimen" id="specimen"></span>
-   <span class="cardtxt"><b>Today's ten</b><small id="dailyStatus">Ten outlines, easiest first. Seven to pass.</small><span class="go" id="dailyGo">Play</span></span>
+   <span class="cardtxt"><b>Explore ten</b><small>Ten outlines, easiest first. Seven to pass.</small><span class="go">Play</span></span>
   </button>
-  <div class="row">
-   <button id="exploreBtn" class="btn">Explore ten</button>
+  <div class="row home2">
+   <a id="dailyCard" class="bcard" href="../puzzles.html"><b id="dailyTitle">Today's Borders</b><small id="dailyStatus">The daily ten, in Digi Puzzles</small></a>
    <button id="atlasBtn" class="btn atlasbtn">Atlas <small id="atlasCount">0/0</small></button>
   </div>
   <div class="toggles" id="homeToggles"></div>
@@ -270,10 +276,17 @@ function rndEnd(win,x){if(!rnd.open)rndStart();if(!rnd.open)return;rnd.open=fals
 /* ---------- save (localStorage, every access guarded) ---------- */
 const KEY='digi-borderline-v1';
 const coarse=(()=>{try{return matchMedia('(pointer: coarse)').matches}catch(e){return false}})();
-function defaults(){return {v:1,found:{},best:0,played:0,passed:0,daily:null,streak:{last:null,n:0},snd:true,rm:null,fs:coarse,seenCoach:false,quiz:null};}
+/* The atlas (found) is shared: the daily Borders puzzle adds to it, and may create this save as just
+   {v:1,found:{}}. So writes merge with what is stored rather than overwrite it. */
+function defaults(){return {v:1,found:{},best:0,played:0,passed:0,snd:true,rm:null,fs:coarse,seenCoach:false,quiz:null};}
 let save=defaults();
-function load(){try{const raw=localStorage.getItem(KEY);if(raw){const s=JSON.parse(raw);if(s&&s.v===1)save=Object.assign(defaults(),s);}}catch(e){}}
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}}
+function storedFound(){try{const s=JSON.parse(localStorage.getItem(KEY)||'null');return s&&s.v===1&&s.found&&typeof s.found==='object'?s.found:{};}catch(e){return {}}}
+function mergeFound(f){for(const k in f){const n=+f[k]||0;if(n>(save.found[k]||0))save.found[k]=n;}}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw){const s=JSON.parse(raw);if(s&&s.v===1)save=Object.assign(defaults(),s);}}catch(e){}
+  if(!save.found||typeof save.found!=='object')save.found={};
+  delete save.daily;delete save.streak;                       // the game's old daily, now in Digi Puzzles
+  if(save.quiz&&(save.quiz.mode!=='explore'||!save.quiz.qs))save.quiz=null;}
+function persist(){mergeFound(storedFound());try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}}
 load();
 
 /* ---------- settings: motion, sound, full screen ---------- */
@@ -319,60 +332,27 @@ function rng(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^
 function shuffle(arr,r){for(let i=arr.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 function today(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
   catch(e){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}}
-function dayBefore(s){const d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()-1);return d.toISOString().slice(0,10);}
 function gdist(a,b){const r=Math.PI/180,s1=Math.sin((b.la-a.la)*r/2),s2=Math.sin((b.lo-a.lo)*r/2);
   return 2*Math.asin(Math.min(1,Math.sqrt(s1*s1+Math.cos(a.la*r)*Math.cos(b.la*r)*s2*s2)));}
 const foundCount=()=>C.filter(c=>save.found[c.id]).length;
 function el(tag,attrs,parent){const e=document.createElementNS(SVGNS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
 
 /* ---------- building a quiz ---------- */
-/* Daily schedule: each difficulty group is dealt like a shuffled deck, so every country in it
-   comes up once before any repeats (easy every 15 days, medium 23, hard 10). Where one deck
-   ends and the next begins, nothing from the last 3 days of the old deck appears in the first
-   3 days of the new one. 5 Oct 2026 (launch day) keeps its original draw. */
-const DECK_START='2026-10-06', GAP=3;
-const PER={1:3,2:4,3:3};
-const TIER={1:[],2:[],3:[]};C.forEach(c=>TIER[c.t].push(c.i));
-const dayNum=s=>Math.round((Date.parse(s+'T12:00:00Z')-Date.parse(DECK_START+'T12:00:00Z'))/864e5);
-function rawDeck(t,n){return shuffle(TIER[t].slice(),rng(hashStr('deck-'+t+'-'+n)));}
-function deckTail(t,n){                              // the last GAP days of deck n (never moved by fixing)
-  const k=PER[t],L=Math.floor(TIER[t].length/k);return (n===0?deck(t,0):rawDeck(t,n)).slice((L-GAP)*k,L*k);}
-function deck(t,n){
-  const k=PER[t],L=Math.floor(TIER[t].length/k);let d=rawDeck(t,n);
-  if(n===0){                                         // launch day's countries go to the back of the first deck
-    const launch=new Set(legacyDaily('2026-10-05'));const keep=d.slice(0,L*k).filter(i=>!launch.has(i)),moved=d.slice(0,L*k).filter(i=>launch.has(i));
-    const extra=d.slice(L*k);while(moved.length&&extra.length&&!launch.has(extra[0])){keep.push(extra.shift());}
-    return [...keep.slice(0,L*k-moved.length),...moved,...keep.slice(L*k-moved.length),...extra].filter((x,j,a)=>a.indexOf(x)===j);}
-  const prev=new Set(deckTail(t,n-1));
-  const spare=[];for(let j=GAP*k;j<d.length;j++)if(j<(L-GAP)*k||j>=L*k)spare.push(j);
-  for(let j=0;j<GAP*k;j++)if(prev.has(d[j])){const s=spare.findIndex(x=>!prev.has(d[x]));if(s<0)break;const x=spare.splice(s,1)[0];[d[j],d[x]]=[d[x],d[j]];}
-  return d;}
-function scheduled(date){                            // the day's ten country indexes, easy → hard
-  const day=dayNum(date);const out=[];
-  for(const t of [1,2,3]){const k=PER[t],L=Math.floor(TIER[t].length/k),n=Math.floor(day/L),pos=day-n*L;out.push(...deck(t,n).slice(pos*k,pos*k+k));}
-  return out;}
-function legacyDaily(date){const r=rng(hashStr('daily-'+date));const used=new Set();const out=[];
-  for(const t of PLAN){const pool=C.filter(c=>c.t===t&&!used.has(c.i));const c=pool[Math.floor(r()*pool.length)];used.add(c.i);out.push(c.i);
-    const near=C.filter(o=>o.i!==c.i).map(o=>[gdist(c,o),o.i]).sort((a,b)=>a[0]-b[0]).slice(0,8).map(x=>x[1]);shuffle([c.i,...shuffle(near,r).slice(0,3)],r);}
-  return out;}
-function makeQuiz(mode,seedStr){
+function makeQuiz(seedStr){                         // Explore: ten outlines, favouring ones not yet in the atlas
   const r=rng(hashStr(seedStr));const used=new Set();const qs=[];
-  const date=mode==='daily'?seedStr.slice(6):null;
-  const fixed=date&&date>=DECK_START?scheduled(date):null;
-  for(const [qi,t] of PLAN.entries()){
+  for(const t of PLAN){
     let pool=C.filter(c=>c.t===t&&!used.has(c.i));
-    if(mode==='explore'){const fresh=pool.filter(c=>!save.found[c.id]);if(fresh.length&&r()<0.75)pool=fresh;}
-    const c=fixed?C[fixed[qi]]:pool[Math.floor(r()*pool.length)];used.add(c.i);
+    const fresh=pool.filter(c=>!save.found[c.id]);if(fresh.length&&r()<0.75)pool=fresh;
+    const c=pool[Math.floor(r()*pool.length)];used.add(c.i);
     // three wrong answers drawn from the nearest neighbours, so the map knowledge matters
     const near=C.filter(o=>o.i!==c.i).map(o=>[gdist(c,o),o.i]).sort((a,b)=>a[0]-b[0]).slice(0,8).map(x=>x[1]);
     const opts=shuffle([c.i,...shuffle(near,r).slice(0,3)],r);
     qs.push({c:c.i,o:opts});
   }
-  return {mode,date:today(),qs,i:0,ans:[],pts:0,run:0,secs:0,hint:false};
+  return {mode:'explore',qs,i:0,ans:[],pts:0,run:0,secs:0,hint:false};
 }
 
 /* ---------- state ---------- */
-let homePick=null;
 let quiz=null, view='home', paused=false, locked=false, last=0, ending=false;
 function show(id){view=id;for(const s of document.querySelectorAll('.screen'))s.classList.toggle('on',s.id===id);}
 
@@ -431,28 +411,63 @@ function insetMap(c){
 function tileSVG(c,cls){return `<svg viewBox="0 0 600 600" aria-hidden="true"><path class="land ${cls||''}" fill="${colourOf(c)}" d="${c.d}"/></svg>`;}
 
 /* ---------- home ---------- */
+/* Today's daily lives in Digi Puzzles as Borders: one file per day in this folder,
+   YYYY-MM-DD-geo-borders-NNNN.html, NNNN = days since 2026-10-05 (London date) + 1. */
+const BORDERS_FIRST='2026-10-05';
+const BORDERS_LAST='2027-10-04';                    // last day of the current batch: bump when a new batch ships
+function bordersToday(){const t=today();if(t<BORDERS_FIRST||t>BORDERS_LAST)return null;
+  const n=String(Math.round((Date.parse(t+'T12:00:00Z')-Date.parse(BORDERS_FIRST+'T12:00:00Z'))/864e5)+1).padStart(4,'0');
+  return {date:t,n,id:'DP\u00B7BORD\u00B7'+n,file:t+'-geo-borders-'+n+'.html'};}
+function bordersDone(id){try{const s=JSON.parse(localStorage.getItem('digi-borders-v1')||'null');const r=s&&s.done&&s.done[id];
+  return r&&Number.isFinite(+r.c)?r:null;}catch(e){return null}}
+/* today's Borders answers, read from that file's PUZZLE.qs[].n, so the specimen never gives one away */
+let answers={date:null,names:null,pending:null};
+function bordersAnswers(b){
+  if(answers.date===b.date&&(answers.names||answers.pending))return answers.pending||Promise.resolve(answers.names);
+  answers={date:b.date,names:null,pending:null};
+  let p;
+  try{p=window.fetch(b.file,{credentials:'same-origin'}).then(r=>{if(!r.ok)throw new Error('status '+r.status);return r.text();}).then(t=>{
+    const line=(t.match(/const PUZZLE=\{.*$/m)||[''])[0];const names=[];const re=/"n":"((?:[^"\\]|\\.)*)"/g;let m;
+    while((m=re.exec(line)))names.push(JSON.parse('"'+m[1]+'"'));
+    if(names.length<NQ)throw new Error('no puzzle in file');return names;});}
+  catch(e){p=Promise.reject(e);}
+  answers.pending=p.then(n=>{answers.names=n;answers.pending=null;return n;},e=>{answers.pending=null;answers.date=null;throw e;});
+  return answers.pending;}
+let homePick=null,homeGen=0;
+function drawWorld(svg){
+  svg.innerHTML='';const r=svg.getBoundingClientRect();const w=r.width||1,h=r.height||1,hu=h*0.66;
+  const sc=Math.min(w/660,hu/330),vw=w/sc,vh=h/sc;svg.setAttribute('viewBox',`${300-vw/2} ${135-hu/sc/2} ${vw} ${vh}`);   // Antarctica sits below the crop, as in the inset
+  el('path',{d:DATA.s,fill:'#E4F1F1',stroke:'#1F3A4A','stroke-width':1.5},svg);
+  el('path',{d:DATA.w,fill:'#E9DCAE',stroke:'#1F3A4A','stroke-width':1},svg);}
+function showSpecimen(exclude){
+  const t=today();const ok=c=>!exclude.has(c.n);
+  const mine=C.filter(c=>save.found[c.id]&&ok(c));
+  const pick=mine.length?mine[hashStr(t+mine.length)%mine.length]:['Iceland','Italy','Madagascar'].map(n=>C.find(c=>c.n===n)).find(c=>c&&ok(c))||C.find(ok);
+  homePick=pick;$('specimen').textContent=pick.n;drawLand($('homeMap'),pick,true,0.34);}
 function renderHome(){
-  const t=today();const d=save.daily&&save.daily.d===t?save.daily:null;
-  $('dailyStatus').textContent=d?`Today: ${d.c} of ${NQ}${d.c>=PASS?', passed':''}. A new ten tomorrow.`:'Ten outlines, easiest first. Seven to pass.';
-  $('dailyGo').textContent=d?'Play again':'Play';
-  const st=save.streak&&save.streak.n&&(save.streak.last===t||save.streak.last===dayBefore(t))?save.streak.n:0;
-  if(st>1&&d)$('dailyStatus').textContent+=` Streak: ${st} days.`;
+  const b=bordersToday(),card=$('dailyCard');
+  if(b){card.href=b.file;card.setAttribute('aria-label',"Play today's Borders puzzle");$('dailyTitle').textContent="Today's Borders";
+    const d=bordersDone(b.id);
+    $('dailyStatus').textContent=d?`Played today: ${d.c} of ${NQ}`:'The daily ten, in Digi Puzzles';}
+  else{card.href='../puzzles.html';card.setAttribute('aria-label','Daily puzzles in Digi Puzzles');$('dailyTitle').textContent='Borders';
+    $('dailyStatus').textContent='Daily puzzles, in Digi Puzzles';}
   $('atlasCount').textContent=foundCount()+'/'+C.length;
   const rb=$('resumeBtn');
-  if(save.quiz&&save.quiz.qs){rb.hidden=false;rb.textContent=`Resume ${save.quiz.mode==='daily'?"today's ten":'your quiz'}: question ${Math.min(NQ,save.quiz.ans.length+1)} of ${NQ}`;}else rb.hidden=true;
-  // a specimen from the reader's own atlas, never one from today's ten
-  const todays=new Set(makeQuiz('daily','daily-'+t).qs.map(q=>q.c));
-  const mine=C.filter(c=>save.found[c.id]&&!todays.has(c.i));
-  const pick=mine.length?mine[hashStr(t+mine.length)%mine.length]:C.find(c=>c.n==='Iceland'&&!todays.has(c.i))||C.find(c=>c.n==='Italy');
-  $('specimen').textContent=pick.n;homePick=pick;
-  drawLand($('homeMap'),pick,true,0.34);
+  if(save.quiz&&save.quiz.qs){rb.hidden=false;rb.textContent=`Resume your quiz: question ${Math.min(NQ,save.quiz.ans.length+1)} of ${NQ}`;}else rb.hidden=true;
+  // a specimen from the reader's own atlas, never one of today's Borders answers; the world map if those can't be read
+  const gen=++homeGen;
+  if(!b){showSpecimen(new Set());}
+  else if(answers.date===b.date&&answers.names){showSpecimen(new Set(answers.names));}
+  else{homePick=null;$('specimen').textContent='';$('homeMap').innerHTML='';
+    bordersAnswers(b).then(n=>{if(gen===homeGen&&view==='home')showSpecimen(new Set(n));},
+      ()=>{if(gen===homeGen&&view==='home'){homePick=null;$('specimen').textContent='';drawWorld($('homeMap'));}});}
   toggles($('homeToggles'));
 }
 
 /* ---------- quiz flow ---------- */
 function startQuiz(mode,how,fromSave){
   if(fromSave&&save.quiz){quiz=save.quiz;if(quiz.ans.length>quiz.i)quiz.i=quiz.ans.length;quiz.hint=false;}
-  else quiz=makeQuiz(mode,mode==='daily'?'daily-'+today():'explore-'+Date.now()+'-'+Math.random());
+  else quiz=makeQuiz('explore-'+Date.now()+'-'+Math.random());
   quiz.run=0;for(const a of quiz.ans){quiz.run=a.ok?quiz.run+1:0;}
   if(quiz.i>=NQ){finish();return;}
   save.quiz=quiz;persist();
@@ -503,30 +518,24 @@ function finish(){
   const correct=quiz.ans.filter(a=>a.ok).length,win=correct>=PASS,stars=correct>=10?3:correct>=9?2:correct>=PASS?1:0;
   LEVEL=Math.min(NQ,quiz.ans.length);
   rndEnd(win,{score:quiz.pts,stars,mode:quiz.mode,correct});
-  const t=today();let newDaily=false;
   save.played++;if(win)save.passed++;
-  if(quiz.mode==='daily'&&quiz.date===t&&!(save.daily&&save.daily.d===t)){
-    save.daily={d:t,c:correct,p:quiz.pts};newDaily=true;
-    save.streak={last:t,n:save.streak&&save.streak.last===dayBefore(t)?save.streak.n+1:1};}
-  const best=quiz.mode==='explore'&&quiz.pts>save.best;if(best)save.best=quiz.pts;
+  const best=quiz.pts>save.best;if(best)save.best=quiz.pts;
   const done=quiz;quiz=null;save.quiz=null;persist();
-  renderResults(done,correct,win,stars,newDaily,best);
+  renderResults(done,correct,win,stars,best);
   (win?sfx.pass:sfx.fail)();
 }
 function abandon(){quiz=null;save.quiz=null;persist();rnd={armed:false,open:false,secs:0,how:'new'};closePause();show('home');renderHome();}
 
 /* ---------- results ---------- */
 function starSVG(on){return `<svg viewBox="0 0 20 20"><path d="M10 1.8l2.5 5.3 5.7.7-4.2 3.9 1.1 5.7L10 14.6l-5.1 2.8 1.1-5.7L1.8 7.8l5.7-.7z" fill="${on?'#1F3A4A':'none'}" stroke="#1F3A4A" stroke-width="1.4" stroke-linejoin="round"/></svg>`;}
-function renderResults(q,correct,win,stars,newDaily,best){
+function renderResults(q,correct,win,stars,best){
   show('results');$('results').scrollTop=0;
-  $('rKick').textContent=q.mode==='daily'?"Today's ten":'Explore';
+  $('rKick').textContent='Explore';
   $('rBig').textContent=correct+' of '+NQ;
   $('rVerdict').innerHTML=(win?'Passed':'Not quite: seven to pass')+(stars?'<span class="stars" aria-label="'+stars+' stars">'+[0,1,2].map(i=>starSVG(i<stars)).join('')+'</span>':'');
   const fresh=q.ans.filter((a,i)=>a.ok&&save.found[C[q.qs[i].c].id]===1).length;
   let sub=q.pts+' points'+(best?', your best explore score':'')+'. ';
   sub+=fresh?`${fresh} new ${fresh===1?'country':'countries'} in your atlas (${foundCount()} of ${C.length}).`:`Atlas: ${foundCount()} of ${C.length}.`;
-  if(q.mode==='daily'&&newDaily&&save.streak.n>1)sub+=` Daily streak: ${save.streak.n} days.`;
-  if(q.mode==='daily'&&!newDaily)sub+=' Practice run: your first score for today stands.';
   $('rSub').textContent=sub;
   $('rStrip').innerHTML=q.qs.map((qq,i)=>{const c=C[qq.c],a=q.ans[i];
     return `<div><div class="tile">${tileSVG(c)}${a?`<span class="mark ${a.ok?'ok':'bad'}">${a.ok?'✓':'✕'}</span>`:''}</div><div class="cap">${c.n}</div></div>`;}).join('');
@@ -535,7 +544,7 @@ function renderResults(q,correct,win,stars,newDaily,best){
 /* ---------- atlas ---------- */
 function renderAtlas(){
   show('atlas');$('atlas').scrollTop=0;
-  const n=foundCount();$('atlasSub').textContent=n?`${n} of ${C.length} countries named correctly. Grey outlines are still to find.`:`Name a country correctly and it is added here. ${C.length} to find.`;
+  const n=foundCount();$('atlasSub').textContent=(n?`${n} of ${C.length} countries named correctly. Grey outlines are still to find.`:`Name a country correctly and it is added here. ${C.length} to find.`)+' Countries you name in the daily Borders puzzle count too.';
   $('atlasProg').style.width=(100*n/C.length)+'%';
   const got=C.filter(c=>save.found[c.id]).sort((a,b)=>a.n.localeCompare(b.n));
   const rest=shuffle(C.filter(c=>!save.found[c.id]),rng(7));
@@ -556,9 +565,8 @@ function loop(now){
 requestAnimationFrame(t=>{last=t;loop(t);});
 
 /* ---------- wiring (full screen is asked for from click handlers only) ---------- */
-$('dailyCard').addEventListener('click',()=>{goFS();audio();startQuiz('daily','new');});
 $('exploreBtn').addEventListener('click',()=>{goFS();audio();startQuiz('explore','new');});
-$('resumeBtn').addEventListener('click',()=>{goFS();audio();startQuiz(save.quiz.mode,'resume',true);});
+$('resumeBtn').addEventListener('click',()=>{goFS();audio();startQuiz('explore','resume',true);});
 $('atlasBtn').addEventListener('click',renderAtlas);
 $('atlasDone').addEventListener('click',()=>{show('home');renderHome();});
 $('hintBtn').addEventListener('click',useHint);
@@ -576,11 +584,13 @@ document.addEventListener('keydown',e=>{
   else if(locked&&(e.key==='Enter'||e.key===' ')){e.preventDefault();next();}
   else if(!locked&&e.key.toLowerCase()==='m')useHint();
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden){if(view==='quiz')openPause();persist();}else last=performance.now();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(view==='quiz')openPause();persist();}else{last=performance.now();refreshShared();}});
 window.addEventListener('pagehide',persist);
+function refreshShared(){mergeFound(storedFound());if(view==='home')renderHome();else if(view==='atlas')renderAtlas();}
+window.addEventListener('pageshow',e=>{if(e.persisted)refreshShared();});
 let rsT=0;window.addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(()=>{
   if(view==='quiz'&&quiz&&quiz.i<NQ){const c=C[quiz.qs[quiz.i].c];refit($('qmap'),c);scaleBar(c);}
-  else if(view==='home'&&homePick)refit($('homeMap'),homePick,0.34);},120);});
+  else if(view==='home'){if(homePick)refit($('homeMap'),homePick,0.34);else if($('homeMap').firstChild)drawWorld($('homeMap'));}},120);});
 
 /* ---------- test hook (site contract §5.5) ---------- */
 if(window.__DGTEST===true){window.__dg={
@@ -592,6 +602,5 @@ if(window.__DGTEST===true){window.__dg={
 
 renderHome();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

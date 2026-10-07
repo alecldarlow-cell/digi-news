@@ -1,8 +1,8 @@
 {
-  "built": "2026-10-07T18:48:23.253Z",
+  "built": "2026-10-07T18:49:35.459Z",
   "today": "2026-10-07",
   "timezone": "Europe/London",
-  "count": 500,
+  "count": 501,
   "items": [
     {
       "path": "reports/2026-10-07-crossword-mini-0088.html",
@@ -108,6 +108,21 @@
       "statUnit": "",
       "statLabel": "",
       "mask": "................"
+    },
+    {
+      "path": "reports/2026-10-07-word-tangle-0001.html",
+      "kind": "puzzle",
+      "topic": "Word",
+      "headline": "Tangle 0001",
+      "standfirst": "Ninety seconds, sixteen tiles, 45 common words to find. Longer words score more, and the nine-letter longest word scores double.",
+      "date": "2026-10-07",
+      "updated": "",
+      "read": "~2 min",
+      "thumb": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iI0VERUVGMiIvPjxnIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzE0MTcyNiIgc3Ryb2tlLXdpZHRoPSIxLjYiPjxyZWN0IHg9IjEyIiB5PSIxMiIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjM4IiB5PSIxMiIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjY0IiB5PSIxMiIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjkwIiB5PSIxMiIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjEyIiB5PSIzOCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjM4IiB5PSIzOCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjY0IiB5PSIzOCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjkwIiB5PSIzOCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjEyIiB5PSI2NCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjM4IiB5PSI2NCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjY0IiB5PSI2NCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjkwIiB5PSI2NCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjEyIiB5PSI5MCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjM4IiB5PSI5MCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjY0IiB5PSI5MCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjxyZWN0IHg9IjkwIiB5PSI5MCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjIxIiByeD0iNCIvPjwvZz48ZyBmaWxsPSIjRDlFMkZGIiBzdHJva2U9IiMyRTVCRkYiIHN0cm9rZS13aWR0aD0iMS42Ij48cmVjdCB4PSIxMiIgeT0iNjQiIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgcng9IjQiLz48cmVjdCB4PSIzOCIgeT0iMzgiIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgcng9IjQiLz48cmVjdCB4PSI2NCIgeT0iMTIiIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgcng9IjQiLz48cmVjdCB4PSI5MCIgeT0iMzgiIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgcng9IjQiLz48cmVjdCB4PSI2NCIgeT0iNjQiIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgcng9IjQiLz48cmVjdCB4PSIzOCIgeT0iOTAiIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgcng9IjQiLz48cmVjdCB4PSI2NCIgeT0iOTAiIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMSIgcng9IjQiLz48L2c+PHBvbHlsaW5lIHBvaW50cz0iMjIuNSw3NC41IDQ4LjUsNDguNSA3NC41LDIyLjUgMTAwLjUsNDguNSA3NC41LDc0LjUgNDguNSwxMDAuNSA3NC41LDEwMC41IiBmaWxsPSJub25lIiBzdHJva2U9IiMyRTVCRkYiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBvcGFjaXR5PSIuODUiLz48Y2lyY2xlIGN4PSIyMi41IiBjeT0iNzQuNSIgcj0iNC41IiBmaWxsPSIjMkU1QkZGIi8+PGNpcmNsZSBjeD0iNzQuNSIgY3k9IjEwMC41IiByPSI0LjUiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzJFNUJGRiIgc3Ryb2tlLXdpZHRoPSIyLjUiLz48L3N2Zz4K",
+      "stat": "",
+      "statUnit": "",
+      "statLabel": "",
+      "mask": ""
     },
     {
       "path": "reports/2026-10-05-quiz-borderline.html",

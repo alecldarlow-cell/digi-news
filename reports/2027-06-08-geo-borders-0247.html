@@ -167,6 +167,8 @@ a{color:inherit}
 .stats b{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1}
 .stats span{font-size:13px;color:var(--ink2)}
 .endbtns a.btn{text-align:center}
+#winShare{width:100%;margin-top:4px}
+#winShare+.endbtns{margin-top:0}
 .small{font-size:14px;color:var(--ink2);margin:0}
 .small a{color:var(--ink)}
 footer{margin-top:auto;padding-top:8px;font-size:11px;color:var(--ink2);opacity:.75;text-align:center}
@@ -189,7 +191,7 @@ footer{margin-top:auto;padding-top:8px;font-size:11px;color:var(--ink2);opacity:
    <span class="cardtxt"><b>Today's ten</b><small id="playStatus">Ten country outlines, easiest first. Name seven to pass.</small><span class="go" id="playGo">Play</span></span>
   </button>
   <div class="toggles" id="homeToggles"></div>
-  <footer>BORDERS · SHELL v1 · gated at build, and again on load</footer>
+  <footer>BORDERS · SHELL v2 · gated at build, and again on load</footer>
  </div>
 </section>
 
@@ -230,8 +232,9 @@ footer{margin-top:auto;padding-top:8px;font-size:11px;color:var(--ink2);opacity:
   </div>
   <p class="sub" id="rSub"></p>
   <div class="strip" id="rStrip"></div>
+  <button id="winShare" class="btn primary">Share result</button>
   <div class="endbtns">
-   <a class="btn primary" href="../puzzles.html">More puzzles</a>
+   <a class="btn" href="../puzzles.html">More puzzles</a>
    <a class="btn" href="2026-10-05-quiz-borderline.html">Explore more outlines</a>
   </div>
   <p class="small">Every country you name here is added to your atlas in Borderline, on Digi Games.</p>
@@ -502,8 +505,36 @@ function showResult(rec,fresh){
   $('rSub').textContent=sub;
   $('rStrip').innerHTML=P.qs.map((q,i)=>{const a=rec.ans[i];
     return `<div><div class="tile">${tileSVG(q)}${a?`<span class="mark ${a.ok?'ok':'bad'}">${a.ok?'✓':'✕'}</span>`:''}</div><div class="cap">${q.n}</div></div>`;}).join('');
+  shown=rec;
   show('winModal');$('winModal').scrollTop=0;
   if(fresh)$('winModal').classList.add('on');      // only a finished ten, once per page
+}
+
+/* ---------- share: one square per country, grouped easy | medium | hard; never a name ---------- */
+const GLYPH={right:'🟩',hint:'🟨',wrong:'🟥'};
+let shown=null;                                   // the record on the result screen
+function shareText(rec){
+  const sq=rec.ans.map(a=>a.ok?(a.h?GLYPH.hint:GLYPH.right):GLYPH.wrong);
+  const groups=[];let at=0;for(const t of [1,2,3]){const n=PLAN.filter(x=>x===t).length;groups.push(sq.slice(at,at+n).join(''));at+=n;}
+  const s=save.streak||{n:0},live=s.last===today()||s.last===dayBefore(today());
+  return ['Digi Borders · '+P.id, groups.join(' '),
+    rec.c+'/'+NQ+(rec.c>=PASS?' in '+mmss(rec.secs):', seven to pass')+' · streak '+(live?s.n:0),
+    'made with Digi Puzzles'].join('\n');
+}
+async function copyText(txt){
+  try{await navigator.clipboard.writeText(txt);return true;}
+  catch(_){                                       // clipboard blocked (insecure context, iOS webview)
+    try{const ta=document.createElement('textarea');ta.value=txt;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta);ta.select();const ok=document.execCommand&&document.execCommand('copy');document.body.removeChild(ta);return !!ok;}
+    catch(e){return false;}
+  }
+}
+async function share(){
+  if(!shown)return;const b=$('winShare'),txt=shareText(shown);
+  // phones get the share sheet; anything else (or a sheet that errors) copies
+  if(coarse&&navigator.share){try{await navigator.share({text:txt});return;}catch(e){if(e&&e.name==='AbortError')return;}}
+  b.textContent=(await copyText(txt))?'Copied ✓':'Copy unavailable';
+  setTimeout(()=>{b.textContent='Share result';},1600);
 }
 
 /* ---------- pause ---------- */
@@ -529,6 +560,7 @@ function loop(now){
   $('pauseBtn').addEventListener('click',openPause);
   $('resumePause').addEventListener('click',()=>{goFS();closePause();});
   $('quitBtn').addEventListener('click',abandon);
+  $('winShare').addEventListener('click',share);
   document.addEventListener('keydown',e=>{
     if(view!=='quiz')return;
     if(e.key==='Escape'){paused?closePause():openPause();return;}
@@ -543,9 +575,8 @@ function loop(now){
     if(view==='quiz'&&cur&&cur.i<NQ){const q=P.qs[cur.i];refit($('qmap'),q);scaleBar(q);}},120);});
   requestAnimationFrame(t=>{last=t;loop(t);});
   if(save.done[P.id])showResult(save.done[P.id],false);else renderHome();
-  if(window.__DGTEST===true)window.__dg={state:()=>({view,cur,save,locked,P}),answer:k=>answer(k),next:()=>next(),gate:GATE};
+  if(window.__DGTEST===true)window.__dg={state:()=>({view,cur,save,locked,P}),shareText:()=>shown&&shareText(shown),answer:k=>answer(k),next:()=>next(),gate:GATE};
 })();
 </script>
-<script src="../dn-track.js" defer></script>
 </body>
 </html>

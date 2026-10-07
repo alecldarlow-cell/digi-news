@@ -13,6 +13,10 @@
        report → Digi News (index.html), puzzle → Digi Puzzles (puzzles.html),
        game → Digi Games (games.html). Defaults to the folder's kind.
      <meta name="dn:read"       content="~8 min">      (optional)
+     <meta name="dn:updated"    content="YYYY-MM-DD">  (optional — the date of the
+       last MEANINGFUL update: new levels, a new mode. Set by hand, never from git,
+       so typo fixes don't reorder the list. The card sorts by the later of
+       dn:date and dn:updated and reads "Updated …". dn:date never changes.)
      <meta name="dn:thumb"      content="url">          (optional)
      <meta name="dn:statlabel"  content="of patients">  (optional — overrides the
        caption read off the piece's own hero stat; keep it to ~16 characters)
@@ -296,6 +300,16 @@ for (const { dir, kind } of DIRS) {
 
     const kindVal = (meta(head, 'dn:kind') || kind).toLowerCase();
 
+    // Optional dn:updated. Ignored (with a note) unless it's a real date after
+    // dn:date. A future dn:updated is held like a future dn:date: the card keeps
+    // its old place until the day arrives, then the nightly run moves it up.
+    let updated = meta(head, 'dn:updated');
+    if (updated) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(updated)) { warnings.push(`${rel} — dn:updated "${updated}" is not YYYY-MM-DD; ignored`); updated = ''; }
+      else if (!(updated > date)) { warnings.push(`${rel} — dn:updated ${updated} is not after dn:date ${date}; ignored`); updated = ''; }
+      else if (updated > TODAY && !INCLUDE_FUTURE) { updated = ''; }
+    }
+
     // Puzzles have no measured hero stat — their number slots are score
     // placeholders — so their tile is drawn from the grid instead.
     // Games likewise: their big numbers are scores, not measurements.
@@ -335,6 +349,7 @@ for (const { dir, kind } of DIRS) {
       headline,
       standfirst: standfirst.length > 240 ? standfirst.slice(0, 237).trimEnd() + '\u2026' : standfirst,
       date,
+      updated,
       read: meta(head, 'dn:read') || (firstMatch(html, /<div class="dateline"[^>]*>([\s\S]*?)<\/div>/i).match(/~\s*\d+\s*min/i) || [''])[0].replace(/\s+/g, ' '),
       thumb: meta(head, 'dn:thumb') || '',
       // stat is now the FIGURE only — the tile sizes itself by its length, so a
@@ -347,7 +362,9 @@ for (const { dir, kind } of DIRS) {
   }
 }
 
-items.sort((a, b) => (b.date || '').localeCompare(a.date || '') || a.path.localeCompare(b.path));
+// Newest first by the later of dn:date and dn:updated (see dn:updated above).
+const sortKey = it => it.updated || it.date || '';
+items.sort((a, b) => sortKey(b).localeCompare(sortKey(a)) || a.path.localeCompare(b.path));
 
 const feed = { built: new Date().toISOString(), today: TODAY, timezone: TZ, count: items.length, items };
 fs.writeFileSync(path.join(ROOT, 'feed.json'), JSON.stringify(feed, null, 2) + '\n');

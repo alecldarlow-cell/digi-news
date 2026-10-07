@@ -189,7 +189,10 @@
   }
 
   function card(it){
-    var when = relTime(it.date);
+    // A meaningful update (dn:updated) moves the card up and is labelled as such.
+    var upd = /^\d{4}-\d{2}-\d{2}$/.test(it.updated||'') && it.updated > (it.date||'');
+    var when = relTime(upd ? it.updated : it.date);
+    if(upd && when) when = 'Updated ' + when;
     var thumb;
     if(it.thumb){
       thumb = '<img class="thumb" src="'+esc(it.thumb)+'" alt="" loading="lazy">';

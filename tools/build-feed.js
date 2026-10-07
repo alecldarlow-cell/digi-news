@@ -215,6 +215,15 @@ function puzzleMask(html, rel, warnings) {
     if (qs !== 10) warnings.push(`${rel} — Borders puzzle parsed as ${qs} question(s), expected 10`);
     return '';
   }
+  // Tangle: a 4x4 letter grid. Its card uses the fixed dn:thumb every Tangle file
+  // carries (letter-free grid + traced path), so a card can't spoil a word. No mask,
+  // and no warning, once the puzzle object is confirmed to hold sixteen tiles.
+  if (/\bconst PUZZLE=\{id:"DP\u00b7TANG\u00b7/.test(html)) {
+    const tm = html.match(/\btiles:\[([^\]]*)\]/);
+    const n = tm ? (tm[1].match(/"[^"]*"/g) || []).length : 0;
+    if (n !== 16) warnings.push(`${rel} — Tangle puzzle parsed as ${n} tile(s), expected 16`);
+    return '';
+  }
   const lg = html.match(/\bgroups\s*:\s*\[[\s\S]*?\n\s*\],/);
   if (lg) {
     const members = lg[0].match(/\bmembers\s*:\s*\[[^\]]*\]/g) || [];

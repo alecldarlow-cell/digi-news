@@ -1,8 +1,8 @@
 {
-  "built": "2026-10-08T06:50:10.321Z",
+  "built": "2026-10-08T06:51:22.303Z",
   "today": "2026-10-08",
   "timezone": "Europe/London",
-  "count": 508,
+  "count": 509,
   "items": [
     {
       "path": "reports/2026-10-08-crossword-mini-0089.html",
@@ -32,6 +32,21 @@
       "stat": "",
       "statUnit": "",
       "statLabel": "",
+      "mask": ""
+    },
+    {
+      "path": "reports/2026-10-08-hormuz-shipping-transits.html",
+      "kind": "report",
+      "topic": "World",
+      "headline": "Recorded ship transits through the Strait of Hormuz are running 96% below their 2025 average",
+      "standfirst": "IMF satellite tracking counted an average of 3.6 ships a day through the strait in September, against 85.5 a day across 2025. Seven months after Iran's Revolutionary Guards declared it closed, traffic has recovered once, for less than fo…",
+      "date": "2026-10-08",
+      "updated": "",
+      "read": "~6 min",
+      "thumb": "",
+      "stat": "96",
+      "statUnit": "%",
+      "statLabel": "fewer transits",
       "mask": ""
     },
     {

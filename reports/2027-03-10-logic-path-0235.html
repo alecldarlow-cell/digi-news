@@ -625,8 +625,31 @@ document.getElementById("shareBtn").addEventListener("click",()=>{
 /* ---- digi-done-v1: a finished puzzle reopens finished (digi-path-v1 → done[id]) ---- */
 const DONE_KEY="digi-path-v1";
 function doneGet(id){try{const s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");return (s&&s.v===1&&s.done&&s.done[id])||null;}catch(e){return null;}}
-function donePut(id,rec){try{let s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");if(!s||s.v!==1||!s.done||typeof s.done!=="object")s={v:1,done:{}};if(s.done[id])return;rec.d=new Date().toISOString().slice(0,10);s.done[id]=rec;localStorage.setItem(DONE_KEY,JSON.stringify(s));}catch(e){}}
+function donePut(id,rec){try{let s=JSON.parse(localStorage.getItem(DONE_KEY)||"null");if(!s||s.v!==1||!s.done||typeof s.done!=="object")s={v:1,done:{}};if(s.done[id])return;rec.d=new Date().toISOString().slice(0,10);s.done[id]=rec;localStorage.setItem(DONE_KEY,JSON.stringify(s));}catch(e){}doneShow();}
 let doneTried=false;
+/* ---- digi-done-share-v1: the day's saved result stays shareable after a revisit ---- */
+function doneId(){return PUZZLE.id;}
+function doneMMSS(s){s=Math.max(0,Math.min(359999,Math.floor(+s)||0));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function doneUI(id){const e=document.getElementById(id);return (e&&e.textContent)||"0";}
+function doneText(rec){const t=(/^\d{1,4}:\d{2}$/.test(String(rec.t))?String(rec.t):null)||"0:00";return doneId()+" — solved in "+t+" \ud83e\uddf5";}
+function doneCopy(txt,b){
+  const said=t=>{b.textContent=t;setTimeout(()=>{b.textContent="Share result";},1600);};
+  const fallback=()=>{try{const ta=document.createElement("textarea");ta.value=txt;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(ta);ta.select();const ok=document.execCommand&&document.execCommand("copy");document.body.removeChild(ta);said(ok?"Copied ✓":"Copy unavailable");}catch(e){said("Copy unavailable");}};
+  const coarse=!!(window.matchMedia&&window.matchMedia("(pointer:coarse)").matches);
+  if(coarse&&navigator.share){try{navigator.share({text:txt}).catch(e=>{if(!e||e.name!=="AbortError")fallback();});return;}catch(e){}}
+  try{navigator.clipboard.writeText(txt).then(()=>said("Copied ✓"),fallback);}catch(e){fallback();}
+}
+function doneShow(){
+  const id=doneId(); if(!doneGet(id))return;
+  try{document.documentElement.setAttribute("data-dn-done","");}catch(e){}
+  if(!document.getElementById("shareAgain")){
+    const host=document.querySelector(".controls"); if(!host)return;
+    const b=document.createElement("button"); b.type="button"; b.id="shareAgain"; b.className="primary"; b.textContent="Share result";
+    b.addEventListener("click",()=>{const r=doneGet(id); if(r)doneCopy(doneText(r),b);});
+    host.insertBefore(b,host.firstChild);
+  }
+  
+}
 function restoreDone(){
   if(doneTried)return; doneTried=true;
   const rec=doneGet(PUZZLE.id); if(!rec)return;
@@ -640,6 +663,7 @@ function restoreDone(){
 }
 buildGrid();
 restoreDone();
+doneShow();
 })();
 </script>
 <script src="../dn-track.js" defer></script>

@@ -18,6 +18,17 @@
    The first result for an id is kept; Reset / Play again still gives a fresh
    board, and a replay never overwrites the record.
 
+   Stage 2 (digi-done-share-v1): once a result is saved, a "Share result"
+   button sits first in the controls row and shares that saved result — so a
+   player who leaves and comes back can still share the day. Phones get the
+   share sheet, everything else copies (the Borders/Tangle convention). Link
+   swaps it in for Shuffle/Deselect/Submit only while the board is over. The
+   page is also marked data-dn-done so dn-track.js doesn't log a fresh
+   puzzle_start when someone taps a finished puzzle they've come back to.
+
+   Each stage has its own marker and anchors, so a fresh file gets both and a
+   stage-1 file gets stage 2 only.
+
    Patching rule (house guard): every edit is a literal find/replace whose
    anchor must occur exactly once, or the file is refused and left untouched.
    Idempotent: a file already carrying the marker is skipped.
@@ -31,6 +42,7 @@ const fs = require('fs');
 const path = require('path');
 
 const MARK = 'digi-done-v1';
+const SHARE_MARK = 'digi-done-share-v1';
 
 /* Three July prototype Doku shells predate the shared shell and have none of
    its anchors. They are archive-only; leave them as they are. */
@@ -201,17 +213,72 @@ initRanked();
   },
 };
 
+/* ---------------------------------------------------------------- stage 2 */
+const shareHelpers = (idExpr, textBody, extra = '') => `let doneTried=false;
+/* ---- ${SHARE_MARK}: the day's saved result stays shareable after a revisit ---- */
+function doneId(){return ${idExpr};}
+function doneMMSS(s){s=Math.max(0,Math.min(359999,Math.floor(+s)||0));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function doneUI(id){const e=document.getElementById(id);return (e&&e.textContent)||"0";}
+function doneText(rec){${textBody}}
+function doneCopy(txt,b){
+  const said=t=>{b.textContent=t;setTimeout(()=>{b.textContent="Share result";},1600);};
+  const fallback=()=>{try{const ta=document.createElement("textarea");ta.value=txt;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(ta);ta.select();const ok=document.execCommand&&document.execCommand("copy");document.body.removeChild(ta);said(ok?"Copied ✓":"Copy unavailable");}catch(e){said("Copy unavailable");}};
+  const coarse=!!(window.matchMedia&&window.matchMedia("(pointer:coarse)").matches);
+  if(coarse&&navigator.share){try{navigator.share({text:txt}).catch(e=>{if(!e||e.name!=="AbortError")fallback();});return;}catch(e){}}
+  try{navigator.clipboard.writeText(txt).then(()=>said("Copied ✓"),fallback);}catch(e){fallback();}
+}
+function doneShow(){
+  const id=doneId(); if(!doneGet(id))return;
+  try{document.documentElement.setAttribute("data-dn-done","");}catch(e){}
+  if(!document.getElementById("shareAgain")){
+    const host=document.querySelector(".controls"); if(!host)return;
+    const b=document.createElement("button"); b.type="button"; b.id="shareAgain"; b.className="primary"; b.textContent="Share result";
+    b.addEventListener("click",()=>{const r=doneGet(id); if(r)doneCopy(doneText(r),b);});
+    host.insertBefore(b,host.firstChild);
+  }
+  ${extra ? 'doneSync();' : ''}
+}${extra}`;
+
+/* every stage-2 edit: the helper block, donePut → doneShow on a first finish,
+   and doneShow once at start-up (after any restore). */
+const putTail = ['localStorage.setItem(DONE_KEY,JSON.stringify(s));}catch(e){}}',
+                 'localStorage.setItem(DONE_KEY,JSON.stringify(s));}catch(e){}doneShow();}'];
+const SHARE = {
+  mini: [putTail,
+    ['let doneTried=false;', shareHelpers('SAMPLE.id',
+      'return `The Digi Mini · ${doneId()}\\nSolved in ${doneMMSS(rec.s)} — streak ${doneUI("streak")} (best ${doneUI("best")})\\nmade with Digi Puzzles`;')],
+    ['load(SAMPLE);\nrestoreDone();\n', 'load(SAMPLE);\nrestoreDone();\ndoneShow();\n']],
+  doku: [putTail,
+    ['let doneTried=false;', shareHelpers('SAMPLE.id',
+      'return `The Digi Doku · ${doneId()}\\nSolved in ${doneMMSS(rec.s)} — streak ${doneUI("streak")} (best ${doneUI("best")})\\nmade with Digi Puzzles`;')],
+    ['load(SAMPLE);\nrestoreDone();\n', 'load(SAMPLE);\nrestoreDone();\ndoneShow();\n']],
+  sweep: [putTail,
+    ['let doneTried=false;', shareHelpers('SAMPLE.id',
+      'const how=rec.o==="win"?"Swept in "+doneMMSS(rec.s):rec.o==="loss"?"Hit a mine":"Revealed the board";return `The Digi Sweep · ${doneId()}\\n${how} · streak ${doneUI("streak")}\\nmade with Digi Puzzles`;')],
+    ['  restoreDone();\n}', '  restoreDone();\n  doneShow();\n}']],
+  path: [putTail,
+    ['let doneTried=false;', shareHelpers('PUZZLE.id',
+      `const t=${mmss('rec.t')}||"0:00";return doneId()+" — solved in "+t+" \\ud83e\\uddf5";`)],
+    ['buildGrid();\nrestoreDone();\n})();', 'buildGrid();\nrestoreDone();\ndoneShow();\n})();']],
+  link: [putTail,
+    ['let doneTried=false;', shareHelpers('P.id',
+      'const g=(Array.isArray(rec.g)?rec.g:[]).filter(x=>Array.isArray(x)&&x.length===4&&x.every(v=>GLYPH[v]));const m=Math.max(0,Math.min(MAX_MISTAKES,Math.floor(+rec.m)||0));const t=' + mmss('rec.t') + '||"00:00";const line=rec.o==="win"?"Linked in "+t+(m?" · "+m+" mistake"+(m>1?"s":""):" · perfect"):"Ran out of mistakes";return ["The Digi Link · "+doneId(),g.map(x=>x.map(r=>GLYPH[r]).join("")).join("\\n"),line+" · streak "+doneUI("streak"),"made with Digi Puzzles"].filter(Boolean).join("\\n");',
+      `
+/* Link's controls row is one fixed line: while the board is over, Share takes
+   the place of Shuffle / Deselect / Submit; a replay brings them back. */
+function doneSync(){const sh=document.getElementById("shareAgain");if(!sh)return;const on=!!over;sh.style.display=on?"":"none";for(const k of ["shuffle","clear","submit"]){const e=document.getElementById(k);if(e)e.style.display=on?"none":"";}}`)],
+    ['  $("#shuffle").disabled=over||busy;\n', '  $("#shuffle").disabled=over||busy;\n  if(typeof doneSync==="function")doneSync();\n'],
+    ['  refreshStreakUI(s);\n  restoreDone();\n}', '  refreshStreakUI(s);\n  restoreDone();\n  doneShow();\n}']],
+};
+
 function typeOf(file) {
   for (const [name, t] of Object.entries(TYPES)) if (t.match.test(file)) return name;
   return null;
 }
 
-/* Apply every edit or none. Returns {ok, out, why}. */
-function patch(html, typeName) {
-  if (html.includes(MARK)) return { ok: true, out: html, skipped: true };
-  const t = TYPES[typeName];
-  let out = html;
-  for (const [find, repl] of t.edits(t.key)) {
+/* Apply every edit of a stage or none. */
+function applyEdits(out, edits) {
+  for (const [find, repl] of edits) {
     const n = out.split(find).length - 1;
     if (n !== 1) return { ok: false, why: `anchor found ${n}× (need 1): ${JSON.stringify(find.slice(0, 60))}` };
     const before = out;
@@ -220,8 +287,22 @@ function patch(html, typeName) {
   }
   return { ok: true, out };
 }
+/* Returns {ok, out, skipped, stages:[...]} — skipped when nothing was missing. */
+function patch(html, typeName) {
+  const t = TYPES[typeName];
+  let out = html; const stages = [];
+  if (!out.includes(MARK)) {
+    const r = applyEdits(out, t.edits(t.key)); if (!r.ok) return r;
+    out = r.out; stages.push('done');
+  }
+  if (!out.includes(SHARE_MARK)) {
+    const r = applyEdits(out, SHARE[typeName]); if (!r.ok) return { ok: false, why: 'share stage: ' + r.why };
+    out = r.out; stages.push('share');
+  }
+  return { ok: true, out, skipped: !stages.length, stages };
+}
 
-module.exports = { TYPES, MARK, LEGACY, typeOf, patch };
+module.exports = { TYPES, SHARE, MARK, SHARE_MARK, LEGACY, typeOf, patch, applyEdits };
 
 if (require.main === module) {
   const args = process.argv.slice(2);

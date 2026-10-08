@@ -17,7 +17,7 @@
      articles    read_depth  {pv, pct: 25|50|75|100}
                  exhibit_view{pv, n}      a chart scrolled half into view
                  source_click{pv, domain} an outbound link
-     puzzles     puzzle_start{pv, type}   first tap or key press
+     puzzles     puzzle_start{pv, type}   first tap or key press (not on a reopened, already-finished puzzle)
                  puzzle_end  {pv, type, outcome: solved|failed|revealed, secs, checks, reveals, hints}
    Games call digi.track('game_start' | 'game_end', {...}) themselves.
 
@@ -204,6 +204,10 @@
   if (PTYPE) {
     var startPuzzle = function(e){
       if (puz.started) return;
+      /* A finished puzzle reopened from the player's own save is marked
+         data-dn-done by the page; tapping it (or its Share button) is not a
+         new attempt, so it must not count as one. */
+      if (document.documentElement.hasAttribute('data-dn-done')) return;
       var t = e.target;
       if (t && t.closest && t.closest('a, .modal, footer, .foot')) return;
       puz.started = true; puz.t0 = Date.now();

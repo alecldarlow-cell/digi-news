@@ -58,3 +58,9 @@ jobs:
             git commit -m "chore: rebuild feed.json, add tracker to new pieces [skip ci]"
             git push
           fi
+
+      # Runs after the feed is committed, so a batch missing the player-save
+      # patch fails this run (and alerts) without holding back publishing.
+      # Fix: node tools/add-done-state.js, then push.
+      - name: Check puzzle saves (reopen finished, Share result)
+        run: node tools/add-done-state.js --check

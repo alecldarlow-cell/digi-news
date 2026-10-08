@@ -363,12 +363,8 @@ function day(){
   return d;
 }
 function show(id){view=id;for(const s of document.querySelectorAll('.screen'))s.classList.toggle('vis',s.id===id);if(id==='play')requestAnimationFrame(measure);}
-function shareLine(){const star=D.found.includes(P.star)?' ★':'';return 'Tangle #'+P.n+' — '+plural(D.score,'point','points')+', '+plural(D.found.length,'word','words')+star;}
-function shareText(){   // the score line, plus a link to the day's board when it's on the site
-  let t=shareLine();
-  if(/\/reports\/[^/]*word-tangle/.test(location.pathname)&&/^https?:$/.test(location.protocol))t+='\n'+location.origin+location.pathname;
-  return t;
-}
+function shareLine(){const star=D.found.includes(P.star)?' ★':'';return '🧶 Tangle #'+P.n+' — '+plural(D.score,'point','points')+', '+plural(D.found.length,'word','words')+star;}
+function shareText(){return shareLine();}   // score line only: no link
 
 /* ---------- home ---------- */
 function artSVG(){

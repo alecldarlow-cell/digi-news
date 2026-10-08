@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Borders — Digi Puzzles</title>
 <meta name="dn:headline"   content="Borders 0288">
-<meta name="dn:standfirst" content="Ten country outlines, one at a time. Name each from four choices, easiest first. Seven to pass.">
+<meta name="dn:standfirst" content="Ten country outlines, one at a time. Name each from four choices, easiest first. Your score is out of ten.">
 <meta name="dn:date"       content="2027-07-19">
 <meta name="dn:kind"       content="puzzle">
 <meta name="dn:topic"      content="Geography">
@@ -188,7 +188,7 @@ footer{margin-top:auto;padding-top:8px;font-size:11px;color:var(--ink2);opacity:
   </div>
   <button id="playCard" class="sheet" aria-label="Play today's ten">
    <svg class="world" id="homeWorld" aria-hidden="true"></svg>
-   <span class="cardtxt"><b>Today's ten</b><small id="playStatus">Ten country outlines, easiest first. Name seven to pass.</small><span class="go" id="playGo">Play</span></span>
+   <span class="cardtxt"><b>Today's ten</b><small id="playStatus">Ten country outlines, easiest first. Scored out of ten.</small><span class="go" id="playGo">Play</span></span>
   </button>
   <div class="toggles" id="homeToggles"></div>
   <footer>BORDERS · SHELL v2 · gated at build, and again on load</footer>
@@ -269,7 +269,7 @@ const PUZZLE={id:"DP·BORD·0288",date:"2027-07-19",band:"standard",qs:[{"n":"Tu
    q = {n name, i index in the Borderline atlas, t tier, lo, la, km per unit, x, y inset pin,
         d path, K, tx, ty, o four option names in display order} */
 const WORLD={"w":"M233 303l0 1-7-1 5 0 0-1zM248 300l3 3-7 1-5-1 3-1 2-2 2 0zM178 291l4 1-5-1-3 0 2-1zM215 289l0 2-2 0-4 0-2-1 4-1-1-3 1 0 3 2zM111 308l-1 0 9-1 17 2 15 0-15-2-3-2-7-1 7 0 3 0-2-1-17-3-2-2 9 1 4-1-2-2 1 0 10-2 19 1 6-2 3 2 15 1-7-4 10 1 8 0 0-1 17 2 8-2 1-1-3-4-1-5 4-3 6-3 1 1-5 2-1 1 1 1-2 1-1 2 7 5 3 4-3 3-6 2-8 0 6 2-5 0 5 3 22 4 8-2 8 0 15-2-2-1-6 0-1-2 20-4 2-1-1-2 7-3 4 0 0-1 9 1 10-3 3 2 4-2 17 1 6-1 3-2 6 2 22-6 2 0 6 3 3-1 6 1 0 2-3 2 1 1-2 1 2 1 7-4 5 0 9-4 5 0 2-2 1 2 8 0 5 0 6-3 3 2 11-1 1 1 5 1 6-1 15-1 2-1-1 2 1 0 11 0 0 2 2 1 6 0 4 2 2 1 6 1 3 1-18 7-3 3 2 0-1 1-7 0-6 3 0 2 3 1-1 0 9 1-24 4-330 0zM203 260l5 1-1 1-2-1-1 2-2 0-9-5 6 2 1-3 2 1zM215 254l1 2-3 1-1-1 1-1 1 0zM403 252l-2 0 0-2 2 1zM523 235l4 0-3 5-3 0 1-5zM565 235l0 1 1-1 0 1-5 5-3 1-6 4-3-1 16-11zM573 226l0 2 1-1 0 2 3 0-10 8 2-4-1-1 4-4-1-5 2 1zM572 199l-1 0-1-1-2-3 4 3zM383 182l0 4-1 0-5 16-1 2-3 1-2-1-1-4 3-6-1-4 1-3 3-1 3-2 2-5 1 2zM537 183l1 1 1-1 1 2 0 8 3 2 1 4 1 0 0 2 2 5-1 4-3 7-10 11-7 4-2-2 1-1-3 2-4-1 0-4-2-1 1-2-3 1 4-4-5 4 0-1-1-4-3-2-9 1-5 4-6 0-4 2-2 0-2-2 2-4 0-12 0 1 0-1 1 1 0-4 2-5 0 2 5-4 7-2 4-6 1 1 1 0-1-1 5-5 2 0 2 2 2 0 2-5 3-1-1-1 6 2 2-1 1 1-4 5 7 5 4-5 2-8 1 5zM506 176l-1 0 1-2 6-2-4 2zM504 172l0 1-5 0 2-1 2 0zM481 169l3 0 0-1 8 4-2 1-13-3-2-1 1-2 4 1zM553 167l-3 1-3-1 3-1 0 1 1 0 1-3 2 0 0 1zM517 162l1 1-5 0 0-2 3 0zM524 158l0 3 2 1 1-2 4-1 10 4 2 4 3 1 0 1-2 0 1 1 5 6-5 0-2-4-2-1-3 1 0 1-1 1-6-2-2 0 2-2-1-4-7-3-2 1-1-3 3-1-3 0-2-2 3-1 2 1zM509 153l-3 3-6 0 0 1 2 2 4-2-4 3 3 6-2 0 1-1-2 0 0-4-2 1 0 5-1 0 0-4-1-2 2-6 1-2 6 1 1-1zM514 154l-1 4-1-4 1-2 1 1zM476 167l-2 0-3-3-7-12-5-7 3 1 6 6 3 1 2 3-1 1 5 5-1 2zM496 152l2 2-2 0-3 10-9-2-1-3-1-2 0-4 1-1 2 0 1-1 2-1 6-7 4 3-3 4 2 2zM510 140l0 2 0 2-1-2-1 1 1 2-2-1 0-2-2-1-2 1 2-3 1 1 2-1 0-2 2 2zM435 144l-1 0-1-1 0-6 3 4 0 3zM506 136l-2 3-1-2 1-2 1 0 0 1 1-2zM497 138l-2 2 3-6 0 2-1 1zM508 133l0 2-1-1 1 2-1 0-1-2 1-1-1-1 1 0zM499 120l1 0 1 3-1 2 1 3 4 1 0 3-2-2 0 1-4-2 1-1-2-1-1-3 1 1 0-5zM181 118l5 0 2 2-1 1-3-1-1 2-2-1-2 0-1-1 3 0-1-2zM481 120l-1 1-2-1 0-1 3-2 0 2zM170 112l3 1 6 4-6 1 1-1-2-3-5-1 0-1-5 2 3-2 4-1zM497 112l0 2-2-4 1-3 1 2zM512 90l0 2-1-1-1 2-1-1 0-2 2-1zM337 87l4 1-2 0-2 0zM324 82l0 3-5-2 0-1 4 0zM314 76l1 4-1 1-2-4 1 0zM519 84l1 4-4 1-2 2-2-2-6 1 2 2 0 4-4-4 4-5 4 0 1-3 1 1 2-3-1-6 1 0 2 3 0 3zM517 71l2-1 1 2-2 1 0 2-3-2 0 3-1 0-2-2 0-2 2 0-1-4 2 2zM118 62l-3 0-2-3 4 0 1 2zM218 58l-1 2 1-1 1 1-1 0 4 1-1 1 1 0 0 2-1 2-2 0 1-2-2 1-1 0 1-1-1 0-5 0 5-6 2-1zM111 52l2 0-3 4 0-3 1-1zM509 58l4 4-3-1 1 3 3 3-2-1 0 1-8-11-1-4 4 4zM290 55l-4 1 1-2-1-2 3-2 3 1-1 3zM296 44l-2 2 3 0-1 3 1 0 4 5 1 1 0 2-10 3 0-1 3-2-3-1 2-1-1-2 3 0 0-1-3-1 0-2-1 1-1-3 2-3 1 0zM189 32l5 3-2 1-2-2-4 2 0-1-2 0 4-3zM281 30l0 1 1 2-7 2-5 0 1-1-2-1 2-1-3 0 1-1 4 1 6-2zM202 29l-1 0 1-1 2 0-1 1zM375 76l2 2-1 0-1 3 1 2 3 2 5-1-1-3-2-2 0-2 3 0-2-2-1 0 0 1-1-3-2 0-2-3 1 0 0-1 3 0-1-3-3-1-3 1-3 4 4 5zM536 33l-3 0 7 4-3 0-3 2-1 3-3-2-3 2-4 0 1 3 3 1 3 5-2 1 1 2-2 0 1 2 0 2-10-11-1-2 2 0 2-6-1-2-1 0 0 2-1 1-4-2-2 1-1 3 2 1-5 1-1-2-2 0-1 1-9 0-3 8 5 2 0-1 2 0 4 2 3 9-2 9-1 1-3-1-2 3 1 2-3 2 6 6 0 3-3 1-2-4 1 0-5-3 0-3-2 0-4 2 0-3-1-1-4 4 4 3 1-1 3 1 1 1-2 0-2 3 6 7 1 1-1 1 2 1 0 3-1 1-2 7-4 3-7 3 0 2-1 0-1-2-2-1-4 4 0 1 6 8 2 6-1 2-5 4-1-2-2-2-2-3-3 0 0-2-2 0 0 8 1 0 1 4 4 3 3 9-1 0-4-3-3-7-2-4-1 1 1-7-4-11-3 3-2-1 0-4-6-9-2 0 0 2-5 0-1 3-2 1-4 6-3 1 0 11-3 5-8-16-3-10-3 1-2-3 0-1-6-5-8 1-6-2-2-2-3 1-2-1-3-2-3-4-2-1-1 1 1 3 3 3 1 4 0-2 1 0 1 4 4-1 3-4 1 4 3 1 2 3-2 4 0 2-4 4-5 1 0 2-6 3-8 3-2-8-6-9-2-5-6-8 0-3-2 4-2-5 6 12 0 1 2 2 1 7 2 1 2 4 7 7-1 1 3 3 11-3 0 2-5 13-13 13-2 4-1 2 2 2-1 3 2 5 0 9-2 2-4 2-4 4 1 8-5 4-1 6-7 7-4 3-5 0-5 1-2-1 0-5-5-9-1-9-4-8 0-5 4-9-3-11-5-8 1-8-2-3-4 1-3-4-3 0-7 3-5-1-5 2-8-6-4-7-2-2-1-3-1-2 2-3 0-4-1-7 5-9 8-7 0-5 4-3 2-3 6 1 5-3 13-1 1 1 1 0-1 6 8 3 1 1 5 2 2-1 0-2 2-2 12 4 3-1 2 1 3 0 1-1 2-6-1-4-5 1-2-1-3 1-3-1-2-3 0-1-1-1 2-2 2 0 1-2 3 1 3-2 8 2 4-1 0-2-8-5 2-2-1-1 2-1-6 2 3 2-4 1-2-2 1-1-4-1-2 3-1 0-1 5 2 3-4 1 0-1-2 0-2 0 2 1-1 1-2-1 0 3 2 1 0 1-1 0 0 1-1 0 1 2-2-1-4-7 0-3-10-7-2 0 1 3 9 7 0 1-2-1-1 1 1 2-1 1-1-3-6-4-3-4-2-1-3 3-5 0 0 2-4 2-1 3 0 1-3 4-4 0-1 1-2-1-4 0 0-3-1-1 2-4-1-4 2-2 9 1 1-5-2-3-3-1 0-1 5 0-1-2 2 1 3-2 0-1 4-1 1-3 5-1 1-1-2-3 1-2 3-2-1 2 1 1-1 2 2 2 2-1 2 2 5-2 3 0 2-1 0-4 1-1 3 2 0-3-2-1 8-2-2 0-7 1-2-2 0-4 4-3-2-2-2 1-1 2-4 3-1 2 3 2-3 3-1 4-1 0-1 2-2 0-4-8-2 2-4 0-1-6 7-4 5-6 5-3 11-2 4 1-1 0 1 1 1 0 12 3 1 2-1 1-9-1 2 1 1 3 3 1-1-2 1 0 3 1 1-1-1-1 3-2 2 1 1-1-3-3 4 0 1 1-2 1 1 0 1 1 8-4 1 0-1 1 7-1 1 1 1-1-1-1 11 3 1-1-4-2-1-2 2-3 4 1 0 1 5 5-2 4 2 0 2-3-1-2-2-1 0-2-3-1 2-1-1-1 4 3-1-2 1 0 6 1-3-3 7-1-2-1 1-1 15-2 0-1 2 0 5 1 4 0 5 1 1 1-4 2 18 2-1-1 5 0 10 4-1-1 10 0-2-1 1-1 12 1 6 2 8 0 5 2 8 0 4 2 1-1-2-2 11 1 3 1 8 7zM72 26l3 3-1 2 1-2 3 1 1 1-4 1-3 2-3-1 1-1-3 0 1-1-4 2 8-7zM179 26l-5-1 3-1 2 1zM186 25l-1 2 2-1 1 1-1 1 1 1 5-4 3 0 1 1-2 2 1 0-4 2-3 0-4 3-10 5-5 5 2 1-1 3 2-1 7 4 4 0-2 4 2 3 3-2 0-4 6-3 0-3-1-1 2-2 1-5 6 0 2 2 3 1-1 3 1 2 6-4 2 6-1 1 6 3 0 2 1 1 0 2-8 3-9 0-9 7 5-3 6-2 1 1-2 1 0 4 4 0 2-2 1 2-10 5-1 0 0-2 3-2-4 1-6 4-1 1 1 1-6 2 3 0-3 0-3 4 0-1 0 2-2 2 0-4 0 2-1 0 1 1-1 4-10 8 0 9-1 3-1 0-1-1-1-6-1-2-2 1-2-2-4 0-1 2-1 1-6-1-6 3-3 11 1 6 3 2 6-2 2-4 5-1-4 11 6 0 2 2-1 8 2 4 3 0 2-2 4 2 2-1 2-3 2-1 3-2 1 1-1 1 0 5 1-2 0-2 2-1 0-1 3 3 3-1 2 2 1-2 4 0-1 1 0 1 3 1 0 1 3 2 3 3 5 1 5 3 2 5-1 3 3 0 0 2 1-1 5 2 1 2 7 1 5 3 3 2 1 3 0 3-6 8 0 9-3 8-1 2-5 1-4 3-1 2 0 5-7 12-3 0-4-1 3 4 0 4-7 1 1 4-5 0 1 2 3 1-3 2 1 3-3 1 0 1 4 2 0 2-4 5 3 3-4 1 0 2-6-3-3-7 1-3-3-1 1-2 0-3 2 1-1-4-1-1 0 3-1 0 0-8-1-4 1-9-1-7 0-15-1-6-10-7-8-14-2-2-1-3 3-4-2-1 0-2 2-3 2-2 3-4-2-9-2-1-2 1 1 1-1 1-1-1-4-1-2-3 0 1-1-1 0-2-3-4 0-1-6-1-5-4-3 1-11-5-3-4 1-4-4-6 0-2-4-5 0-4-1-1-1-1-1 4 5 13-1 1-3-4 1-2-4-4 2-1-2-2 0-7-2-2-2-1-2-8 0-3 5-10 2-5 2 0 0 2 2-4-5-3 1-3-1-1 0-1-1-4 0-4-3 0-3-3-7-2-9 3 4-4-19 10-11 2 15-5 3-3-7 1 1-3-2 1-1-1 2-3 4-2 6-1 2-2-6 1-2-1 0-1 6-2 1 0-1 1 3 0-2-4 9-3 9-2 2 1 12 1 7 2 13-2 1 1 3-1-1 1 4 0 7 1 1 1-2 1 6 0 1 1 3-2 2-1 5 2 4 0 2-1 1 0-1 2 5-3-2-2 4-3 2 1 0 2-1 1zM161 20l-1 0 3 0 1 1 2-1 0 2 2-2 2 0 1 0-1 3 3 1-2 1-1 2-4-1-10 1-3-1 0-1 6-1-6 0 3-2-4 0 8-3zM207 20l-4 0-1-1 3 0zM195 19l0 1 5-1 1 1 0 1 4-1 3 2 3 0 4 2 0 2-2 1 7 3-4 3-2-3-2 1-1 1 3 2 0 2-1 1-4-2 2 3-6-2-3-3-5 1 1-2 5 0 4-4-4-2 1 0-3-2-3 1-10-2 2 0-1 0 2-3 5-2zM179 18l3 1-2 1 2 0-1 2-4 0-3-2 3 0 0-1zM186 20l-3 1 2-3 6 0-3 2zM151 22l-4 1-2-1 5-3 0-1 8 0 2 1-9 3zM472 16l1 1-6 0-4-2 4 0zM185 14l-2 3-5-1 1-1 5-1zM172 15l3 0-2 2-10 1 4-2-7 0 4-2 6 2 0-2 3 0zM372 23l-8-1 0-2 2-1-1 0 2-2-1-1 6-1 9-1-11 4-2 3 1 1zM189 13l4 1 0 1 1 1 11 0-3 1-10 0-3 0 1-2-4-1 1-1zM165 13l-3 1-7 1 8-2zM185 12l-6 0 2-1-1-1 5 1zM421 12l-6 0 1-2 5 1zM321 10l4 1-3 0-2 3-1 0-7-4 7-1zM329 9l2 0-5 1-7-1 7-1zM357 9l-3 0-4 0 8-1zM414 11l-6 0-6-2 4-1 7 2zM201 10l1 0-7 2-2 0-1-1 2-1-2 0-1-1 7-1 3 1zM226 5l7 1-8 1 3 0-8 3-7 0 1 0-1 1-6 2 2 1-4 1-10-1 3-1 0-1 3 1-2-1 4-2-1-1 6 0-6 0-3-2 25-2zM271 5l6 1-11 1 9 0 1 0-2 1 9-1 3 1-9 1 3 0-3 2 0 2 1 1-3 0 2 1 0 1-2 0 2 2-3 0 1 0 0 1-4 0 2 2-3 0 3 1 0 1-2 1-3-2 1 1-2 1 5 0-7 3-6 1-3 2-8 2-5 5 0 1-2 3-6-1-3-5-1-6 5-4-5 0 1-2 4 1-5-2 2-2-3-4-11-1-2-1 5-1-7-1 10-2 1 0-3-1 8-2 14-1 6 1-2-1 14-1z","s":"M135 0l330 0 25 4 16 7 25 18 21 19 18 21 14 22 9 22 5 21 2 22-2 22-5 21-9 22-14 22-18 21-21 19-25 18-16 7-25 4-330 0-25-4-16-7-25-18-21-19-18-21-14-22-9-22-5-21-2-22 2-22 5-21 9-22 14-22 18-21 21-19 25-18 16-7 25-4z","wh":156};
-const NQ=10, PASS=7, PLAN=[1,1,1,2,2,2,2,2,3,3], ATLAS_TOTAL=168;
+const NQ=10, PLAN=[1,1,1,2,2,2,2,2,3,3], ATLAS_TOTAL=168;
 const $=id=>document.getElementById(id);
 const SVGNS='http://www.w3.org/2000/svg';
 
@@ -420,7 +420,7 @@ function renderHome(){
   $('dateLine').textContent=longDate(P.date);
   worldSVG($('homeWorld'),null);
   const c=save.cur&&save.cur.id===P.id?save.cur:null;
-  $('playStatus').textContent=c?`Question ${Math.min(NQ,c.ans.length+1)} of ${NQ}, ${c.pts} points so far.`:'Ten country outlines, easiest first. Name seven to pass.';
+  $('playStatus').textContent=c?`Question ${Math.min(NQ,c.ans.length+1)} of ${NQ}, ${c.pts} points so far.`:'Ten country outlines, easiest first. Scored out of ten.';
   $('playGo').textContent=c?'Resume':'Play';
   toggles($('homeToggles'));
 }
@@ -480,25 +480,23 @@ function finish(){
   s.best=Math.max(s.best||0,s.n);save.streak=s;persist();
   cur=null;
   showResult(rec,true);
-  (correct>=PASS?sfx.pass:sfx.fail)();
+  sfx.pass();                                    // one finishing chime: there is no pass mark
 }
 function abandon(){closePause();cur=null;renderHome();}
 
 /* ---------- result ---------- */
 function starSVG(on){return `<svg viewBox="0 0 20 20"><path d="M10 1.8l2.5 5.3 5.7.7-4.2 3.9 1.1 5.7L10 14.6l-5.1 2.8 1.1-5.7L1.8 7.8l5.7-.7z" fill="${on?'#1F3A4A':'none'}" stroke="#1F3A4A" stroke-width="1.4" stroke-linejoin="round"/></svg>`;}
 function showResult(rec,fresh){
-  const win=rec.c>=PASS,stars=rec.c>=10?3:rec.c>=9?2:win?1:0;
   // fill every field first: the tracker reads #winTitle and #winTime the moment "on" lands
   $('rKick').textContent='Borders '+P.id.slice(-4)+', '+longDate(P.date);
   $('rBig').textContent=rec.c+' of '+NQ;
-  $('winTitle').textContent=win?'Passed':'So close.';
-  $('rStars').innerHTML=stars?'<span class="stars" aria-label="'+stars+' stars">'+[0,1,2].map(i=>starSVG(i<stars)).join('')+'</span>':'';
+  $('winTitle').textContent='named today';
   $('winTime').textContent=mmss(rec.secs);
   $('rPts').textContent=rec.p;
   const s=save.streak||{n:0},live=s.last===today()||s.last===dayBefore(today());
   $('rStreak').textContent=live?s.n:0;
   const fresh_n=rec.ans.filter(a=>a.nw).length,total=atlasCount();
-  let sub=win?'Seven or more named, so today\'s ten is passed.':'Seven to pass. A new ten arrives tomorrow.';
+  let sub='A new ten arrives tomorrow.';
   if(fresh_n)sub+=` ${fresh_n} new ${fresh_n===1?'country':'countries'} in your atlas`+(total?` (${total} of ${ATLAS_TOTAL}).`:'.');
   else if(total)sub+=` Atlas: ${total} of ${ATLAS_TOTAL}.`;
   if(!fresh)sub='You have played this ten. '+sub;
@@ -518,7 +516,7 @@ function shareText(rec){
   const groups=[];let at=0;for(const t of [1,2,3]){const n=PLAN.filter(x=>x===t).length;groups.push(sq.slice(at,at+n).join(''));at+=n;}
   const s=save.streak||{n:0},live=s.last===today()||s.last===dayBefore(today());
   return ['Digi Borders · '+P.id, groups.join(' '),
-    rec.c+'/'+NQ+(rec.c>=PASS?' in '+mmss(rec.secs):', seven to pass')+' · streak '+(live?s.n:0),
+    rec.c+'/'+NQ+' in '+mmss(rec.secs)+' · streak '+(live?s.n:0),
     'made with Digi Puzzles'].join('\n');
 }
 async function copyText(txt){

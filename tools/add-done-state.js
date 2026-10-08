@@ -37,6 +37,10 @@
            node tools/add-done-state.js --check    exit 1 if any puzzle lacks it
            node tools/add-done-state.js --dry      report only
            node tools/add-done-state.js file.html  patch named files only
+           node tools/add-done-state.js --type=mini shell.html
+                                                   patch a template (or any file
+                                                   whose name doesn't say its type);
+                                                   types: mini doku sweep path link
 */
 const fs = require('fs');
 const path = require('path');
@@ -308,12 +312,15 @@ if (require.main === module) {
   const args = process.argv.slice(2);
   const CHECK = args.includes('--check'), DRY = args.includes('--dry');
   const named = args.filter(a => !a.startsWith('--'));
+  const forced = (args.find(a => a.startsWith('--type=')) || '').slice(7) || null;
+  if (forced && !TYPES[forced]) { console.error('unknown --type ' + forced + ' (mini doku sweep path link)'); process.exit(2); }
+  if (forced && !named.length) { console.error('--type needs the file(s) to patch'); process.exit(2); }
   const dir = path.join(process.cwd(), 'reports');
   const files = named.length ? named : fs.readdirSync(dir).map(f => path.join(dir, f));
   const tally = {}; const refused = [];
   for (const p of files) {
-    const type = typeOf(path.basename(p));
-    if (!type || LEGACY.has(path.basename(p))) continue;
+    const type = forced || typeOf(path.basename(p));
+    if (!type || (!forced && LEGACY.has(path.basename(p)))) continue;
     const html = fs.readFileSync(p, 'utf8');
     const r = patch(html, type);
     const k = tally[type] || (tally[type] = { patched: 0, already: 0, refused: 0 });

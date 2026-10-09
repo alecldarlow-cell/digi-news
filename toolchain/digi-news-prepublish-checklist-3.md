@@ -53,7 +53,7 @@ The piece is published by uploading the file to the site repo — the front page
 - [ ] **DN feed meta block** present in `<head>`: `dn:headline`, `dn:standfirst`, `dn:topic`, `dn:date`, `dn:kind`, `dn:read`. §13
 - [ ] `dn:headline` is the `<h1>` **verbatim**; `dn:standfirst` is plain text (no tags). §13
 - [ ] `dn:date` equals the filename date **and** the footer's "Figures to" date — all three agree. §13
-- [ ] `dn:kind` is `report` (articles) or `puzzle` (games and interactive tools). §13
+- [ ] `dn:kind` is `report` (articles), `puzzle` (puzzles and interactive tools) or `game` (Digi Games; topics `Arcade` · `Strategy` · `Quiz`). §13
 - [ ] `dn:topic` is from the **controlled vocabulary** — `UK politics` · `Economy` · `Immigration` · `AI` · `Science` · `Medicine` · `Society` · `World`. One beat, one label; adding to the list is a deliberate decision, not a typo. §13
 - [ ] The **first hero stat** is short (≤8 characters *after tags are stripped*) and reads sensibly alone — the front-page card tile shows it verbatim. Keep any unit in the first `.n` to a **symbol** (`%`, `×`, `£`); a **word unit** in `<small>` (e.g. `2.25<small>births</small>` → `2.25births`, 10 chars) blows the limit and the card silently falls back to a generic tile. Put word units in `dn:statlabel` instead. It is a measured figure by §3, so no projection can leak onto the front page. *(Now enforced by the linter.)* §3, §13
 - [ ] **`dn:statlabel`** set (≤14 chars, lower case, a noun) unless the first figure already carries its own noun. §13

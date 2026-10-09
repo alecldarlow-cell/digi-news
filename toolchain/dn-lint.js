@@ -202,7 +202,10 @@ const MONTHS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov
   });
   if (!dnMeta('dn:read')) add('INFO', '§13', 'No <meta name="dn:read"> — the card will omit the reading time.');
 
-  const TOPICS = ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World'];
+  const kindRaw = dnMeta('dn:kind').toLowerCase();
+  // Games carry their own section vocabulary (site-sections-and-tracking.md).
+  const TOPICS = kindRaw === 'game' ? ['Arcade', 'Strategy', 'Quiz']
+    : ['UK politics', 'Economy', 'Immigration', 'AI', 'Science', 'Medicine', 'Society', 'World'];
   const topicVal = dnMeta('dn:topic');
   if (topicVal) {
     if (TOPICS.some(function (t) { return t.toLowerCase() === topicVal.toLowerCase(); })) {
@@ -213,9 +216,12 @@ const MONTHS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov
     }
   }
 
-  const kind = dnMeta('dn:kind').toLowerCase();
-  if (kind && ['report', 'puzzle'].indexOf(kind) === -1) {
-    add('ERROR', '§13', 'dn:kind is "' + kind + '" — must be "report" or "puzzle".');
+  const kind = kindRaw;
+  // Puzzles and games are interactive, not reports: the report-only checks
+  // below (hero tile, length tier, honesty slots, hero arity) skip both.
+  const notReport = (kind === 'puzzle' || kind === 'game');
+  if (kind && ['report', 'puzzle', 'game'].indexOf(kind) === -1) {
+    add('ERROR', '§13', 'dn:kind is "' + kind + '" — must be "report", "puzzle" or "game".');
   }
 
   /* ---- 5c. First hero stat must parse into a front-page card tile (§13, §3) ----
@@ -224,8 +230,8 @@ const MONTHS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov
      stat if the result is >8 chars, has no digit, contains a dash, or is a zeroed
      placeholder. On rejection the card silently falls back to a generic tile.
      A word unit in <small> (e.g. 2.25<small>births</small> -> "2.25births" = 10)
-     is the classic trip. Reports only — puzzles draw their tile from the grid. */
-  if (kind !== 'puzzle') {
+     is the classic trip. Reports only — puzzles and games draw their tile elsewhere. */
+  if (!notReport) {
     var stripT = function (s) { return String(s || '').replace(/<[^>]*>/g, ''); };
     var hsBlock = html.match(/<div class="herostats"[\s\S]{0,4000}?<\/div>\s*<\/div>/i);
     if (!hsBlock) {
@@ -361,7 +367,7 @@ const MONTHS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov
      session. Tiers per the rubric: short 400-700, medium 900-1300, long
      1800-2500. Reported as a WARN, never a block — the desk overrides this
      deliberately and should be able to. */
-  if (kind !== 'puzzle') {
+  if (!notReport) {
     const NARR = 'h1, .standfirst, .section p, .section li, .callout, .unknowns p, .caveat, .positions p, .more li';
     const words = Array.prototype.slice.call(document.querySelectorAll(NARR))
       .map(function (n) { return (n.textContent || '').replace(/\[\d+\]/g, ' '); })
@@ -388,7 +394,7 @@ const MONTHS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov
      The rubric requires both a "What we don't know" section and a caveat card
      on every report. Neither was mechanically enforced, and a piece has shipped
      with the caveat missing while both gates read green. */
-  if (kind !== 'puzzle') {
+  if (!notReport) {
     const hasUnknowns = !!document.querySelector('.unknowns') ||
       /what we don'?t know/i.test(bodyText);
     const hasCaveat = !!document.querySelector('.caveat');
@@ -406,7 +412,7 @@ const MONTHS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov
   // 12a. Hero-stat grid arity. .herostats is grid-template-columns:repeat(3,1fr)
   // with .hs:last-child spanning full width under 540px. Four items produce a
   // ragged fourth row; two leave a visible empty cell. Exactly three.
-  if (kind !== 'puzzle') {
+  if (!notReport) {
     const hsWrap = document.querySelector('.herostats');
     if (hsWrap) {
       const hsN = hsWrap.querySelectorAll('.hs').length;

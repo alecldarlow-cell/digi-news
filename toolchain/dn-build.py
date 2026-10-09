@@ -115,8 +115,8 @@ def build(args):
     if meta["built"] > meta["date"]:
         die('meta.built (%s) is later than meta.date (%s). A piece cannot carry '
             'figures more current than the day it was written.' % (meta["built"], meta["date"]))
-    if meta["kind"] not in ("report", "puzzle"):
-        die('meta.kind must be "report" or "puzzle"')
+    if meta["kind"] not in ("report", "puzzle", "game"):
+        die('meta.kind must be "report", "puzzle" or "game"')
     if meta["kind"] == "report" and meta["topic"] not in TOPICS:
         die('meta.topic "%s" is not in the controlled vocabulary: %s'
             % (meta["topic"], " | ".join(TOPICS)))

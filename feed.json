@@ -1,9 +1,24 @@
 {
-  "built": "2026-10-09T11:31:08.913Z",
+  "built": "2026-10-09T19:00:31.807Z",
   "today": "2026-10-09",
   "timezone": "Europe/London",
-  "count": 516,
+  "count": 517,
   "items": [
+    {
+      "path": "reports/2026-10-09-arctic-sea-ice-minimum-plateau.html",
+      "kind": "report",
+      "topic": "Science",
+      "headline": "Arctic summer sea ice has stalled for two decades — at levels lower than any year before 2007",
+      "standfirst": "This year's Arctic minimum tied for the tenth-lowest on record. The 20 years since 2007 hold the 20 lowest minimums, yet the minimum has shown no significant decline across them — a slowdown scientists are still trying to explain.",
+      "date": "2026-10-09",
+      "updated": "",
+      "read": "~6 min",
+      "thumb": "",
+      "stat": "20",
+      "statUnit": "",
+      "statLabel": "lowest minima",
+      "mask": ""
+    },
     {
       "path": "reports/2026-10-09-crossword-mini-0090.html",
       "kind": "puzzle",

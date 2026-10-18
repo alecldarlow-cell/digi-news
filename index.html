@@ -26,7 +26,7 @@
   // on this page. Playing on the new domain before HTTPS would save progress to
   // a plain-http address that is thrown away when HTTPS is switched on.
   // STAGE 2: set READY = true and old links carry progress to the new domain.
-  var HOLD = true, READY = false;
+  var HOLD = false, READY = true;
   if (HOLD && !READY) { window.DN_HOLD = true; return; }
   if (!READY) {
     var p = location.pathname, rest = p.toLowerCase().indexOf(BASE) === 0 ? p.slice(BASE.length) : p;

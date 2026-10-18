@@ -29,14 +29,15 @@
   var HOLD = false, READY = false;
   if (HOLD && !READY) { window.DN_HOLD = true; return; }
   if (!READY) {
-    var p = location.pathname, rest = p.indexOf(BASE) === 0 ? p.slice(BASE.length) : p;
+    var p = location.pathname, rest = p.toLowerCase().indexOf(BASE) === 0 ? p.slice(BASE.length) : p;
     if (/\/404\.html$/.test(rest)) rest = '/';
     location.replace('/dailynoodle' + (rest || '/') + location.search + location.hash);
     return;
   }
   try {
     var path = location.pathname;
-    if (path.indexOf(BASE + '/') === 0 || path === BASE) path = path.slice(BASE.length) || '/';
+    var lower = path.toLowerCase();   // the repo may be named Digi-news or digi-news
+    if (lower.indexOf(BASE + '/') === 0 || lower === BASE) path = path.slice(BASE.length) || '/';
     if (/\/404\.html$/.test(path)) path = '/';
     var data = {};
     try {

@@ -22,8 +22,12 @@
   // STAGE 1 (until dailynoodle.co.uk serves the site over HTTPS): the site is
   // at alecldarlow-cell.github.io/dailynoodle, the SAME browser origin as this
   // page, so saved progress is already there; just swap the path.
+  // HOLD (while dailynoodle.co.uk is waiting for its HTTPS certificate): stay
+  // on this page. Playing on the new domain before HTTPS would save progress to
+  // a plain-http address that is thrown away when HTTPS is switched on.
   // STAGE 2: set READY = true and old links carry progress to the new domain.
-  var READY = false;
+  var HOLD = false, READY = false;
+  if (HOLD && !READY) { window.DN_HOLD = true; return; }
   if (!READY) {
     var p = location.pathname, rest = p.indexOf(BASE) === 0 ? p.slice(BASE.length) : p;
     if (/\/404\.html$/.test(rest)) rest = '/';
@@ -61,7 +65,8 @@
 <body>
   <main>
     <h1 style="font-size:22px;margin:0 0 8px">We've moved to The Daily Noodle</h1>
-    <p>Taking you to <a id="go" href="https://dailynoodle.co.uk/">dailynoodle.co.uk</a>, with your streaks and puzzles.</p>
+    <p id="msg">Taking you to <a id="go" href="https://dailynoodle.co.uk/">dailynoodle.co.uk</a>, with your streaks and puzzles.</p>
+    <script>if (window.DN_HOLD) document.getElementById('msg').textContent = 'Moving house: back in a few minutes. Your streaks and puzzles are safe.';</script>
   </main>
 </body>
 </html>

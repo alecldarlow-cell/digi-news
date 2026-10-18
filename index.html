@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>The Daily Noodle has moved</title>
+<!--
+  Old address (alecldarlow-cell.github.io/digi-news) -> dailynoodle.co.uk
+  Served for every old link: GitHub Pages shows this file as 404.html for any
+  path, so /digi-news/reports/<piece>.html lands here too.
+  Saved progress lives in this browser's storage for the OLD address, which
+  the new address can't read. So this page packs it into the link's
+  #fragment (never sent to any server) and jumps to the same page on the new
+  address, where dn-track.js merges it in without overwriting newer progress.
+  Nothing here changes after the move, so carrying the data on every visit is
+  harmless and covers anyone whose first hop failed.
+-->
+<script>
+(function () {
+  var BASE = '/digi-news', NEW_ORIGIN = 'https://dailynoodle.co.uk';
+  // STAGE 1 (until dailynoodle.co.uk serves the site over HTTPS): the site is
+  // at alecldarlow-cell.github.io/dailynoodle, the SAME browser origin as this
+  // page, so saved progress is already there; just swap the path.
+  // STAGE 2: set READY = true and old links carry progress to the new domain.
+  var READY = false;
+  if (!READY) {
+    var p = location.pathname, rest = p.indexOf(BASE) === 0 ? p.slice(BASE.length) : p;
+    if (/\/404\.html$/.test(rest)) rest = '/';
+    location.replace('/dailynoodle' + (rest || '/') + location.search + location.hash);
+    return;
+  }
+  try {
+    var path = location.pathname;
+    if (path.indexOf(BASE + '/') === 0 || path === BASE) path = path.slice(BASE.length) || '/';
+    if (/\/404\.html$/.test(path)) path = '/';
+    var data = {};
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k != null) data[k] = localStorage.getItem(k);
+      }
+    } catch (e) {}
+    var frag = location.hash;
+    try {
+      var json = JSON.stringify({ v: 1, h: location.hash, d: data });
+      frag = '#dnmove=' + btoa(unescape(encodeURIComponent(json))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    } catch (e) {}
+    location.replace(NEW_ORIGIN + path + location.search + frag);
+  } catch (e) {
+    location.replace(NEW_ORIGIN + '/');
+  }
+})();
+</script>
+<style>
+  body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#FCFCFB;color:#1b1b1b;display:grid;place-items:center;min-height:100vh;padding:16px;box-sizing:border-box;text-align:center}
+  a{color:#2346d8;font-weight:600}
+  @media (prefers-color-scheme: dark){body{background:#151515;color:#eee}a{color:#8ea6ff}}
+</style>
+</head>
+<body>
+  <main>
+    <h1 style="font-size:22px;margin:0 0 8px">We've moved to The Daily Noodle</h1>
+    <p>Taking you to <a id="go" href="https://dailynoodle.co.uk/">dailynoodle.co.uk</a>, with your streaks and puzzles.</p>
+  </main>
+</body>
+</html>
